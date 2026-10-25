@@ -116,3 +116,4 @@ export class CheckinService {
     return { success: true, message: 'Apertura manual concedida y registrada en auditoría.' };
   }
 }
+

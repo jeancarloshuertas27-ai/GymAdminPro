@@ -186,3 +186,4 @@ export default function EditUserModal({ athlete, onClose, onSaveSuccess }) {
     </div>
   );
 }
+

@@ -80,3 +80,4 @@ export default function Header({ role = 'ADMINISTRADOR', alertMessage = null }) 
     </header>
   );
 }
+

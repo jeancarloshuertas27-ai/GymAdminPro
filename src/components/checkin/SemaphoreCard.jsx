@@ -230,3 +230,4 @@ export default function SemaphoreCard({ checkinData, onForceOpen, onViewDetail }
     </div>
   );
 }
+

@@ -79,3 +79,4 @@ export default function Sidebar({ currentPath, navigate }) {
     </aside>
   );
 }
+

@@ -9,6 +9,7 @@ db.exec(`
   DELETE FROM fidelidad;
   DELETE FROM membresias;
   DELETE FROM usuarios;
+  DELETE FROM sqlite_sequence WHERE name IN ('usuarios', 'membresias', 'fidelidad', 'checkins');
 `);
 
 const insertUser = db.prepare(`
@@ -142,7 +143,7 @@ const athletes = [
     apellidos: 'Valdivia Roca',
     dni: '72849105',
     username: '@mateo_val',
-    pass: 'ValdiviaRox_88',
+    pass: 'Atleta2026!',
     celular: '+51 991 760 213',
     fotoUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
     planTag: 'VIP ANUAL',
@@ -172,6 +173,8 @@ const athletes = [
   }
 ];
 
+const athleteIds = {};
+
 for (const a of athletes) {
   const hash = bcrypt.hashSync(a.pass, 10);
   const uRes = insertUser.run(
@@ -187,6 +190,7 @@ for (const a of athletes) {
     a.fotoUrl
   );
   const userId = Number(uRes.lastInsertRowid);
+  athleteIds[a.username] = userId;
 
   const startDate = subMonths(now, a.regMonthsAgo);
   const endDate = a.expDays >= 0 ? addDays(now, a.expDays) : subDays(now, Math.abs(a.expDays));
@@ -215,31 +219,38 @@ for (const a of athletes) {
 }
 
 // 4. Sembrar algunos check-ins previos para el feed
-insertCheckin.run(
-  3,
-  '72849102',
-  subDays(now, 0) + ' 19:42:01',
-  'VERDE_AUTORIZADO',
-  recepId,
-  'VIP • 48 DÍAS REST.'
-);
+if (athleteIds['@dguzman']) {
+  insertCheckin.run(
+    athleteIds['@dguzman'],
+    '72849102',
+    subDays(now, 0) + ' 19:42:01',
+    'VERDE_AUTORIZADO',
+    recepId,
+    'VIP • 48 DÍAS REST.'
+  );
+}
 
-insertCheckin.run(
-  2,
-  '70918234',
-  subDays(now, 0) + ' 19:38:15',
-  'NARANJA_AVISO',
-  recepId,
-  'FALTAN 8 DÍAS (AVISO)'
-);
+if (athleteIds['@carla_fit']) {
+  insertCheckin.run(
+    athleteIds['@carla_fit'],
+    '70918234',
+    subDays(now, 0) + ' 19:38:15',
+    'NARANJA_AVISO',
+    recepId,
+    'FALTAN 8 DÍAS (AVISO)'
+  );
+}
 
-insertCheckin.run(
-  4,
-  '71220944',
-  subDays(now, 0) + ' 19:31:54',
-  'ROJO_DENEGADO',
-  recepId,
-  'VENCIDO HACE 45 DÍAS'
-);
+if (athleteIds['@andres_m']) {
+  insertCheckin.run(
+    athleteIds['@andres_m'],
+    '71220944',
+    subDays(now, 0) + ' 19:31:54',
+    'ROJO_DENEGADO',
+    recepId,
+    'VENCIDO HACE 45 DÍAS'
+  );
+}
 
 console.log('✅ Base de datos sembrada con éxito.');
+

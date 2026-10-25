@@ -50,3 +50,4 @@ describe('Semaphore & Check-in Evaluation (US1)', () => {
     expect(result.motivo).toBe('DNI NO REGISTRADO EN EL PADRÓN');
   });
 });
+

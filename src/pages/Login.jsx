@@ -4,10 +4,11 @@ import { useAuth } from '../context/AuthContext';
 export default function Login({ onLoginSuccess }) {
   const { login } = useAuth();
   const [username, setUsername] = useState('@admin_01');
-  const [password, setPassword] = useState('AdminPass123!');
+  const [password, setPassword] = useState('Admin2026!');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [activeProfile, setActiveProfile] = useState('ADMIN');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,9 +27,11 @@ export default function Login({ onLoginSuccess }) {
     }
   };
 
-  const handleQuickFill = (u, p) => {
+  const handleQuickFill = (u, p, profileKey) => {
     setUsername(u);
     setPassword(p);
+    setActiveProfile(profileKey);
+    setError(null);
   };
 
   return (
@@ -208,48 +211,78 @@ export default function Login({ onLoginSuccess }) {
                   {/* Admin */}
                   <button
                     type="button"
-                    onClick={() => handleQuickFill('@admin_01', 'AdminPass123!')}
-                    className="bg-surface-container-high/80 text-left rounded-lg p-2.5 flex flex-col justify-between hover:bg-surface-container-highest transition-colors cursor-pointer border border-transparent hover:border-primary/40"
+                    onClick={() => handleQuickFill('@admin_01', 'Admin2026!', 'ADMIN')}
+                    className={`text-left rounded-lg p-2.5 flex flex-col justify-between transition-all cursor-pointer border ${
+                      activeProfile === 'ADMIN'
+                        ? 'bg-surface-container-highest border-primary shadow-[0_0_10px_rgba(31,113,239,0.3)]'
+                        : 'bg-surface-container-high/80 border-transparent hover:border-primary/40'
+                    }`}
                   >
-                    <div className="flex items-center gap-1.5 mb-1">
-                      <span className="material-symbols-outlined text-primary text-[18px]">admin_panel_settings</span>
-                      <span className="font-headline-md text-[14px] leading-tight uppercase text-on-surface">Admin</span>
+                    <div>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className="material-symbols-outlined text-primary text-[18px]">admin_panel_settings</span>
+                        <span className="font-headline-md text-[14px] leading-tight uppercase text-on-surface">Admin</span>
+                      </div>
+                      <span className="font-body-sm text-[11px] text-on-surface-variant leading-tight block">
+                        Control & Auditoría
+                      </span>
                     </div>
-                    <span className="font-body-sm text-[11px] text-on-surface-variant leading-tight">
-                      Control Total & Auditoría
-                    </span>
+                    <div className="mt-2 pt-1 border-t border-outline-variant/30 font-data-mono text-[10px]">
+                      <span className="text-primary block font-bold">@admin_01</span>
+                      <span className="text-outline block">Clave: <strong className="text-on-surface">Admin2026!</strong></span>
+                    </div>
                   </button>
 
                   {/* Reception */}
                   <button
                     type="button"
-                    onClick={() => handleQuickFill('@recep_carlos', 'RecepPass123!')}
-                    className="bg-surface-container-high/80 text-left rounded-lg p-2.5 flex flex-col justify-between hover:bg-surface-container-highest transition-colors cursor-pointer border border-transparent hover:border-tertiary/40"
+                    onClick={() => handleQuickFill('@recep_carlos', 'Recep2026!', 'RECEPCION')}
+                    className={`text-left rounded-lg p-2.5 flex flex-col justify-between transition-all cursor-pointer border ${
+                      activeProfile === 'RECEPCION'
+                        ? 'bg-surface-container-highest border-tertiary shadow-[0_0_10px_rgba(255,182,147,0.3)]'
+                        : 'bg-surface-container-high/80 border-transparent hover:border-tertiary/40'
+                    }`}
                   >
-                    <div className="flex items-center gap-1.5 mb-1">
-                      <span className="material-symbols-outlined text-tertiary text-[18px]">point_of_sale</span>
-                      <span className="font-headline-md text-[14px] leading-tight uppercase text-on-surface">
-                        Recepción
+                    <div>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className="material-symbols-outlined text-tertiary text-[18px]">point_of_sale</span>
+                        <span className="font-headline-md text-[14px] leading-tight uppercase text-on-surface">
+                          Recepción
+                        </span>
+                      </div>
+                      <span className="font-body-sm text-[11px] text-on-surface-variant leading-tight block">
+                        Check-In & Padrón
                       </span>
                     </div>
-                    <span className="font-body-sm text-[11px] text-on-surface-variant leading-tight">
-                      Check-In & Padrón
-                    </span>
+                    <div className="mt-2 pt-1 border-t border-outline-variant/30 font-data-mono text-[10px]">
+                      <span className="text-tertiary block font-bold">@recep_carlos</span>
+                      <span className="text-outline block">Clave: <strong className="text-on-surface">Recep2026!</strong></span>
+                    </div>
                   </button>
 
                   {/* Member */}
                   <button
                     type="button"
-                    onClick={() => handleQuickFill('@mateo_val', 'MateoFit2026!')}
-                    className="bg-surface-container-high/80 text-left rounded-lg p-2.5 flex flex-col justify-between hover:bg-surface-container-highest transition-colors cursor-pointer border border-transparent hover:border-secondary/40"
+                    onClick={() => handleQuickFill('@mateo_val', 'Atleta2026!', 'ATLETA')}
+                    className={`text-left rounded-lg p-2.5 flex flex-col justify-between transition-all cursor-pointer border ${
+                      activeProfile === 'ATLETA'
+                        ? 'bg-surface-container-highest border-secondary shadow-[0_0_10px_rgba(175,198,255,0.3)]'
+                        : 'bg-surface-container-high/80 border-transparent hover:border-secondary/40'
+                    }`}
                   >
-                    <div className="flex items-center gap-1.5 mb-1">
-                      <span className="material-symbols-outlined text-secondary text-[18px]">fitness_center</span>
-                      <span className="font-headline-md text-[14px] leading-tight uppercase text-on-surface">Atleta</span>
+                    <div>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className="material-symbols-outlined text-secondary text-[18px]">fitness_center</span>
+                        <span className="font-headline-md text-[14px] leading-tight uppercase text-on-surface">Atleta</span>
+                      </div>
+                      <span className="font-body-sm text-[11px] text-on-surface-variant leading-tight block">
+                        App Móvil & Carnet
+                      </span>
                     </div>
-                    <span className="font-body-sm text-[11px] text-on-surface-variant leading-tight">
-                      App Móvil & Carnet
-                    </span>
+                    <div className="mt-2 pt-1 border-t border-outline-variant/30 font-data-mono text-[10px]">
+                      <span className="text-secondary block font-bold">@mateo_val</span>
+                      <span className="text-outline block">Clave: <strong className="text-on-surface">Atleta2026!</strong></span>
+                    </div>
                   </button>
                 </div>
               </div>
@@ -282,3 +315,4 @@ export default function Login({ onLoginSuccess }) {
     </div>
   );
 }
+

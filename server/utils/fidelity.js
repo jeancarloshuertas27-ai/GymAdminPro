@@ -190,3 +190,4 @@ export function evaluateCheckIn(member, currentDate = new Date()) {
     remaining,
   };
 }
+

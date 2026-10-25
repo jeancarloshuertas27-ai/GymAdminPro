@@ -83,3 +83,4 @@ describe('User Roster API - Integration (US2)', () => {
     expect(dataActive.users.every((u) => u.estadoMembresia === 'ACTIVO')).toBe(true);
   });
 });
+

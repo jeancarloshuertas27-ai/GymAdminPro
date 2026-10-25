@@ -138,3 +138,4 @@ export default function Numpad({ dni, onDniChange, onSubmit, onClear, onBackspac
     </div>
   );
 }
+

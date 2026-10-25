@@ -77,3 +77,4 @@ CREATE TABLE IF NOT EXISTS checkins (
 
 CREATE INDEX IF NOT EXISTS idx_checkins_timestamp ON checkins(timestamp DESC);
 CREATE INDEX IF NOT EXISTS idx_checkins_dni ON checkins(dni_ingresado);
+
