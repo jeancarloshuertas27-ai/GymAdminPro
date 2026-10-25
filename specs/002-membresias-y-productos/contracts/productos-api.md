@@ -208,3 +208,4 @@ Ejecuta la venta rápida en mostrador (Botón verde `[$] VENDER PRODUCTO`).
 - `400 Bad Request`: Si la cantidad solicitada supera el stock disponible (`CANTIDAD_SUPERA_STOCK`).
 - `400 Bad Request`: Si es transferencia y no se adjunta el comprobante fotográfico.
 - `404 Not Found`: Si el producto no existe o está inhabilitado (`activo = 0`).
+

@@ -252,3 +252,4 @@ stateDiagram-v2
    - `MIEMBRO`: Se filtran en el backend (`WHERE stock > 0 AND activo = 1`), siendo completamente invisibles en la tienda de la app móvil.
 3. **Baja Lógica (`activo = 0`)**:
    - Al eliminar un producto, `activo` pasa a `0`. Se oculta del catálogo operativo y de la venta, pero las filas existentes en `ventas_productos` preservan el `producto_id`, nombres y montos históricos para auditoría y balance de caja.
+

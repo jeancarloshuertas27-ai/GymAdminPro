@@ -105,3 +105,4 @@ Archiva una promoción retirándola del catálogo activo para nuevas asignacione
   "activo": 0
 }
 ```
+

@@ -117,3 +117,4 @@ Para validar las reglas de negocio, filtros de costo, concurrencia de stock y tr
 # Ejecutar suite de pruebas unitarias y de integración
 npm test
 ```
+

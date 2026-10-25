@@ -99,3 +99,4 @@ Asigna o extiende el tiempo de membresía mediante una promoción del catálogo 
 ### Errores Comunes
 - `400 Bad Request`: Si no se adjunta comprobante para transferencia en recepción.
 - `404 Not Found`: Si el usuario o la promoción indicada no existen.
+

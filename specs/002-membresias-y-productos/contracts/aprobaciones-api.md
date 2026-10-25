@@ -96,3 +96,4 @@ Rechaza el comprobante bancario (p. ej. comprobante falso o monto incorrecto).
   "stock_restaurado": true
 }
 ```
+
