@@ -235,10 +235,6 @@ export default function TacIdModal({ athleteId, onClose, onDeleteSuccess }) {
                 <p className="font-headline-md text-base text-on-surface uppercase tracking-wide my-1">
                   {routine}
                 </p>
-                <div className="flex items-center gap-1 text-[11px] font-data-mono text-primary">
-                  <span className="material-symbols-outlined text-[14px]">sports</span>
-                  <span>Coach Central M. Navarro</span>
-                </div>
               </div>
             </div>
 

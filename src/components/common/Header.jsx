@@ -48,11 +48,6 @@ export default function Header({ role = 'ADMINISTRADOR', alertMessage = null }) 
 
         {/* Right: Telemetry & User Info */}
         <div className="flex items-center gap-space-lg">
-          <div className="hidden xl:flex items-center gap-space-sm bg-surface-container px-space-sm py-1 rounded">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            <span className="font-data-mono text-data-mono text-on-surface-variant uppercase">SYS_ONLINE : 99.98%</span>
-          </div>
-
           <div className="hidden md:flex items-center gap-space-xs font-data-mono text-data-mono text-primary bg-surface-container-high px-space-md py-1 rounded">
             <span className="material-symbols-outlined text-[16px]">schedule</span>
             <span>{time || '23:42:10 UTC'}</span>

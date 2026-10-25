@@ -10,7 +10,6 @@ export default function CheckIn({ onNavigate }) {
   const [recentFeed, setRecentFeed] = useState([]);
   const [alertDismissed, setAlertDismissed] = useState(false);
   const [selectedAthleteId, setSelectedAthleteId] = useState(null);
-  const [turnstileReady, setTurnstileReady] = useState(true);
 
   // Cargar feed reciente al montar
   const fetchRecent = async () => {
@@ -48,13 +47,8 @@ export default function CheckIn({ onNavigate }) {
       setCheckinResult(data);
       fetchRecent();
 
-      // Pulso visual del torniquete si concedió acceso
-      if (data.grantAccess) {
-        setTurnstileReady(false);
-        setTimeout(() => setTurnstileReady(true), 2000);
-      }
     } catch (err) {
-      alert('Error en conexión con el torniquete.');
+      alert('Error al validar check-in.');
     }
   };
 
@@ -118,12 +112,6 @@ export default function CheckIn({ onNavigate }) {
     }
   };
 
-  const handleManualPulse = () => {
-    setTurnstileReady(false);
-    setTimeout(() => setTurnstileReady(true), 2500);
-    alert('Relé de torniquete activado manualmente. Paso concedido temporalmente.');
-  };
-
   const handleForceOpen = async () => {
     try {
       const activeDni = dni || checkinResult?.atleta?.dni || '72849102';
@@ -132,10 +120,10 @@ export default function CheckIn({ onNavigate }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ dni: activeDni, motivo: 'Apertura forzada por operador en recepción' }),
       });
-      handleManualPulse();
       fetchRecent();
+      alert('Paso forzado concedido por operador.');
     } catch {
-      handleManualPulse();
+      alert('Paso forzado concedido por operador.');
     }
   };
 
@@ -143,7 +131,7 @@ export default function CheckIn({ onNavigate }) {
     <div className="p-space-lg flex flex-col gap-space-lg w-full">
       {/* BARRA TÁCTICA SUPERIOR / AFORO & TELEMETRÍA */}
       <div className="grid grid-cols-12 gap-space-md items-stretch">
-        <div className="col-span-12 lg:col-span-7 bg-surface-container-low p-space-md rounded-DEFAULT flex flex-col justify-between shadow-md relative overflow-hidden border border-surface-container">
+        <div className="col-span-12 lg:col-span-8 bg-surface-container-low p-space-md rounded-DEFAULT flex flex-col justify-between shadow-md relative overflow-hidden border border-surface-container">
           <div className="absolute -right-10 -bottom-10 w-44 h-44 bg-primary-container/10 rounded-full blur-2xl pointer-events-none"></div>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-space-sm">
@@ -183,7 +171,7 @@ export default function CheckIn({ onNavigate }) {
         </div>
 
         {/* METRICA AFORO EN VIVO */}
-        <div className="col-span-12 sm:col-span-6 lg:col-span-3 bg-surface-container-low p-space-md rounded-DEFAULT flex flex-col justify-between shadow-md border border-surface-container">
+        <div className="col-span-12 lg:col-span-4 bg-surface-container-low p-space-md rounded-DEFAULT flex flex-col justify-between shadow-md border border-surface-container">
           <div className="flex justify-between items-start">
             <span className="font-data-mono text-data-mono text-on-surface-variant uppercase text-[12px]">
               AFORO SALA CENTRAL
@@ -202,38 +190,6 @@ export default function CheckIn({ onNavigate }) {
               style={{ width: '49.4%' }}
             ></div>
           </div>
-        </div>
-
-        {/* ESTADO DEL RELÉ TORNIQUETE */}
-        <div className="col-span-12 sm:col-span-6 lg:col-span-2 bg-surface-container-low p-space-md rounded-DEFAULT flex flex-col justify-between shadow-md border border-surface-container">
-          <span className="font-data-mono text-data-mono text-on-surface-variant uppercase text-[12px]">
-            TORNIQUETE RELÉ #01
-          </span>
-          <div className="flex flex-col my-space-xs">
-            <div className="flex items-center gap-space-xs">
-              <span
-                className={`w-3 h-3 rounded-full ${
-                  turnstileReady
-                    ? 'bg-primary-container shadow-[0_0_10px_rgba(31,113,239,0.9)] animate-pulse'
-                    : 'bg-[#3bf589] shadow-[0_0_10px_#3bf589]'
-                }`}
-              ></span>
-              <span className="font-headline-md text-headline-md uppercase text-on-surface tracking-wider">
-                {turnstileReady ? 'LISTO' : 'ABIERTO'}
-              </span>
-            </div>
-            <span className="font-data-mono text-data-mono text-on-surface-variant text-[11px]">
-              {turnstileReady ? 'SOLENOIDE RETRAÍDO' : 'PASO HABILITADO'}
-            </span>
-          </div>
-          <button
-            type="button"
-            onClick={handleManualPulse}
-            className="w-full py-2 bg-surface-container-high hover:bg-primary-container hover:text-on-primary-container text-on-surface rounded-DEFAULT font-label-badge text-label-badge uppercase tracking-wider flex items-center justify-center gap-space-xs transition-all shadow-sm active:scale-95"
-          >
-            <span className="material-symbols-outlined text-[18px]">lock_open</span>
-            <span>PULSO MANUAL</span>
-          </button>
         </div>
       </div>
 

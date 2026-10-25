@@ -50,32 +50,6 @@ export default function Sidebar({ currentPath, navigate }) {
           })}
         </nav>
       </div>
-
-      <div className="px-space-md flex flex-col gap-space-sm">
-        {/* Terminal Info */}
-        <div className="bg-surface-container-low p-space-sm rounded flex flex-col gap-space-xs">
-          <div className="flex justify-between items-center">
-            <span className="font-data-mono text-[10px] text-on-surface-variant uppercase">TORNIQUETE #01</span>
-            <span className="font-data-mono text-[10px] text-primary uppercase">EN LÍNEA</span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="font-data-mono text-[10px] text-on-surface-variant uppercase">PROTOCOL</span>
-            <span className="font-data-mono text-[10px] text-on-surface uppercase">TLS 1.3 / AES-GCM</span>
-          </div>
-        </div>
-
-        {/* SOS Bloqueo Total */}
-        <button
-          type="button"
-          onClick={() => alert('¡ALERTA SOS ACTIVADA! Protocolo de bloqueo de emergencia activado.')}
-          className="w-full h-11 bg-error-container hover:bg-error text-on-error hover:text-on-primary-container rounded flex items-center justify-center gap-space-sm transition-all shadow-[0_0_12px_rgba(147,0,10,0.4)]"
-        >
-          <span className="material-symbols-outlined text-[18px]">e911_emergency</span>
-          <span className="font-headline-md text-headline-md uppercase tracking-wider text-[15px]">
-            SOS // BLOQUEO TOTAL
-          </span>
-        </button>
-      </div>
     </aside>
   );
 }
