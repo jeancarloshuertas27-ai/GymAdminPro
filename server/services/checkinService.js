@@ -65,12 +65,16 @@ export class CheckinService {
         dni: user.dni,
         edad: '27 AÑOS', // Valor por defecto visual
         fotoUrl: user.foto_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+        tiempoRestante: remaining.text,
+        tiempoRestanteCorto: remaining.cardText,
         estadoMembresia: remaining.text,
         diasRestantes: remaining.totalDays,
+        trafficColor: remaining.trafficColor,
         fechaVencimiento: user.fecha_vencimiento,
         nivelFidelidad: fidelity.name,
         planTag: user.plan_tag || 'VIP ANUAL',
         rutinaHoy: user.rutina_asignada || 'FUERZA & EMPUJE PUSH DAY',
+        rutinaAsignada: user.rutina_asignada || 'FUERZA & EMPUJE PUSH DAY',
         asistenciaMes: '18 SESIONES COMPLETADAS (REGULARIDAD 94%)',
       },
     };

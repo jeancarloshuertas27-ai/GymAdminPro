@@ -122,19 +122,22 @@ export class UserService {
 
     if (!user) return null;
 
+    const isAdmin = Boolean(currentUser && (currentUser.rol === 'ADMINISTRADOR' || currentUser.rol === 'ADMIN'));
+
     const remaining = user.fecha_vencimiento ? calculateRemainingTime(user.fecha_vencimiento) : {
       totalDays: 0,
       daysExpired: 99,
       text: 'SIN MEMBRESÍA',
       trafficColor: 'ROJO',
+      badgeClass: 'bg-error-container text-on-error',
       canDelete: true,
     };
 
     const fidelity = user.fecha_inscripcion_original && user.fecha_vencimiento
       ? calculateFidelity(user.fecha_inscripcion_original, user.fecha_vencimiento)
-      : { name: 'NOVATO', level: 1, months: 0, progressPercent: 0, nextLevel: 'PRINCIPIANTE' };
+      : { name: 'NOVATO', level: 1, months: 0, progressPercent: 0, nextLevel: 'PRINCIPIANTE', rangeLabel: '< 1 MES', summaryText: 'NIVEL: NOVATO (0 MESES)' };
 
-    const isAdmin = currentUser && currentUser.rol === 'ADMINISTRADOR';
+    const canDelete = Boolean(remaining.canDelete);
 
     return {
       id: user.id,
@@ -142,9 +145,48 @@ export class UserService {
       apellidos: user.apellidos,
       nombreCompleto: `${user.apellidos}, ${user.nombres}`,
       dni: user.dni,
-      username: user.username,
+      username: isAdmin ? user.username : null,
       celular: user.celular,
       fotoUrl: user.foto_url || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+      canDelete,
+      puedeEliminar: canDelete,
+      user: {
+        id: user.id,
+        nombres: user.nombres,
+        apellidos: user.apellidos,
+        dni: user.dni,
+        username: isAdmin ? user.username : null,
+        celular: user.celular,
+        foto_url: user.foto_url,
+      },
+      remaining: {
+        totalDays: remaining.totalDays,
+        daysExpired: remaining.daysExpired || 0,
+        text: remaining.text,
+        cardText: remaining.cardText,
+        trafficColor: remaining.trafficColor,
+        badgeClass: remaining.badgeClass,
+        canDelete: remaining.canDelete,
+      },
+      fidelity: {
+        name: fidelity.name,
+        level: fidelity.level,
+        rangeLabel: fidelity.rangeLabel,
+        months: fidelity.months,
+        progressPercent: fidelity.progressPercent,
+        nextLevel: fidelity.nextLevel,
+        penalized: fidelity.penalized,
+        summaryText: fidelity.summaryText,
+      },
+      membership: {
+        estado: remaining.status || 'EXPIRED',
+        tiempoRestanteTexto: remaining.text,
+        diasRestantes: remaining.totalDays,
+        fechaVencimiento: user.fecha_vencimiento,
+        fecha_vencimiento: user.fecha_vencimiento,
+        plan_tag: user.plan_tag || 'PLAN ANUAL TITANIUM',
+        rutina_asignada: user.rutina_asignada || 'HIPERTROFIA & FUERZA - PUSH DAY',
+      },
       membresia: {
         estado: remaining.status || 'EXPIRED',
         tiempoRestanteTexto: remaining.text,
@@ -163,7 +205,6 @@ export class UserService {
         penalizado: fidelity.penalized,
       },
       rutinaActual: user.rutina_asignada || 'HIPERTROFIA & FUERZA - PUSH DAY',
-      puedeEliminar: isAdmin && remaining.canDelete, // Solo si >30 días vencido bajo rol Admin
     };
   }
 

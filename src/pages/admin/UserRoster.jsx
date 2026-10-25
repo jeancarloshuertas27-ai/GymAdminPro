@@ -74,6 +74,25 @@ export default function UserRoster() {
     document.body.removeChild(link);
   };
 
+  const handleDeleteUser = async (id, name) => {
+    if (!window.confirm(`¿Está seguro de eliminar permanentemente a ${name} de la base de datos SQLite? Esta acción purgará físicamente el registro del sistema.`)) {
+      return;
+    }
+    try {
+      const res = await authFetch(`/api/users/${id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Error al eliminar usuario.');
+      }
+      alert('Atleta eliminado permanentemente de la base de datos.');
+      fetchUsers();
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
   return (
     <div className="flex flex-col w-full pb-16">
       {/* Top Command HUD */}
@@ -305,6 +324,16 @@ export default function UserRoster() {
                       </td>
                       <td className="py-4 px-space-lg text-right">
                         <div className="inline-flex items-center gap-space-xs">
+                          {u.canDelete && (
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteUser(u.id, `${u.apellidos}, ${u.nombres}`)}
+                              className="px-space-sm py-1.5 rounded bg-error-container hover:bg-error text-on-error font-label-badge text-label-badge tracking-wider uppercase transition-all flex items-center gap-1 cursor-pointer shadow-sm"
+                              title="Atleta con >30 días de vencimiento (Purgable de SQLite)"
+                            >
+                              <span className="material-symbols-outlined text-[14px]">delete</span> ELIMINAR
+                            </button>
+                          )}
                           <button
                             type="button"
                             onClick={() => setEditingAthlete(u)}
@@ -315,7 +344,11 @@ export default function UserRoster() {
                           <button
                             type="button"
                             onClick={() => setSelectedAthleteId(u.id)}
-                            className="px-space-sm py-1.5 rounded bg-primary text-on-primary font-label-badge text-label-badge tracking-wider uppercase hover:bg-primary-fixed hover:shadow-[0_0_12px_rgba(31,113,239,0.3)] transition-all flex items-center gap-1 cursor-pointer"
+                            className={`px-space-sm py-1.5 rounded font-label-badge text-label-badge tracking-wider uppercase transition-all flex items-center gap-1 cursor-pointer ${
+                              u.estadoMembresia === 'VENCIDO'
+                                ? 'bg-[#c75302] hover:bg-[#a64502] text-white shadow-[0_0_12px_rgba(199,83,2,0.3)]'
+                                : 'bg-primary text-on-primary hover:bg-primary-fixed hover:shadow-[0_0_12px_rgba(31,113,239,0.3)]'
+                            }`}
                           >
                             <span className="material-symbols-outlined text-[14px]">id_card</span> VER MÁS
                           </button>

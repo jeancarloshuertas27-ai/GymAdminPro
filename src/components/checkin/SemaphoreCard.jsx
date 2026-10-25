@@ -128,7 +128,7 @@ export default function SemaphoreCard({ checkinData, onForceOpen, onViewDetail }
                     isGreen ? 'text-[#3bf589]' : isOrange ? 'text-[#f59e0b]' : 'text-error'
                   }`}
                 >
-                  {atleta.tiempoRestante || 'NO DISPONIBLE'}
+                  {atleta.tiempoRestante || atleta.estadoMembresia || atleta.tiempoRestanteCorto || 'ACTIVO'}
                 </span>
               </div>
             </div>

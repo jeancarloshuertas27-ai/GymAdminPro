@@ -67,14 +67,14 @@ export default function CheckIn({ onNavigate }) {
         authCode: '#AUTH-89102',
         grantAccess: true,
         atleta: {
-          id: 1,
-          nombreCompleto: 'MATEO VALDIVIA ROCA',
+          id: 5,
+          nombreCompleto: 'DIEGO GUZMÁN PRADO',
           dni: '72849102',
-          fotoUrl: null,
+          fotoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
           nivelFidelidad: 'MUTANDO',
-          planTag: 'VIP ANUAL',
-          tiempoRestante: '48 DÍAS RESTANTES (VENCE: 28/05/2026)',
-          rutinaAsignada: 'FUERZA & EMPUJE PUSH DAY',
+          planTag: 'PLAN ANUAL TITANIUM',
+          tiempoRestante: '1 MES Y 18 DÍAS RESTANTES (48 DÍAS)',
+          rutinaAsignada: 'HIPERTROFIA & FUERZA - PUSH DAY',
         },
       });
     } else if (state === 'NARANJA') {
@@ -86,14 +86,14 @@ export default function CheckIn({ onNavigate }) {
         grantAccess: true,
         warningMessage: 'Faltan 8 días para el vencimiento de su membresía.',
         atleta: {
-          id: 2,
+          id: 4,
           nombreCompleto: 'CARLA BENAVIDES CASTRO',
           dni: '70918234',
           fotoUrl: null,
-          nivelFidelidad: 'EN PROGRESO',
+          nivelFidelidad: 'PRINCIPIANTE',
           planTag: 'MEMBRESÍA MENSUAL',
           tiempoRestante: 'FALTAN 8 DÍAS',
-          rutinaAsignada: 'Torso / Pierna Pro (4 días)',
+          rutinaAsignada: 'Torso-Pierna Intenso 4 Días',
         },
       });
     } else if (state === 'ROJO') {
@@ -105,14 +105,14 @@ export default function CheckIn({ onNavigate }) {
         grantAccess: false,
         motivo: 'Membresía caducada hace 45 días. Se requiere renovación.',
         atleta: {
-          id: 4,
+          id: 6,
           nombreCompleto: 'ANDRÉS MEJÍA LOYOLA',
           dni: '71220944',
           fotoUrl: null,
           nivelFidelidad: 'NOVATO',
-          planTag: 'PLAN VENCIDO',
+          planTag: 'PLAN MENSUAL BÁSICO',
           tiempoRestante: 'VENCIDO HACE 45 DÍAS',
-          rutinaAsignada: 'Sin rutina activa',
+          rutinaAsignada: 'FULLBODY BÁSICO',
         },
       });
     }
