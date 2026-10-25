@@ -35,6 +35,11 @@ lerna-debug.log*
 *.db-wal
 *.db-shm
 
+# Archivos subidos en tiempo de ejecución
+uploads/*
+!uploads/photos/.gitkeep
+!uploads/vouchers/.gitkeep
+
 # Temporales y caché
 .temp/
 tmp/
@@ -51,3 +56,4 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
