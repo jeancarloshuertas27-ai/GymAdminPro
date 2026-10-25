@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,800&amp;family=Chivo:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "primary-container": "#1f71ef",
+          "primary-fixed": "#d9e2ff",
+          "surface-tint": "#afc6ff",
+          "tertiary-container": "#c75302",
+          "surface-container-highest": "#31353d",
+          "on-primary-container": "#000414",
+          "surface-dim": "#10131a",
+          "inverse-on-surface": "#2d3038",
+          "on-error-container": "#ffdad6",
+          "secondary-fixed": "#d9e2ff",
+          "tertiary-fixed": "#ffdbcc",
+          "error": "#ffb4ab",
+          "surface": "#10131a",
+          "outline": "#8c90a0",
+          "surface-container": "#1c2027",
+          "outline-variant": "#424754",
+          "on-surface-variant": "#c2c6d7",
+          "surface-variant": "#31353d",
+          "on-tertiary-fixed-variant": "#7a3000",
+          "on-background": "#e0e2ec",
+          "on-secondary-fixed": "#001944",
+          "on-surface": "#e0e2ec",
+          "surface-bright": "#363941",
+          "primary-fixed-dim": "#afc6ff",
+          "tertiary-fixed-dim": "#ffb693",
+          "secondary-fixed-dim": "#afc6ff",
+          "inverse-surface": "#e0e2ec",
+          "on-secondary": "#142f5f",
+          "surface-container-high": "#272a32",
+          "on-tertiary-fixed": "#351000",
+          "background": "#10131a",
+          "tertiary": "#ffb693",
+          "on-primary": "#002d6d",
+          "on-secondary-fixed-variant": "#2e4677",
+          "surface-container-low": "#181c23",
+          "on-primary-fixed": "#001944",
+          "on-tertiary": "#561f00",
+          "inverse-primary": "#0059c8",
+          "on-tertiary-container": "#ffffff",
+          "on-error": "#690005",
+          "on-primary-fixed-variant": "#004299",
+          "surface-container-lowest": "#0b0e15",
+          "primary": "#afc6ff",
+          "secondary-container": "#30487a",
+          "error-container": "#93000a",
+          "secondary": "#afc6ff",
+          "on-secondary-container": "#a1b8f1"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "gutter-mobile": "0.75rem",
+          "gutter": "1rem",
+          "margin": "2rem",
+          "space-lg": "1.5rem",
+          "space-md": "1rem",
+          "margin-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "space-xl": "2.5rem",
+          "space-sm": "0.5rem"
+        },
+        "fontFamily": {
+          "display-hero-mobile": [
+            "Barlow Condensed"
+          ],
+          "label-badge": [
+            "Barlow Condensed"
+          ],
+          "display-hero": [
+            "Barlow Condensed"
+          ],
+          "body-sm": [
+            "Chivo"
+          ],
+          "metric-huge": [
+            "Barlow Condensed"
+          ],
+          "body-md": [
+            "Chivo"
+          ],
+          "headline-md": [
+            "Barlow Condensed"
+          ],
+          "body-lg": [
+            "Chivo"
+          ],
+          "headline-lg": [
+            "Barlow Condensed"
+          ],
+          "data-mono": [
+            "JetBrains Mono"
+          ],
+          "headline-lg-mobile": [
+            "Barlow Condensed"
+          ],
+          "metric-huge-mobile": [
+            "Barlow Condensed"
+          ]
+        },
+        "fontSize": {
+          "display-hero-mobile": [
+            "40px",
+            {
+              "lineHeight": "42px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "800"
+            }
+          ],
+          "label-badge": [
+            "14px",
+            {
+              "lineHeight": "16px",
+              "letterSpacing": "0.08em",
+              "fontWeight": "800"
+            }
+          ],
+          "display-hero": [
+            "56px",
+            {
+              "lineHeight": "56px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "800"
+            }
+          ],
+          "body-sm": [
+            "13px",
+            {
+              "lineHeight": "18px",
+              "fontWeight": "400"
+            }
+          ],
+          "metric-huge": [
+            "64px",
+            {
+              "lineHeight": "64px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "800"
+            }
+          ],
+          "body-md": [
+            "15px",
+            {
+              "lineHeight": "22px",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-md": [
+            "24px",
+            {
+              "lineHeight": "28px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "body-lg": [
+            "18px",
+            {
+              "lineHeight": "26px",
+              "fontWeight": "500"
+            }
+          ],
+          "headline-lg": [
+            "36px",
+            {
+              "lineHeight": "40px",
+              "letterSpacing": "0.03em",
+              "fontWeight": "700"
+            }
+          ],
+          "data-mono": [
+            "14px",
+            {
+              "lineHeight": "18px",
+              "letterSpacing": "0.05em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-lg-mobile": [
+            "28px",
+            {
+              "lineHeight": "32px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "metric-huge-mobile": [
+            "48px",
+            {
+              "lineHeight": "48px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "800"
+            }
+          ]
+        }
+      },
+    },
+  }</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary selection:text-on-primary"><header class="fixed top-0 left-0 right-0 h-16 z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.5)]"><div class="w-full h-full px-gutter flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-[24px]">fitness_center</span><span class="font-headline-md text-headline-md tracking-wider uppercase text-on-surface">GYMCORE <span class="text-primary">//</span> ADMIN MASTER SUITE</span></div><span class="px-space-sm py-0.5 rounded bg-error-container text-on-error font-label-badge text-label-badge tracking-widest uppercase">SUPERADMIN</span></div><div class="flex items-center gap-space-lg"><div class="hidden xl:flex items-center gap-space-sm bg-surface-container px-space-sm py-1 rounded"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-data-mono text-data-mono text-on-surface-variant uppercase">SYS_ONLINE : 99.98%</span></div><div class="hidden md:flex items-center gap-space-xs font-data-mono text-data-mono text-primary bg-surface-container-high px-space-md py-1 rounded"><span class="material-symbols-outlined text-[16px]">schedule</span><span id="system-clock">23:42:10 UTC</span></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="text-right hidden sm:block"><p class="font-label-badge text-label-badge uppercase leading-none text-on-surface">Commander.K</p><p class="font-data-mono text-[11px] leading-tight text-on-surface-variant">ROOT_ACCESS</p></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><aside class="fixed left-0 top-16 bottom-0 w-72 bg-surface-container-lowest z-40 flex flex-col justify-between py-space-md shadow-[1px_0_12px_rgba(0,0,0,0.4)]"><div class="flex flex-col gap-space-md"><div class="px-space-lg"><p class="font-data-mono text-[11px] tracking-widest uppercase text-on-surface-variant">NÚCLEO TÁCTICO // RUTAS</p></div><nav class="flex flex-col gap-space-xs px-space-sm" data-active-classes="bg-primary-container text-on-primary-container font-headline-md shadow-[0_0_16px_rgba(31,113,239,0.25)]"><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="dashboard-principal" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Dashboard Principal</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="lista-de-cambios-y-aprobaciones" href="#"><span class="material-symbols-outlined text-[20px]">verified_user</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Cambios &amp; Aprobaciones</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="gestion-de-membresias-y-promociones" href="#"><span class="material-symbols-outlined text-[20px]">card_membership</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Membresías &amp; Promociones</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="lista-de-usuarios-y-fidelidad" href="#"><span class="material-symbols-outlined text-[20px]">military_tech</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Usuarios &amp; Fidelidad</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="configurar-rutinas-y-asignar" href="#"><span class="material-symbols-outlined text-[20px]">reorder</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Configurar Rutinas</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="inventario-maestro-de-productos" href="#"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Inventario Maestro</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-3 rounded transition-all bg-primary-container text-on-primary-container font-headline-md shadow-[0_0_16px_rgba(31,113,239,0.25)]" data-path="nuevo-usuario" href="#"><span class="material-symbols-outlined text-[20px]">person_add</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Nuevo Usuario</span></a></nav></div><div class="px-space-md"><div class="bg-surface-container-low p-space-sm rounded flex flex-col gap-space-xs"><div class="flex justify-between items-center"><span class="font-data-mono text-[10px] text-on-surface-variant uppercase">TERMINAL NODE</span><span class="font-data-mono text-[10px] text-primary uppercase">ALPHA-01</span></div><div class="flex justify-between items-center"><span class="font-data-mono text-[10px] text-on-surface-variant uppercase">PROTOCOL</span><span class="font-data-mono text-[10px] text-on-surface uppercase">TLS 1.3 / AES-GCM</span></div></div></div></aside><div class="pl-72"><main class="w-full min-h-screen pt-16 px-gutter bg-background"><div class="flex flex-col w-full pb-space-xl">
+<!-- Tactical Page Sub-Header & Status Bar -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs text-primary mb-1">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+<span class="font-data-mono text-[12px] tracking-widest uppercase">MÓDULO DE ALTA RÁPIDA // NODO-SEC</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg uppercase tracking-wider text-on-surface m-0">Agregar Usuario Nuevo</h1>
+<p class="font-body-md text-on-surface-variant max-w-2xl mt-1">
+        Aprovisionamiento operacional según categoría de usuario. Seleccione el Tipo de Usuario mediante el selector táctico superior para alternar los campos correspondientes.
+      </p>
+</div>
+<!-- Live Telemetry Capsule -->
+<div class="flex items-center gap-space-md bg-surface-container-low px-space-md py-space-sm rounded border-l-2 border-primary shadow-md">
+<div class="flex flex-col">
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant">OPERADOR ACTIVO</span>
+<span class="font-data-mono text-data-mono text-on-surface font-semibold">ROOT_ADMIN_01</span>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/40"></div>
+<div class="flex flex-col">
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant">ESTADO TÁCTICO</span>
+<span class="flex items-center gap-1 font-data-mono text-[12px] text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+          PROTOCOLO ACTIVO
+        </span>
+</div>
+</div>
+</div>
+<!-- TOP TAB SELECTOR: TIPO DE USUARIO (Recepción / Miembro) -->
+<div class="bg-surface-container-low p-2 rounded mb-space-lg shadow-xl border border-outline-variant/30 flex flex-col sm:flex-row gap-2 relative">
+<button class="flex-1 py-3 px-space-lg rounded flex items-center justify-center gap-space-sm transition-all duration-200 cursor-pointer text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high" id="tab-reception-btn" onclick="selectUserType('reception')" type="button">
+<span class="material-symbols-outlined text-[24px]">badge</span>
+<div class="flex flex-col text-left">
+<span class="font-headline-md text-headline-md tracking-wider uppercase leading-none">TIPO: RECEPCIÓN</span>
+<span class="font-data-mono text-[11px] opacity-75 uppercase leading-tight">Terminal Caja • Control de Aforo • Staff Gym</span>
+</div>
+</button>
+<button class="flex-1 py-3 px-space-lg rounded flex items-center justify-center gap-space-sm transition-all duration-200 cursor-pointer bg-primary-container text-on-primary-container shadow-[0_0_18px_rgba(31,113,239,0.35)]" id="tab-member-btn" onclick="selectUserType('member')" type="button">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+<div class="flex flex-col text-left">
+<span class="font-headline-md text-headline-md tracking-wider uppercase leading-none">TIPO: MIEMBRO</span>
+<span class="font-data-mono text-[11px] opacity-90 uppercase leading-tight">Atleta • Membresía • Rutina • App Móvil</span>
+</div>
+</button>
+</div>
+<!-- ========================================== -->
+<!-- FORMULARIO 1: RECEPCIÓN                     -->
+<!-- ========================================== -->
+<div class="hidden flex-col gap-space-lg" id="form-reception-wrapper">
+<form class="flex flex-col gap-space-lg" id="form-reception" onsubmit="event.preventDefault(); submitReceptionForm();">
+<div class="bg-surface-container p-space-lg rounded shadow-md relative overflow-hidden border-l-4 border-secondary">
+<div class="flex items-center justify-between pb-space-sm mb-space-md border-b border-outline-variant/30">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[22px]">badge</span>
+<span class="font-headline-md text-headline-md uppercase text-on-surface tracking-wider">Formulario de Recepción // Registro de Staff</span>
+</div>
+<span class="font-data-mono text-[11px] text-secondary uppercase bg-secondary/10 px-2 py-0.5 rounded font-bold">ROL: RECEPCIÓN</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Nombres -->
+<div class="flex flex-col gap-1">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">Nombres <span class="text-error">*</span></label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline-variant/60" id="rec-nombres" placeholder="p. ej. Mariana Lucía" required="" type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">person</span>
+</div>
+</div>
+<!-- Apellidos -->
+<div class="flex flex-col gap-1">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">Apellidos <span class="text-error">*</span></label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline-variant/60" id="rec-apellidos" placeholder="p. ej. Quispe Ramos" required="" type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">badge</span>
+</div>
+</div>
+<!-- DNI -->
+<div class="flex flex-col gap-1">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">DNI <span class="text-error">*</span></label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface font-data-mono px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline-variant/60" id="rec-dni" maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '');" pattern="[0-9]{8}" placeholder="8 dígitos (p. ej. 74839201)" required="" type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">fingerprint</span>
+</div>
+</div>
+<!-- Número Celular -->
+<div class="flex flex-col gap-1">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">Número Celular <span class="text-error">*</span></label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface font-data-mono px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline-variant/60" id="rec-celular" placeholder="+51 987 654 321" required="" type="tel"/>
+<span class="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">phone_iphone</span>
+</div>
+</div>
+<!-- Número Celular de respaldo -->
+<div class="flex flex-col gap-1">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-tertiary">Número Celular de respaldo <span class="text-tertiary">*</span></label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface font-data-mono px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-tertiary placeholder:text-outline-variant/60" id="rec-celular-respaldo" placeholder="+51 912 345 678 (Familiar / Emergencia)" required="" type="tel"/>
+<span class="material-symbols-outlined absolute right-3 top-3 text-[18px] text-tertiary">contact_phone</span>
+</div>
+</div>
+<!-- Domicilio -->
+<div class="flex flex-col gap-1">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">Domicilio <span class="text-error">*</span></label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline-variant/60" id="rec-domicilio" placeholder="Av. Los Ingenieros 340, Dpto 402 - Santiago de Surco" required="" type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">home_pin</span>
+</div>
+</div>
+<!-- Nombre de usuario -->
+<div class="flex flex-col gap-1">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">Nombre de usuario (@) <span class="text-error">*</span></label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface font-data-mono px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline-variant/60" id="rec-username" placeholder="@recepcion_manana" required="" type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">alternate_email</span>
+</div>
+</div>
+<!-- Contraseña -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">Contraseña <span class="text-error">*</span></label>
+<button class="font-data-mono text-[10px] text-primary hover:underline flex items-center gap-0.5" onclick="generateTacticalPassword('rec-password')" type="button">
+<span class="material-symbols-outlined text-[12px]">auto_fix_high</span> GENERAR SEGURA
+</button>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface font-data-mono px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline-variant/60" id="rec-password" placeholder="••••••••••••" required="" type="password"/>
+<button class="absolute right-3 top-3 text-outline-variant hover:text-on-surface" onclick="togglePasswordVisibility('rec-password', 'rec-pw-eye')" type="button">
+<span class="material-symbols-outlined text-[18px]" id="rec-pw-eye">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Botón Guardar en la esquina inferior derecha -->
+<div class="flex items-center justify-between pt-space-lg mt-space-md border-t border-outline-variant/30">
+<div class="flex items-center gap-2 text-on-surface-variant font-data-mono text-[11px]">
+<span class="material-symbols-outlined text-[16px] text-secondary">info</span>
+<span>Todos los campos de personal son requeridos para la habilitación del nodo de caja.</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-lg py-2.5 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-headline-md text-[17px] uppercase tracking-wider flex items-center gap-1 transition-colors cursor-pointer" onclick="document.getElementById('form-reception').reset();" type="button">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span> Limpiar
+</button>
+<button class="px-space-xl py-3 rounded bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-on-primary-container font-headline-md text-[20px] uppercase tracking-wider flex items-center gap-space-xs transition-all shadow-[0_0_16px_rgba(48,72,122,0.4)] cursor-pointer" type="submit">
+<span class="material-symbols-outlined text-[20px]">save</span>
+<span>Guardar</span>
+</button>
+</div>
+</div>
+</div>
+</form>
+</div>
+<!-- ========================================== -->
+<!-- FORMULARIO 2: MIEMBRO                       -->
+<!-- ========================================== -->
+<div class="flex flex-col gap-space-lg" id="form-member-wrapper">
+<form class="flex flex-col gap-space-lg" id="form-member" onsubmit="event.preventDefault(); submitMemberForm();">
+<div class="bg-surface-container p-space-lg rounded shadow-md relative overflow-hidden border-l-4 border-primary">
+<div class="flex items-center justify-between pb-space-sm mb-space-md border-b border-outline-variant/30">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[22px]">fitness_center</span>
+<span class="font-headline-md text-headline-md uppercase text-on-surface tracking-wider">Formulario de Miembro // Registro de Atleta</span>
+</div>
+<span class="font-data-mono text-[11px] text-primary uppercase bg-primary/10 px-2 py-0.5 rounded font-bold">ROL: MIEMBRO ATLETA</span>
+</div>
+<!-- Secciones del formulario de Miembro -->
+<div class="flex flex-col gap-space-lg">
+<!-- Bloque 1: Identidad básica & Foto -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-start">
+<!-- Subida / Preview de Foto (Opcional) -->
+<div class="md:col-span-3 flex flex-col gap-1">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant flex items-center justify-between">
+<span>Foto (Opcional)</span>
+<span class="text-primary text-[10px]">BIOMETRÍA</span>
+</label>
+<div class="relative w-full h-44 bg-surface-container-lowest rounded border border-dashed border-outline-variant/60 hover:border-primary overflow-hidden flex flex-col items-center justify-center group cursor-pointer transition-colors" onclick="triggerMemberPhoto()">
+<div class="flex flex-col items-center justify-center p-3 text-center" id="member-photo-placeholder">
+<span class="material-symbols-outlined text-[36px] text-primary mb-1">add_a_photo</span>
+<span class="font-data-mono text-[11px] text-on-surface font-semibold uppercase leading-tight">Subir Foto</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant mt-0.5 leading-tight">JPG o PNG (1:1)</span>
+</div>
+<img alt="Preview foto miembro" class="hidden w-full h-full object-cover" id="member-photo-preview" src=""/>
+<input accept="image/*" class="hidden" id="member-photo-input" onchange="previewMemberPhoto(this)" type="file"/>
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface text-[24px]">photo_camera</span>
+</div>
+</div>
+<button class="mt-1 text-[11px] font-data-mono text-primary hover:underline flex items-center justify-center gap-1" onclick="triggerMemberPhoto()" type="button">
+<span class="material-symbols-outlined text-[13px]">upload_file</span> Cargar archivo de imagen
+</button>
+</div>
+<!-- Nombres, Apellidos, DNI, Celular -->
+<div class="md:col-span-9 grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<!-- Nombres -->
+<div class="flex flex-col gap-1">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">Nombres <span class="text-error">*</span></label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-outline-variant/60" id="mbr-nombres" placeholder="p. ej. Roberto" required="" type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">person</span>
+</div>
+</div>
+<!-- Apellidos -->
+<div class="flex flex-col gap-1">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">Apellidos <span class="text-error">*</span></label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-outline-variant/60" id="mbr-apellidos" placeholder="p. ej. Carlos Morales" required="" type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">badge</span>
+</div>
+</div>
+<!-- DNI -->
+<div class="flex flex-col gap-1">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">DNI <span class="text-error">*</span></label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface font-data-mono px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-outline-variant/60" id="mbr-dni" maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '');" pattern="[0-9]{8}" placeholder="8 dígitos (p. ej. 74839201)" required="" type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">fingerprint</span>
+</div>
+</div>
+<!-- Número Celular -->
+<div class="flex flex-col gap-1">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">Número Celular <span class="text-error">*</span></label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface font-data-mono px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-outline-variant/60" id="mbr-celular" placeholder="+51 987 654 321" required="" type="tel"/>
+<span class="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">phone_iphone</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bloque 2: Credenciales de acceso (Usuario y Contraseña) -->
+<div class="pt-space-sm border-t border-outline-variant/20 grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Nombre de usuario -->
+<div class="flex flex-col gap-1">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">Nombre de usuario (@) <span class="text-error">*</span></label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface font-data-mono px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-outline-variant/60" id="mbr-username" placeholder="@atleta_94" required="" type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">alternate_email</span>
+</div>
+</div>
+<!-- Contraseña -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">Contraseña <span class="text-error">*</span></label>
+<button class="font-data-mono text-[10px] text-primary hover:underline flex items-center gap-0.5" onclick="generateTacticalPassword('mbr-password')" type="button">
+<span class="material-symbols-outlined text-[12px]">auto_fix_high</span> GENERAR SEGURA
+</button>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface font-data-mono px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-primary placeholder:text-outline-variant/60" id="mbr-password" placeholder="••••••••••••" required="" type="password"/>
+<button class="absolute right-3 top-3 text-outline-variant hover:text-on-surface" onclick="togglePasswordVisibility('mbr-password', 'mbr-pw-eye')" type="button">
+<span class="material-symbols-outlined text-[18px]" id="mbr-pw-eye">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bloque 3: Rutina y Tiempo de Membresía -->
+<div class="pt-space-sm border-t border-outline-variant/20 grid grid-cols-1 md:grid-cols-2 gap-space-md items-end">
+<!-- Rutina (Desplegable) -->
+<div class="flex flex-col gap-1">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">Rutina Asignada <span class="text-error">*</span></label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest text-on-surface px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer" id="mbr-rutina" required="">
+<option value="HIPERTROFIA_PUSH_PULL">PPL Clásico // Fuerza &amp; Hipertrofia (6 días)</option>
+<option value="TORSO_PIERNA_4D">Torso / Pierna Pro // Atleta Intermedio (4 días)</option>
+<option value="FULLBODY_PRINCIPIANTE">Fullbody Adaptación Rápida // Novato (3 días)</option>
+<option value="POWERLIFTING_BEAST">Protocolo Bestia // SBD Heavy Focus (5 días)</option>
+<option value="CARDIO_HIIT_ENDURANCE">Metabolic Conditioning // Shred (4 días)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Tiempo de Membresía: [ ] años y [ ] meses -->
+<div class="flex flex-col gap-1">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">Tiempo de membresía <span class="text-error">*</span></label>
+<div class="flex items-center gap-space-sm bg-surface-container-lowest px-space-md py-2.5 rounded border border-outline-variant/40">
+<!-- Input Años -->
+<div class="flex items-center gap-1.5 flex-1">
+<input class="w-16 bg-surface-container-high text-on-surface font-data-mono font-bold text-center py-1.5 rounded focus:outline-none focus:ring-1 focus:ring-primary border border-outline-variant/60" id="mbr-years" min="0" placeholder="0" required="" type="number" value="1"/>
+<span class="font-headline-md text-headline-md uppercase text-on-surface tracking-wider">AÑOS</span>
+</div>
+<span class="font-headline-md text-headline-md text-primary tracking-widest uppercase">Y</span>
+<!-- Input Meses -->
+<div class="flex items-center gap-1.5 flex-1">
+<input class="w-16 bg-surface-container-high text-on-surface font-data-mono font-bold text-center py-1.5 rounded focus:outline-none focus:ring-1 focus:ring-primary border border-outline-variant/60" id="mbr-months" max="11" min="0" placeholder="0" required="" type="number" value="0"/>
+<span class="font-headline-md text-headline-md uppercase text-on-surface tracking-wider">MESES</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bloque 4: Tipo de Pago (Efectivo o Transferencia con caja obligatoria para voucher) -->
+<div class="pt-space-sm border-t border-outline-variant/20 flex flex-col gap-space-md">
+<div class="flex flex-col gap-1">
+<label class="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">Tipo de Pago <span class="text-error">*</span></label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<!-- Efectivo -->
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="payment_type" onchange="toggleMemberPaymentType('efectivo')" type="radio" value="efectivo"/>
+<div class="p-space-md rounded bg-surface-container-lowest peer-checked:bg-primary-container peer-checked:text-on-primary-container border border-outline-variant/30 peer-checked:border-primary transition-all flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[24px]">payments</span>
+<div class="flex flex-col text-left">
+<span class="font-headline-md text-[18px] uppercase leading-none">Efectivo</span>
+<span class="font-data-mono text-[10px] mt-0.5 opacity-80 uppercase">Cobro directo en caja central</span>
+</div>
+</div>
+</label>
+<!-- Transferencia -->
+<label class="cursor-pointer">
+<input class="peer sr-only" name="payment_type" onchange="toggleMemberPaymentType('transferencia')" type="radio" value="transferencia"/>
+<div class="p-space-md rounded bg-surface-container-lowest peer-checked:bg-primary-container peer-checked:text-on-primary-container border border-outline-variant/30 peer-checked:border-primary transition-all flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[24px]">account_balance</span>
+<div class="flex flex-col text-left">
+<span class="font-headline-md text-[18px] uppercase leading-none">Transferencia</span>
+<span class="font-data-mono text-[10px] mt-0.5 opacity-80 uppercase">Yape / Plin / Bancos (Voucher Obligatorio)</span>
+</div>
+</div>
+</label>
+</div>
+</div>
+<!-- Caja obligatoria para subir comprobante / voucher de transferencia -->
+<div class="hidden flex-col gap-space-sm p-space-md bg-surface-container-low rounded border-l-4 border-tertiary transition-all" id="voucher-upload-section">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-tertiary">
+<span class="material-symbols-outlined text-[20px]">receipt_long</span>
+<span class="font-data-mono text-[11px] uppercase font-bold tracking-wider">Comprobante de Pago / Voucher Obligatorio</span>
+</div>
+<span class="font-data-mono text-[10px] bg-tertiary/20 text-tertiary px-2 py-0.5 rounded font-bold uppercase">REQUERIDO PARA TRANSFERENCIA</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+Suba la imagen legible del comprobante o captura de transferencia bancaria para la auditoría de caja.
+</p>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-center">
+<div class="md:col-span-8">
+<label class="flex flex-col items-center justify-center border-2 border-dashed border-tertiary/60 hover:border-tertiary rounded p-space-md bg-surface-container-lowest cursor-pointer transition-colors group">
+<span class="material-symbols-outlined text-tertiary text-[28px] group-hover:scale-110 transition-transform">cloud_upload</span>
+<span class="font-data-mono text-[12px] text-on-surface font-semibold mt-1" id="voucher-file-label">Seleccionar o arrastrar imagen del comprobante / voucher</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Formatos permitidos: JPG, PNG, PDF (Máx. 5MB)</span>
+<input accept="image/*,.pdf" class="hidden" id="voucher-file-input" onchange="handleVoucherSelected(this)" type="file"/>
+</label>
+</div>
+<div class="md:col-span-4 flex flex-col gap-1">
+<label class="font-data-mono text-[10px] uppercase text-on-surface-variant">Nro. de Operación / Código</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest text-on-surface font-data-mono px-3 py-2.5 rounded text-body-sm focus:outline-none focus:ring-1 focus:ring-tertiary" id="voucher-nro-op" placeholder="Ej. OP-983142" type="text"/>
+<span class="material-symbols-outlined absolute right-2.5 top-2.5 text-[16px] text-outline-variant">tag</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Botón Aceptar en la esquina inferior derecha -->
+<div class="flex items-center justify-between pt-space-lg mt-space-md border-t border-outline-variant/30">
+<div class="flex items-center gap-2 text-on-surface-variant font-data-mono text-[11px]">
+<span class="material-symbols-outlined text-[16px] text-primary">verified_user</span>
+<span>El atleta recibirá credenciales de acceso a la App Móvil con su membresía activada.</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-lg py-2.5 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-headline-md text-[17px] uppercase tracking-wider flex items-center gap-1 transition-colors cursor-pointer" onclick="document.getElementById('form-member').reset(); resetMemberPhotoPreview(); toggleMemberPaymentType('efectivo');" type="button">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span> Limpiar
+</button>
+<button class="px-space-xl py-3 rounded bg-primary-container hover:bg-tertiary-container text-on-primary-container hover:text-on-tertiary-container font-headline-md text-[20px] uppercase tracking-wider flex items-center gap-space-xs transition-all duration-200 shadow-[0_0_20px_rgba(31,113,239,0.35)] cursor-pointer" type="submit">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>Aceptar</span>
+</button>
+</div>
+</div>
+</div>
+</form>
+</div>
+<!-- Operational Toast / Feedback Overlay -->
+<div class="fixed bottom-6 right-6 max-w-md bg-surface-container-highest p-space-md rounded shadow-2xl flex items-center gap-space-sm transform translate-y-24 opacity-0 transition-all duration-300 z-50 border border-outline-variant/40" id="toast-notification">
+<span class="material-symbols-outlined text-primary text-[24px]" id="toast-icon">check_circle</span>
+<div class="flex flex-col">
+<span class="font-headline-md text-[16px] uppercase text-on-surface leading-tight" id="toast-title">ACCIÓN COMPLETADA</span>
+<span class="font-body-sm text-[12px] text-on-surface-variant" id="toast-desc">Datos procesados en el sistema.</span>
+</div>
+</div>
+</div>
+<script>
+  let activeUserType = 'member';
+
+  function selectUserType(type) {
+    activeUserType = type;
+    const tabReceptionBtn = document.getElementById('tab-reception-btn');
+    const tabMemberBtn = document.getElementById('tab-member-btn');
+    const formReceptionWrapper = document.getElementById('form-reception-wrapper');
+    const formMemberWrapper = document.getElementById('form-member-wrapper');
+
+    if (type === 'reception') {
+      tabReceptionBtn.className = "flex-1 py-3 px-space-lg rounded flex items-center justify-center gap-space-sm transition-all duration-200 cursor-pointer bg-primary-container text-on-primary-container shadow-[0_0_18px_rgba(31,113,239,0.35)]";
+      tabMemberBtn.className = "flex-1 py-3 px-space-lg rounded flex items-center justify-center gap-space-sm transition-all duration-200 cursor-pointer text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high";
+
+      formReceptionWrapper.classList.remove('hidden');
+      formReceptionWrapper.classList.add('flex');
+      formMemberWrapper.classList.add('hidden');
+      formMemberWrapper.classList.remove('flex');
+    } else {
+      tabMemberBtn.className = "flex-1 py-3 px-space-lg rounded flex items-center justify-center gap-space-sm transition-all duration-200 cursor-pointer bg-primary-container text-on-primary-container shadow-[0_0_18px_rgba(31,113,239,0.35)]";
+      tabReceptionBtn.className = "flex-1 py-3 px-space-lg rounded flex items-center justify-center gap-space-sm transition-all duration-200 cursor-pointer text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high";
+
+      formMemberWrapper.classList.remove('hidden');
+      formMemberWrapper.classList.add('flex');
+      formReceptionWrapper.classList.add('hidden');
+      formReceptionWrapper.classList.remove('flex');
+    }
+  }
+
+  function toggleMemberPaymentType(type) {
+    const voucherSection = document.getElementById('voucher-upload-section');
+    const voucherInput = document.getElementById('voucher-file-input');
+    if (type === 'transferencia') {
+      voucherSection.classList.remove('hidden');
+      voucherSection.classList.add('flex');
+      voucherInput.required = true;
+    } else {
+      voucherSection.classList.add('hidden');
+      voucherSection.classList.remove('flex');
+      voucherInput.required = false;
+    }
+  }
+
+  function handleVoucherSelected(input) {
+    if (input.files && input.files[0]) {
+      const fileName = input.files[0].name;
+      document.getElementById('voucher-file-label').textContent = "Comprobante cargado: " + fileName;
+      showToast("Comprobante Adjuntado", "Voucher listo para validación", "receipt_long");
+    }
+  }
+
+  function triggerMemberPhoto() {
+    document.getElementById('member-photo-input').click();
+  }
+
+  function previewMemberPhoto(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const preview = document.getElementById('member-photo-preview');
+        const placeholder = document.getElementById('member-photo-placeholder');
+        preview.src = e.target.result;
+        preview.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+        showToast("Foto Seleccionada", "Vista previa actualizada", "photo_camera");
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  function resetMemberPhotoPreview() {
+    const preview = document.getElementById('member-photo-preview');
+    const placeholder = document.getElementById('member-photo-placeholder');
+    preview.src = '';
+    preview.classList.add('hidden');
+    placeholder.classList.remove('hidden');
+  }
+
+  function generateTacticalPassword(targetInputId) {
+    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%";
+    let pass = "";
+    for (let i = 0; i < 12; i++) {
+      pass += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    const inputPass = document.getElementById(targetInputId);
+    inputPass.value = pass;
+    inputPass.type = "text";
+    showToast("Contraseña Generada", "Algoritmo seguro de 12 caracteres AES", "vpn_key");
+  }
+
+  function togglePasswordVisibility(inputId, eyeIconId) {
+    const pw = document.getElementById(inputId);
+    const icon = document.getElementById(eyeIconId);
+    if (pw.type === "password") {
+      pw.type = "text";
+      icon.textContent = "visibility_off";
+    } else {
+      pw.type = "password";
+      icon.textContent = "visibility";
+    }
+  }
+
+  function submitReceptionForm() {
+    const nombres = document.getElementById('rec-nombres').value;
+    const apellidos = document.getElementById('rec-apellidos').value;
+    showToast("Recepción Guardada", `Personal ${nombres} ${apellidos} registrado exitosamente.`, "save");
+  }
+
+  function submitMemberForm() {
+    const nombres = document.getElementById('mbr-nombres').value;
+    const apellidos = document.getElementById('mbr-apellidos').value;
+    const years = document.getElementById('mbr-years').value || "0";
+    const months = document.getElementById('mbr-months').value || "0";
+    const paymentType = document.querySelector('input[name="payment_type"]:checked').value;
+    
+    if (paymentType === 'transferencia') {
+      const voucher = document.getElementById('voucher-file-input');
+      if (!voucher.files || voucher.files.length === 0) {
+        showToast("Comprobante Requerido", "Debe subir la imagen del voucher de transferencia", "error");
+        return;
+      }
+    }
+
+    showToast("Miembro Aceptado", `Atleta ${nombres} ${apellidos} registrado: ${years} año(s) y ${months} mes(es).`, "check_circle");
+  }
+
+  function showToast(title, desc, iconName) {
+    const toast = document.getElementById('toast-notification');
+    document.getElementById('toast-title').textContent = title;
+    document.getElementById('toast-desc').textContent = desc;
+    document.getElementById('toast-icon').textContent = iconName || "check_circle";
+
+    toast.classList.remove('translate-y-24', 'opacity-0');
+    toast.classList.add('translate-y-0', 'opacity-100');
+
+    setTimeout(() => {
+      toast.classList.add('translate-y-24', 'opacity-0');
+      toast.classList.remove('translate-y-0', 'opacity-100');
+    }, 4000);
+  }
+</script></main></div></body></html>

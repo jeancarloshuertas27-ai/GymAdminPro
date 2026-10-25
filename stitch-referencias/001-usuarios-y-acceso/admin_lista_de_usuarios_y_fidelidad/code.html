@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,800&amp;family=Chivo:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "primary-container": "#1f71ef",
+          "primary-fixed": "#d9e2ff",
+          "surface-tint": "#afc6ff",
+          "tertiary-container": "#c75302",
+          "surface-container-highest": "#31353d",
+          "on-primary-container": "#000414",
+          "surface-dim": "#10131a",
+          "inverse-on-surface": "#2d3038",
+          "on-error-container": "#ffdad6",
+          "secondary-fixed": "#d9e2ff",
+          "tertiary-fixed": "#ffdbcc",
+          "error": "#ffb4ab",
+          "surface": "#10131a",
+          "outline": "#8c90a0",
+          "surface-container": "#1c2027",
+          "outline-variant": "#424754",
+          "on-surface-variant": "#c2c6d7",
+          "surface-variant": "#31353d",
+          "on-tertiary-fixed-variant": "#7a3000",
+          "on-background": "#e0e2ec",
+          "on-secondary-fixed": "#001944",
+          "on-surface": "#e0e2ec",
+          "surface-bright": "#363941",
+          "primary-fixed-dim": "#afc6ff",
+          "tertiary-fixed-dim": "#ffb693",
+          "secondary-fixed-dim": "#afc6ff",
+          "inverse-surface": "#e0e2ec",
+          "on-secondary": "#142f5f",
+          "surface-container-high": "#272a32",
+          "on-tertiary-fixed": "#351000",
+          "background": "#10131a",
+          "tertiary": "#ffb693",
+          "on-primary": "#002d6d",
+          "on-secondary-fixed-variant": "#2e4677",
+          "surface-container-low": "#181c23",
+          "on-primary-fixed": "#001944",
+          "on-tertiary": "#561f00",
+          "inverse-primary": "#0059c8",
+          "on-tertiary-container": "#ffffff",
+          "on-error": "#690005",
+          "on-primary-fixed-variant": "#004299",
+          "surface-container-lowest": "#0b0e15",
+          "primary": "#afc6ff",
+          "secondary-container": "#30487a",
+          "error-container": "#93000a",
+          "secondary": "#afc6ff",
+          "on-secondary-container": "#a1b8f1"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "gutter-mobile": "0.75rem",
+          "gutter": "1rem",
+          "margin": "2rem",
+          "space-lg": "1.5rem",
+          "space-md": "1rem",
+          "margin-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "space-xl": "2.5rem",
+          "space-sm": "0.5rem"
+        },
+        "fontFamily": {
+          "display-hero-mobile": [
+            "Barlow Condensed"
+          ],
+          "label-badge": [
+            "Barlow Condensed"
+          ],
+          "display-hero": [
+            "Barlow Condensed"
+          ],
+          "body-sm": [
+            "Chivo"
+          ],
+          "metric-huge": [
+            "Barlow Condensed"
+          ],
+          "body-md": [
+            "Chivo"
+          ],
+          "headline-md": [
+            "Barlow Condensed"
+          ],
+          "body-lg": [
+            "Chivo"
+          ],
+          "headline-lg": [
+            "Barlow Condensed"
+          ],
+          "data-mono": [
+            "JetBrains Mono"
+          ],
+          "headline-lg-mobile": [
+            "Barlow Condensed"
+          ],
+          "metric-huge-mobile": [
+            "Barlow Condensed"
+          ]
+        },
+        "fontSize": {
+          "display-hero-mobile": [
+            "40px",
+            {
+              "lineHeight": "42px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "800"
+            }
+          ],
+          "label-badge": [
+            "14px",
+            {
+              "lineHeight": "16px",
+              "letterSpacing": "0.08em",
+              "fontWeight": "800"
+            }
+          ],
+          "display-hero": [
+            "56px",
+            {
+              "lineHeight": "56px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "800"
+            }
+          ],
+          "body-sm": [
+            "13px",
+            {
+              "lineHeight": "18px",
+              "fontWeight": "400"
+            }
+          ],
+          "metric-huge": [
+            "64px",
+            {
+              "lineHeight": "64px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "800"
+            }
+          ],
+          "body-md": [
+            "15px",
+            {
+              "lineHeight": "22px",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-md": [
+            "24px",
+            {
+              "lineHeight": "28px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "body-lg": [
+            "18px",
+            {
+              "lineHeight": "26px",
+              "fontWeight": "500"
+            }
+          ],
+          "headline-lg": [
+            "36px",
+            {
+              "lineHeight": "40px",
+              "letterSpacing": "0.03em",
+              "fontWeight": "700"
+            }
+          ],
+          "data-mono": [
+            "14px",
+            {
+              "lineHeight": "18px",
+              "letterSpacing": "0.05em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-lg-mobile": [
+            "28px",
+            {
+              "lineHeight": "32px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "metric-huge-mobile": [
+            "48px",
+            {
+              "lineHeight": "48px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "800"
+            }
+          ]
+        }
+      },
+    },
+  }</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary selection:text-on-primary"><header class="fixed top-0 left-0 right-0 h-16 z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.5)]"><div class="w-full h-full px-gutter flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-[24px]">fitness_center</span><span class="font-headline-md text-headline-md tracking-wider uppercase text-on-surface">GYMCORE <span class="text-primary">//</span> ADMIN MASTER SUITE</span></div><span class="px-space-sm py-0.5 rounded bg-error-container text-on-error font-label-badge text-label-badge tracking-widest uppercase">SUPERADMIN</span></div><div class="flex items-center gap-space-lg"><div class="hidden xl:flex items-center gap-space-sm bg-surface-container px-space-sm py-1 rounded"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-data-mono text-data-mono text-on-surface-variant uppercase">SYS_ONLINE : 99.98%</span></div><div class="hidden md:flex items-center gap-space-xs font-data-mono text-data-mono text-primary bg-surface-container-high px-space-md py-1 rounded"><span class="material-symbols-outlined text-[16px]">schedule</span><span id="system-clock">23:42:10 UTC</span></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="text-right hidden sm:block"><p class="font-label-badge text-label-badge uppercase leading-none text-on-surface">Commander.K</p><p class="font-data-mono text-[11px] leading-tight text-on-surface-variant">ROOT_ACCESS</p></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><aside class="fixed left-0 top-16 bottom-0 w-72 bg-surface-container-lowest z-40 flex flex-col justify-between py-space-md shadow-[1px_0_12px_rgba(0,0,0,0.4)]"><div class="flex flex-col gap-space-md"><div class="px-space-lg"><p class="font-data-mono text-[11px] tracking-widest uppercase text-on-surface-variant">NÚCLEO TÁCTICO // RUTAS</p></div><nav class="flex flex-col gap-space-xs px-space-sm" data-active-classes="bg-primary-container text-on-primary-container font-headline-md shadow-[0_0_16px_rgba(31,113,239,0.25)]"><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="dashboard-principal" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Dashboard Principal</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="lista-de-cambios-y-aprobaciones" href="#"><span class="material-symbols-outlined text-[20px]">verified_user</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Cambios &amp; Aprobaciones</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="gestion-de-membresias-y-promociones" href="#"><span class="material-symbols-outlined text-[20px]">card_membership</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Membresías &amp; Promociones</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-3 rounded transition-all bg-primary-container text-on-primary-container font-headline-md shadow-[0_0_16px_rgba(31,113,239,0.25)]" data-path="lista-de-usuarios-y-fidelidad" href="#"><span class="material-symbols-outlined text-[20px]">military_tech</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Usuarios &amp; Fidelidad</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="configurar-rutinas-y-asignar" href="#"><span class="material-symbols-outlined text-[20px]">reorder</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Configurar Rutinas</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="inventario-maestro-de-productos" href="#"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Inventario Maestro</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="nuevo-usuario" href="#"><span class="material-symbols-outlined text-[20px]">person_add</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Nuevo Usuario</span></a></nav></div><div class="px-space-md"><div class="bg-surface-container-low p-space-sm rounded flex flex-col gap-space-xs"><div class="flex justify-between items-center"><span class="font-data-mono text-[10px] text-on-surface-variant uppercase">TERMINAL NODE</span><span class="font-data-mono text-[10px] text-primary uppercase">ALPHA-01</span></div><div class="flex justify-between items-center"><span class="font-data-mono text-[10px] text-on-surface-variant uppercase">PROTOCOL</span><span class="font-data-mono text-[10px] text-on-surface uppercase">TLS 1.3 / AES-GCM</span></div></div></div></aside><div class="pl-72"><main class="w-full min-h-screen pt-16 px-gutter bg-background"><div class="flex flex-col w-full pb-16">
+<!-- Top Command HUD: Title, Telemetry & Status Badges -->
+<div class="relative overflow-hidden bg-surface-container-low p-space-lg rounded-xl mb-space-md shadow-xl">
+<div class="absolute -right-20 -top-20 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+<div>
+<div class="flex items-center gap-space-sm mb-space-xs">
+<span class="font-data-mono text-[11px] tracking-widest text-primary uppercase">REGISTRO MILITAR // ATHLETE ROSTER</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+</div>
+<h1 class="font-headline-lg text-headline-lg tracking-tight uppercase text-on-surface">USUARIOS &amp; FIDELIDAD</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mt-0.5">
+          Control maestro de identidades, credenciales cifradas y progresión táctica según índice de permanencia de membresía.
+        </p>
+</div>
+<!-- Quick Metrics HUD -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm">
+<div class="bg-surface-container-high p-space-sm rounded-lg flex flex-col justify-between min-w-[120px]">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase">TOTAL PADRÓN</span>
+<span class="font-headline-md text-headline-md text-on-surface">1,428</span>
+<span class="font-data-mono text-[10px] text-primary">+14 esta sem</span>
+</div>
+<div class="bg-surface-container-high p-space-sm rounded-lg flex flex-col justify-between min-w-[120px]">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase">ACTIVOS</span>
+<span class="font-headline-md text-headline-md text-[#3bf589]">1,180</span>
+<span class="font-data-mono text-[10px] text-[#3bf589]">82.6% TASA</span>
+</div>
+<div class="bg-surface-container-high p-space-sm rounded-lg flex flex-col justify-between min-w-[120px]">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase">POR VENCER</span>
+<span class="font-headline-md text-headline-md text-tertiary-fixed-dim">94</span>
+<span class="font-data-mono text-[10px] text-tertiary">&lt; 10 DÍAS</span>
+</div>
+<div class="bg-surface-container-high p-space-sm rounded-lg flex flex-col justify-between min-w-[120px]">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase">VENCIDOS (&gt;30D)</span>
+<span class="font-headline-md text-headline-md text-error">154</span>
+<span class="font-data-mono text-[10px] text-error">PURGABLES</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Filter & Tactical Search Controls -->
+<div class="bg-surface-container-low p-space-md rounded-xl mb-space-md shadow-md flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md">
+<!-- Search Bar -->
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-outline-variant text-[20px]">search</span>
+<input class="w-full h-12 bg-surface-container-lowest text-on-surface pl-12 pr-space-md rounded font-body-md text-body-md placeholder:text-outline-variant placeholder:font-data-mono placeholder:text-xs focus:outline-none focus:ring-1 focus:ring-primary focus:bg-surface-container" id="tableSearchInput" placeholder="BUSCAR POR APELLIDO, NOMBRE, IDENTIFICACIÓN O @USERNAME..." type="text"/>
+<span class="material-symbols-outlined absolute right-space-md top-1/2 -translate-y-1/2 text-outline-variant text-[16px] cursor-pointer hover:text-on-surface" title="Atajo: Ctrl + K">keyboard</span>
+</div>
+<!-- Filters & Sorters -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Status Tabs -->
+<div class="flex items-center bg-surface-container-lowest p-1 rounded-lg">
+<button class="filter-tab px-space-md py-2 rounded font-label-badge text-label-badge tracking-wider uppercase transition-all bg-primary-container text-on-primary-container" id="btn-filter-all" onclick="filterStatus('all')">TODOS</button>
+<button class="filter-tab px-space-md py-2 rounded font-label-badge text-label-badge tracking-wider uppercase transition-all text-on-surface-variant hover:text-on-surface" id="btn-filter-active" onclick="filterStatus('active')">ACTIVOS</button>
+<button class="filter-tab px-space-md py-2 rounded font-label-badge text-label-badge tracking-wider uppercase transition-all text-on-surface-variant hover:text-on-surface" id="btn-filter-warning" onclick="filterStatus('warning')">POR VENCER</button>
+<button class="filter-tab px-space-md py-2 rounded font-label-badge text-label-badge tracking-wider uppercase transition-all text-on-surface-variant hover:text-on-surface" id="btn-filter-expired" onclick="filterStatus('expired')">VENCIDOS</button>
+</div>
+<!-- Sorting Pill -->
+<div class="h-12 px-space-md bg-surface-container-high rounded flex items-center gap-space-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px]">sort_by_alpha</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase">ORDEN:</span>
+<span class="font-label-badge text-label-badge text-primary tracking-wider uppercase">APELLIDOS (A → Z) ESTRICTO</span>
+</div>
+<!-- Export / Print Protocol -->
+<button class="h-12 px-space-md bg-surface-container-lowest hover:bg-surface-container-high rounded text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-space-xs font-label-badge text-label-badge tracking-wider uppercase" title="Descargar nómina táctica">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span class="hidden sm:inline">EXPORTAR CSV</span>
+</button>
+</div>
+</div>
+<!-- Roster Table Container -->
+<div class="bg-surface-container-lowest rounded-xl shadow-xl overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse" id="athleteTable">
+<thead>
+<tr class="bg-surface-container-high font-data-mono text-[11px] tracking-widest text-on-surface-variant uppercase select-none">
+<th class="py-space-md px-space-lg">APELLIDOS <span class="text-primary">↓</span></th>
+<th class="py-space-md px-space-md">NOMBRES</th>
+<th class="py-space-md px-space-md">ESTADO DE MEMBRESÍA</th>
+<th class="py-space-md px-space-md">USUARIO TÁCTICO</th>
+<th class="py-space-md px-space-md">CONTRASEÑA</th>
+<th class="py-space-md px-space-lg text-right">ACCIONES</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container font-body-md text-on-surface text-body-md" id="athleteTableBody">
+<!-- Athlete 1: Almeyda Gómez, Renzo -->
+<tr class="hover:bg-surface-container-low transition-colors athlete-row" data-search="almeyda gomez renzo @renzo.a 74892103" data-status="active">
+<td class="py-4 px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-primary-container/20 flex items-center justify-center font-headline-md text-primary">A</div>
+<div class="font-headline-md text-headline-md uppercase tracking-wider text-on-surface">Almeyda Gómez</div>
+</div>
+</td>
+<td class="py-4 px-space-md font-body-lg text-body-lg text-on-surface-variant font-medium">Renzo</td>
+<td class="py-4 px-space-md">
+<div class="inline-flex items-center gap-space-xs bg-surface-container px-space-sm py-1 rounded">
+<span class="w-2.5 h-2.5 rounded-full bg-[#3bf589] shadow-[0_0_8px_#3bf589]"></span>
+<span class="font-data-mono text-[12px] text-[#3bf589] uppercase font-semibold">ACTIVO // 6 MESES REST.</span>
+</div>
+</td>
+<td class="py-4 px-space-md font-data-mono text-primary font-medium">@renzo.a</td>
+<td class="py-4 px-space-md">
+<div class="inline-flex items-center gap-2 bg-surface-container-high px-space-sm py-1 rounded">
+<span class="font-data-mono text-xs pass-text" data-raw="RnzAlpha99!" data-revealed="false">••••••••••••</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center" onclick="togglePassword(this)" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</td>
+<td class="py-4 px-space-lg text-right">
+<div class="inline-flex items-center gap-space-xs">
+<button class="px-space-sm py-1.5 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-badge text-label-badge tracking-wider uppercase transition-all flex items-center gap-1" onclick="openEditModal('Almeyda Gómez', 'Renzo', '@renzo.a')">
+<span class="material-symbols-outlined text-[14px]">edit</span> EDITAR
+                </button>
+<button class="px-space-sm py-1.5 rounded bg-primary text-on-primary font-label-badge text-label-badge tracking-wider uppercase hover:bg-primary-fixed hover:shadow-[0_0_12px_rgba(31,113,239,0.3)] transition-all flex items-center gap-1" onclick="openDetailModal('renzo')">
+<span class="material-symbols-outlined text-[14px]">id_card</span> VER MÁS
+                </button>
+</div>
+</td>
+</tr>
+<!-- Athlete 2: Benavides Castro, Carla -->
+<tr class="hover:bg-surface-container-low transition-colors athlete-row" data-search="benavides castro carla @carla_fit 70918234" data-status="warning">
+<td class="py-4 px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-tertiary-container/20 flex items-center justify-center font-headline-md text-tertiary">B</div>
+<div class="font-headline-md text-headline-md uppercase tracking-wider text-on-surface">Benavides Castro</div>
+</div>
+</td>
+<td class="py-4 px-space-md font-body-lg text-body-lg text-on-surface-variant font-medium">Carla</td>
+<td class="py-4 px-space-md">
+<div class="inline-flex items-center gap-space-xs bg-surface-container px-space-sm py-1 rounded">
+<span class="w-2.5 h-2.5 rounded-full bg-[#f59e0b] shadow-[0_0_8px_#f59e0b]"></span>
+<span class="font-data-mono text-[12px] text-[#f59e0b] uppercase font-semibold">FALTAN 8 DÍAS</span>
+</div>
+</td>
+<td class="py-4 px-space-md font-data-mono text-primary font-medium">@carla_fit</td>
+<td class="py-4 px-space-md">
+<div class="inline-flex items-center gap-2 bg-surface-container-high px-space-sm py-1 rounded">
+<span class="font-data-mono text-xs pass-text" data-raw="PowerFit2024#" data-revealed="false">••••••••••••</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center" onclick="togglePassword(this)" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</td>
+<td class="py-4 px-space-lg text-right">
+<div class="inline-flex items-center gap-space-xs">
+<button class="px-space-sm py-1.5 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-badge text-label-badge tracking-wider uppercase transition-all flex items-center gap-1" onclick="openEditModal('Benavides Castro', 'Carla', '@carla_fit')">
+<span class="material-symbols-outlined text-[14px]">edit</span> EDITAR
+                </button>
+<button class="px-space-sm py-1.5 rounded bg-primary text-on-primary font-label-badge text-label-badge tracking-wider uppercase hover:bg-primary-fixed hover:shadow-[0_0_12px_rgba(31,113,239,0.3)] transition-all flex items-center gap-1" onclick="openDetailModal('carla')">
+<span class="material-symbols-outlined text-[14px]">id_card</span> VER MÁS
+                </button>
+</div>
+</td>
+</tr>
+<!-- Athlete 3: Guzmán Prado, Diego -->
+<tr class="hover:bg-surface-container-low transition-colors athlete-row" data-search="guzman prado diego @dguzman 72849102" data-status="active">
+<td class="py-4 px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-primary-container/20 flex items-center justify-center font-headline-md text-primary">G</div>
+<div class="font-headline-md text-headline-md uppercase tracking-wider text-on-surface">Guzmán Prado</div>
+</div>
+</td>
+<td class="py-4 px-space-md font-body-lg text-body-lg text-on-surface-variant font-medium">Diego</td>
+<td class="py-4 px-space-md">
+<div class="inline-flex items-center gap-space-xs bg-surface-container px-space-sm py-1 rounded">
+<span class="w-2.5 h-2.5 rounded-full bg-[#3bf589] shadow-[0_0_8px_#3bf589]"></span>
+<span class="font-data-mono text-[12px] text-[#3bf589] uppercase font-semibold">1 MES Y 18 DÍAS REST.</span>
+</div>
+</td>
+<td class="py-4 px-space-md font-data-mono text-primary font-medium">@dguzman</td>
+<td class="py-4 px-space-md">
+<div class="inline-flex items-center gap-2 bg-surface-container-high px-space-sm py-1 rounded">
+<span class="font-data-mono text-xs pass-text" data-raw="IronSpartan_44" data-revealed="false">••••••••••••</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center" onclick="togglePassword(this)" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</td>
+<td class="py-4 px-space-lg text-right">
+<div class="inline-flex items-center gap-space-xs">
+<button class="px-space-sm py-1.5 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-badge text-label-badge tracking-wider uppercase transition-all flex items-center gap-1" onclick="openEditModal('Guzmán Prado', 'Diego', '@dguzman')">
+<span class="material-symbols-outlined text-[14px]">edit</span> EDITAR
+                </button>
+<button class="px-space-sm py-1.5 rounded bg-primary text-on-primary font-label-badge text-label-badge tracking-wider uppercase hover:bg-primary-fixed hover:shadow-[0_0_12px_rgba(31,113,239,0.3)] transition-all flex items-center gap-1" onclick="openDetailModal('diego')">
+<span class="material-symbols-outlined text-[14px]">id_card</span> VER MÁS
+                </button>
+</div>
+</td>
+</tr>
+<!-- Athlete 4: Mejía Loyola, Andrés (Expired > 30 days) -->
+<tr class="hover:bg-surface-container-low transition-colors athlete-row bg-error-container/5" data-search="mejia loyola andres @andres_m 71220944" data-status="expired">
+<td class="py-4 px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-error-container/40 flex items-center justify-center font-headline-md text-error">M</div>
+<div class="font-headline-md text-headline-md uppercase tracking-wider text-error">Mejía Loyola</div>
+</div>
+</td>
+<td class="py-4 px-space-md font-body-lg text-body-lg text-on-surface-variant font-medium">Andrés</td>
+<td class="py-4 px-space-md">
+<div class="inline-flex items-center gap-space-xs bg-error-container/20 px-space-sm py-1 rounded">
+<span class="w-2.5 h-2.5 rounded-full bg-error shadow-[0_0_8px_#ff5449]"></span>
+<span class="font-data-mono text-[12px] text-error uppercase font-semibold">VENCIDO (HACE 45 DÍAS)</span>
+</div>
+</td>
+<td class="py-4 px-space-md font-data-mono text-on-surface-variant font-medium">@andres_m</td>
+<td class="py-4 px-space-md">
+<div class="inline-flex items-center gap-2 bg-surface-container-high px-space-sm py-1 rounded">
+<span class="font-data-mono text-xs pass-text" data-raw="TitanOldPass7" data-revealed="false">••••••••••••</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center" onclick="togglePassword(this)" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</td>
+<td class="py-4 px-space-lg text-right">
+<div class="inline-flex items-center gap-space-xs">
+<button class="px-space-sm py-1.5 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-badge text-label-badge tracking-wider uppercase transition-all flex items-center gap-1" onclick="openEditModal('Mejía Loyola', 'Andrés', '@andres_m')">
+<span class="material-symbols-outlined text-[14px]">edit</span> EDITAR
+                </button>
+<button class="px-space-sm py-1.5 rounded bg-tertiary-container text-on-tertiary-container font-label-badge text-label-badge tracking-wider uppercase hover:opacity-90 hover:shadow-[0_0_12px_rgba(199,83,2,0.3)] transition-all flex items-center gap-1" onclick="openDetailModal('andres')">
+<span class="material-symbols-outlined text-[14px]">id_card</span> VER MÁS
+                </button>
+</div>
+</td>
+</tr>
+<!-- Athlete 5: Valdivia Roca, Mateo -->
+<tr class="hover:bg-surface-container-low transition-colors athlete-row" data-search="valdivia roca mateo @mateo_val 76041928" data-status="active">
+<td class="py-4 px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-primary-container/20 flex items-center justify-center font-headline-md text-primary">V</div>
+<div class="font-headline-md text-headline-md uppercase tracking-wider text-on-surface">Valdivia Roca</div>
+</div>
+</td>
+<td class="py-4 px-space-md font-body-lg text-body-lg text-on-surface-variant font-medium">Mateo</td>
+<td class="py-4 px-space-md">
+<div class="inline-flex items-center gap-space-xs bg-surface-container px-space-sm py-1 rounded">
+<span class="w-2.5 h-2.5 rounded-full bg-[#3bf589] shadow-[0_0_8px_#3bf589]"></span>
+<span class="font-data-mono text-[12px] text-[#3bf589] uppercase font-semibold">ACTIVO // 3 MESES REST.</span>
+</div>
+</td>
+<td class="py-4 px-space-md font-data-mono text-primary font-medium">@mateo_val</td>
+<td class="py-4 px-space-md">
+<div class="inline-flex items-center gap-2 bg-surface-container-high px-space-sm py-1 rounded">
+<span class="font-data-mono text-xs pass-text" data-raw="ValdiviaRox_88" data-revealed="false">••••••••••••</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center" onclick="togglePassword(this)" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</td>
+<td class="py-4 px-space-lg text-right">
+<div class="inline-flex items-center gap-space-xs">
+<button class="px-space-sm py-1.5 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-badge text-label-badge tracking-wider uppercase transition-all flex items-center gap-1" onclick="openEditModal('Valdivia Roca', 'Mateo', '@mateo_val')">
+<span class="material-symbols-outlined text-[14px]">edit</span> EDITAR
+                </button>
+<button class="px-space-sm py-1.5 rounded bg-primary text-on-primary font-label-badge text-label-badge tracking-wider uppercase hover:bg-primary-fixed hover:shadow-[0_0_12px_rgba(31,113,239,0.3)] transition-all flex items-center gap-1" onclick="openDetailModal('mateo')">
+<span class="material-symbols-outlined text-[14px]">id_card</span> VER MÁS
+                </button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Telemetry Bar -->
+<div class="bg-surface-container-low px-space-lg py-3 flex flex-col sm:flex-row items-center justify-between gap-space-sm border-t border-surface-container">
+<div class="flex items-center gap-space-sm font-data-mono text-xs text-on-surface-variant">
+<span>MOSTRANDO 5 DE 1,428 ATLETAS REGISTRADOS</span>
+<span>•</span>
+<span class="text-primary">ORDENAMIENTO ESTRICTO A-Z ACTIVO</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="px-2 py-1 rounded bg-surface-container text-on-surface-variant hover:text-on-surface font-data-mono text-xs disabled:opacity-30" disabled="">&lt;&lt;</button>
+<span class="px-3 py-1 rounded bg-primary-container text-on-primary-container font-data-mono text-xs">PÁG 01 / 286</span>
+<button class="px-2 py-1 rounded bg-surface-container text-on-surface-variant hover:text-on-surface font-data-mono text-xs">&gt;&gt;</button>
+</div>
+</div>
+</div>
+<!-- Gamification Level Reference Infobar (According to SDD) -->
+<div class="mt-space-lg bg-surface-container-low p-space-md rounded-xl">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">workspace_premium</span>
+<span class="font-data-mono text-[11px] tracking-widest uppercase text-on-surface">ESCALAFÓN DE FIDELIDAD TÁCTICA // SDD STANDARD</span>
+</div>
+<span class="font-data-mono text-[10px] text-error uppercase font-semibold">PENALIZACIÓN: REINICIO A 'NOVATO' SI HAY 2 SEMANAS DE IMPAGO</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-space-xs text-center font-data-mono">
+<div class="p-2 rounded bg-surface-container-high">
+<p class="text-[10px] text-outline">NIVEL 01</p>
+<p class="font-label-badge text-xs uppercase text-on-surface font-bold">NOVATO</p>
+<p class="text-[9px] text-on-surface-variant">&lt; 1 MES</p>
+</div>
+<div class="p-2 rounded bg-surface-container-high">
+<p class="text-[10px] text-outline">NIVEL 02</p>
+<p class="font-label-badge text-xs uppercase text-on-surface font-bold">PRINCIPIANTE</p>
+<p class="text-[9px] text-on-surface-variant">1 - 3 MESES</p>
+</div>
+<div class="p-2 rounded bg-surface-container-high">
+<p class="text-[10px] text-outline">NIVEL 03</p>
+<p class="font-label-badge text-xs uppercase text-on-surface font-bold">PROMEDIO</p>
+<p class="text-[9px] text-on-surface-variant">3 - 5 MESES</p>
+</div>
+<div class="p-2 rounded bg-surface-container-high">
+<p class="text-[10px] text-outline">NIVEL 04</p>
+<p class="font-label-badge text-xs uppercase text-on-surface font-bold">EN PROGRESO</p>
+<p class="text-[9px] text-on-surface-variant">5 - 8 MESES</p>
+</div>
+<div class="p-2 rounded bg-surface-container-high ring-1 ring-primary/40">
+<p class="text-[10px] text-primary">NIVEL 05</p>
+<p class="font-label-badge text-xs uppercase text-primary font-bold">MUTANDO</p>
+<p class="text-[9px] text-on-surface-variant">8 - 12 MESES</p>
+</div>
+<div class="p-2 rounded bg-surface-container-high">
+<p class="text-[10px] text-outline">NIVEL 06</p>
+<p class="font-label-badge text-xs uppercase text-on-surface font-bold">MAMADO/A</p>
+<p class="text-[9px] text-on-surface-variant">1 - 2 AÑOS</p>
+</div>
+<div class="p-2 rounded bg-surface-container-high">
+<p class="text-[10px] text-outline">NIVEL 07</p>
+<p class="font-label-badge text-xs uppercase text-on-surface font-bold">DIOS/A GRIEGO</p>
+<p class="text-[9px] text-on-surface-variant">2 - 4 AÑOS</p>
+</div>
+<div class="p-2 rounded bg-surface-container-high bg-gradient-to-t from-primary/20 to-surface-container-high">
+<p class="text-[10px] text-[#3bf589]">NIVEL APEX</p>
+<p class="font-label-badge text-xs uppercase text-[#3bf589] font-bold">ANIMAL</p>
+<p class="text-[9px] text-on-surface-variant">&gt; 4 AÑOS</p>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- MODAL: CARNET DIGITAL MILITAR / ATHLETE TAC-ID (VER MÁS)                  -->
+<!-- ========================================================================= -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-space-md bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-200" id="tacIdModal">
+<div class="relative w-full max-w-2xl bg-surface-container-lowest rounded-xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-200" id="tacIdCard">
+<!-- Top Hologram Banner -->
+<div class="bg-gradient-to-r from-surface-container-highest via-surface-container-high to-surface-container-highest px-space-lg py-3 flex items-center justify-between border-b border-surface-container">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[22px]">badge</span>
+<div>
+<span class="font-data-mono text-[10px] tracking-widest text-primary uppercase block">GYMCORE TACTICAL NETWORK // IDENTIFICACIÓN OFICIAL</span>
+<span class="font-headline-md text-sm uppercase tracking-wider text-on-surface font-bold" id="cardDocType">PASAPORTE TÁCTICO DE ATLETA</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded bg-surface-container hover:bg-surface-bright flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" onclick="closeDetailModal()">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Card Body Content -->
+<div class="p-space-lg space-y-space-md">
+<!-- Identity Header (Photo + Names + Telemetry) -->
+<div class="flex flex-col sm:flex-row gap-space-md items-start sm:items-center bg-surface-container-low p-space-md rounded-xl">
+<!-- Tactical Avatar with Frame -->
+<div class="relative flex-shrink-0">
+<div class="w-24 h-24 rounded-lg overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="High-contrast athletic black and white headshot of a disciplined fitness athlete looking directly at the camera with dramatic rim lighting and obsidian background" id="cardAvatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd8rhpdp6z8wewGXsFi4Z2QjoLVyxvFwg5Zi8O1bWN2iCziEE_4Kj2ytmR3PpSJgbt8mAN-8ZPhoqC9oRWzcEYPKbSrpN78WbO8_K_y7rIUd-DPEir9yshKw828ITdJs4xNKDP0nqD64nlIYaaqL_UQ38ptNsmpOtolkye8Tw0Ot4kYAWS41CuzQDIMuSxB63mv_E4HMzWTKwgMwJQNp6JJ3u9ech5fB7w1T7puzcKHiDxG0SpkBk"/>
+</div>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-[#3bf589] ring-2 ring-surface-container-lowest" id="cardStatusPip"></div>
+</div>
+<!-- Bio Strings -->
+<div class="flex-1 min-w-0">
+<div class="flex flex-wrap items-center gap-space-xs mb-1">
+<span class="font-data-mono text-sm text-primary font-semibold" id="cardUsername">@dguzman</span>
+<span class="text-outline-variant font-data-mono text-xs">•</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase">ID OPERATIVO:</span>
+<span class="font-data-mono text-[11px] text-on-surface font-bold tracking-wider" id="cardDni">72849102</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg uppercase tracking-tight text-on-surface leading-none truncate" id="cardFullName">
+              Guzmán Prado, Diego
+            </h2>
+<div class="mt-2 flex flex-wrap items-center gap-space-md text-xs font-data-mono text-on-surface-variant">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary">smartphone</span>
+<span id="cardPhone">+51 987 654 321</span>
+</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary">pin_drop</span>
+                SEDE SURCO CENTRAL
+              </span>
+</div>
+</div>
+</div>
+<!-- Metric 1: Remaining Time Badge (Dynamic SDD Rules) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<!-- Time Remaining Card -->
+<div class="bg-surface-container-high p-space-md rounded-lg flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase">VIGENCIA RESTANTE DE MEMBRESÍA</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">hourglass_bottom</span>
+</div>
+<!-- Dynamic Badges: Rojo <10d, Naranja 10-30d, Verde >1m -->
+<div class="my-1" id="cardBadgeTimeContainer">
+<span class="inline-block px- space-sm py-1 rounded bg-[#3bf589]/20 text-[#3bf589] font-data-mono text-sm font-bold tracking-wider" id="cardBadgeTime">
+                1 MES Y 18 DÍAS RESTANTES
+              </span>
+</div>
+<span class="font-data-mono text-[10px] text-on-surface-variant mt-1" id="cardRenewNotice">
+              Plan Anual Titanium • Vence: 18 Noviembre 2024
+            </span>
+</div>
+<!-- Routine Assigned -->
+<div class="bg-surface-container-high p-space-md rounded-lg flex flex-col justify-between">
+<div class="flex items-center justify-between mb-1">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase">RUTINA ACTUAL ASIGNADA</span>
+<span class="material-symbols-outlined text-[16px] text-primary">fitness_center</span>
+</div>
+<p class="font-headline-md text-base text-on-surface uppercase tracking-wide my-1" id="cardRoutine">
+              HIPERTROFIA &amp; FUERZA - PUSH DAY
+            </p>
+<div class="flex items-center gap-1 text-[11px] font-data-mono text-primary">
+<span class="material-symbols-outlined text-[14px]">sports</span>
+<span id="cardCoach">Coach M. Navarro</span>
+</div>
+</div>
+</div>
+<!-- Gamification Fidelity Ladder (SDD Strict) -->
+<div class="bg-surface-container-high p-space-md rounded-lg space-y-space-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">military_tech</span>
+<span class="font-data-mono text-xs tracking-wider text-on-surface-variant uppercase">ESCALAFÓN DE FIDELIDAD TÁCTICA:</span>
+</div>
+<!-- Dynamic Active Level Badge -->
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-primary-container text-on-primary-container font-headline-md text-xs uppercase tracking-widest font-black shadow-[0_0_12px_rgba(31,113,239,0.4)]" id="cardFidelityBadge">
+              NIVEL: MUTANDO (9 MESES DE CONSTANCIA)
+            </div>
+</div>
+<!-- Progress Bar to Next Level -->
+<div>
+<div class="flex justify-between items-center text-[10px] font-data-mono text-on-surface-variant mb-1">
+<span id="cardFidelityPrev">MUTANDO (8-12m)</span>
+<span class="text-primary font-bold" id="cardFidelityNext">SIGUIENTE ESCALÓN: 'MAMADO/A' (12m+)</span>
+</div>
+<div class="w-full h-2.5 bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-500" id="cardFidelityBar" style="width: 75%;"></div>
+</div>
+</div>
+<!-- Warning Penalization Note from SDD -->
+<div class="p-2 rounded bg-error-container/20 flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-error text-[16px] flex-shrink-0 mt-0.5">warning</span>
+<p class="font-data-mono text-[11px] text-error leading-tight">
+              NOTA DE PENALIZACIÓN: Se reinicia automáticamente a <strong class="font-bold underline">NOVATO</strong> si hay 2 semanas de impago tras la fecha de caducidad.
+            </p>
+</div>
+</div>
+</div>
+<!-- Modal Action Bar & Delete Button (SDD: Enabled only if >1 month expired) -->
+<div class="bg-surface-container-low px-space-lg py-space-md flex flex-col sm:flex-row items-center justify-between gap-space-md border-t border-surface-container">
+<!-- Delete Button with Strict SDD Logic Indicator -->
+<div>
+<button class="w-full sm:w-auto px-space-md py-2.5 rounded font-label-badge text-label-badge tracking-wider uppercase transition-all flex items-center justify-center gap-2" id="cardDeleteBtn">
+<span class="material-symbols-outlined text-[16px]">delete_forever</span>
+<span id="cardDeleteText">ELIMINAR USUARIO DE LA BASE DE DATOS</span>
+</button>
+<p class="font-data-mono text-[9px] text-on-surface-variant mt-1 text-center sm:text-left" id="cardDeleteHelper">
+            * Protocolo de purga activo únicamente para cuentas con &gt;30 días de caducidad.
+          </p>
+</div>
+<div class="flex items-center gap-space-xs w-full sm:w-auto">
+<button class="flex-1 sm:flex-none px-space-md py-2.5 rounded bg-surface-container hover:bg-surface-bright text-on-surface font-label-badge text-label-badge tracking-wider uppercase transition-colors" onclick="closeDetailModal()">
+            CERRAR
+          </button>
+<button class="flex-1 sm:flex-none px-space-md py-2.5 rounded bg-primary text-on-primary font-label-badge text-label-badge tracking-wider uppercase hover:bg-primary-fixed transition-colors flex items-center justify-center gap-1 shadow-md">
+<span class="material-symbols-outlined text-[16px]">print</span> IMPRIMIR CARNET
+          </button>
+</div>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- MODAL: EDITAR USUARIO (CORRECCIÓN RÁPIDA DE ERRORES)                      -->
+<!-- ========================================================================= -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-space-md bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-200" id="editUserModal">
+<div class="relative w-full max-w-lg bg-surface-container-lowest rounded-xl shadow-2xl overflow-hidden p-space-lg">
+<div class="flex items-center justify-between pb-space-sm border-b border-surface-container mb-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">manage_accounts</span>
+<h3 class="font-headline-md text-headline-md uppercase text-on-surface">CORRECCIÓN DE DATOS DE ATLETA</h3>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface" onclick="closeEditModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<form class="space-y-space-md" id="editForm" onsubmit="saveEditModal(event)">
+<div>
+<label class="block font-data-mono text-[11px] uppercase text-on-surface-variant mb-1">Apellidos Completos</label>
+<input class="w-full h-11 bg-surface-container-high px-space-md rounded text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary uppercase" id="editApellidos" required="" type="text"/>
+</div>
+<div>
+<label class="block font-data-mono text-[11px] uppercase text-on-surface-variant mb-1">Nombres</label>
+<input class="w-full h-11 bg-surface-container-high px-space-md rounded text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary" id="editNombres" required="" type="text"/>
+</div>
+<div>
+<label class="block font-data-mono text-[11px] uppercase text-on-surface-variant mb-1">Identificador @Username</label>
+<input class="w-full h-11 bg-surface-container-high px-space-md rounded text-on-surface font-data-mono text-body-md focus:outline-none focus:ring-1 focus:ring-primary" id="editUsername" required="" type="text"/>
+</div>
+<div>
+<label class="block font-data-mono text-[11px] uppercase text-on-surface-variant mb-1">Nueva Contraseña (Dejar en blanco para mantener actual)</label>
+<input class="w-full h-11 bg-surface-container-high px-space-md rounded text-on-surface font-data-mono text-body-md focus:outline-none focus:ring-1 focus:ring-primary" id="editPassword" placeholder="••••••••••••" type="password"/>
+</div>
+<div class="pt-space-sm flex items-center justify-end gap-space-xs">
+<button class="px-space-md py-2.5 rounded bg-surface-container hover:bg-surface-bright text-on-surface font-label-badge text-label-badge tracking-wider uppercase" onclick="closeEditModal()" type="button">
+            CANCELAR
+          </button>
+<button class="px-space-md py-2.5 rounded bg-primary text-on-primary font-label-badge text-label-badge tracking-wider uppercase hover:bg-primary-fixed" type="submit">
+            GUARDAR CAMBIOS
+          </button>
+</div>
+</form>
+</div>
+</div>
+<!-- Confirmation Toast Alert -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-surface-container-high p-space-md rounded-lg shadow-2xl border-l-4 border-primary flex items-center gap-space-sm" id="tacToast">
+<span class="material-symbols-outlined text-primary text-[24px]">verified</span>
+<div>
+<p class="font-headline-md text-sm uppercase text-on-surface" id="toastTitle">ACCIÓN COMPLETADA</p>
+<p class="font-data-mono text-xs text-on-surface-variant" id="toastMessage">Operación registrada en el terminal central.</p>
+</div>
+</div>
+</div>
+<!-- Interactive Terminal Scripts -->
+<script>
+  // Dataset of Athlete Profiles for Detailed Identity Dossier
+  const ATHLETES_DB = {
+    renzo: {
+      fullName: "Almeyda Gómez, Renzo",
+      username: "@renzo.a",
+      dni: "74892103",
+      phone: "+51 912 345 678",
+      status: "active",
+      timeLabel: "6 MESES Y 12 DÍAS RESTANTES",
+      badgeColorClass: "bg-[#3bf589]/20 text-[#3bf589]",
+      pipColorClass: "bg-[#3bf589]",
+      renewNotice: "Plan Semestral Power • Vence: 14 Marzo 2025",
+      fidelityLevel: "MUTANDO (11 MESES DE CONSTANCIA)",
+      fidelityPrev: "MUTANDO (8-12m)",
+      fidelityNext: "SIGUIENTE ESCALÓN: 'MAMADO/A' (12m+)",
+      fidelityProgress: "90%",
+      routine: "FUERZA Y POTENCIA - PULL & CORE",
+      coach: "Coach M. Navarro",
+      canDelete: false
+    },
+    carla: {
+      fullName: "Benavides Castro, Carla",
+      username: "@carla_fit",
+      dni: "70918234",
+      phone: "+51 945 889 012",
+      status: "warning",
+      timeLabel: "FALTAN 8 DÍAS (CRÍTICO)",
+      badgeColorClass: "bg-[#f59e0b]/20 text-[#f59e0b]",
+      pipColorClass: "bg-[#f59e0b]",
+      renewNotice: "Plan Mensual Classic • Vence: 28 Octubre 2024",
+      fidelityLevel: "EN PROGRESO (6 MESES DE CONSTANCIA)",
+      fidelityPrev: "EN PROGRESO (5-8m)",
+      fidelityNext: "SIGUIENTE ESCALÓN: 'MUTANDO' (8m+)",
+      fidelityProgress: "60%",
+      routine: "GLÚTEOS & CONDICIONAMIENTO FUNCIONAL",
+      coach: "Coach Valeria R.",
+      canDelete: false
+    },
+    diego: {
+      fullName: "Guzmán Prado, Diego",
+      username: "@dguzman",
+      dni: "72849102",
+      phone: "+51 987 654 321",
+      status: "active",
+      timeLabel: "1 MES Y 18 DÍAS RESTANTES",
+      badgeColorClass: "bg-[#3bf589]/20 text-[#3bf589]",
+      pipColorClass: "bg-[#3bf589]",
+      renewNotice: "Plan Trimestral Titan • Vence: 08 Diciembre 2024",
+      fidelityLevel: "MUTANDO (9 MESES DE CONSTANCIA)",
+      fidelityPrev: "MUTANDO (8-12m)",
+      fidelityNext: "SIGUIENTE ESCALÓN: 'MAMADO/A' (12m+)",
+      fidelityProgress: "75%",
+      routine: "HIPERTROFIA & FUERZA - PUSH DAY",
+      coach: "Coach M. Navarro",
+      canDelete: false
+    },
+    andres: {
+      fullName: "Mejía Loyola, Andrés",
+      username: "@andres_m",
+      dni: "71220944",
+      phone: "+51 954 112 309",
+      status: "expired",
+      timeLabel: "VENCIDO HACE 45 DÍAS (>1 MES)",
+      badgeColorClass: "bg-error-container/40 text-error",
+      pipColorClass: "bg-error",
+      renewNotice: "CADUCADO: 05 Septiembre 2024 • Sin respuesta a llamadas de retención",
+      fidelityLevel: "NOVATO (PENALIZADO POR MORA >2 SEMANAS)",
+      fidelityPrev: "REINICIADO A NOVATO",
+      fidelityNext: "REQUIERE PAGO PARA SUBIR A 'PRINCIPIANTE'",
+      fidelityProgress: "5%",
+      routine: "SIN ASIGNACIÓN ACTIVA // EXPIRADO",
+      coach: "No asignado",
+      canDelete: true // Strictly allowed per SDD (>1 month overdue)
+    },
+    mateo: {
+      fullName: "Valdivia Roca, Mateo",
+      username: "@mateo_val",
+      dni: "76041928",
+      phone: "+51 933 445 771",
+      status: "active",
+      timeLabel: "3 MESES Y 04 DÍAS RESTANTES",
+      badgeColorClass: "bg-[#3bf589]/20 text-[#3bf589]",
+      pipColorClass: "bg-[#3bf589]",
+      renewNotice: "Plan Semestral Apex • Vence: 24 Enero 2025",
+      fidelityLevel: "MAMADO/A (1 AÑO Y 4 MESES)",
+      fidelityPrev: "MAMADO/A (1-2 AÑOS)",
+      fidelityNext: "SIGUIENTE ESCALÓN: 'DIOS GRIEGO' (2 AÑOS+)",
+      fidelityProgress: "45%",
+      routine: "POWERBUILDING AVANZADO - HEAVY SQUAT",
+      coach: "Coach K. Commander",
+      canDelete: false
+    }
+  };
+
+  // Toggle Password Masking with feedback
+  function togglePassword(btn) {
+    const parent = btn.parentElement;
+    const passText = parent.querySelector('.pass-text');
+    const isRevealed = passText.getAttribute('data-revealed') === 'true';
+    const rawValue = passText.getAttribute('data-raw');
+
+    if (isRevealed) {
+      passText.textContent = '••••••••••••';
+      passText.setAttribute('data-revealed', 'false');
+      btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">visibility</span>';
+    } else {
+      passText.textContent = rawValue;
+      passText.setAttribute('data-revealed', 'true');
+      btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">visibility_off</span>';
+    }
+  }
+
+  // Filter Table by Status
+  function filterStatus(status) {
+    const rows = document.querySelectorAll('.athlete-row');
+    const tabs = document.querySelectorAll('.filter-tab');
+
+    // Update Tab Styles
+    tabs.forEach(tab => {
+      tab.classList.remove('bg-primary-container', 'text-on-primary-container');
+      tab.classList.add('text-on-surface-variant');
+    });
+
+    const activeTab = document.getElementById(`btn-filter-${status}`);
+    if (activeTab) {
+      activeTab.classList.add('bg-primary-container', 'text-on-primary-container');
+      activeTab.classList.remove('text-on-surface-variant');
+    }
+
+    // Filter Rows
+    rows.forEach(row => {
+      const rowStatus = row.getAttribute('data-status');
+      if (status === 'all' || rowStatus === status) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+
+  // Realtime Search Filter
+  document.getElementById('tableSearchInput').addEventListener('input', function(e) {
+    const query = e.target.value.toLowerCase().trim();
+    const rows = document.querySelectorAll('.athlete-row');
+    rows.forEach(row => {
+      const haystack = row.getAttribute('data-search').toLowerCase();
+      if (haystack.includes(query)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+
+  // Open 'VER MÁS' Identity Card Modal
+  function openDetailModal(key) {
+    const data = ATHLETES_DB[key];
+    if (!data) return;
+
+    // Populate Fields
+    document.getElementById('cardFullName').textContent = data.fullName;
+    document.getElementById('cardUsername').textContent = data.username;
+    document.getElementById('cardDni').textContent = data.dni;
+    document.getElementById('cardPhone').textContent = data.phone;
+    
+    // Remaining Time Badge
+    const timeBadge = document.getElementById('cardBadgeTime');
+    timeBadge.className = `inline-block px-space-sm py-1 rounded font-data-mono text-sm font-bold tracking-wider ${data.badgeColorClass}`;
+    timeBadge.textContent = data.timeLabel;
+    
+    document.getElementById('cardRenewNotice').textContent = data.renewNotice;
+    document.getElementById('cardRoutine').textContent = data.routine;
+    document.getElementById('cardCoach').textContent = data.coach;
+
+    // Pip on avatar
+    const pip = document.getElementById('cardStatusPip');
+    pip.className = `absolute -bottom-1 -right-1 w-4 h-4 rounded-full ring-2 ring-surface-container-lowest ${data.pipColorClass}`;
+
+    // Fidelity Progression
+    document.getElementById('cardFidelityBadge').textContent = `NIVEL: ${data.fidelityLevel}`;
+    document.getElementById('cardFidelityPrev').textContent = data.fidelityPrev;
+    document.getElementById('cardFidelityNext').textContent = data.fidelityNext;
+    document.getElementById('cardFidelityBar').style.width = data.fidelityProgress;
+
+    // Delete Button Logic (Strict SDD implementation)
+    const delBtn = document.getElementById('cardDeleteBtn');
+    const delText = document.getElementById('cardDeleteText');
+    const delHelper = document.getElementById('cardDeleteHelper');
+
+    if (data.canDelete) {
+      // Active and functional for users with >1 month overdue
+      delBtn.disabled = false;
+      delBtn.className = "w-full sm:w-auto px-space-md py-2.5 rounded font-label-badge text-label-badge tracking-wider uppercase transition-all flex items-center justify-center gap-2 bg-error text-on-error hover:bg-error-container hover:text-on-error-container shadow-[0_0_16px_rgba(255,84,73,0.35)] cursor-pointer";
+      delText.textContent = "ELIMINAR USUARIO DE LA BASE DE DATOS";
+      delHelper.innerHTML = "<span class='text-error font-bold'>USUARIO CUMPLE CONDICIÓN (&gt;30 DÍAS DE MORA). PROTOCOLO HABILITADO.</span>";
+      delBtn.onclick = function() {
+        if (confirm(`¿CONFIRMAR PURGA MILITAR? Se eliminará a ${data.fullName} permanentemente de la base de datos GymCore.`)) {
+          closeDetailModal();
+          triggerToast("USUARIO ELIMINADO", `${data.fullName} ha sido removido del sistema.`);
+        }
+      };
+    } else {
+      // Disabled / Locked for active or recent users
+      delBtn.disabled = true;
+      delBtn.className = "w-full sm:w-auto px-space-md py-2.5 rounded font-label-badge text-label-badge tracking-wider uppercase transition-all flex items-center justify-center gap-2 bg-surface-container-high text-outline cursor-not-allowed opacity-50";
+      delText.textContent = "ELIMINAR BLOQUEADO (MEMBRESÍA ACTIVA)";
+      delHelper.innerHTML = "* Solo habilitado cuando el usuario supera más de 1 mes de vencimiento sin renovar.";
+      delBtn.onclick = null;
+    }
+
+    // Show Modal with Animation
+    const modal = document.getElementById('tacIdModal');
+    const card = document.getElementById('tacIdCard');
+    modal.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      modal.classList.remove('opacity-0');
+      card.classList.remove('scale-95');
+      card.classList.add('scale-100');
+    });
+  }
+
+  function closeDetailModal() {
+    const modal = document.getElementById('tacIdModal');
+    const card = document.getElementById('tacIdCard');
+    modal.classList.add('opacity-0');
+    card.classList.remove('scale-100');
+    card.classList.add('scale-95');
+    setTimeout(() => {
+      modal.classList.add('hidden');
+    }, 200);
+  }
+
+  // Open Edit Modal
+  function openEditModal(apellidos, nombres, username) {
+    document.getElementById('editApellidos').value = apellidos;
+    document.getElementById('editNombres').value = nombres;
+    document.getElementById('editUsername').value = username;
+    document.getElementById('editPassword').value = '';
+
+    const modal = document.getElementById('editUserModal');
+    modal.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      modal.classList.remove('opacity-0');
+    });
+  }
+
+  function closeEditModal() {
+    const modal = document.getElementById('editUserModal');
+    modal.classList.add('opacity-0');
+    setTimeout(() => {
+      modal.classList.add('hidden');
+    }, 200);
+  }
+
+  function saveEditModal(e) {
+    e.preventDefault();
+    closeEditModal();
+    triggerToast("REGISTRO ACTUALIZADO", "Los datos del atleta se han sincronizado en GymCore.");
+  }
+
+  // Tactical Toast Notification
+  function triggerToast(title, message) {
+    const toast = document.getElementById('tacToast');
+    document.getElementById('toastTitle').textContent = title;
+    document.getElementById('toastMessage').textContent = message;
+
+    toast.classList.remove('translate-y-20', 'opacity-0');
+    setTimeout(() => {
+      toast.classList.add('translate-y-20', 'opacity-0');
+    }, 3800);
+  }
+
+  // Close modals on backdrop click or ESC key
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeDetailModal();
+      closeEditModal();
+    }
+  });
+
+  document.getElementById('tacIdModal').addEventListener('click', (e) => {
+    if (e.target.id === 'tacIdModal') closeDetailModal();
+  });
+
+  document.getElementById('editUserModal').addEventListener('click', (e) => {
+    if (e.target.id === 'editUserModal') closeEditModal();
+  });
+</script></main></div></body></html>

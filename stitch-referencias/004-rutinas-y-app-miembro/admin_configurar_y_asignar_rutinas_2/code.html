@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,800&amp;family=Chivo:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "primary-container": "#1f71ef",
+          "primary-fixed": "#d9e2ff",
+          "surface-tint": "#afc6ff",
+          "tertiary-container": "#c75302",
+          "surface-container-highest": "#31353d",
+          "on-primary-container": "#000414",
+          "surface-dim": "#10131a",
+          "inverse-on-surface": "#2d3038",
+          "on-error-container": "#ffdad6",
+          "secondary-fixed": "#d9e2ff",
+          "tertiary-fixed": "#ffdbcc",
+          "error": "#ffb4ab",
+          "surface": "#10131a",
+          "outline": "#8c90a0",
+          "surface-container": "#1c2027",
+          "outline-variant": "#424754",
+          "on-surface-variant": "#c2c6d7",
+          "surface-variant": "#31353d",
+          "on-tertiary-fixed-variant": "#7a3000",
+          "on-background": "#e0e2ec",
+          "on-secondary-fixed": "#001944",
+          "on-surface": "#e0e2ec",
+          "surface-bright": "#363941",
+          "primary-fixed-dim": "#afc6ff",
+          "tertiary-fixed-dim": "#ffb693",
+          "secondary-fixed-dim": "#afc6ff",
+          "inverse-surface": "#e0e2ec",
+          "on-secondary": "#142f5f",
+          "surface-container-high": "#272a32",
+          "on-tertiary-fixed": "#351000",
+          "background": "#10131a",
+          "tertiary": "#ffb693",
+          "on-primary": "#002d6d",
+          "on-secondary-fixed-variant": "#2e4677",
+          "surface-container-low": "#181c23",
+          "on-primary-fixed": "#001944",
+          "on-tertiary": "#561f00",
+          "inverse-primary": "#0059c8",
+          "on-tertiary-container": "#ffffff",
+          "on-error": "#690005",
+          "on-primary-fixed-variant": "#004299",
+          "surface-container-lowest": "#0b0e15",
+          "primary": "#afc6ff",
+          "secondary-container": "#30487a",
+          "error-container": "#93000a",
+          "secondary": "#afc6ff",
+          "on-secondary-container": "#a1b8f1"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "gutter-mobile": "0.75rem",
+          "gutter": "1rem",
+          "margin": "2rem",
+          "space-lg": "1.5rem",
+          "space-md": "1rem",
+          "margin-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "space-xl": "2.5rem",
+          "space-sm": "0.5rem"
+        },
+        "fontFamily": {
+          "display-hero-mobile": [
+            "Barlow Condensed"
+          ],
+          "label-badge": [
+            "Barlow Condensed"
+          ],
+          "display-hero": [
+            "Barlow Condensed"
+          ],
+          "body-sm": [
+            "Chivo"
+          ],
+          "metric-huge": [
+            "Barlow Condensed"
+          ],
+          "body-md": [
+            "Chivo"
+          ],
+          "headline-md": [
+            "Barlow Condensed"
+          ],
+          "body-lg": [
+            "Chivo"
+          ],
+          "headline-lg": [
+            "Barlow Condensed"
+          ],
+          "data-mono": [
+            "JetBrains Mono"
+          ],
+          "headline-lg-mobile": [
+            "Barlow Condensed"
+          ],
+          "metric-huge-mobile": [
+            "Barlow Condensed"
+          ]
+        },
+        "fontSize": {
+          "display-hero-mobile": [
+            "40px",
+            {
+              "lineHeight": "42px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "800"
+            }
+          ],
+          "label-badge": [
+            "14px",
+            {
+              "lineHeight": "16px",
+              "letterSpacing": "0.08em",
+              "fontWeight": "800"
+            }
+          ],
+          "display-hero": [
+            "56px",
+            {
+              "lineHeight": "56px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "800"
+            }
+          ],
+          "body-sm": [
+            "13px",
+            {
+              "lineHeight": "18px",
+              "fontWeight": "400"
+            }
+          ],
+          "metric-huge": [
+            "64px",
+            {
+              "lineHeight": "64px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "800"
+            }
+          ],
+          "body-md": [
+            "15px",
+            {
+              "lineHeight": "22px",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-md": [
+            "24px",
+            {
+              "lineHeight": "28px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "body-lg": [
+            "18px",
+            {
+              "lineHeight": "26px",
+              "fontWeight": "500"
+            }
+          ],
+          "headline-lg": [
+            "36px",
+            {
+              "lineHeight": "40px",
+              "letterSpacing": "0.03em",
+              "fontWeight": "700"
+            }
+          ],
+          "data-mono": [
+            "14px",
+            {
+              "lineHeight": "18px",
+              "letterSpacing": "0.05em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-lg-mobile": [
+            "28px",
+            {
+              "lineHeight": "32px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "metric-huge-mobile": [
+            "48px",
+            {
+              "lineHeight": "48px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "800"
+            }
+          ]
+        }
+      },
+    },
+  }</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary selection:text-on-primary"><header class="fixed top-0 left-0 right-0 h-16 z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.5)]"><div class="w-full h-full px-gutter flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-[24px]">fitness_center</span><span class="font-headline-md text-headline-md tracking-wider uppercase text-on-surface">GYMCORE <span class="text-primary">//</span> ADMIN MASTER SUITE</span></div><span class="px-space-sm py-0.5 rounded bg-error-container text-on-error font-label-badge text-label-badge tracking-widest uppercase">SUPERADMIN</span></div><div class="flex items-center gap-space-lg"><div class="hidden xl:flex items-center gap-space-sm bg-surface-container px-space-sm py-1 rounded"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-data-mono text-data-mono text-on-surface-variant uppercase">SYS_ONLINE : 99.98%</span></div><div class="hidden md:flex items-center gap-space-xs font-data-mono text-data-mono text-primary bg-surface-container-high px-space-md py-1 rounded"><span class="material-symbols-outlined text-[16px]">schedule</span><span id="system-clock">23:42:10 UTC</span></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="text-right hidden sm:block"><p class="font-label-badge text-label-badge uppercase leading-none text-on-surface">Commander.K</p><p class="font-data-mono text-[11px] leading-tight text-on-surface-variant">ROOT_ACCESS</p></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><aside class="fixed left-0 top-16 bottom-0 w-72 bg-surface-container-lowest z-40 flex flex-col justify-between py-space-md shadow-[1px_0_12px_rgba(0,0,0,0.4)]"><div class="flex flex-col gap-space-md"><div class="px-space-lg"><p class="font-data-mono text-[11px] tracking-widest uppercase text-on-surface-variant">NÚCLEO TÁCTICO // RUTAS</p></div><nav class="flex flex-col gap-space-xs px-space-sm" data-active-classes="bg-primary-container text-on-primary-container font-headline-md shadow-[0_0_16px_rgba(31,113,239,0.25)]"><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="dashboard-principal" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Dashboard Principal</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="lista-de-cambios-y-aprobaciones" href="#"><span class="material-symbols-outlined text-[20px]">verified_user</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Cambios &amp; Aprobaciones</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="gestion-de-membresias-y-promociones" href="#"><span class="material-symbols-outlined text-[20px]">card_membership</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Membresías &amp; Promociones</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="lista-de-usuarios-y-fidelidad" href="#"><span class="material-symbols-outlined text-[20px]">military_tech</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Usuarios &amp; Fidelidad</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-3 rounded transition-all bg-primary-container text-on-primary-container font-headline-md shadow-[0_0_16px_rgba(31,113,239,0.25)]" data-path="configurar-rutinas-y-asignar" href="#"><span class="material-symbols-outlined text-[20px]">reorder</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Configurar Rutinas</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="inventario-maestro-de-productos" href="#"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Inventario Maestro</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="nuevo-usuario" href="#"><span class="material-symbols-outlined text-[20px]">person_add</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Nuevo Usuario</span></a></nav></div><div class="px-space-md"><div class="bg-surface-container-low p-space-sm rounded flex flex-col gap-space-xs"><div class="flex justify-between items-center"><span class="font-data-mono text-[10px] text-on-surface-variant uppercase">TERMINAL NODE</span><span class="font-data-mono text-[10px] text-primary uppercase">ALPHA-01</span></div><div class="flex justify-between items-center"><span class="font-data-mono text-[10px] text-on-surface-variant uppercase">PROTOCOL</span><span class="font-data-mono text-[10px] text-on-surface uppercase">TLS 1.3 / AES-GCM</span></div></div></div></aside><div class="pl-72"><main class="w-full min-h-screen pt-16 px-gutter bg-background"><div class="flex flex-col w-full pb-margin text-on-surface">
+<!-- HUD STATUS / OVERVIEW STRIP -->
+<div class="w-full mb-space-lg flex flex-col lg:flex-row lg:items-center justify-between gap-space-md bg-surface-container-low p-space-md rounded-xl shadow-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></span>
+<span class="font-data-mono text-data-mono text-primary tracking-widest uppercase">MOTOR TÁCTICO // PROTOCOL_V4.8</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg uppercase text-on-surface tracking-wider">
+        CENTRO DE PRECISIÓN BIOMECÁNICA <span class="text-primary-container">//</span> RUTINAS
+      </h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-2xl">
+        Ensamblaje cinético de microciclos semanales mediante asignación directa por ID de estación y sincronización instantánea vía socket a terminales de atletas.
+      </p>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="bg-surface-container p-space-sm rounded-lg flex items-center gap-space-md">
+<div class="flex flex-col">
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase">ESTACIONES ACTIVAS</span>
+<span class="font-metric-huge text-[32px] leading-tight text-on-surface">10<span class="text-primary text-[18px]">/48</span></span>
+</div>
+<div class="h-8 w-px bg-surface-container-highest"></div>
+<div class="flex flex-col">
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase">SYNC LATENCY</span>
+<span class="font-data-mono text-data-mono text-primary">14ms OK</span>
+</div>
+</div>
+</div>
+</div>
+<!-- MAIN DUAL MODULE ARCHITECTURE -->
+<div class="flex flex-col gap-space-xl">
+<!-- ==========================================
+         MÓDULO A: CONFIGURAR RUTINAS (DRAG & DROP)
+         ========================================== -->
+<section class="flex flex-col gap-space-md bg-surface-container-low p-space-lg rounded-xl shadow-xl relative">
+<!-- Section Header -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-sm gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center text-on-primary-container font-headline-md text-headline-md">
+            A
+          </div>
+<div>
+<span class="font-data-mono text-[11px] text-primary tracking-widest uppercase">CONSTRUCTOR CINÉTICO INTERACTIVO</span>
+<h2 class="font-headline-md text-headline-md uppercase tracking-wide text-on-surface">
+              Configurar Rutinas &amp; Planificación Semanal
+            </h2>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase bg-surface-container px-space-sm py-1 rounded">
+            DRAG_MODE : HABILITADO
+          </span>
+<button class="px-space-sm py-1 rounded bg-surface-container-high hover:bg-error-container hover:text-on-error font-label-badge text-label-badge tracking-wider uppercase transition-all" id="btn-quick-clear">
+            Limpiar Semana
+          </button>
+</div>
+</div>
+<!-- Two-Column Drag & Drop Interface -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-md items-start relative">
+<!-- COLUMNA IZQUIERDA: CATÁLOGO DE MÁQUINAS (4 COLUMNS ON XL) -->
+<div class="xl:col-span-4 flex flex-col gap-space-sm bg-surface-container p-space-md rounded-lg shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">fitness_center</span>
+<h3 class="font-label-badge text-label-badge tracking-widest uppercase text-on-surface">
+                CATÁLOGO DE MÁQUINAS NUMERADAS
+              </h3>
+</div>
+<span class="font-data-mono text-[11px] text-on-surface-variant bg-surface-container-high px-space-xs py-0.5 rounded">10 ITEMS</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Arrastra el nodo táctico hacia el bloque del microciclo o pulsa el botón rápido <span class="text-primary">+</span>.
+          </p>
+<!-- Search filter for machines -->
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full bg-surface-container-lowest text-on-surface text-body-sm pl-10 pr-space-sm py-2 rounded focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" id="machine-filter-input" placeholder="Filtrar músculo, ID o máquina..." type="text"/>
+</div>
+<!-- Machine List (Draggable Source) -->
+<div class="flex flex-col gap-space-xs max-h-[620px] overflow-y-auto pr-1 select-none" id="machine-source-list">
+<!-- Item #01 -->
+<div class="machine-card group flex items-center justify-between p-space-sm bg-surface-container-high hover:bg-surface-container-highest cursor-grab active:cursor-grabbing rounded transition-all shadow-sm" data-machine-id="Máquina 1" data-name="Máquina 1 - Prensa" data-target="Cuádriceps" draggable="true">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="font-data-mono text-data-mono text-primary font-bold px-space-xs py-1 rounded bg-surface-container-lowest shrink-0">#01</span>
+<div class="flex flex-col truncate">
+<span class="font-label-badge text-label-badge uppercase text-on-surface group-hover:text-primary transition-colors truncate">Máquina 1 - Prensa</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> Cuádriceps
+                  </span>
+</div>
+</div>
+<button class="add-quick-btn w-7 h-7 rounded bg-surface-container hover:bg-primary hover:text-on-primary flex items-center justify-center text-on-surface transition-all shrink-0" data-add-id="#01" title="Agregar a Día Activo">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+<!-- Item #02 -->
+<div class="machine-card group flex items-center justify-between p-space-sm bg-surface-container-high hover:bg-surface-container-highest cursor-grab active:cursor-grabbing rounded transition-all shadow-sm" data-machine-id="Máquina 2" data-name="Máquina 2 - Polea Alta" data-target="Dorsal Ancho" draggable="true">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="font-data-mono text-data-mono text-primary font-bold px-space-xs py-1 rounded bg-surface-container-lowest shrink-0">#02</span>
+<div class="flex flex-col truncate">
+<span class="font-label-badge text-label-badge uppercase text-on-surface group-hover:text-primary transition-colors truncate">Máquina 2 - Polea Alta</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Dorsal Ancho
+                  </span>
+</div>
+</div>
+<button class="add-quick-btn w-7 h-7 rounded bg-surface-container hover:bg-primary hover:text-on-primary flex items-center justify-center text-on-surface transition-all shrink-0" data-add-id="#02" title="Agregar a Día Activo">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+<!-- Item #03 -->
+<div class="machine-card group flex items-center justify-between p-space-sm bg-surface-container-high hover:bg-surface-container-highest cursor-grab active:cursor-grabbing rounded transition-all shadow-sm" data-machine-id="Máquina 3" data-name="Máquina 3 - Press Militar" data-target="Deltoides Anterior" draggable="true">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="font-data-mono text-data-mono text-primary font-bold px-space-xs py-1 rounded bg-surface-container-lowest shrink-0">#03</span>
+<div class="flex flex-col truncate">
+<span class="font-label-badge text-label-badge uppercase text-on-surface group-hover:text-primary transition-colors truncate">Máquina 3 - Press Militar</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Deltoides Anterior
+                  </span>
+</div>
+</div>
+<button class="add-quick-btn w-7 h-7 rounded bg-surface-container hover:bg-primary hover:text-on-primary flex items-center justify-center text-on-surface transition-all shrink-0" data-add-id="#03" title="Agregar a Día Activo">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+<!-- Item #07 -->
+<div class="machine-card group flex items-center justify-between p-space-sm bg-surface-container-high hover:bg-surface-container-highest cursor-grab active:cursor-grabbing rounded transition-all shadow-sm" data-machine-id="Máquina 7" data-name="Máquina 7 - Hack Squat" data-target="Cuádriceps y Glúteos" draggable="true">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="font-data-mono text-data-mono text-primary font-bold px-space-xs py-1 rounded bg-surface-container-lowest shrink-0">#07</span>
+<div class="flex flex-col truncate">
+<span class="font-label-badge text-label-badge uppercase text-on-surface group-hover:text-primary transition-colors truncate">Máquina 7 - Hack Squat</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Cuádriceps y Glúteos
+                  </span>
+</div>
+</div>
+<button class="add-quick-btn w-7 h-7 rounded bg-surface-container hover:bg-primary hover:text-on-primary flex items-center justify-center text-on-surface transition-all shrink-0" data-add-id="#07" title="Agregar a Día Activo">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+<!-- Item #08 -->
+<div class="machine-card group flex items-center justify-between p-space-sm bg-surface-container-high hover:bg-surface-container-highest cursor-grab active:cursor-grabbing rounded transition-all shadow-sm" data-machine-id="Máquina 8" data-name="Máquina 8 - Press Banca Smith" data-target="Pectoral Mayor" draggable="true">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="font-data-mono text-data-mono text-primary font-bold px-space-xs py-1 rounded bg-surface-container-lowest shrink-0">#08</span>
+<div class="flex flex-col truncate">
+<span class="font-label-badge text-label-badge uppercase text-on-surface group-hover:text-primary transition-colors truncate">Máquina 8 - Press Banca Smith</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> Pectoral Mayor
+                  </span>
+</div>
+</div>
+<button class="add-quick-btn w-7 h-7 rounded bg-surface-container hover:bg-primary hover:text-on-primary flex items-center justify-center text-on-surface transition-all shrink-0" data-add-id="#08" title="Agregar a Día Activo">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+<!-- Item #11 -->
+<div class="machine-card group flex items-center justify-between p-space-sm bg-surface-container-high hover:bg-surface-container-highest cursor-grab active:cursor-grabbing rounded transition-all shadow-sm" data-machine-id="Máquina 11" data-name="Máquina 11 - Polea Tríceps" data-target="Tríceps Braquial" draggable="true">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="font-data-mono text-data-mono text-primary font-bold px-space-xs py-1 rounded bg-surface-container-lowest shrink-0">#11</span>
+<div class="flex flex-col truncate">
+<span class="font-label-badge text-label-badge uppercase text-on-surface group-hover:text-primary transition-colors truncate">Máquina 11 - Polea Tríceps</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed"></span> Tríceps Braquial
+                  </span>
+</div>
+</div>
+<button class="add-quick-btn w-7 h-7 rounded bg-surface-container hover:bg-primary hover:text-on-primary flex items-center justify-center text-on-surface transition-all shrink-0" data-add-id="#11" title="Agregar a Día Activo">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+<!-- Item #12 -->
+<div class="machine-card group flex items-center justify-between p-space-sm bg-surface-container-high hover:bg-surface-container-highest cursor-grab active:cursor-grabbing rounded transition-all shadow-sm" data-machine-id="Máquina 12" data-name="Máquina 12 - Remo Polea Baja" data-target="Densidad Espalda" draggable="true">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="font-data-mono text-data-mono text-primary font-bold px-space-xs py-1 rounded bg-surface-container-lowest shrink-0">#12</span>
+<div class="flex flex-col truncate">
+<span class="font-label-badge text-label-badge uppercase text-on-surface group-hover:text-primary transition-colors truncate">Máquina 12 - Remo Polea Baja</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Densidad Espalda
+                  </span>
+</div>
+</div>
+<button class="add-quick-btn w-7 h-7 rounded bg-surface-container hover:bg-primary hover:text-on-primary flex items-center justify-center text-on-surface transition-all shrink-0" data-add-id="#12" title="Agregar a Día Activo">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+<!-- Item #15 -->
+<div class="machine-card group flex items-center justify-between p-space-sm bg-surface-container-high hover:bg-surface-container-highest cursor-grab active:cursor-grabbing rounded transition-all shadow-sm" data-machine-id="Máquina 15" data-name="Máquina 15 - Pec-Deck" data-target="Aislamiento Pectoral" draggable="true">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="font-data-mono text-data-mono text-primary font-bold px-space-xs py-1 rounded bg-surface-container-lowest shrink-0">#15</span>
+<div class="flex flex-col truncate">
+<span class="font-label-badge text-label-badge uppercase text-on-surface group-hover:text-primary transition-colors truncate">Máquina 15 - Pec-Deck</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> Aislamiento Pectoral
+                  </span>
+</div>
+</div>
+<button class="add-quick-btn w-7 h-7 rounded bg-surface-container hover:bg-primary hover:text-on-primary flex items-center justify-center text-on-surface transition-all shrink-0" data-add-id="#15" title="Agregar a Día Activo">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+<!-- Item #18 -->
+<div class="machine-card group flex items-center justify-between p-space-sm bg-surface-container-high hover:bg-surface-container-highest cursor-grab active:cursor-grabbing rounded transition-all shadow-sm" data-machine-id="Máquina 18" data-name="Máquina 18 - Curl Femoral" data-target="Isquiosurales" draggable="true">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="font-data-mono text-data-mono text-primary font-bold px-space-xs py-1 rounded bg-surface-container-lowest shrink-0">#18</span>
+<div class="flex flex-col truncate">
+<span class="font-label-badge text-label-badge uppercase text-on-surface group-hover:text-primary transition-colors truncate">Máquina 18 - Curl Femoral</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span> Isquiosurales
+                  </span>
+</div>
+</div>
+<button class="add-quick-btn w-7 h-7 rounded bg-surface-container hover:bg-primary hover:text-on-primary flex items-center justify-center text-on-surface transition-all shrink-0" data-add-id="#18" title="Agregar a Día Activo">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+<!-- Item #21 -->
+<div class="machine-card group flex items-center justify-between p-space-sm bg-surface-container-high hover:bg-surface-container-highest cursor-grab active:cursor-grabbing rounded transition-all shadow-sm" data-machine-id="Máquina 21" data-name="Máquina 21 - Elevaciones Laterales" data-target="Deltoides Lateral" draggable="true">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="font-data-mono text-data-mono text-primary font-bold px-space-xs py-1 rounded bg-surface-container-lowest shrink-0">#21</span>
+<div class="flex flex-col truncate">
+<span class="font-label-badge text-label-badge uppercase text-on-surface group-hover:text-primary transition-colors truncate">Máquina 21 - Elevaciones Lateral</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> Deltoides Lateral
+                  </span>
+</div>
+</div>
+<button class="add-quick-btn w-7 h-7 rounded bg-surface-container hover:bg-primary hover:text-on-primary flex items-center justify-center text-on-surface transition-all shrink-0" data-add-id="#21" title="Agregar a Día Activo">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- COLUMNA DERECHA: PLANIFICADOR SEMANAL LUNES-SÁBADO (8 COLUMNS ON XL) -->
+<div class="xl:col-span-8 flex flex-col gap-space-sm relative">
+<div class="flex items-center justify-between bg-surface-container px-space-md py-space-sm rounded-lg">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">calendar_view_week</span>
+<h3 class="font-label-badge text-label-badge tracking-widest uppercase text-on-surface">
+                PLANIFICADOR SEMANAL (LUNES A SÁBADO)
+              </h3>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-data-mono text-[11px] text-on-surface-variant">ORDEN SECUENCIAL ESTRICTO (1., 2., 3., 4.)</span>
+</div>
+</div>
+<!-- Week Days Grid (2x3 on md/lg, responsive) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-sm">
+<!-- LUNES -->
+<div class="day-drop-zone flex flex-col bg-surface-container p-space-sm rounded-lg min-h-[220px] transition-all shadow-sm" data-day="lunes">
+<div class="flex items-center justify-between border-b border-surface-container-highest pb-space-xs mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-[18px] uppercase font-bold text-primary">LUNES</span>
+<span class="day-count-badge font-data-mono text-[11px] px-1.5 py-0.2 rounded bg-surface-container-high text-on-surface-variant">3 EX</span>
+</div>
+<button class="clear-day-btn text-on-surface-variant hover:text-error text-[12px] font-data-mono" title="Vaciar día">CLR</button>
+</div>
+<div class="day-slot flex-1 flex flex-col gap-space-xs min-h-[140px] p-1 rounded bg-surface-container-lowest/40">
+<div class="drop-hint hidden flex-1 flex-col items-center justify-center text-center p-2 text-on-surface-variant/40">
+<span class="material-symbols-outlined text-[24px]">drag_indicator</span>
+<span class="font-data-mono text-[10px] uppercase">Soltar ejercicio</span>
+</div>
+<!-- Preloaded Lunes Ejercicios en Orden Secuencial -->
+<div class="assigned-station-card group flex flex-col bg-surface-container-high hover:bg-surface-container-highest p-space-xs rounded border border-transparent hover:border-primary/40 transition-all shadow-sm" data-machine-id="Máquina 8" data-name="Máquina 8 - Press Banca Smith" data-reps="8-12 reps" data-rest="90s" data-sets="4 sets" data-target="Pectoral Mayor">
+<div class="flex items-center justify-between gap-1">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="pos-label font-data-mono text-[11px] bg-primary text-on-primary font-bold px-1.5 py-0.5 rounded">1.</span>
+<span class="font-label-badge text-[13px] text-on-surface truncate uppercase leading-tight">Máquina 8 - Press Banca Smith</span>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button class="config-node-btn w-6 h-6 rounded bg-surface-container hover:bg-primary hover:text-on-primary flex items-center justify-center text-on-surface-variant transition-colors" title="Configurar Series / Reps"><span class="material-symbols-outlined text-[14px]">tune</span></button>
+<button class="remove-node-btn w-6 h-6 rounded bg-surface-container hover:bg-error hover:text-on-error flex items-center justify-center text-on-surface-variant transition-colors" title="Eliminar del día"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</div>
+</div>
+<div class="flex items-center justify-between mt-1 text-[10px] font-data-mono text-on-surface-variant pt-1 border-t border-surface-container-lowest">
+<span class="station-specs-line text-on-surface-variant">4 sets • 8-12 reps • 90s</span>
+<span class="text-tertiary-fixed truncate max-w-[90px]">Pectoral Mayor</span>
+</div>
+</div>
+<div class="assigned-station-card group flex flex-col bg-surface-container-high hover:bg-surface-container-highest p-space-xs rounded border border-transparent hover:border-primary/40 transition-all shadow-sm" data-machine-id="Máquina 15" data-name="Máquina 15 - Pec-Deck" data-reps="10-12 reps" data-rest="60s" data-sets="4 sets" data-target="Aislamiento Pectoral">
+<div class="flex items-center justify-between gap-1">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="pos-label font-data-mono text-[11px] bg-primary text-on-primary font-bold px-1.5 py-0.5 rounded">2.</span>
+<span class="font-label-badge text-[13px] text-on-surface truncate uppercase leading-tight">Máquina 15 - Pec-Deck</span>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button class="config-node-btn w-6 h-6 rounded bg-surface-container hover:bg-primary hover:text-on-primary flex items-center justify-center text-on-surface-variant transition-colors" title="Configurar Series / Reps"><span class="material-symbols-outlined text-[14px]">tune</span></button>
+<button class="remove-node-btn w-6 h-6 rounded bg-surface-container hover:bg-error hover:text-on-error flex items-center justify-center text-on-surface-variant transition-colors" title="Eliminar del día"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</div>
+</div>
+<div class="flex items-center justify-between mt-1 text-[10px] font-data-mono text-on-surface-variant pt-1 border-t border-surface-container-lowest">
+<span class="station-specs-line text-on-surface-variant">4 sets • 10-12 reps • 60s</span>
+<span class="text-tertiary-fixed truncate max-w-[90px]">Aislamiento Pectoral</span>
+</div>
+</div>
+<div class="assigned-station-card group flex flex-col bg-surface-container-high hover:bg-surface-container-highest p-space-xs rounded border border-transparent hover:border-primary/40 transition-all shadow-sm" data-machine-id="Máquina 11" data-name="Máquina 11 - Polea Tríceps" data-reps="12-15 reps" data-rest="60s" data-sets="3 sets" data-target="Tríceps Braquial">
+<div class="flex items-center justify-between gap-1">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="pos-label font-data-mono text-[11px] bg-primary text-on-primary font-bold px-1.5 py-0.5 rounded">3.</span>
+<span class="font-label-badge text-[13px] text-on-surface truncate uppercase leading-tight">Máquina 11 - Polea Tríceps</span>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button class="config-node-btn w-6 h-6 rounded bg-surface-container hover:bg-primary hover:text-on-primary flex items-center justify-center text-on-surface-variant transition-colors" title="Configurar Series / Reps"><span class="material-symbols-outlined text-[14px]">tune</span></button>
+<button class="remove-node-btn w-6 h-6 rounded bg-surface-container hover:bg-error hover:text-on-error flex items-center justify-center text-on-surface-variant transition-colors" title="Eliminar del día"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</div>
+</div>
+<div class="flex items-center justify-between mt-1 text-[10px] font-data-mono text-on-surface-variant pt-1 border-t border-surface-container-lowest">
+<span class="station-specs-line text-on-surface-variant">3 sets • 12-15 reps • 60s</span>
+<span class="text-tertiary-fixed truncate max-w-[90px]">Tríceps Braquial</span>
+</div>
+</div>
+</div>
+</div>
+<!-- MARTES -->
+<div class="day-drop-zone flex flex-col bg-surface-container p-space-sm rounded-lg min-h-[220px] transition-all shadow-sm" data-day="martes">
+<div class="flex items-center justify-between border-b border-surface-container-highest pb-space-xs mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-[18px] uppercase font-bold text-primary">MARTES</span>
+<span class="day-count-badge font-data-mono text-[11px] px-1.5 py-0.2 rounded bg-surface-container-high text-on-surface-variant">0 EX</span>
+</div>
+<button class="clear-day-btn text-on-surface-variant hover:text-error text-[12px] font-data-mono" title="Vaciar día">CLR</button>
+</div>
+<div class="day-slot flex-1 flex flex-col gap-space-xs min-h-[140px] p-1 rounded bg-surface-container-lowest/40">
+<div class="drop-hint flex-1 flex flex-col items-center justify-center text-center p-2 text-on-surface-variant/40">
+<span class="material-symbols-outlined text-[24px]">drag_indicator</span>
+<span class="font-data-mono text-[10px] uppercase">Soltar ejercicio</span>
+</div>
+</div>
+</div>
+<!-- MIÉRCOLES (Día Activo con nuevo ejercicio soltado y modal emergente abierto) -->
+<div class="day-drop-zone flex flex-col bg-surface-container p-space-sm rounded-lg min-h-[220px] transition-all shadow-sm ring-1 ring-primary/40" data-day="miercoles">
+<div class="flex items-center justify-between border-b border-surface-container-highest pb-space-xs mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-[18px] uppercase font-bold text-primary">MIÉRCOLES</span>
+<span class="day-count-badge font-data-mono text-[11px] px-1.5 py-0.2 rounded bg-surface-container-high text-on-surface-variant">2 EX</span>
+</div>
+<button class="clear-day-btn text-on-surface-variant hover:text-error text-[12px] font-data-mono" title="Vaciar día">CLR</button>
+</div>
+<div class="day-slot flex-1 flex flex-col gap-space-xs min-h-[140px] p-1 rounded bg-surface-container-lowest/40">
+<div class="drop-hint hidden flex-1 flex-col items-center justify-center text-center p-2 text-on-surface-variant/40">
+<span class="material-symbols-outlined text-[24px]">drag_indicator</span>
+<span class="font-data-mono text-[10px] uppercase">Soltar ejercicio</span>
+</div>
+<div class="assigned-station-card group flex flex-col bg-surface-container-high hover:bg-surface-container-highest p-space-xs rounded border border-transparent hover:border-primary/40 transition-all shadow-sm" data-machine-id="Máquina 1" data-name="Máquina 1 - Prensa" data-reps="10-12 reps" data-rest="90s" data-sets="4 sets" data-target="Cuádriceps">
+<div class="flex items-center justify-between gap-1">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="pos-label font-data-mono text-[11px] bg-primary text-on-primary font-bold px-1.5 py-0.5 rounded">1.</span>
+<span class="font-label-badge text-[13px] text-on-surface truncate uppercase leading-tight">Máquina 1 - Prensa</span>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button class="config-node-btn w-6 h-6 rounded bg-surface-container hover:bg-primary hover:text-on-primary flex items-center justify-center text-on-surface-variant transition-colors" title="Configurar Series / Reps"><span class="material-symbols-outlined text-[14px]">tune</span></button>
+<button class="remove-node-btn w-6 h-6 rounded bg-surface-container hover:bg-error hover:text-on-error flex items-center justify-center text-on-surface-variant transition-colors" title="Eliminar del día"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</div>
+</div>
+<div class="flex items-center justify-between mt-1 text-[10px] font-data-mono text-on-surface-variant pt-1 border-t border-surface-container-lowest">
+<span class="station-specs-line text-on-surface-variant">4 sets • 10-12 reps • 90s</span>
+<span class="text-tertiary-fixed truncate max-w-[90px]">Cuádriceps</span>
+</div>
+</div>
+<div class="assigned-station-card group flex flex-col bg-surface-container-high hover:bg-surface-container-highest p-space-xs rounded border border-primary/50 transition-all shadow-sm bg-primary/10" data-machine-id="Máquina 18" data-name="Máquina 18 - Curl Femoral" data-reps="8-12" data-rest="90s" data-sets="4" data-target="Isquiosurales">
+<div class="flex items-center justify-between gap-1">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="pos-label font-data-mono text-[11px] bg-primary text-on-primary font-bold px-1.5 py-0.5 rounded">2.</span>
+<span class="font-label-badge text-[13px] text-on-surface truncate uppercase leading-tight">Máquina 18 - Curl Femoral</span>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+<button class="config-node-btn w-6 h-6 rounded bg-primary-container text-on-primary-container flex items-center justify-center transition-colors" title="Configurar Series / Reps"><span class="material-symbols-outlined text-[14px]">tune</span></button>
+<button class="remove-node-btn w-6 h-6 rounded bg-surface-container hover:bg-error hover:text-on-error flex items-center justify-center text-on-surface-variant transition-colors" title="Eliminar del día"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</div>
+</div>
+<div class="flex items-center justify-between mt-1 text-[10px] font-data-mono text-on-surface-variant pt-1 border-t border-surface-container-lowest">
+<span class="station-specs-line text-primary">Configuración abierta en pantalla...</span>
+<span class="text-tertiary-fixed truncate max-w-[90px]">Isquiosurales</span>
+</div>
+</div>
+</div>
+</div>
+<!-- JUEVES -->
+<div class="day-drop-zone flex flex-col bg-surface-container p-space-sm rounded-lg min-h-[220px] transition-all shadow-sm" data-day="jueves">
+<div class="flex items-center justify-between border-b border-surface-container-highest pb-space-xs mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-[18px] uppercase font-bold text-primary">JUEVES</span>
+<span class="day-count-badge font-data-mono text-[11px] px-1.5 py-0.2 rounded bg-surface-container-high text-on-surface-variant">0 EX</span>
+</div>
+<button class="clear-day-btn text-on-surface-variant hover:text-error text-[12px] font-data-mono" title="Vaciar día">CLR</button>
+</div>
+<div class="day-slot flex-1 flex flex-col gap-space-xs min-h-[140px] p-1 rounded bg-surface-container-lowest/40">
+<div class="drop-hint flex-1 flex flex-col items-center justify-center text-center p-2 text-on-surface-variant/40">
+<span class="material-symbols-outlined text-[24px]">drag_indicator</span>
+<span class="font-data-mono text-[10px] uppercase">Soltar ejercicio</span>
+</div>
+</div>
+</div>
+<!-- VIERNES -->
+<div class="day-drop-zone flex flex-col bg-surface-container p-space-sm rounded-lg min-h-[220px] transition-all shadow-sm" data-day="viernes">
+<div class="flex items-center justify-between border-b border-surface-container-highest pb-space-xs mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-[18px] uppercase font-bold text-primary">VIERNES</span>
+<span class="day-count-badge font-data-mono text-[11px] px-1.5 py-0.2 rounded bg-surface-container-high text-on-surface-variant">0 EX</span>
+</div>
+<button class="clear-day-btn text-on-surface-variant hover:text-error text-[12px] font-data-mono" title="Vaciar día">CLR</button>
+</div>
+<div class="day-slot flex-1 flex flex-col gap-space-xs min-h-[140px] p-1 rounded bg-surface-container-lowest/40">
+<div class="drop-hint flex-1 flex flex-col items-center justify-center text-center p-2 text-on-surface-variant/40">
+<span class="material-symbols-outlined text-[24px]">drag_indicator</span>
+<span class="font-data-mono text-[10px] uppercase">Soltar ejercicio</span>
+</div>
+</div>
+</div>
+<!-- SÁBADO -->
+<div class="day-drop-zone flex flex-col bg-surface-container p-space-sm rounded-lg min-h-[220px] transition-all shadow-sm" data-day="sabado">
+<div class="flex items-center justify-between border-b border-surface-container-highest pb-space-xs mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-[18px] uppercase font-bold text-primary">SÁBADO</span>
+<span class="day-count-badge font-data-mono text-[11px] px-1.5 py-0.2 rounded bg-surface-container-high text-on-surface-variant">0 EX</span>
+</div>
+<button class="clear-day-btn text-on-surface-variant hover:text-error text-[12px] font-data-mono" title="Vaciar día">CLR</button>
+</div>
+<div class="day-slot flex-1 flex flex-col gap-space-xs min-h-[140px] p-1 rounded bg-surface-container-lowest/40">
+<div class="drop-hint flex-1 flex flex-col items-center justify-center text-center p-2 text-on-surface-variant/40">
+<span class="material-symbols-outlined text-[24px]">drag_indicator</span>
+<span class="font-data-mono text-[10px] uppercase">Soltar ejercicio</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- POPUP MODAL / VENTANA EMERGENTE VISIBLE (MUESTRA ABIERTA AL SOLTAR UN EJERCICIO) -->
+<div class="relative w-full mt-space-sm z-30 flex justify-center" id="inline-popup-container">
+<div class="w-full max-w-2xl bg-surface-container border-2 border-primary/70 rounded-xl p-space-md shadow-[0_12px_40px_rgba(0,0,0,0.85)] flex flex-col gap-space-sm ring-2 ring-primary/20 backdrop-blur-xl">
+<div class="flex items-center justify-between border-b border-surface-container-highest pb-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="px-2 py-0.5 rounded bg-primary text-on-primary font-data-mono text-[12px] font-bold">2.</span>
+<span class="font-data-mono text-primary font-bold bg-surface-container-lowest px-2 py-0.5 rounded text-[12px]">Máquina 18</span>
+<span class="font-headline-md text-headline-md uppercase text-on-surface">Configurar Ejercicio: Máquina 18 - Curl Femoral</span>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-primary-container/30 text-primary font-data-mono text-[10px] uppercase tracking-wider animate-pulse">VENTANA EMERGENTE ACTIVA</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md pt-space-xs">
+<!-- Series (Selector numérico de 3 a 5) -->
+<div class="flex flex-col gap-1 bg-surface-container-low p-space-sm rounded-lg border border-surface-container-highest">
+<label class="font-label-badge text-label-badge uppercase tracking-wider text-on-surface">SERIES (SETS)</label>
+<p class="font-data-mono text-[11px] text-on-surface-variant">Selector de 3 a 5</p>
+<div class="flex items-center gap-1 mt-1">
+<button class="flex-1 py-1.5 rounded font-headline-md text-[16px] bg-surface-container-high hover:bg-surface-container-highest text-on-surface border border-outline-variant/30" onclick="selectSeries(this, '3')">3</button>
+<button class="flex-1 py-1.5 rounded font-headline-md text-[16px] bg-primary text-on-primary font-bold shadow-md ring-2 ring-primary" onclick="selectSeries(this, '4')">4</button>
+<button class="flex-1 py-1.5 rounded font-headline-md text-[16px] bg-surface-container-high hover:bg-surface-container-highest text-on-surface border border-outline-variant/30" onclick="selectSeries(this, '5')">5</button>
+</div>
+<input id="selected-series-val" type="hidden" value="4"/>
+</div>
+<!-- Repeticiones (Rango 8-12) -->
+<div class="flex flex-col gap-1 bg-surface-container-low p-space-sm rounded-lg border border-surface-container-highest">
+<label class="font-label-badge text-label-badge uppercase tracking-wider text-on-surface">REPETICIONES</label>
+<p class="font-data-mono text-[11px] text-on-surface-variant">Rango biomecánico</p>
+<div class="relative mt-1">
+<select class="w-full bg-surface-container-lowest text-on-surface font-headline-md text-[16px] py-1.5 px-space-sm rounded appearance-none focus:outline-none focus:ring-1 focus:ring-primary border border-outline-variant/30 cursor-pointer" id="selected-reps-val">
+<option value="6-8">6-8 reps (Fuerza)</option>
+<option selected="" value="8-12">8-12 reps (Hipertrofia)</option>
+<option value="12-15">12-15 reps (Tensión Continua)</option>
+<option value="15-20">15-20 reps (Resistencia)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px] pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Tiempo de descanso (60s, 90s, 120s) -->
+<div class="flex flex-col gap-1 bg-surface-container-low p-space-sm rounded-lg border border-surface-container-highest">
+<label class="font-label-badge text-label-badge uppercase tracking-wider text-on-surface">TIEMPO DE DESCANSO</label>
+<p class="font-data-mono text-[11px] text-on-surface-variant">Pausa entre series</p>
+<div class="flex items-center gap-1 mt-1">
+<button class="flex-1 py-1.5 rounded font-data-mono text-[12px] bg-surface-container-high hover:bg-surface-container-highest text-on-surface border border-outline-variant/30" onclick="selectRest(this, '60s')">60s</button>
+<button class="flex-1 py-1.5 rounded font-data-mono text-[12px] bg-primary text-on-primary font-bold shadow-md ring-2 ring-primary" onclick="selectRest(this, '90s')">90s</button>
+<button class="flex-1 py-1.5 rounded font-data-mono text-[12px] bg-surface-container-high hover:bg-surface-container-highest text-on-surface border border-outline-variant/30" onclick="selectRest(this, '120s')">120s</button>
+</div>
+<input id="selected-rest-val" type="hidden" value="90s"/>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-container-highest">
+<span class="font-data-mono text-[11px] text-on-surface-variant">Siguiente posición asignada: <b class="text-primary">Miércoles #2</b></span>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-2 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-badge text-label-badge uppercase tracking-wider transition-all" onclick="document.getElementById('inline-popup-container').style.display='none'">Cancelar</button>
+<button class="px-space-lg py-2 rounded bg-primary text-on-primary font-headline-md text-[16px] uppercase tracking-wider hover:bg-white transition-all shadow-[0_0_15px_rgba(175,198,255,0.4)] flex items-center gap-space-xs" id="btn-confirm-exercise">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span>Confirmar Ejercicio</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- FORMULARIO INFERIOR CON BOTÓN DESTACADO GUARDAR RUTINA EN LA ESQUINA INFERIOR DERECHA -->
+<div class="mt-space-md pt-space-md border-t border-surface-container-highest flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md bg-surface-container p-space-md rounded-lg">
+<div class="flex-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md">
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="material-symbols-outlined text-primary text-[22px]">database</span>
+<label class="font-label-badge text-label-badge uppercase tracking-wider text-on-surface whitespace-nowrap" for="routine-name-input">
+              NOMBRE DE LA RUTINA:
+            </label>
+</div>
+<div class="flex-1 relative">
+<input class="w-full bg-surface-container-lowest text-on-surface font-headline-md text-[18px] px-space-md py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary shadow-inner" id="routine-name-input" placeholder="Escribe el nombre de la rutina para guardarla en la BD..." type="text" value="Protocolo Mutación Hipertrofia 5 Días"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 font-data-mono text-[10px] text-on-surface-variant uppercase">CODE: HYP-MUT-05</span>
+</div>
+</div>
+<!-- Esquina inferior derecha: Botón destacado 'Guardar rutina' -->
+<div class="flex items-center gap-space-md shrink-0 justify-end">
+<div class="hidden xl:flex flex-col text-right">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase">ESTRUCTURA ESTIMADA</span>
+<span class="font-data-mono text-data-mono text-primary" id="total-exercises-counter">5 ESTACIONES REGISTRADAS</span>
+</div>
+<button class="px-space-xl py-3.5 rounded-lg bg-primary-container text-on-primary-container font-headline-md text-[20px] uppercase tracking-wider hover:bg-tertiary-container hover:text-on-tertiary-container shadow-[0_0_22px_rgba(31,113,239,0.45)] ring-2 ring-primary/40 hover:ring-tertiary transition-all flex items-center gap-space-sm justify-center active:scale-95" id="btn-save-routine">
+<span class="material-symbols-outlined text-[24px]">save</span>
+<span class="font-bold">GUARDAR RUTINA</span>
+</button>
+</div>
+</div>
+</section>
+<!-- ==========================================
+         MÓDULO B: MANEJAR Y ASIGNAR A ATLETAS
+         ========================================== -->
+<section class="flex flex-col gap-space-md bg-surface-container-low p-space-lg rounded-xl shadow-xl">
+<!-- Section Header -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-sm gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-secondary-container flex items-center justify-center text-on-secondary-container font-headline-md text-headline-md">
+            B
+          </div>
+<div>
+<span class="font-data-mono text-[11px] text-secondary tracking-widest uppercase">DESPLIEGUE A CLIENTE // TIEMPO REAL</span>
+<h2 class="font-headline-md text-headline-md uppercase tracking-wide text-on-surface">
+              Manejar y Asignar Rutinas a Atletas
+            </h2>
+</div>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-1 rounded">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase">SOCKET GATEWAY : CONNECTED</span>
+</div>
+</div>
+<!-- Control Panel & Interactive Assignment Interface -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-stretch">
+<!-- Left Controls: Lookup & Routine Dropdown (7 cols) -->
+<div class="lg:col-span-7 flex flex-col justify-between gap-space-md bg-surface-container p-space-md rounded-lg shadow-sm">
+<div class="flex flex-col gap-space-md">
+<!-- Buscador por DNI -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-badge text-label-badge uppercase tracking-wider text-on-surface flex items-center justify-between" for="dni-search-input">
+<span>1. IDENTIFICACIÓN BIOMÉTRICA // DNI DEL ATLETA</span>
+<span class="font-data-mono text-[11px] text-primary">CONSULTA INSTANTÁNEA</span>
+</label>
+<div class="relative w-full flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-[22px]">badge</span>
+<input class="w-full bg-surface-container-lowest text-on-surface font-data-mono text-body-lg pl-12 pr-28 py-3 rounded focus:outline-none focus:ring-2 focus:ring-primary shadow-inner" id="dni-search-input" maxlength="8" placeholder="Ingresa 8 dígitos (ej: 72849102)..." type="text" value="72849102"/>
+<button class="absolute right-1 top-1 bottom-1 px-space-md bg-surface-container-high hover:bg-primary hover:text-on-primary rounded font-label-badge text-label-badge uppercase transition-all" id="btn-search-dni">
+                  Buscar
+                </button>
+</div>
+</div>
+<!-- Selector de Rutinas Existentes -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-badge text-label-badge uppercase tracking-wider text-on-surface flex items-center justify-between" for="routine-selector">
+<span>2. SELECCIÓN DE PROTOCOLO DISPONIBLE EN BD</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant">4 CARGADAS</span>
+</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest text-on-surface font-body-md py-3 px-space-md rounded appearance-none focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer shadow-inner" id="routine-selector">
+<option selected="" value="mutacion-5d">Protocolo Mutación Hipertrofia 5 Días (Activa en constructor)</option>
+<option value="fuerza-bruta-4d">Fuerza Bruta &amp; Densidad Neural 4 Días (Powerbuilding)</option>
+<option value="recomp-metabolica-6d">Recomposición Metabólica y Acondicionamiento 6 Días</option>
+<option value="tren-superior-hiper">Especialización de Pecho y Espalda Máxima Sobrecarga</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Parametrización Rápida de Aplicación -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+<div class="bg-surface-container-low p-space-sm rounded">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase block">FECHA DE INICIO</span>
+<span class="font-data-mono text-data-mono text-on-surface">PRÓXIMO LUNES (06:00 AM)</span>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase block">DURACIÓN DEL BLOQUE</span>
+<span class="font-data-mono text-data-mono text-primary">6 SEMANAS (MICROCICLOS)</span>
+</div>
+</div>
+</div>
+<!-- Acción Principal: Despliegue en Tiempo Real -->
+<div class="pt-space-sm border-t border-surface-container-highest">
+<button class="w-full py-4 rounded bg-primary-container hover:bg-tertiary-container text-on-primary-container hover:text-on-tertiary-container font-headline-md text-headline-md uppercase tracking-widest shadow-[0_0_20px_rgba(31,113,239,0.35)] transition-all flex items-center justify-center gap-space-sm active:scale-[0.99]" id="btn-assign-routine">
+<span class="material-symbols-outlined text-[24px]">send_to_mobile</span>
+<span>MODIFICAR / ASIGNAR RUTINA AL ATLETA</span>
+</button>
+<p class="font-data-mono text-[11px] text-center text-on-surface-variant mt-2">
+              Sincroniza instantáneamente y notifica la app del atleta con confirmación push.
+            </p>
+</div>
+</div>
+<!-- Right Side: Athlete Profile Telemetry & Live Device Sync Preview (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-md bg-surface-container p-space-md rounded-lg shadow-sm justify-between">
+<div>
+<div class="flex items-center justify-between border-b border-surface-container-highest pb-space-sm mb-space-sm">
+<span class="font-label-badge text-label-badge uppercase tracking-wider text-on-surface">
+                EXPEDIENTE ACTIVO // ATLETA
+              </span>
+<span class="px-space-xs py-0.5 rounded bg-primary text-on-primary font-label-badge text-[11px] tracking-wider uppercase font-bold">
+                TIER BESTIA
+              </span>
+</div>
+<!-- Profile Overview Card -->
+<div class="flex items-start gap-space-md mb-space-md">
+<div class="w-16 h-16 rounded bg-surface-container-high relative overflow-hidden shrink-0 shadow-inner flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="Intense high-contrast portrait of Mateo Valdivia, a dedicated athletic male gym member in dark athletic gear under gym lights with subtle electric blue ambient rim light, photorealistic dramatic sports photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrcq3SUWaXuzOdtG7NaegmL3_gLrTLM-BYGCqSl44Elf8aHb5losGdcNVQ7nXmPRLKWfjEl55c0y_eaD-4EadEc6JtPm5aI8fyqHQJMxKaNMrfvVV2rp5VNxwMkzfFpHS1XEd6GRuGQjarxKK_PWQmuitkmxQ-lxzMJELdXlOcW_yLFWfhoLcSKgAX22Qs7SChjABuPstvVeDaleh09TWRnhG_r9uYa4lNguIfQu5Xj9zl_xj4rxk"/>
+<span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-primary rounded-full border-2 border-surface"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<h4 class="font-headline-md text-[20px] uppercase text-on-surface truncate" id="athlete-name">
+                  Mateo Valdivia Roca
+                </h4>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-data-mono text-[12px]">
+<span>DNI:</span>
+<span class="text-primary font-bold" id="athlete-dni">72849102</span>
+<span>// SOCIO #4108</span>
+</div>
+<div class="flex items-center gap-space-sm mt-1">
+<span class="font-data-mono text-[10px] uppercase px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface-variant">Sede: Central San Isidro</span>
+<span class="font-data-mono text-[10px] uppercase px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface-variant">Peso: 84.5 KG</span>
+</div>
+</div>
+</div>
+<!-- Active Protocol on Device -->
+<div class="bg-surface-container-lowest p-space-sm rounded-lg flex flex-col gap-space-xs mb-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase">RUTINA ACTUAL EN TERMINAL MÓVIL</span>
+<span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span>
+</div>
+<p class="font-headline-md text-[16px] uppercase text-tertiary-fixed" id="current-active-routine">
+                Fuerza Bruta &amp; Densidad Neural 4 Días
+              </p>
+<div class="flex items-center justify-between font-data-mono text-[11px] text-on-surface-variant pt-1 border-t border-surface-container-high">
+<span>Progreso del Bloque: 83% (Semana 5/6)</span>
+<span class="text-primary">4 PRs Rotos</span>
+</div>
+</div>
+<!-- Sync Telemetry Device Visualizer -->
+<div class="bg-surface-container-low p-space-sm rounded flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[24px]">smartphone</span>
+<div class="flex flex-col">
+<span class="font-label-badge text-label-badge uppercase text-on-surface">iPhone 15 Pro • GymCore App v3.2</span>
+<span class="font-data-mono text-[10px] text-on-surface-variant">Último Heartbeat: Hace 32 seg</span>
+</div>
+</div>
+<span class="font-data-mono text-[11px] text-primary px-space-xs py-0.5 rounded bg-surface-container" id="device-sync-state">SINCRONIZADO</span>
+</div>
+</div>
+<!-- Micro Metric HUD -->
+<div class="grid grid-cols-3 gap-space-xs pt-space-xs text-center border-t border-surface-container-highest">
+<div class="bg-surface-container-low p-2 rounded">
+<span class="font-data-mono text-[10px] text-on-surface-variant block uppercase">ASISTENCIA</span>
+<span class="font-metric-huge text-[20px] text-on-surface font-bold">96%</span>
+</div>
+<div class="bg-surface-container-low p-2 rounded">
+<span class="font-data-mono text-[10px] text-on-surface-variant block uppercase">TONELAJE TOTAL</span>
+<span class="font-metric-huge text-[20px] text-primary font-bold">18.4 T</span>
+</div>
+<div class="bg-surface-container-low p-2 rounded">
+<span class="font-data-mono text-[10px] text-on-surface-variant block uppercase">RPE PROMEDIO</span>
+<span class="font-metric-huge text-[20px] text-tertiary font-bold">8.6</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- TOAST FEEDBACK OVERLAY -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-space-sm bg-surface-container-highest text-on-surface border border-primary/40 px-space-md py-space-sm rounded-lg shadow-[0_0_24px_rgba(31,113,239,0.3)]" id="system-toast">
+<span class="material-symbols-outlined text-primary text-[24px]">verified</span>
+<div class="flex flex-col">
+<span class="font-label-badge text-label-badge uppercase text-on-surface" id="toast-title">NOTIFICACIÓN TÁCTICA</span>
+<span class="font-data-mono text-[12px] text-on-surface-variant" id="toast-msg">Operación ejecutada correctamente</span>
+</div>
+</div>
+</div>
+<script>
+  // Series and Rest selection helpers
+  function selectSeries(btn, val) {
+    const parent = btn.parentElement;
+    parent.querySelectorAll('button').forEach(b => {
+      b.className = "flex-1 py-1.5 rounded font-headline-md text-[16px] bg-surface-container-high hover:bg-surface-container-highest text-on-surface border border-outline-variant/30";
+    });
+    btn.className = "flex-1 py-1.5 rounded font-headline-md text-[16px] bg-primary text-on-primary font-bold shadow-md ring-2 ring-primary";
+    document.getElementById('selected-series-val').value = val;
+  }
+
+  function selectRest(btn, val) {
+    const parent = btn.parentElement;
+    parent.querySelectorAll('button').forEach(b => {
+      b.className = "flex-1 py-1.5 rounded font-data-mono text-[12px] bg-surface-container-high hover:bg-surface-container-highest text-on-surface border border-outline-variant/30";
+    });
+    btn.className = "flex-1 py-1.5 rounded font-data-mono text-[12px] bg-primary text-on-primary font-bold shadow-md ring-2 ring-primary";
+    document.getElementById('selected-rest-val').value = val;
+  }
+
+  (function initGymCoreRoutinePlanner() {
+    let draggedData = null;
+
+    function showToast(title, msg) {
+      const toast = document.getElementById('system-toast');
+      const toastTitle = document.getElementById('toast-title');
+      const toastMsg = document.getElementById('toast-msg');
+      if (!toast) return;
+
+      toastTitle.textContent = title;
+      toastMsg.textContent = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3500);
+    }
+
+    function refreshDaySequence(dayZone) {
+      const slot = dayZone.querySelector('.day-slot');
+      const cards = slot.querySelectorAll('.assigned-station-card');
+      const countBadge = dayZone.querySelector('.day-count-badge');
+      const hint = slot.querySelector('.drop-hint');
+
+      if (countBadge) {
+        countBadge.textContent = `${cards.length} EX`;
+      }
+
+      if (hint) {
+        hint.style.display = cards.length > 0 ? 'none' : 'flex';
+      }
+
+      // Enumeración secuencial rigurosa: 1., 2., 3., 4.
+      cards.forEach((card, index) => {
+        const posLabel = card.querySelector('.pos-label');
+        if (posLabel) {
+          posLabel.textContent = `${index + 1}.`;
+        }
+      });
+
+      updateTotalCounters();
+    }
+
+    function updateTotalCounters() {
+      const allAssigned = document.querySelectorAll('.assigned-station-card');
+      const counterEl = document.getElementById('total-exercises-counter');
+      if (counterEl) {
+        counterEl.textContent = `${allAssigned.length} ESTACIONES REGISTRADAS`;
+      }
+    }
+
+    function createAssignedCard(data, sets = "4 sets", reps = "8-12 reps", rest = "90s") {
+      const card = document.createElement('div');
+      card.className = "assigned-station-card group flex flex-col bg-surface-container-high hover:bg-surface-container-highest p-space-xs rounded border border-transparent hover:border-primary/40 transition-all shadow-sm";
+      card.dataset.machineId = data.machineId;
+      card.dataset.name = data.name;
+      card.dataset.target = data.target;
+      card.dataset.sets = sets;
+      card.dataset.reps = reps;
+      card.dataset.rest = rest;
+
+      card.innerHTML = `
+        <div class="flex items-center justify-between gap-1">
+          <div class="flex items-center gap-1.5 min-w-0">
+            <span class="pos-label font-data-mono text-[11px] bg-primary text-on-primary font-bold px-1.5 py-0.5 rounded">1.</span>
+            <span class="font-label-badge text-[13px] text-on-surface truncate uppercase leading-tight">${data.name}</span>
+          </div>
+          <div class="flex items-center gap-1 shrink-0">
+            <button title="Configurar Series / Reps" class="config-node-btn w-6 h-6 rounded bg-surface-container hover:bg-primary hover:text-on-primary flex items-center justify-center text-on-surface-variant transition-colors">
+              <span class="material-symbols-outlined text-[14px]">tune</span>
+            </button>
+            <button title="Eliminar del día" class="remove-node-btn w-6 h-6 rounded bg-surface-container hover:bg-error hover:text-on-error flex items-center justify-center text-on-surface-variant transition-colors">
+              <span class="material-symbols-outlined text-[14px]">close</span>
+            </button>
+          </div>
+        </div>
+        <div class="flex items-center justify-between mt-1 text-[10px] font-data-mono text-on-surface-variant pt-1 border-t border-surface-container-lowest">
+          <span class="station-specs-line text-on-surface-variant">${sets} • ${reps} • ${rest}</span>
+          <span class="text-tertiary-fixed truncate max-w-[90px]">${data.target}</span>
+        </div>
+      `;
+
+      card.querySelector('.remove-node-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        const parentDayZone = card.closest('.day-drop-zone');
+        card.remove();
+        if (parentDayZone) refreshDaySequence(parentDayZone);
+      });
+
+      card.querySelector('.config-node-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        const popup = document.getElementById('inline-popup-container');
+        if (popup) {
+          popup.style.display = 'flex';
+          popup.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+
+      return card;
+    }
+
+    // Drag and Drop
+    const machineCards = document.querySelectorAll('.machine-card');
+    machineCards.forEach(mc => {
+      mc.addEventListener('dragstart', (e) => {
+        draggedData = {
+          machineId: mc.dataset.machineId,
+          name: mc.dataset.name,
+          target: mc.dataset.target
+        };
+        e.dataTransfer.setData('text/plain', JSON.stringify(draggedData));
+        mc.classList.add('opacity-50');
+      });
+
+      mc.addEventListener('dragend', () => {
+        mc.classList.remove('opacity-50');
+      });
+    });
+
+    const dayDropZones = document.querySelectorAll('.day-drop-zone');
+    dayDropZones.forEach(zone => {
+      const slot = zone.querySelector('.day-slot');
+
+      zone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        zone.classList.add('bg-surface-container-high', 'ring-1', 'ring-primary');
+      });
+
+      zone.addEventListener('dragleave', () => {
+        zone.classList.remove('bg-surface-container-high', 'ring-1', 'ring-primary');
+      });
+
+      zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        zone.classList.remove('bg-surface-container-high', 'ring-1', 'ring-primary');
+
+        let data = draggedData;
+        if (!data) {
+          try {
+            data = JSON.parse(e.dataTransfer.getData('text/plain'));
+          } catch (err) {}
+        }
+
+        if (data && data.name) {
+          const newCard = createAssignedCard(data);
+          slot.appendChild(newCard);
+          refreshDaySequence(zone);
+          
+          // Mostrar ventana emergente con datos
+          const popup = document.getElementById('inline-popup-container');
+          if (popup) {
+            popup.style.display = 'flex';
+            popup.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+          showToast('EJERCICIO AGREGADO', `${data.name} añadido a ${zone.dataset.day.toUpperCase()}`);
+        }
+      });
+
+      const clearBtn = zone.querySelector('.clear-day-btn');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          const assigned = slot.querySelectorAll('.assigned-station-card');
+          assigned.forEach(c => c.remove());
+          refreshDaySequence(zone);
+        });
+      }
+    });
+
+    // Quick add button (+) on catalog cards
+    document.querySelectorAll('.add-quick-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = btn.closest('.machine-card');
+        const defaultDayZone = document.querySelector('.day-drop-zone[data-day="miercoles"]');
+        if (defaultDayZone && card) {
+          const payload = {
+            machineId: card.dataset.machineId,
+            name: card.dataset.name,
+            target: card.dataset.target
+          };
+          const newCard = createAssignedCard(payload);
+          defaultDayZone.querySelector('.day-slot').appendChild(newCard);
+          refreshDaySequence(defaultDayZone);
+          const popup = document.getElementById('inline-popup-container');
+          if (popup) {
+            popup.style.display = 'flex';
+            popup.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }
+      });
+    });
+
+    // Button Confirmar Ejercicio in Popup
+    const btnConfirm = document.getElementById('btn-confirm-exercise');
+    if (btnConfirm) {
+      btnConfirm.addEventListener('click', () => {
+        const series = document.getElementById('selected-series-val').value + " sets";
+        const reps = document.getElementById('selected-reps-val').value + " reps";
+        const rest = document.getElementById('selected-rest-val').value;
+
+        // Apply to the active card on miércoles
+        const activeCard = document.querySelector('.day-drop-zone[data-day="miercoles"] .assigned-station-card:last-child');
+        if (activeCard) {
+          activeCard.dataset.sets = series;
+          activeCard.dataset.reps = reps;
+          activeCard.dataset.rest = rest;
+          const line = activeCard.querySelector('.station-specs-line');
+          if (line) {
+            line.className = "station-specs-line text-on-surface-variant";
+            line.textContent = `${series} • ${reps} • ${rest}`;
+          }
+          activeCard.classList.remove('bg-primary/10');
+        }
+
+        showToast('EJERCICIO CONFIRMADO', `Parámetros guardados: ${series}, ${reps}, ${rest}`);
+        document.getElementById('inline-popup-container').style.display = 'none';
+      });
+    }
+
+    // Limpiar toda la semana
+    document.getElementById('btn-quick-clear').addEventListener('click', () => {
+      dayDropZones.forEach(zone => {
+        const assigned = zone.querySelectorAll('.assigned-station-card');
+        assigned.forEach(c => c.remove());
+        refreshDaySequence(zone);
+      });
+      showToast('SEMANA REINICIADA', 'Se han limpiado todos los microciclos');
+    });
+
+    // Guardar Rutina en BD (botón destacado esquina inferior derecha)
+    const btnSave = document.getElementById('btn-save-routine');
+    const routineInput = document.getElementById('routine-name-input');
+    if (btnSave && routineInput) {
+      btnSave.addEventListener('click', () => {
+        const val = routineInput.value.trim() || 'Rutina Sin Nombre';
+        const total = document.querySelectorAll('.assigned-station-card').length;
+        showToast('RUTINA GUARDADA EN BD', `"${val}" almacenada exitosamente con ${total} ejercicios.`);
+      });
+    }
+
+    // Búsqueda de máquinas
+    const filterInput = document.getElementById('machine-filter-input');
+    if (filterInput) {
+      filterInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        machineCards.forEach(mc => {
+          const text = (mc.dataset.name + " " + mc.dataset.target + " " + mc.dataset.machineId).toLowerCase();
+          mc.style.display = text.includes(query) ? 'flex' : 'none';
+        });
+      });
+    }
+
+    // Asignación atleta
+    const btnAssign = document.getElementById('btn-assign-routine');
+    if (btnAssign) {
+      btnAssign.addEventListener('click', () => {
+        showToast('SINCRONIZACIÓN EXITOSA', 'Rutina vinculada en tiempo real a la app del atleta.');
+      });
+    }
+  })();
+</script></main></div></body></html>

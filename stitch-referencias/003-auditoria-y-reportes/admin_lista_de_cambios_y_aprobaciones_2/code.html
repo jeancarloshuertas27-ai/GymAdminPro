@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,800&amp;family=Chivo:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "primary-container": "#1f71ef",
+          "primary-fixed": "#d9e2ff",
+          "surface-tint": "#afc6ff",
+          "tertiary-container": "#c75302",
+          "surface-container-highest": "#31353d",
+          "on-primary-container": "#000414",
+          "surface-dim": "#10131a",
+          "inverse-on-surface": "#2d3038",
+          "on-error-container": "#ffdad6",
+          "secondary-fixed": "#d9e2ff",
+          "tertiary-fixed": "#ffdbcc",
+          "error": "#ffb4ab",
+          "surface": "#10131a",
+          "outline": "#8c90a0",
+          "surface-container": "#1c2027",
+          "outline-variant": "#424754",
+          "on-surface-variant": "#c2c6d7",
+          "surface-variant": "#31353d",
+          "on-tertiary-fixed-variant": "#7a3000",
+          "on-background": "#e0e2ec",
+          "on-secondary-fixed": "#001944",
+          "on-surface": "#e0e2ec",
+          "surface-bright": "#363941",
+          "primary-fixed-dim": "#afc6ff",
+          "tertiary-fixed-dim": "#ffb693",
+          "secondary-fixed-dim": "#afc6ff",
+          "inverse-surface": "#e0e2ec",
+          "on-secondary": "#142f5f",
+          "surface-container-high": "#272a32",
+          "on-tertiary-fixed": "#351000",
+          "background": "#10131a",
+          "tertiary": "#ffb693",
+          "on-primary": "#002d6d",
+          "on-secondary-fixed-variant": "#2e4677",
+          "surface-container-low": "#181c23",
+          "on-primary-fixed": "#001944",
+          "on-tertiary": "#561f00",
+          "inverse-primary": "#0059c8",
+          "on-tertiary-container": "#ffffff",
+          "on-error": "#690005",
+          "on-primary-fixed-variant": "#004299",
+          "surface-container-lowest": "#0b0e15",
+          "primary": "#afc6ff",
+          "secondary-container": "#30487a",
+          "error-container": "#93000a",
+          "secondary": "#afc6ff",
+          "on-secondary-container": "#a1b8f1"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "gutter-mobile": "0.75rem",
+          "gutter": "1rem",
+          "margin": "2rem",
+          "space-lg": "1.5rem",
+          "space-md": "1rem",
+          "margin-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "space-xl": "2.5rem",
+          "space-sm": "0.5rem"
+        },
+        "fontFamily": {
+          "display-hero-mobile": [
+            "Barlow Condensed"
+          ],
+          "label-badge": [
+            "Barlow Condensed"
+          ],
+          "display-hero": [
+            "Barlow Condensed"
+          ],
+          "body-sm": [
+            "Chivo"
+          ],
+          "metric-huge": [
+            "Barlow Condensed"
+          ],
+          "body-md": [
+            "Chivo"
+          ],
+          "headline-md": [
+            "Barlow Condensed"
+          ],
+          "body-lg": [
+            "Chivo"
+          ],
+          "headline-lg": [
+            "Barlow Condensed"
+          ],
+          "data-mono": [
+            "JetBrains Mono"
+          ],
+          "headline-lg-mobile": [
+            "Barlow Condensed"
+          ],
+          "metric-huge-mobile": [
+            "Barlow Condensed"
+          ]
+        },
+        "fontSize": {
+          "display-hero-mobile": [
+            "40px",
+            {
+              "lineHeight": "42px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "800"
+            }
+          ],
+          "label-badge": [
+            "14px",
+            {
+              "lineHeight": "16px",
+              "letterSpacing": "0.08em",
+              "fontWeight": "800"
+            }
+          ],
+          "display-hero": [
+            "56px",
+            {
+              "lineHeight": "56px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "800"
+            }
+          ],
+          "body-sm": [
+            "13px",
+            {
+              "lineHeight": "18px",
+              "fontWeight": "400"
+            }
+          ],
+          "metric-huge": [
+            "64px",
+            {
+              "lineHeight": "64px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "800"
+            }
+          ],
+          "body-md": [
+            "15px",
+            {
+              "lineHeight": "22px",
+              "fontWeight": "400"
+            }
+          ],
+          "headline-md": [
+            "24px",
+            {
+              "lineHeight": "28px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "body-lg": [
+            "18px",
+            {
+              "lineHeight": "26px",
+              "fontWeight": "500"
+            }
+          ],
+          "headline-lg": [
+            "36px",
+            {
+              "lineHeight": "40px",
+              "letterSpacing": "0.03em",
+              "fontWeight": "700"
+            }
+          ],
+          "data-mono": [
+            "14px",
+            {
+              "lineHeight": "18px",
+              "letterSpacing": "0.05em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-lg-mobile": [
+            "28px",
+            {
+              "lineHeight": "32px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "metric-huge-mobile": [
+            "48px",
+            {
+              "lineHeight": "48px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "800"
+            }
+          ]
+        }
+      },
+    },
+  }</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary selection:text-on-primary"><header class="fixed top-0 left-0 right-0 h-16 z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.5)]"><div class="w-full h-full px-gutter flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-[24px]">fitness_center</span><span class="font-headline-md text-headline-md tracking-wider uppercase text-on-surface">GYMCORE <span class="text-primary">//</span> ADMIN MASTER SUITE</span></div><span class="px-space-sm py-0.5 rounded bg-error-container text-on-error font-label-badge text-label-badge tracking-widest uppercase">SUPERADMIN</span></div><div class="flex items-center gap-space-lg"><div class="hidden xl:flex items-center gap-space-sm bg-surface-container px-space-sm py-1 rounded"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-data-mono text-data-mono text-on-surface-variant uppercase">SYS_ONLINE : 99.98%</span></div><div class="hidden md:flex items-center gap-space-xs font-data-mono text-data-mono text-primary bg-surface-container-high px-space-md py-1 rounded"><span class="material-symbols-outlined text-[16px]">schedule</span><span id="system-clock">23:42:10 UTC</span></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="text-right hidden sm:block"><p class="font-label-badge text-label-badge uppercase leading-none text-on-surface">Commander.K</p><p class="font-data-mono text-[11px] leading-tight text-on-surface-variant">ROOT_ACCESS</p></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><aside class="fixed left-0 top-16 bottom-0 w-72 bg-surface-container-lowest z-40 flex flex-col justify-between py-space-md shadow-[1px_0_12px_rgba(0,0,0,0.4)]"><div class="flex flex-col gap-space-md"><div class="px-space-lg"><p class="font-data-mono text-[11px] tracking-widest uppercase text-on-surface-variant">NÚCLEO TÁCTICO // RUTAS</p></div><nav class="flex flex-col gap-space-xs px-space-sm" data-active-classes="bg-primary-container text-on-primary-container font-headline-md shadow-[0_0_16px_rgba(31,113,239,0.25)]"><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="dashboard-principal" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Dashboard Principal</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-3 rounded transition-all bg-primary-container text-on-primary-container font-headline-md shadow-[0_0_16px_rgba(31,113,239,0.25)]" data-path="lista-de-cambios-y-aprobaciones" href="#"><span class="material-symbols-outlined text-[20px]">verified_user</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Cambios &amp; Aprobaciones</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="gestion-de-membresias-y-promociones" href="#"><span class="material-symbols-outlined text-[20px]">card_membership</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Membresías &amp; Promociones</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="lista-de-usuarios-y-fidelidad" href="#"><span class="material-symbols-outlined text-[20px]">military_tech</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Usuarios &amp; Fidelidad</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="configurar-rutinas-y-asignar" href="#"><span class="material-symbols-outlined text-[20px]">reorder</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Configurar Rutinas</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="inventario-maestro-de-productos" href="#"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Inventario Maestro</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="nuevo-usuario" href="#"><span class="material-symbols-outlined text-[20px]">person_add</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Nuevo Usuario</span></a></nav></div><div class="px-space-md"><div class="bg-surface-container-low p-space-sm rounded flex flex-col gap-space-xs"><div class="flex justify-between items-center"><span class="font-data-mono text-[10px] text-on-surface-variant uppercase">TERMINAL NODE</span><span class="font-data-mono text-[10px] text-primary uppercase">ALPHA-01</span></div><div class="flex justify-between items-center"><span class="font-data-mono text-[10px] text-on-surface-variant uppercase">PROTOCOL</span><span class="font-data-mono text-[10px] text-on-surface uppercase">TLS 1.3 / AES-GCM</span></div></div></div></aside><div class="pl-72"><main class="w-full min-h-screen pt-16 px-gutter bg-background pb-32"><div class="flex flex-col w-full">
+<!-- Top Bar / Command & Control Auditing Header -->
+<div class="flex flex-col xl:flex-row xl:items-end justify-between gap-space-lg mb-space-xl">
+<div>
+<div class="flex items-center gap-space-sm mb-space-xs">
+<span class="inline-block w-2.5 h-2.5 rounded-full bg-tertiary-container animate-pulse"></span>
+<span class="font-data-mono text-data-mono uppercase tracking-widest text-tertiary">PROTOCOLO DE RECONCILIACIÓN ACTIVO</span>
+<span class="text-outline-variant font-data-mono text-body-sm">//</span>
+<span class="font-data-mono text-body-sm text-on-surface-variant">NODE: TERMINAL-ALPHA // AUDITORÍA LEGAL</span>
+</div>
+<h1 class="font-display-hero text-headline-lg md:text-display-hero uppercase tracking-tight text-on-surface">
+        LISTA DE CAMBIOS &amp; AUDITORÍA DE PAGOS
+      </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+        Verificación estricta en 2 columnas paralelas. Cada cambio aprobado borra el comprobante de la base de datos y quita la fila automáticamente de la vista operativa.
+      </p>
+</div>
+<!-- Export Action Zone Indicator -->
+<div class="flex flex-wrap items-center gap-space-md">
+<div class="bg-surface-container-low px-space-md py-space-sm rounded flex items-center gap-space-md shadow-sm border border-outline-variant/30">
+<div>
+<p class="font-data-mono text-[11px] uppercase text-on-surface-variant leading-none">PENDIENTES TOTALES</p>
+<p class="font-headline-md text-headline-md text-tertiary font-bold leading-none mt-1" id="kpi-pending-count">04 REGISTROS</p>
+</div>
+<div class="h-8 w-px bg-surface-container-highest"></div>
+<div>
+<p class="font-data-mono text-[11px] uppercase text-on-surface-variant leading-none">VOLUMEN AUDITABLE</p>
+<p class="font-headline-md text-headline-md text-primary font-bold leading-none mt-1">S/ 4,128.50</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Master Twin Audit Columns (2 Columnas Paralelas y Ordenadas) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg items-start">
+<!-- COLUMNA IZQUIERDA: CAMBIOS EN MEMBRESÍAS -->
+<div class="flex flex-col gap-space-md">
+<div class="bg-surface-container-low p-space-md rounded flex items-center justify-between shadow-sm border-l-4 border-primary">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">card_membership</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md uppercase tracking-wide text-on-surface">
+              CAMBIOS EN MEMBRESÍAS
+            </h2>
+<p class="font-data-mono text-[11px] text-on-surface-variant uppercase">AUDITORÍA // RENOVACIONES &amp; EXTENSIONES</p>
+</div>
+</div>
+<span class="px-space-sm py-1 bg-surface-container-high text-primary font-data-mono text-body-sm rounded font-bold" id="badge-memberships-count">02 PENDIENTES</span>
+</div>
+<!-- Tarjeta 1 Membresías: Mateo Alejandro Quispe (Transferencia BCP) -->
+<div class="bg-surface-container p-space-md rounded shadow-md border border-outline-variant/20 hover:border-outline-variant/50 transition-all flex flex-col gap-space-sm" id="row-membership-1">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-sm">
+<!-- Info Usuario y Cambiado Por -->
+<div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-md text-headline-md text-on-surface uppercase">MATEO ALEJANDRO QUISPE VEGA</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-primary-fixed border border-primary/30 font-label-badge text-[12px] uppercase tracking-wider font-bold">Cambiado por: Recepción</span>
+</div>
+<p class="font-data-mono text-body-sm text-on-surface-variant mt-0.5">DNI: <span class="text-on-surface font-semibold">73829104</span> // ID: <span class="text-primary font-semibold">USR-9482</span></p>
+</div>
+<!-- Monto -->
+<div class="text-left sm:text-right">
+<span class="font-headline-md text-headline-md text-primary font-bold block leading-none">S/ 1,450.00</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase block mt-1">OPERACIÓN: BCP-84920</span>
+</div>
+</div>
+<!-- Bloque de Atributos: Meses/días agregados, Fecha/hora, Método -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-xs bg-surface-container-lowest p-space-sm rounded">
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">TIEMPO AGREGADO</span>
+<span class="font-label-badge text-body-md text-tertiary uppercase block font-bold tracking-wide">+1 AÑO <span class="text-[12px] text-on-surface-variant font-normal">(12 Meses Mutación)</span></span>
+</div>
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">FECHA &amp; HORA</span>
+<span class="font-data-mono text-body-sm text-on-surface block mt-0.5">24 OCT 2024 - 17:42</span>
+</div>
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">MÉTODO DE PAGO</span>
+<div class="flex items-center gap-space-xs mt-0.5">
+<span class="font-data-mono text-body-sm text-primary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">account_balance</span> Transferencia (BCP)
+</span>
+<button class="bg-surface-container-high hover:bg-surface-bright text-on-surface px-2 py-0.5 rounded font-label-badge text-[12px] tracking-wider uppercase inline-flex items-center gap-1 transition-colors border border-outline-variant/30 text-primary" onclick="openVoucherModal('MATEO ALEJANDRO QUISPE', '73829104', 'Plan Anual Mutación (+1 Año)', 'S/ 1,450.00', 'BCP N° Operación: 8492019482', '24 OCT 2024 - 17:42', 'https://lh3.googleusercontent.com/aida-public/AB6AXuAlDG3jT8AfcSkrZB-kmtiJcZr5uAiO1VAOEW3TRxVEXAGNC8y9h7MvpzTjcEUM4Jzv8oXQTSjunrSaCnm9cNNfZmLRlRL_sDLWmcEp-AtHRj7RBYS0zIf8V-m1FRKXSXrTXhLXiMr6owzlHyT9KMVZ4sgSmJ5Nmw2axMbEZe6dZvYMaqYe4WWJJxoR8dplWGyIR6OBzTM5qDHh8P0EKscnpmqYp3JanFXEYA3wVxVZ-HOLV01_H8w', 'Voucher BCP')">
+<span class="material-symbols-outlined text-[14px]">visibility</span> Ver imagen
+</button>
+</div>
+</div>
+</div>
+<!-- Botón de Acción Directa al Lado Derecho con Leyenda Visible -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm pt-space-xs border-t border-outline-variant/20">
+<p class="font-data-mono text-[11px] text-on-surface-variant leading-tight flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">delete_forever</span>
+<span>Borra la foto de la BD y quita la fila de la vista</span>
+</p>
+<button class="bg-primary-container hover:bg-tertiary-container text-on-primary-container hover:text-on-tertiary-container px-space-lg py-space-sm rounded font-label-badge text-label-badge tracking-wider uppercase flex items-center justify-center gap-space-xs shadow transition-all font-bold shrink-0" onclick="approveTransaction('row-membership-1', 'MATEO ALEJANDRO QUISPE (+1 Año)')">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>ACEPTAR CAMBIO</span>
+</button>
+</div>
+</div>
+<!-- Tarjeta 2 Membresías: Valeria Rojas Sotomayor (Transferencia Yape) -->
+<div class="bg-surface-container p-space-md rounded shadow-md border border-outline-variant/20 hover:border-outline-variant/50 transition-all flex flex-col gap-space-sm" id="row-membership-2">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-sm">
+<div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-md text-headline-md text-on-surface uppercase">VALERIA ROJAS SOTOMAYOR</span>
+<span class="px-2 py-0.5 rounded bg-tertiary-container/30 text-tertiary border border-tertiary/30 font-label-badge text-[12px] uppercase tracking-wider font-bold">Cambiado por: Admin</span>
+</div>
+<p class="font-data-mono text-body-sm text-on-surface-variant mt-0.5">DNI: <span class="text-on-surface font-semibold">46193855</span> // ID: <span class="text-primary font-semibold">USR-8311</span></p>
+</div>
+<div class="text-left sm:text-right">
+<span class="font-headline-md text-headline-md text-primary font-bold block leading-none">S/ 480.00</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase block mt-1">YAPE: 019482</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-xs bg-surface-container-lowest p-space-sm rounded">
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">TIEMPO AGREGADO</span>
+<span class="font-label-badge text-body-md text-tertiary uppercase block font-bold tracking-wide">+3 MESES <span class="text-[12px] text-on-surface-variant font-normal">(Trimestre Guerrero)</span></span>
+</div>
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">FECHA &amp; HORA</span>
+<span class="font-data-mono text-body-sm text-on-surface block mt-0.5">24 OCT 2024 - 18:05</span>
+</div>
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">MÉTODO DE PAGO</span>
+<div class="flex items-center gap-space-xs mt-0.5">
+<span class="font-data-mono text-body-sm text-primary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">smartphone</span> Transferencia (Yape)
+</span>
+<button class="bg-surface-container-high hover:bg-surface-bright text-on-surface px-2 py-0.5 rounded font-label-badge text-[12px] tracking-wider uppercase inline-flex items-center gap-1 transition-colors border border-outline-variant/30 text-primary" onclick="openVoucherModal('VALERIA ROJAS SOTOMAYOR', '46193855', 'Trimestre Guerrero (+3 Meses)', 'S/ 480.00', 'Yape Ref: 01948201', '24 OCT 2024 - 18:05', 'https://lh3.googleusercontent.com/aida-public/AB6AXuAlDG3jT8AfcSkrZB-kmtiJcZr5uAiO1VAOEW3TRxVEXAGNC8y9h7MvpzTjcEUM4Jzv8oXQTSjunrSaCnm9cNNfZmLRlRL_sDLWmcEp-AtHRj7RBYS0zIf8V-m1FRKXSXrTXhLXiMr6owzlHyT9KMVZ4sgSmJ5Nmw2axMbEZe6dZvYMaqYe4WWJJxoR8dplWGyIR6OBzTM5qDHh8P0EKscnpmqYp3JanFXEYA3wVxVZ-HOLV01_H8w', 'Voucher Yape')">
+<span class="material-symbols-outlined text-[14px]">visibility</span> Ver imagen
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm pt-space-xs border-t border-outline-variant/20">
+<p class="font-data-mono text-[11px] text-on-surface-variant leading-tight flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">delete_forever</span>
+<span>Borra la foto de la BD y quita la fila de la vista</span>
+</p>
+<button class="bg-primary-container hover:bg-tertiary-container text-on-primary-container hover:text-on-tertiary-container px-space-lg py-space-sm rounded font-label-badge text-label-badge tracking-wider uppercase flex items-center justify-center gap-space-xs shadow transition-all font-bold shrink-0" onclick="approveTransaction('row-membership-2', 'VALERIA ROJAS (+3 Meses)')">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>ACEPTAR CAMBIO</span>
+</button>
+</div>
+</div>
+<!-- Tarjeta 3 Membresías: Sebastián Lara Pachas (Efectivo) -->
+<div class="bg-surface-container p-space-md rounded shadow-md border border-outline-variant/20 hover:border-outline-variant/50 transition-all flex flex-col gap-space-sm" id="row-membership-3">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-sm">
+<div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-md text-headline-md text-on-surface uppercase">SEBASTIÁN LARA PACHAS</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-primary-fixed border border-primary/30 font-label-badge text-[12px] uppercase tracking-wider font-bold">Cambiado por: Recepción</span>
+</div>
+<p class="font-data-mono text-body-sm text-on-surface-variant mt-0.5">DNI: <span class="text-on-surface font-semibold">71029482</span> // REC: <span class="text-primary font-semibold">#REC-4921</span></p>
+</div>
+<div class="text-left sm:text-right">
+<span class="font-headline-md text-headline-md text-primary font-bold block leading-none">S/ 190.00</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase block mt-1">CAJA FÍSICA</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-xs bg-surface-container-lowest p-space-sm rounded">
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">TIEMPO AGREGADO</span>
+<span class="font-label-badge text-body-md text-tertiary uppercase block font-bold tracking-wide">+30 DÍAS <span class="text-[12px] text-on-surface-variant font-normal">(1 Mes Titán)</span></span>
+</div>
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">FECHA &amp; HORA</span>
+<span class="font-data-mono text-body-sm text-on-surface block mt-0.5">24 OCT 2024 - 16:30</span>
+</div>
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">MÉTODO DE PAGO</span>
+<span class="font-data-mono text-body-sm text-tertiary font-semibold flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[15px]">payments</span> Efectivo (Caja)
+</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm pt-space-xs border-t border-outline-variant/20">
+<p class="font-data-mono text-[11px] text-on-surface-variant leading-tight flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">delete_forever</span>
+<span>Borra la foto de la BD y quita la fila de la vista</span>
+</p>
+<button class="bg-primary-container hover:bg-tertiary-container text-on-primary-container hover:text-on-tertiary-container px-space-lg py-space-sm rounded font-label-badge text-label-badge tracking-wider uppercase flex items-center justify-center gap-space-xs shadow transition-all font-bold shrink-0" onclick="approveTransaction('row-membership-3', 'SEBASTIÁN LARA (+30 Días)')">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>ACEPTAR CAMBIO</span>
+</button>
+</div>
+</div>
+</div>
+<!-- COLUMNA DERECHA: VENTA DE PRODUCTOS -->
+<div class="flex flex-col gap-space-md">
+<div class="bg-surface-container-low p-space-md rounded flex items-center justify-between shadow-sm border-l-4 border-tertiary">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">shopping_bag</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md uppercase tracking-wide text-on-surface">
+              VENTA DE PRODUCTOS
+            </h2>
+<p class="font-data-mono text-[11px] text-on-surface-variant uppercase">AUDITORÍA // TIENDA TÁCTICA &amp; STOCK</p>
+</div>
+</div>
+<span class="px-space-sm py-1 bg-surface-container-high text-tertiary font-data-mono text-body-sm rounded font-bold" id="badge-products-count">02 PENDIENTES</span>
+</div>
+<!-- Tarjeta 1 Productos: Whey Isolate 2kg -->
+<div class="bg-surface-container p-space-md rounded shadow-md border border-outline-variant/20 hover:border-outline-variant/50 transition-all flex flex-col gap-space-sm" id="row-product-1">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-sm">
+<!-- Producto: Nombre y foto miniatura -->
+<div class="flex items-start gap-space-sm">
+<div class="w-14 h-14 rounded bg-surface-container-highest border border-outline-variant/30 flex items-center justify-center shrink-0 overflow-hidden relative">
+<img alt="Whey Isolate 2kg Gold Standard" class="w-full h-full object-cover" data-alt="Bote de proteína Whey Isolate Gold Standard 2kg color negro y dorado para nutrición deportiva de alta calidad" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGM-7iJZiPyqkE3uVUjt0C1oU5Ub_6EFe6Qc4Ehl2OUgIo9Y4EARHHcRhanqiQnp4eo23530P4dGhegCRjB4RSh-I1Jx6LIzOYL7BUN1kkmc72KuKSv-RrMOEdWXugAluWjReQJXLczT8JHIkBOC0pMu3_LhYoDMCF7smj9iNRUFpUUvhrPvmeS2rx0FimRf-q-xQH16_60ED0gOqd99SCJYcNSftzPZcMFheKwmnecrtfZjF1rMc"/>
+</div>
+<div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-md text-headline-md text-on-surface uppercase">WHEY ISOLATE 2KG GOLD STANDARD</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-primary-fixed border border-primary/30 font-label-badge text-[12px] uppercase tracking-wider font-bold">Vendido por: Recepción</span>
+</div>
+<p class="font-data-mono text-body-sm text-on-surface-variant mt-0.5">SKU: <span class="text-on-surface font-semibold">SKU-WHEY-GLD-82</span> // RESPONSABLE: Carlos Mendoza</p>
+</div>
+</div>
+<!-- Monto -->
+<div class="text-left sm:text-right shrink-0">
+<span class="font-headline-md text-headline-md text-tertiary font-bold block leading-none">S/ 249.00</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase block mt-1">YAPE OP #93028</span>
+</div>
+</div>
+<!-- Bloque Atributos: Cantidad vendida, Vendido por, Fecha y hora, Método de pago -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-xs bg-surface-container-lowest p-space-sm rounded">
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">CANTIDAD VENDIDA</span>
+<span class="font-headline-md text-body-lg text-on-surface uppercase block font-bold text-primary">1 UNIDAD</span>
+</div>
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">FECHA &amp; HORA</span>
+<span class="font-data-mono text-body-sm text-on-surface block mt-0.5">24 OCT 2024 - 17:15</span>
+</div>
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">MÉTODO DE PAGO</span>
+<div class="flex items-center gap-space-xs mt-0.5">
+<span class="font-data-mono text-body-sm text-tertiary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">smartphone</span> Transferencia (Yape)
+</span>
+<button class="bg-surface-container-high hover:bg-surface-bright text-on-surface px-2 py-0.5 rounded font-label-badge text-[12px] tracking-wider uppercase inline-flex items-center gap-1 transition-colors border border-outline-variant/30 text-tertiary" onclick="openVoucherModal('VENTA PRODUCTO: CARLOS MENDOZA', 'BOLETA: B001-492', 'Whey Isolate 2kg Gold Standard (1 un.)', 'S/ 249.00', 'Yape Operación #93028110', '24 OCT 2024 - 17:15', 'https://lh3.googleusercontent.com/aida-public/AB6AXuAlDG3jT8AfcSkrZB-kmtiJcZr5uAiO1VAOEW3TRxVEXAGNC8y9h7MvpzTjcEUM4Jzv8oXQTSjunrSaCnm9cNNfZmLRlRL_sDLWmcEp-AtHRj7RBYS0zIf8V-m1FRKXSXrTXhLXiMr6owzlHyT9KMVZ4sgSmJ5Nmw2axMbEZe6dZvYMaqYe4WWJJxoR8dplWGyIR6OBzTM5qDHh8P0EKscnpmqYp3JanFXEYA3wVxVZ-HOLV01_H8w', 'Voucher Yape Proteína')">
+<span class="material-symbols-outlined text-[14px]">visibility</span> Ver imagen
+</button>
+</div>
+</div>
+</div>
+<!-- Botón Aceptar cambio y Leyenda al lado -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm pt-space-xs border-t border-outline-variant/20">
+<p class="font-data-mono text-[11px] text-on-surface-variant leading-tight flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">delete_forever</span>
+<span>Borra la foto de la BD y quita la fila de la vista</span>
+</p>
+<button class="bg-tertiary-container hover:bg-primary-container text-on-tertiary-container hover:text-on-primary-container px-space-lg py-space-sm rounded font-label-badge text-label-badge tracking-wider uppercase flex items-center justify-center gap-space-xs shadow transition-all font-bold shrink-0" onclick="approveTransaction('row-product-1', 'Whey Isolate 2kg Gold Standard')">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+<span>ACEPTAR CAMBIO</span>
+</button>
+</div>
+</div>
+<!-- Tarjeta 2 Productos: Creatina Creapure 300g -->
+<div class="bg-surface-container p-space-md rounded shadow-md border border-outline-variant/20 hover:border-outline-variant/50 transition-all flex flex-col gap-space-sm" id="row-product-2">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-sm">
+<!-- Producto: Nombre y foto miniatura -->
+<div class="flex items-start gap-space-sm">
+<div class="w-14 h-14 rounded bg-surface-container-highest border border-outline-variant/30 flex items-center justify-center shrink-0 overflow-hidden relative">
+<img alt="Creatina Creapure 300g Micronizada" class="w-full h-full object-cover" data-alt="Pote de Creatina Micronizada Creapure 300g suplemento de fuerza" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB31xW_MqgGkcXoh7eH6nMRk5372-gDBEKsILdiGIp0gUEgHEPwfmajs_qD1IPka9vp4e-XxcDXjaxs1zdqfsX8BxKGpPydO3o0aazKxNmRdkXnNQI5E1wR0XwlH3dbGEh1L3L1_BPHdCbgKkDX54zOIbosktx27Gig_d0glmB3PAUCqaMpvn75Ny4TdQyjz0q1XZ3SqtqDaQXisQSUN6VO9SWhykCzpaPhGDHrYCAik_mzqk9XkfM"/>
+</div>
+<div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-md text-headline-md text-on-surface uppercase">CREATINA CREAPURE 300G (MICRONIZADA)</span>
+<span class="px-2 py-0.5 rounded bg-tertiary-container/30 text-tertiary border border-tertiary/30 font-label-badge text-[12px] uppercase tracking-wider font-bold">Vendido por: Admin</span>
+</div>
+<p class="font-data-mono text-body-sm text-on-surface-variant mt-0.5">SKU: <span class="text-on-surface font-semibold">SKU-CREA-CRP-11</span> // RESPONSABLE: Commander.K</p>
+</div>
+</div>
+<!-- Monto -->
+<div class="text-left sm:text-right shrink-0">
+<span class="font-headline-md text-headline-md text-tertiary font-bold block leading-none">S/ 260.00</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase block mt-1">PLIN: 582019</span>
+</div>
+</div>
+<!-- Bloque Atributos -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-xs bg-surface-container-lowest p-space-sm rounded">
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">CANTIDAD VENDIDA</span>
+<span class="font-headline-md text-body-lg text-on-surface uppercase block font-bold text-primary">2 UNIDADES</span>
+</div>
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">FECHA &amp; HORA</span>
+<span class="font-data-mono text-body-sm text-on-surface block mt-0.5">24 OCT 2024 - 18:22</span>
+</div>
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">MÉTODO DE PAGO</span>
+<div class="flex items-center gap-space-xs mt-0.5">
+<span class="font-data-mono text-body-sm text-tertiary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">bolt</span> Transferencia (Plin)
+</span>
+<button class="bg-surface-container-high hover:bg-surface-bright text-on-surface px-2 py-0.5 rounded font-label-badge text-[12px] tracking-wider uppercase inline-flex items-center gap-1 transition-colors border border-outline-variant/30 text-tertiary" onclick="openVoucherModal('VENTA PRODUCTO: COMMANDER.K', 'BOLETA: B001-493', 'Creatina Creapure 300g (2 un.)', 'S/ 260.00', 'Plin Operación #58201948', '24 OCT 2024 - 18:22', 'https://lh3.googleusercontent.com/aida-public/AB6AXuAlDG3jT8AfcSkrZB-kmtiJcZr5uAiO1VAOEW3TRxVEXAGNC8y9h7MvpzTjcEUM4Jzv8oXQTSjunrSaCnm9cNNfZmLRlRL_sDLWmcEp-AtHRj7RBYS0zIf8V-m1FRKXSXrTXhLXiMr6owzlHyT9KMVZ4sgSmJ5Nmw2axMbEZe6dZvYMaqYe4WWJJxoR8dplWGyIR6OBzTM5qDHh8P0EKscnpmqYp3JanFXEYA3wVxVZ-HOLV01_H8w', 'Voucher Plin Creatina')">
+<span class="material-symbols-outlined text-[14px]">visibility</span> Ver imagen
+</button>
+</div>
+</div>
+</div>
+<!-- Botón Aceptar cambio y Leyenda al lado -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm pt-space-xs border-t border-outline-variant/20">
+<p class="font-data-mono text-[11px] text-on-surface-variant leading-tight flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">delete_forever</span>
+<span>Borra la foto de la BD y quita la fila de la vista</span>
+</p>
+<button class="bg-tertiary-container hover:bg-primary-container text-on-tertiary-container hover:text-on-primary-container px-space-lg py-space-sm rounded font-label-badge text-label-badge tracking-wider uppercase flex items-center justify-center gap-space-xs shadow transition-all font-bold shrink-0" onclick="approveTransaction('row-product-2', 'Creatina Creapure 300g x2')">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+<span>ACEPTAR CAMBIO</span>
+</button>
+</div>
+</div>
+<!-- Tarjeta 3 Productos: Shaker Metálico Beast Mode (Efectivo) -->
+<div class="bg-surface-container p-space-md rounded shadow-md border border-outline-variant/20 hover:border-outline-variant/50 transition-all flex flex-col gap-space-sm" id="row-product-3">
+<div class="flex flex-col sm:flex-row sm:items-start justify-between gap-space-sm">
+<!-- Producto: Nombre y foto miniatura -->
+<div class="flex items-start gap-space-sm">
+<div class="w-14 h-14 rounded bg-surface-container-highest border border-outline-variant/30 flex items-center justify-center shrink-0 overflow-hidden relative">
+<img alt="Shaker Metálico Beast Mode" class="w-full h-full object-cover" data-alt="Vaso mezclador Shaker metálico de acero inoxidable con logo GymCore" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZVAjxslgl6Qi8cc8veF8F7Ac44ME6pamz0Ol9t7HVZ83lqPMKUUAGUL_MjcyrNoePY3xBIBG9D9OB5hvfOxmgvIocP7W4o6xEP_sC8OLTMpy7wsl3v6wY8X81FS_6-f-Qpx62JmUaGJUWxmFxTNELftFGgDc8Hsc9Y5Bq4fh2xLWeWXE17mw9Gej3UHruML0mtHg0tysynAopjXHLw8m7GfGsVR68hoOEMyUYTCMhkRCh7cs3b00"/>
+</div>
+<div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-headline-md text-headline-md text-on-surface uppercase">SHAKER METÁLICO GYMCORE BEAST MODE</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-primary-fixed border border-primary/30 font-label-badge text-[12px] uppercase tracking-wider font-bold">Vendido por: Recepción</span>
+</div>
+<p class="font-data-mono text-body-sm text-on-surface-variant mt-0.5">SKU: <span class="text-on-surface font-semibold">SKU-ACC-SHK-04</span> // RESPONSABLE: Carlos Mendoza</p>
+</div>
+</div>
+<!-- Monto -->
+<div class="text-left sm:text-right shrink-0">
+<span class="font-headline-md text-headline-md text-tertiary font-bold block leading-none">S/ 45.00</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase block mt-1">CAJA FÍSICA</span>
+</div>
+</div>
+<!-- Bloque Atributos -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-xs bg-surface-container-lowest p-space-sm rounded">
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">CANTIDAD VENDIDA</span>
+<span class="font-headline-md text-body-lg text-on-surface uppercase block font-bold text-primary">1 UNIDAD</span>
+</div>
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">FECHA &amp; HORA</span>
+<span class="font-data-mono text-body-sm text-on-surface block mt-0.5">24 OCT 2024 - 15:40</span>
+</div>
+<div>
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant block">MÉTODO DE PAGO</span>
+<span class="font-data-mono text-body-sm text-tertiary font-semibold flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[15px]">payments</span> Efectivo (Caja)
+</span>
+</div>
+</div>
+<!-- Botón Aceptar cambio y Leyenda al lado -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm pt-space-xs border-t border-outline-variant/20">
+<p class="font-data-mono text-[11px] text-on-surface-variant leading-tight flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">delete_forever</span>
+<span>Borra la foto de la BD y quita la fila de la vista</span>
+</p>
+<button class="bg-tertiary-container hover:bg-primary-container text-on-tertiary-container hover:text-on-primary-container px-space-lg py-space-sm rounded font-label-badge text-label-badge tracking-wider uppercase flex items-center justify-center gap-space-xs shadow transition-all font-bold shrink-0" onclick="approveTransaction('row-product-3', 'Shaker Metálico Beast Mode')">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+<span>ACEPTAR CAMBIO</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- BOTÓN PROMINENTE FLOTANTE: GENERAR REPORTE (ESQUINA INFERIOR DERECHA) -->
+<div class="fixed bottom-6 right-6 z-40">
+<button class="relative group bg-primary-container hover:bg-tertiary-container text-on-primary-container hover:text-on-tertiary-container px-6 py-4 rounded-xl shadow-[0_8px_30px_rgba(31,113,239,0.45)] hover:shadow-[0_8px_30px_rgba(199,83,2,0.55)] transition-all flex items-center gap-space-md border border-primary/50 hover:scale-[1.02] active:scale-95" id="btn-open-report-modal">
+<div class="w-11 h-11 rounded-lg bg-on-primary-container/20 group-hover:bg-on-tertiary-container/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[28px]">picture_as_pdf</span>
+</div>
+<div class="text-left">
+<span class="font-data-mono text-[11px] tracking-wider uppercase block text-primary-fixed group-hover:text-tertiary-fixed font-bold leading-none">DESCARGA PDF // CONSOLIDADO DIARIO</span>
+<span class="font-headline-lg text-headline-md tracking-wider uppercase font-bold block leading-none mt-1">GENERAR REPORTE</span>
+<span class="font-data-mono text-[11px] text-primary-fixed/80 group-hover:text-on-tertiary-container/90 block leading-none mt-1">REPORTE_24_OCT_2024.pdf</span>
+</div>
+<span class="material-symbols-outlined text-[22px] ml-1">arrow_forward</span>
+</button>
+</div>
+<!-- MODAL / VOUCHER VIEWER AUDITORÍA FORENSE -->
+<div class="fixed inset-0 z-50 bg-surface-container-lowest/90 backdrop-blur-md hidden items-center justify-center p-space-md" id="voucher-modal">
+<div class="bg-surface-container w-full max-w-4xl max-h-[942px] rounded flex flex-col overflow-hidden shadow-2xl border border-outline-variant/30">
+<!-- Modal Header -->
+<div class="px-space-lg py-space-md bg-surface-container-high flex items-center justify-between border-b border-outline-variant/30">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[24px]">find_in_page</span>
+<div>
+<h3 class="font-headline-md text-headline-md uppercase text-on-surface leading-none">AUDITORÍA FORENSE DE COMPROBANTE</h3>
+<p class="font-data-mono text-[11px] text-on-surface-variant uppercase mt-1">VERIFICACIÓN CRÍTICA // MONTO &amp; CÓDIGO BANCARIO</p>
+</div>
+</div>
+<button class="w-10 h-10 rounded bg-surface-container hover:bg-surface-bright flex items-center justify-center text-on-surface transition-colors" onclick="closeVoucherModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Modal Body Split -->
+<div class="grid grid-cols-1 md:grid-cols-12 flex-1 overflow-y-auto">
+<!-- Interactive Zoom Canvas Area -->
+<div class="md:col-span-7 bg-surface-container-lowest p-space-md flex flex-col items-center justify-center relative select-none overflow-hidden">
+<div class="absolute top-space-sm right-space-sm z-10 flex items-center gap-1 bg-surface-container/90 backdrop-blur px-space-xs py-1 rounded">
+<button class="w-8 h-8 rounded hover:bg-surface-bright flex items-center justify-center text-primary" id="zoom-in-btn" title="Zoom +">
+<span class="material-symbols-outlined text-[18px]">zoom_in</span>
+</button>
+<button class="w-8 h-8 rounded hover:bg-surface-bright flex items-center justify-center text-on-surface" id="zoom-out-btn" title="Zoom -">
+<span class="material-symbols-outlined text-[18px]">zoom_out</span>
+</button>
+<button class="w-8 h-8 rounded hover:bg-surface-bright flex items-center justify-center text-on-surface-variant" id="zoom-reset-btn" title="Restablecer">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+</button>
+</div>
+<div class="overflow-hidden w-full h-[360px] md:h-[480px] flex items-center justify-center cursor-grab active:cursor-grabbing relative">
+<img alt="Comprobante Bancario Transferencia" class="max-h-full max-w-full object-contain rounded transition-transform duration-200" data-alt="Voucher oficial mostrado en pantalla comprobante de transferencia bancaria" id="voucher-img-element" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlDG3jT8AfcSkrZB-kmtiJcZr5uAiO1VAOEW3TRxVEXAGNC8y9h7MvpzTjcEUM4Jzv8oXQTSjunrSaCnm9cNNfZmLRlRL_sDLWmcEp-AtHRj7RBYS0zIf8V-m1FRKXSXrTXhLXiMr6owzlHyT9KMVZ4sgSmJ5Nmw2axMbEZe6dZvYMaqYe4WWJJxoR8dplWGyIR6OBzTM5qDHh8P0EKscnpmqYp3JanFXEYA3wVxVZ-HOLV01_H8w" style="transform: scale(1);"/>
+</div>
+<p class="font-data-mono text-[11px] text-on-surface-variant mt-2 text-center">
+            Pellizque, use controles o arrastre para verificar titularidad, número de operación y consistencia.
+          </p>
+</div>
+<!-- Telemetry Details & Reconciliation Panel -->
+<div class="md:col-span-5 p-space-lg flex flex-col justify-between bg-surface-container">
+<div class="flex flex-col gap-space-md">
+<div>
+<span class="font-data-mono text-[10px] text-tertiary uppercase font-bold tracking-wider">DATOS REGISTRADOS EN SISTEMA</span>
+<h4 class="font-headline-md text-headline-md uppercase text-on-surface mt-1" id="modal-client-name">MATEO ALEJANDRO QUISPE</h4>
+<p class="font-data-mono text-body-sm text-on-surface-variant" id="modal-client-doc">DNI: 73829104</p>
+</div>
+<div class="bg-surface-container-low p-space-md rounded flex flex-col gap-space-xs">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase">CONCEPTO / ITEM</span>
+<p class="font-label-badge text-body-md uppercase text-on-surface font-bold" id="modal-plan-name">Plan Anual Mutación (12 Meses)</p>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="bg-surface-container-low p-space-sm rounded">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase">MONTO DECLARADO</span>
+<p class="font-headline-md text-headline-md text-primary font-bold" id="modal-amount">S/ 1,450.00</p>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase">REGISTRO TIEMPO</span>
+<p class="font-data-mono text-body-sm text-on-surface mt-1" id="modal-time">24 OCT - 17:42</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase">TELEMETRÍA DE TRANSFERENCIA</span>
+<p class="font-data-mono text-body-sm text-tertiary font-bold mt-0.5" id="modal-operation">BCP N° Operación: 8492019482</p>
+</div>
+<div class="p-space-sm rounded bg-surface-container-lowest">
+<div class="flex items-center gap-space-xs text-tertiary">
+<span class="material-symbols-outlined text-[16px]">security_update_warning</span>
+<span class="font-label-badge text-[12px] uppercase">CHECKLIST DE AUDITORÍA</span>
+</div>
+<ul class="font-data-mono text-[11px] text-on-surface-variant mt-1 space-y-1">
+<li>[✓] Titular destino: GymCore S.A.C.</li>
+<li>[✓] Concuerda fecha con registro de turno.</li>
+<li>[✓] Sin artefactos de edición fotográfica.</li>
+</ul>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm pt-space-lg">
+<button class="w-full bg-primary-container hover:bg-tertiary-container text-on-primary-container hover:text-on-tertiary-container py-space-md rounded font-label-badge text-label-badge tracking-wider uppercase flex items-center justify-center gap-space-sm shadow-xl transition-all font-bold" onclick="confirmFromModal()">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+<span>CONFIRMAR &amp; DESTRUIR ARCHIVO TEMPORAL</span>
+</button>
+<button class="w-full bg-surface-container-high hover:bg-surface-bright text-on-surface py-space-sm rounded font-label-badge text-label-badge tracking-wider uppercase transition-colors" onclick="closeVoucherModal()">
+              CERRAR VISOR
+            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- MODAL: GENERADOR DE REPORTE DIARIO CONSOLIDADO (PDF VIEWER) -->
+<div class="fixed inset-0 z-50 bg-surface-container-lowest/90 backdrop-blur-md hidden items-center justify-center p-space-md" id="report-modal">
+<div class="bg-surface-container w-full max-w-3xl rounded flex flex-col overflow-hidden shadow-2xl border border-outline-variant/30">
+<!-- Modal Head -->
+<div class="px-space-lg py-space-md bg-surface-container-high flex items-center justify-between border-b border-outline-variant/30">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[24px]">summarize</span>
+<div>
+<h3 class="font-headline-md text-headline-md uppercase text-on-surface leading-none">REPORTE CONSOLIDADO DIARIO</h3>
+<p class="font-data-mono text-[11px] text-primary uppercase mt-1">ARCHIVO FISCAL: REPORTE_24_OCT_2024.pdf</p>
+</div>
+</div>
+<button class="w-10 h-10 rounded bg-surface-container hover:bg-surface-bright flex items-center justify-center text-on-surface transition-colors" id="btn-close-report-modal">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- PDF Preview Sheet -->
+<div class="p-space-lg overflow-y-auto max-h-[716px] flex flex-col gap-space-lg bg-surface-container-lowest">
+<!-- Document Header Inset -->
+<div class="bg-surface-container-low p-space-md rounded flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm border-l-4 border-primary">
+<div>
+<span class="font-label-badge text-body-lg uppercase tracking-widest text-primary font-bold">GYMCORE FINANCIAL &amp; AUDIT REPORT</span>
+<p class="font-data-mono text-[11px] text-on-surface-variant">FECHA: 24/10/2024 // PERÍODO: TURNO INTEGRAL // SEDE CENTRAL</p>
+</div>
+<span class="px-space-sm py-1 bg-primary text-on-primary font-data-mono text-body-sm font-bold rounded w-fit">ESTADO: CUADRADO</span>
+</div>
+<!-- Consolidados Clave: Ganancias membresías, nuevos usuarios, ganancias productos -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm">
+<div class="bg-surface-container p-space-sm rounded border border-outline-variant/20">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase block">GANANCIAS MEMBRESÍAS</span>
+<p class="font-headline-md text-headline-md text-primary font-bold mt-1">S/ 11,280.00</p>
+<span class="font-data-mono text-[11px] text-on-surface-variant block mt-0.5">14 Atletas activos</span>
+</div>
+<div class="bg-surface-container p-space-sm rounded border border-outline-variant/20">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase block">CANTIDAD NUEVOS USUARIOS</span>
+<p class="font-headline-md text-headline-md text-tertiary font-bold mt-1">14 USUARIOS</p>
+<span class="font-data-mono text-[11px] text-on-surface-variant block mt-0.5">Altas completadas hoy</span>
+</div>
+<div class="bg-surface-container p-space-sm rounded border border-outline-variant/20">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase block">GANANCIAS POR PRODUCTOS</span>
+<p class="font-headline-md text-headline-md text-primary font-bold mt-1">S/ 3,490.00</p>
+<span class="font-data-mono text-[11px] text-on-surface-variant block mt-0.5">29 Unidades vendidas</span>
+</div>
+</div>
+<!-- Metric Table 1: Resumen General -->
+<div>
+<h4 class="font-label-badge text-label-badge uppercase tracking-wider text-on-surface mb-space-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">pie_chart</span>
+            1. RESUMEN CONSOLIDADO DE INGRESOS
+          </h4>
+<div class="overflow-x-auto rounded border border-outline-variant/20">
+<table class="w-full text-left font-data-mono text-body-sm bg-surface-container">
+<thead class="bg-surface-container-high text-on-surface-variant uppercase text-[11px]">
+<tr>
+<th class="py-2.5 px-4">CONCEPTO</th>
+<th class="py-2.5 px-4 text-center">NUEVOS INSCRITOS / OPS</th>
+<th class="py-2.5 px-4 text-right">TOTAL BRUTO</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-highest text-on-surface">
+<tr>
+<td class="py-2.5 px-4 font-body-md font-semibold">Ganancias de Membresías &amp; Renovaciones</td>
+<td class="py-2.5 px-4 text-center text-primary font-bold">14 Nuevos Usuarios</td>
+<td class="py-2.5 px-4 text-right font-bold text-on-surface">S/ 11,280.00</td>
+</tr>
+<tr>
+<td class="py-2.5 px-4 font-body-md font-semibold">Ganancias de Suplementos &amp; Shakers</td>
+<td class="py-2.5 px-4 text-center text-tertiary font-bold">29 Unidades</td>
+<td class="py-2.5 px-4 text-right font-bold text-on-surface">S/ 3,490.00</td>
+</tr>
+<tr class="bg-surface-container-high font-bold">
+<td class="py-3 px-4 uppercase text-primary">RECAUDACIÓN BRUTA DEL DÍA</td>
+<td class="py-3 px-4 text-center text-on-surface">43 TRANSACCIONES</td>
+<td class="py-3 px-4 text-right text-primary text-headline-md font-bold">S/ 14,770.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Metric Table 2: Lista de Productos Vendidos -->
+<div>
+<h4 class="font-label-badge text-label-badge uppercase tracking-wider text-on-surface mb-space-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary">inventory_2</span>
+            2. LISTA DETALLADA DE PRODUCTOS VENDIDOS
+          </h4>
+<div class="overflow-x-auto rounded border border-outline-variant/20">
+<table class="w-full text-left font-data-mono text-body-sm bg-surface-container">
+<thead class="bg-surface-container-high text-on-surface-variant uppercase text-[11px]">
+<tr>
+<th class="py-2 px-4">PRODUCTO</th>
+<th class="py-2 px-4 text-center">CANTIDAD VENDIDA</th>
+<th class="py-2 px-4 text-right">P. UNIT</th>
+<th class="py-2 px-4 text-right">SUBTOTAL</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-highest text-on-surface text-[12px]">
+<tr>
+<td class="py-2 px-4 font-body-md">Whey Isolate 2kg Gold Standard</td>
+<td class="py-2 px-4 text-center font-bold text-tertiary">08 un.</td>
+<td class="py-2 px-4 text-right">S/ 249.00</td>
+<td class="py-2 px-4 text-right font-semibold">S/ 1,992.00</td>
+</tr>
+<tr>
+<td class="py-2 px-4 font-body-md">Creatina Creapure 300g Micronizada</td>
+<td class="py-2 px-4 text-center font-bold text-tertiary">12 un.</td>
+<td class="py-2 px-4 text-right">S/ 130.00</td>
+<td class="py-2 px-4 text-right font-semibold">S/ 1,560.00</td>
+</tr>
+<tr>
+<td class="py-2 px-4 font-body-md">Shaker Metálico GymCore Beast Mode</td>
+<td class="py-2 px-4 text-center font-bold text-tertiary">06 un.</td>
+<td class="py-2 px-4 text-right">S/ 45.00</td>
+<td class="py-2 px-4 text-right font-semibold">S/ 270.00</td>
+</tr>
+<tr>
+<td class="py-2 px-4 font-body-md">BCAA Glutamina Power Powder 400g</td>
+<td class="py-2 px-4 text-center font-bold text-tertiary">03 un.</td>
+<td class="py-2 px-4 text-right">S/ 110.00</td>
+<td class="py-2 px-4 text-right font-semibold">S/ 330.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Indicador de Descarga PDF -->
+<div class="hidden p-space-md bg-surface-container rounded items-center gap-space-md border border-primary/40" id="pdf-download-feedback">
+<span class="material-symbols-outlined text-primary text-[28px] animate-spin">sync</span>
+<div>
+<p class="font-label-badge text-body-sm text-primary uppercase font-bold">COMPILANDO FICHERO PDF 'REPORTE_24_OCT_2024.pdf'...</p>
+<p class="font-data-mono text-[11px] text-on-surface-variant">Generando documento oficial con totales fiscales consolidados.</p>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="px-space-lg py-space-md bg-surface-container flex flex-col sm:flex-row items-center justify-between gap-space-md border-t border-outline-variant/30">
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase">
+          INDICADOR: DESCARGA EN PDF 'REPORTE [24_OCT_2024]'
+        </span>
+<button class="w-full sm:w-auto bg-primary-container hover:bg-tertiary-container text-on-primary-container hover:text-on-tertiary-container px-space-lg py-space-md rounded font-label-badge text-label-badge tracking-wider uppercase flex items-center justify-center gap-space-sm shadow-xl transition-all font-bold" id="btn-trigger-pdf-download">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span>DESCARGAR 'REPORTE_24_OCT_2024.pdf'</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Toast Container -->
+<div class="fixed bottom-24 right-6 z-50 flex flex-col gap-space-sm pointer-events-none" id="toast-container"></div>
+</div>
+</main></div>
+<script>
+  let currentZoom = 1;
+  const voucherModal = document.getElementById('voucher-modal');
+  const reportModal = document.getElementById('report-modal');
+  const voucherImg = document.getElementById('voucher-img-element');
+
+  const modalClientName = document.getElementById('modal-client-name');
+  const modalClientDoc = document.getElementById('modal-client-doc');
+  const modalPlanName = document.getElementById('modal-plan-name');
+  const modalAmount = document.getElementById('modal-amount');
+  const modalOperation = document.getElementById('modal-operation');
+  const modalTime = document.getElementById('modal-time');
+
+  // Zoom Controls
+  document.getElementById('zoom-in-btn').addEventListener('click', () => {
+    currentZoom = Math.min(currentZoom + 0.35, 3.2);
+    applyZoom();
+  });
+  document.getElementById('zoom-out-btn').addEventListener('click', () => {
+    currentZoom = Math.max(currentZoom - 0.35, 0.7);
+    applyZoom();
+  });
+  document.getElementById('zoom-reset-btn').addEventListener('click', () => {
+    currentZoom = 1;
+    applyZoom();
+  });
+
+  function applyZoom() {
+    voucherImg.style.transform = `scale(${currentZoom})`;
+  }
+
+  // Open Voucher Modal
+  function openVoucherModal(name, doc, plan, amount, op, time, imgSrc, imgAlt) {
+    modalClientName.textContent = name;
+    modalClientDoc.textContent = 'DOC / REF: ' + doc;
+    modalPlanName.textContent = plan;
+    modalAmount.textContent = amount;
+    modalOperation.textContent = op;
+    modalTime.textContent = time;
+
+    voucherImg.src = imgSrc || 'placeholder';
+    voucherImg.setAttribute('data-alt', imgAlt || 'Comprobante verificado');
+    currentZoom = 1;
+    applyZoom();
+
+    voucherModal.classList.remove('hidden');
+    voucherModal.classList.add('flex');
+  }
+
+  function closeVoucherModal() {
+    voucherModal.classList.add('hidden');
+    voucherModal.classList.remove('flex');
+    currentZoom = 1;
+    applyZoom();
+  }
+
+  function confirmFromModal() {
+    closeVoucherModal();
+    showToast('TRANSACCIÓN CONFIRMADA', 'Borra la foto de la BD y quita la fila de la vista.', 'check_circle', 'text-primary');
+  }
+
+  // Row Approvals: Borra la foto de la BD y quita la fila de la vista
+  function approveTransaction(rowId, description) {
+    const row = document.getElementById(rowId);
+    if (!row) return;
+
+    row.style.transition = 'all 0.35s ease';
+    row.style.opacity = '0';
+    row.style.transform = 'translateX(20px)';
+    
+    setTimeout(() => {
+      row.remove();
+      showToast('CAMBIO ACEPTADO', `Se borró la foto de la BD y se retiró de la vista: ${description}`, 'delete_forever', 'text-tertiary');
+    }, 350);
+  }
+
+  // Report Modal logic
+  const btnOpenReport = document.getElementById('btn-open-report-modal');
+  const btnCloseReport = document.getElementById('btn-close-report-modal');
+  const btnTriggerPdf = document.getElementById('btn-trigger-pdf-download');
+  const pdfFeedback = document.getElementById('pdf-download-feedback');
+
+  btnOpenReport.addEventListener('click', () => {
+    reportModal.classList.remove('hidden');
+    reportModal.classList.add('flex');
+    pdfFeedback.classList.add('hidden');
+    pdfFeedback.classList.remove('flex');
+  });
+
+  btnCloseReport.addEventListener('click', () => {
+    reportModal.classList.add('hidden');
+    reportModal.classList.remove('flex');
+  });
+
+  btnTriggerPdf.addEventListener('click', () => {
+    pdfFeedback.classList.remove('hidden');
+    pdfFeedback.classList.add('flex');
+
+    setTimeout(() => {
+      const fakeBlob = new Blob([
+        "GYMCORE REPORTE CONSOLIDADO [24/10/2024]\n========================================\n1. GANANCIAS MEMBRESIAS: S/ 11,280.00\n2. CANTIDAD NUEVOS USUARIOS: 14 ATLETAS\n3. GANANCIAS PRODUCTOS: S/ 3,490.00\n4. LISTA PRODUCTOS VENDIDOS:\n - Whey Isolate 2kg Gold: 8 un.\n - Creatina Creapure 300g: 12 un.\n - Shaker Metálico: 6 un.\n - BCAA Glutamina: 3 un.\nTOTAL RECAUDADO: S/ 14,770.00"
+      ], { type: "application/pdf" });
+      const downloadUrl = URL.createObjectURL(fakeBlob);
+      const tempLink = document.createElement("a");
+      tempLink.href = downloadUrl;
+      tempLink.download = "REPORTE_24_OCT_2024.pdf";
+      document.body.appendChild(tempLink);
+      tempLink.click();
+      document.body.removeChild(tempLink);
+      URL.revokeObjectURL(downloadUrl);
+
+      pdfFeedback.classList.add('hidden');
+      pdfFeedback.classList.remove('flex');
+      reportModal.classList.add('hidden');
+      reportModal.classList.remove('flex');
+
+      showToast('DESCARGA EXITOSA', 'Se generó y descargó "REPORTE_24_OCT_2024.pdf"', 'picture_as_pdf', 'text-primary');
+    }, 1200);
+  });
+
+  // Global Toast function
+  function showToast(title, message, icon, iconColorClass) {
+    const toastContainer = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = 'pointer-events-auto bg-surface-container-high border border-outline-variant/40 text-on-surface px-space-md py-space-sm rounded shadow-2xl flex items-center gap-space-sm transform transition-all duration-300 translate-y-4 opacity-0 max-w-md';
+    toast.innerHTML = `
+      <span class="material-symbols-outlined ${iconColorClass} text-[24px]">${icon}</span>
+      <div>
+        <p class="font-headline-md text-body-md uppercase leading-none font-bold">${title}</p>
+        <p class="font-data-mono text-[11px] text-on-surface-variant mt-0.5 leading-tight">${message}</p>
+      </div>
+    `;
+
+    toastContainer.appendChild(toast);
+    setTimeout(() => {
+      toast.classList.remove('translate-y-4', 'opacity-0');
+    }, 10);
+
+    setTimeout(() => {
+      toast.classList.add('opacity-0', 'translate-y-2');
+      setTimeout(() => {
+        toast.remove();
+      }, 300);
+    }, 4000);
+  }
+</script></body></html>

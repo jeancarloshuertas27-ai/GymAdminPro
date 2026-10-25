@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,700&amp;family=Chivo:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-variant": "#31353d", "inverse-surface": "#e0e2ec", "on-primary-fixed-variant": "#004299", "surface-tint": "#afc6ff", "error": "#ffb4ab", "surface-container-highest": "#31353d", "surface-container-high": "#272a32", "outline-variant": "#424754", "on-secondary-fixed": "#001944", "on-tertiary-container": "#ffffff", "primary-fixed-dim": "#afc6ff", "primary-fixed": "#d9e2ff", "on-tertiary-fixed-variant": "#7a3000", "background": "#10131a", "on-primary": "#002d6d", "tertiary-container": "#c75302", "on-tertiary": "#561f00", "on-surface-variant": "#c2c6d7", "on-primary-fixed": "#001944", "on-error-container": "#ffdad6", "on-secondary": "#142f5f", "secondary": "#afc6ff", "surface-container-low": "#181c23", "inverse-primary": "#0059c8", "surface-container": "#1c2027", "outline": "#8c90a0", "on-primary-container": "#000414", "surface-bright": "#363941", "inverse-on-surface": "#2d3038", "secondary-fixed-dim": "#afc6ff", "tertiary": "#ffb693", "error-container": "#93000a", "on-surface": "#e0e2ec", "surface-dim": "#10131a", "surface": "#10131a", "on-error": "#690005", "secondary-container": "#30487a", "primary": "#afc6ff", "surface-container-lowest": "#0b0e15", "on-secondary-container": "#a1b8f1", "primary-container": "#1f71ef", "on-tertiary-fixed": "#351000", "tertiary-fixed-dim": "#ffb693", "on-background": "#e0e2ec", "secondary-fixed": "#d9e2ff", "tertiary-fixed": "#ffdbcc", "on-secondary-fixed-variant": "#2e4677" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "margin-mobile": "1rem", "space-xs": "0.25rem", "gutter": "1rem", "space-md": "1rem", "space-xl": "2.5rem", "gutter-mobile": "0.75rem", "margin": "2rem", "space-sm": "0.5rem", "space-lg": "1.5rem" }, "fontFamily": { "headline-lg-mobile": [ "Barlow Condensed" ], "headline-lg": [ "Barlow Condensed" ], "display-hero-mobile": [ "Barlow Condensed" ], "headline-md": [ "Barlow Condensed" ], "body-sm": [ "Chivo" ], "label-badge": [ "Barlow Condensed" ], "body-lg": [ "Chivo" ], "data-mono": [ "JetBrains Mono" ], "metric-huge": [ "Barlow Condensed" ], "display-hero": [ "Barlow Condensed" ], "body-md": [ "Chivo" ], "metric-huge-mobile": [ "Barlow Condensed" ] }, "fontSize": { "headline-lg-mobile": [ "28px", { "lineHeight": "32px", "letterSpacing": "0.02em", "fontWeight": "700" } ], "headline-lg": [ "36px", { "lineHeight": "40px", "letterSpacing": "0.03em", "fontWeight": "700" } ], "display-hero-mobile": [ "40px", { "lineHeight": "42px", "letterSpacing": "0.02em", "fontWeight": "800" } ], "headline-md": [ "24px", { "lineHeight": "28px", "letterSpacing": "0.02em", "fontWeight": "700" } ], "body-sm": [ "13px", { "lineHeight": "18px", "fontWeight": "400" } ], "label-badge": [ "14px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "800" } ], "body-lg": [ "18px", { "lineHeight": "26px", "fontWeight": "500" } ], "data-mono": [ "14px", { "lineHeight": "18px", "letterSpacing": "0.05em", "fontWeight": "600" } ], "metric-huge": [ "64px", { "lineHeight": "64px", "letterSpacing": "-0.01em", "fontWeight": "800" } ], "display-hero": [ "56px", { "lineHeight": "56px", "letterSpacing": "0.02em", "fontWeight": "800" } ], "body-md": [ "15px", { "lineHeight": "22px", "fontWeight": "400" } ], "metric-huge-mobile": [ "48px", { "lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "800" } ] } } } };</script></head><body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen relative selection:bg-primary-container selection:text-on-primary-container"><aside class="fixed left-0 top-0 h-screen w-72 bg-surface-container-lowest z-50 flex flex-col justify-between py-6 shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="flex flex-col gap-6"><div class="px-6 flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center text-on-primary-container shadow-[0_0_16px_rgba(31,113,239,0.35)]"><span class="material-symbols-outlined text-[24px]">fitness_center</span></div><div class="flex flex-col"><span class="font-headline-md text-headline-md tracking-wider uppercase text-on-surface leading-none">GYMCORE</span><span class="font-data-mono text-[10px] tracking-widest uppercase text-outline text-primary">ADMIN // OPS</span></div></div><span class="font-label-badge text-label-badge px-2 py-0.5 rounded bg-surface-container-high text-primary tracking-widest uppercase">V2.4</span></div><div class="px-6"><div class="p-3 rounded-lg bg-surface-container-low flex items-center justify-between"><div class="flex flex-col"><span class="font-data-mono text-[11px] uppercase text-outline">ESTADO RED</span><span class="font-data-mono text-body-sm text-on-surface flex items-center gap-1.5 font-semibold"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span> TELEMETRÍA OK</span></div><span class="font-data-mono text-body-sm text-secondary font-semibold">99.9%</span></div></div><div class="px-3"><span class="px-3 font-data-mono text-[11px] uppercase tracking-wider text-outline block mb-2">Operaciones Tácticas</span><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-lg shadow-[0_0_12px_rgba(31,113,239,0.25)]"><a class="flex items-center gap-3 px-3 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="panel-de-control" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-headline-md text-body-lg uppercase tracking-wide">Panel Central</span></a><a class="flex items-center gap-3 px-3 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="lista-de-usuarios" href="#"><span class="material-symbols-outlined text-[20px]">group</span><span class="font-headline-md text-body-lg uppercase tracking-wide">Lista de Usuarios</span></a><a aria-current="page" class="flex items-center gap-3 px-3 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-lg shadow-[0_0_12px_rgba(31,113,239,0.25)]" data-path="inventario-y-manejo-de-productos" href="#"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-headline-md text-body-lg uppercase tracking-wide">Inventario y Stock</span></a><a class="flex items-center gap-3 px-3 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="reportes-y-rendimiento" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-headline-md text-body-lg uppercase tracking-wide">Rendimiento</span></a></nav></div></div><div class="px-6 flex flex-col gap-4"><div class="p-3 rounded-lg bg-surface-container-low flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container"><span class="material-symbols-outlined text-[20px]">shield_person</span></div><div class="flex flex-col overflow-hidden"><span class="font-headline-md text-body-md uppercase truncate text-on-surface">Comandante Admin</span><span class="font-data-mono text-[11px] text-outline truncate">ACCESO NIVEL ANIMAL</span></div></div><div class="flex items-center justify-between text-outline px-1"><a class="flex items-center gap-2 font-data-mono text-body-sm text-outline hover:text-error transition-colors" data-path="login" href="#"><span class="material-symbols-outlined text-[18px]">logout</span> TERMINAR SESIÓN</a><span class="font-data-mono text-[11px]">LAT: 14MS</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/85 backdrop-blur-xl z-40 flex items-center justify-between px-gutter shadow-[0_1px_8px_rgba(0,0,0,0.3)]"><div class="flex items-center gap-4"><div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low"><span class="material-symbols-outlined text-outline text-[18px]">search</span><input class="bg-transparent font-data-mono text-body-sm text-on-surface placeholder:text-outline focus:outline-none w-64 uppercase tracking-wider" placeholder="BUSCAR SOCIO, SKU O TICKET..." type="text"/></div><div class="hidden xl:flex items-center gap-3 px-3 py-1 rounded bg-surface-container-high"><span class="w-2 h-2 rounded-full bg-primary"></span><span class="font-data-mono text-body-sm text-on-surface-variant uppercase">CAPACIDAD SALA:</span><span class="font-data-mono text-body-sm text-primary font-bold">142 / 180</span></div></div><div class="flex items-center gap-3"><div class="hidden md:flex items-center gap-2 px-3 py-1 rounded bg-surface-container-low"><span class="material-symbols-outlined text-tertiary text-[18px]">bolt</span><span class="font-data-mono text-body-sm text-on-surface-variant uppercase">MODO TÁCTICO ACTIVO</span></div><button class="w-10 h-10 rounded-lg bg-surface-container-low hover:bg-surface-container-high hover:text-on-surface flex items-center justify-center text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span></button><button class="w-10 h-10 rounded-lg bg-surface-container-low hover:bg-surface-container-high hover:text-on-surface flex items-center justify-center text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">tune</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[0_0_12px_rgba(175,198,255,0.4)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 w-full min-h-screen bg-surface px-gutter py-space-lg"><div class="flex flex-col w-full gap-8">
+<!-- Encabezado Táctico de Inventario -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 bg-surface-container-low p-6 rounded-xl shadow-lg relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-48 h-48 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex flex-col gap-2 relative z-10">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></span>
+<span class="font-data-mono text-body-sm text-primary tracking-widest uppercase">MÓDULO DE SUMINISTROS Y LOGÍSTICA // V2.4</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg uppercase text-on-surface tracking-wide">
+        INVENTARIO MAESTRO Y MANEJO DE PRODUCTOS <span class="text-primary font-data-mono text-body-lg ml-2">// GYMADMINPRO</span>
+</h1>
+<p class="font-body-md text-on-surface-variant max-w-2xl">
+        Control balístico de existencias, cálculo automatizado de márgenes brutos y terminal de venta rápida con arqueo auditado para recepción y comandancia.
+      </p>
+</div>
+<!-- Quick Stats Telemetry Row -->
+<div class="flex items-center gap-4 relative z-10">
+<div class="px-4 py-3 rounded-lg bg-surface-container flex flex-col">
+<span class="font-data-mono text-body-sm text-outline uppercase">VALOR EN STOCK</span>
+<span class="font-headline-md text-headline-md text-primary leading-tight">S/ 11,840.00</span>
+</div>
+<div class="px-4 py-3 rounded-lg bg-surface-container flex flex-col">
+<span class="font-data-mono text-body-sm text-outline uppercase">SKUs ACTIVOS</span>
+<span class="font-headline-md text-headline-md text-secondary leading-tight">24 / 26</span>
+</div>
+</div>
+</div>
+<!-- Barra de Filtros y Búsqueda Rápida de Catálogo -->
+<div class="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center justify-between">
+<div class="flex flex-wrap items-center gap-2">
+<button class="px-4 py-2 rounded bg-primary-container text-on-primary-container font-data-mono text-body-sm uppercase font-bold tracking-wider shadow-[0_0_12px_rgba(31,113,239,0.3)]">
+        TODOS (26)
+      </button>
+<button class="px-4 py-2 rounded bg-surface-container-high text-on-surface-variant hover:text-on-surface font-data-mono text-body-sm uppercase tracking-wider transition-colors">
+        SUPLEMENTOS (14)
+      </button>
+<button class="px-4 py-2 rounded bg-surface-container-high text-on-surface-variant hover:text-on-surface font-data-mono text-body-sm uppercase tracking-wider transition-colors">
+        BEBIDAS &amp; SNACKS (8)
+      </button>
+<button class="px-4 py-2 rounded bg-surface-container-high text-on-surface-variant hover:text-on-surface font-data-mono text-body-sm uppercase tracking-wider transition-colors">
+        EQUIPAMIENTO &amp; GEAR (4)
+      </button>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 px-3 py-2 rounded bg-surface-container text-outline text-body-sm font-data-mono w-full sm:w-72">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+<input class="bg-transparent text-on-surface placeholder:text-outline focus:outline-none uppercase w-full" placeholder="FILTRAR POR SKU O MARCA..." type="text"/>
+</div>
+<button class="px-3 py-2 rounded bg-surface-container text-on-surface-variant hover:text-on-surface flex items-center gap-1 font-data-mono text-body-sm">
+<span class="material-symbols-outlined text-[18px]">tune</span> ORDEN
+      </button>
+</div>
+</div>
+<!-- Grilla de Tarjetas de Productos -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- PRODUCTO 1: Whey Isolate 2kg Gold -->
+<div class="flex flex-col bg-surface-container rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all group relative">
+<div class="relative h-56 w-full bg-surface-container-lowest overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="High quality athletic black container of Whey Isolate Protein powder 2kg gold edition, dark atmospheric gym photography, hard neon blue rim lighting, clean product render" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3CrZgWVznH-HhiK9G8HffTKhzksDpubReYqnQnVds1hiIGrx0d6nFNt0tnTQae_UbTKUUrMlKdKXA2-IFyiHa4K72sbIwAM4t0DCUwOVJ97VpWM3HirzvdJ5jKIhLrilY9HNUTO8XUmfQ1kMbd85lamJayrSsPVSIFj5rHXeIrCCF2sOdC-qdEb60vkQIOAomp8f0iJ0-xLxxJvDy-1XrcMlEylOaD7iaF7GSeVFbG2q4P59U5GM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-surface-container/20 to-transparent"></div>
+<div class="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-lowest/90 backdrop-blur-md">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-data-mono text-body-sm text-primary uppercase font-bold">STOCK: 14 UNID</span>
+</div>
+<div class="absolute top-3 right-3">
+<span class="font-label-badge text-label-badge px-2 py-0.5 rounded bg-primary-container text-on-primary-container uppercase">PROTEÍNA AISLADA</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between gap-4">
+<div>
+<div class="flex items-start justify-between gap-2">
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide leading-tight">
+              Whey Isolate 2kg Gold
+            </h3>
+<span class="font-data-mono text-body-sm text-outline">SKU-PROT-01</span>
+</div>
+<p class="font-body-sm text-on-surface-variant mt-1">
+            Fórmula de máxima pureza microfiltrada con aminoácidos ramificados para hipertrofia y recuperación muscular acelerada.
+          </p>
+</div>
+<!-- Telemetría de Precios y Costo Admin -->
+<div class="flex flex-col gap-2 pt-3 bg-surface-container-low p-3 rounded-lg">
+<div class="flex items-baseline justify-between">
+<span class="font-data-mono text-body-sm text-outline uppercase">PVP AL PÚBLICO:</span>
+<span class="font-headline-md text-headline-md text-on-surface">S/ 249.00</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-data-mono bg-surface-container-high px-2 py-1 rounded">
+<span class="text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">lock</span> Costo: S/ 160.00
+            </span>
+<span class="text-tertiary font-bold tracking-wider">MARGEN: 35.7% (ADMIN)</span>
+</div>
+</div>
+<!-- Acciones Tácticas -->
+<div class="flex items-center gap-2 pt-2">
+<button class="flex-1 py-2.5 px-3 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-headline-md text-body-lg uppercase tracking-wider flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span> EDITAR
+          </button>
+<button class="py-2.5 px-3 rounded bg-surface-container-high hover:bg-error-container hover:text-error text-outline transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- PRODUCTO 2: Creatina Creapure 300g -->
+<div class="flex flex-col bg-surface-container rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all group relative">
+<div class="relative h-56 w-full bg-surface-container-lowest overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Matte dark tub of Creapure Micronized Creatine 300 grams with subtle metallic label, set on dark gym industrial floor with cold blue neon background lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgEAeui1VOYguSl0fuRR8IeyZ7RfjHStjbHtjoB64DGUrQ_XEhZpASHms0qFUr8Sj3uPBg2genR7PC1QvRf804yPgtiP047OposNQpX-nZXgIH0iYTuC4Guo_KMp1pQ9_fEAa01RQE21ZiI7ujqZ0RY2IABCoTCnEVfDQMpC9k-pD7o_1F58-sXJVcRI1wIpWyX-5fbzmcU5zi89naYsGzBHr9j_a0H3b_SJw15urJrGVkpdOV9Hc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-surface-container/20 to-transparent"></div>
+<div class="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-lowest/90 backdrop-blur-md">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-data-mono text-body-sm text-primary uppercase font-bold">STOCK: 22 UNID</span>
+</div>
+<div class="absolute top-3 right-3">
+<span class="font-label-badge text-label-badge px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container uppercase">RENDIMIENTO</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between gap-4">
+<div>
+<div class="flex items-start justify-between gap-2">
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide leading-tight">
+              Creatina Creapure 300g
+            </h3>
+<span class="font-data-mono text-body-sm text-outline">SKU-CREA-08</span>
+</div>
+<p class="font-body-sm text-on-surface-variant mt-1">
+            Monohidrato de creatina patentado de grado alemán. Incremento comprobado de potencia explosiva y ATP celular.
+          </p>
+</div>
+<!-- Telemetría de Precios y Costo Admin -->
+<div class="flex flex-col gap-2 pt-3 bg-surface-container-low p-3 rounded-lg">
+<div class="flex items-baseline justify-between">
+<span class="font-data-mono text-body-sm text-outline uppercase">PVP AL PÚBLICO:</span>
+<span class="font-headline-md text-headline-md text-on-surface">S/ 115.00</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-data-mono bg-surface-container-high px-2 py-1 rounded">
+<span class="text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">lock</span> Costo: S/ 70.00
+            </span>
+<span class="text-tertiary font-bold tracking-wider">MARGEN: 39.1% (ADMIN)</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<button class="flex-1 py-2.5 px-3 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-headline-md text-body-lg uppercase tracking-wider flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span> EDITAR
+          </button>
+<button class="py-2.5 px-3 rounded bg-surface-container-high hover:bg-error-container hover:text-error text-outline transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- PRODUCTO 3: Bebida Isotónica Electrolitos 500ml -->
+<div class="flex flex-col bg-surface-container rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all group relative">
+<div class="relative h-56 w-full bg-surface-container-lowest overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Chilled sports electrolyte drink bottle with frost condensation, illuminated by high contrast dark futuristic blue fitness ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrXY_g8_3JtiJzL9Z3LkNxCF14TwHIMkD3HBQ6JV9bAxGsUNYZFjhJ7k148PiKphmLgocgrZxvW3CFKHVZhZvdjSpJCrCDmavEmkNw-cBJjkflgp-2AQmbxDdNIG2BnmhSl5r8fre3cvnf9l3ossezHOQqGVZbRThDaLSMtTKAmSJMRpII5HggaevboeQAkGQaYLcdPkqr-ByOXN9pJNDABBiBqVXaTHDSn12H1pPAtzIDX29RDQQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-surface-container/20 to-transparent"></div>
+<div class="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-lowest/90 backdrop-blur-md">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-data-mono text-body-sm text-primary uppercase font-bold">STOCK: 31 UNID</span>
+</div>
+<div class="absolute top-3 right-3">
+<span class="font-label-badge text-label-badge px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant uppercase">HIDRATACIÓN</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between gap-4">
+<div>
+<div class="flex items-start justify-between gap-2">
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide leading-tight">
+              Bebida Isotónica Electrolitos 500ml
+            </h3>
+<span class="font-data-mono text-body-sm text-outline">SKU-HYDR-03</span>
+</div>
+<p class="font-body-sm text-on-surface-variant mt-1">
+            Fórmula de recarga iónica rápida con sodio, potasio y magnesio para evitar calambres y deshidratación intensa.
+          </p>
+</div>
+<div class="flex flex-col gap-2 pt-3 bg-surface-container-low p-3 rounded-lg">
+<div class="flex items-baseline justify-between">
+<span class="font-data-mono text-body-sm text-outline uppercase">PVP AL PÚBLICO:</span>
+<span class="font-headline-md text-headline-md text-on-surface">S/ 10.00</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-data-mono bg-surface-container-high px-2 py-1 rounded">
+<span class="text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">lock</span> Costo: S/ 4.50
+            </span>
+<span class="text-tertiary font-bold tracking-wider">MARGEN: 55.0% (ADMIN)</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<button class="flex-1 py-2.5 px-3 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-headline-md text-body-lg uppercase tracking-wider flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span> EDITAR
+          </button>
+<button class="py-2.5 px-3 rounded bg-surface-container-high hover:bg-error-container hover:text-error text-outline transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- PRODUCTO 4: Shaker Inox 900ml -->
+<div class="flex flex-col bg-surface-container rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all group relative">
+<div class="relative h-56 w-full bg-surface-container-lowest overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Tactical matte black and brushed stainless steel gym protein shaker cup 900ml on carbon fiber texture gym bench with dramatic rim light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0Q57C7DUWEbYQXhdxIG_og1p2HFphxMiy7ffy_vOOyhJVA0PpfI9OHGU6JjgIttO3BbEW3qiTZWB5zc7q8wTsOsYyYHrwNCwNpfXfwM48Kvr2HWKHEBG9Ipe_Tyar2h8qZQnGr82mxDeKJeWL6LejmsYW2aoZ9MxzQ0_7FJylkfX8mgt9fuNdRo54Y-jJItV1xcZUeEJMvpZi-3qWjxIk3osD_S7zqAEN-_WfUSW7FOq6ZYKwcx4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-surface-container/20 to-transparent"></div>
+<div class="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-lowest/90 backdrop-blur-md">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-data-mono text-body-sm text-primary uppercase font-bold">STOCK: 18 UNID</span>
+</div>
+<div class="absolute top-3 right-3">
+<span class="font-label-badge text-label-badge px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant uppercase">ACCESORIOS</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between gap-4">
+<div>
+<div class="flex items-start justify-between gap-2">
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide leading-tight">
+              Shaker Inox 900ml
+            </h3>
+<span class="font-data-mono text-body-sm text-outline">SKU-GEAR-12</span>
+</div>
+<p class="font-body-sm text-on-surface-variant mt-1">
+            Acero inoxidable quirúrgico con cierre hermético a prueba de fugas y rejilla mezcladora de disolución rápida.
+          </p>
+</div>
+<div class="flex flex-col gap-2 pt-3 bg-surface-container-low p-3 rounded-lg">
+<div class="flex items-baseline justify-between">
+<span class="font-data-mono text-body-sm text-outline uppercase">PVP AL PÚBLICO:</span>
+<span class="font-headline-md text-headline-md text-on-surface">S/ 79.00</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-data-mono bg-surface-container-high px-2 py-1 rounded">
+<span class="text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">lock</span> Costo: S/ 34.00
+            </span>
+<span class="text-tertiary font-bold tracking-wider">MARGEN: 56.9% (ADMIN)</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<button class="flex-1 py-2.5 px-3 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-headline-md text-body-lg uppercase tracking-wider flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span> EDITAR
+          </button>
+<button class="py-2.5 px-3 rounded bg-surface-container-high hover:bg-error-container hover:text-error text-outline transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- PRODUCTO 5 (OBLIGATORIO AGOTADO): Barra Proteica Quest Crunch 60g -->
+<div class="flex flex-col bg-surface-container/40 rounded-xl overflow-hidden opacity-60 hover:opacity-80 transition-all relative">
+<!-- Sello AGOTADO // SIN STOCK DISPONIBLE -->
+<div class="absolute inset-0 z-30 pointer-events-none flex items-center justify-center">
+<div class="px-6 py-2.5 rounded bg-error-container text-on-error-container font-headline-lg text-headline-md uppercase tracking-widest shadow-2xl -rotate-12 border-2 border-error">
+          AGOTADO // SIN STOCK DISPONIBLE
+        </div>
+</div>
+<div class="relative h-56 w-full bg-surface-container-lowest overflow-hidden grayscale">
+<img class="w-full h-full object-cover" data-alt="High protein chocolate crunch energy snack bar wrapped in gym tactical styling on dark textured metallic plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYGUxTiOLb-HqoUvIUXFrNcQ_6JHUdRBp--JVWMXd2xJBRGnQTnFxUqoqWMSIp9mId_pv_YG0sgj0jASkroWfyNKF6kjalvcC4t7Ccu43rGYpmAq1YpOrefNy1WQPSHT-OtQ2NQ9YVoowKfnc9axCyQHCdxk9Q7smHtj-8eb2Vgom6KkVmzT4larQwhXz25HUGnYYh2VFOsh1jWcFHa2LeN-5syjtHSVHP8_JlhWpJTFFWuzIYsLg"/>
+<div class="absolute inset-0 bg-surface-container-lowest/60"></div>
+<div class="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded bg-error-container text-on-error-container">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="font-data-mono text-body-sm uppercase font-bold">STOCK: 0 UNID</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between gap-4">
+<div>
+<div class="flex items-start justify-between gap-2">
+<h3 class="font-headline-md text-headline-md text-outline uppercase tracking-wide leading-tight line-through">
+              Barra Proteica Quest Crunch 60g
+            </h3>
+<span class="font-data-mono text-body-sm text-outline">SKU-SNK-04</span>
+</div>
+<p class="font-body-sm text-outline mt-1">
+            20g de proteína aislada, 1g de azúcar. Reposición solicitada al proveedor logístico.
+          </p>
+</div>
+<div class="flex flex-col gap-2 pt-3 bg-surface-container-low/50 p-3 rounded-lg">
+<div class="flex items-baseline justify-between">
+<span class="font-data-mono text-body-sm text-outline uppercase">PVP AL PÚBLICO:</span>
+<span class="font-headline-md text-headline-md text-outline">S/ 14.00</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-data-mono text-outline">
+<span>Costo: S/ 8.20</span>
+<span>MARGEN: 41.4%</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<button class="flex-1 py-2.5 px-3 rounded bg-surface-container-high text-outline font-headline-md text-body-lg uppercase tracking-wider flex items-center justify-center gap-2 cursor-not-allowed">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span> REORDENAR
+          </button>
+<button class="py-2.5 px-3 rounded bg-surface-container-high text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- PRODUCTO 6 (OBLIGATORIO AGOTADO): Cinturón de Levantamiento Cuero 10mm -->
+<div class="flex flex-col bg-surface-container/40 rounded-xl overflow-hidden opacity-60 hover:opacity-80 transition-all relative">
+<div class="absolute inset-0 z-30 pointer-events-none flex items-center justify-center">
+<div class="px-6 py-2.5 rounded bg-error-container text-on-error-container font-headline-lg text-headline-md uppercase tracking-widest shadow-2xl -rotate-12 border-2 border-error">
+          AGOTADO // SIN STOCK DISPONIBLE
+        </div>
+</div>
+<div class="relative h-56 w-full bg-surface-container-lowest overflow-hidden grayscale">
+<img class="w-full h-full object-cover" data-alt="Heavy duty leather weightlifting powerlifting lever belt 10mm thickness, rugged dark black steel buckle on gym floor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDta6sRrA_AOysvUraSz8ZCFb1DmhC_IFGBhLH0HIR8SYikJiaB7hdDO7dsdrIkAYJzdMOjTyTT8BXaBqS_Nv-9AGXEWJnURVvHaYGb5sPfgM2F8-1x7N7TiZvVYAyskECDbX_7L6r9DuQ2viM-SJ-m_B-OhrDqlcDBot0sS94uSfbZBXQDK33s1oBJjtHjWZQBVA0neWJ2vz_GJMcg0PefKwJkX8JP5lLXKULWyToaL-6t3zf05a8"/>
+<div class="absolute inset-0 bg-surface-container-lowest/60"></div>
+<div class="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded bg-error-container text-on-error-container">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="font-data-mono text-body-sm uppercase font-bold">STOCK: 0 UNID</span>
+</div>
+</div>
+<div class="p-5 flex flex-col flex-1 justify-between gap-4">
+<div>
+<div class="flex items-start justify-between gap-2">
+<h3 class="font-headline-md text-headline-md text-outline uppercase tracking-wide leading-tight line-through">
+              Cinturón de Levantamiento Cuero 10mm
+            </h3>
+<span class="font-data-mono text-body-sm text-outline">SKU-GEAR-09</span>
+</div>
+<p class="font-body-sm text-outline mt-1">
+            Cuero curtido multicapa con hebilla de palanca de liberación rápida para sentadilla pesada y despegue.
+          </p>
+</div>
+<div class="flex flex-col gap-2 pt-3 bg-surface-container-low/50 p-3 rounded-lg">
+<div class="flex items-baseline justify-between">
+<span class="font-data-mono text-body-sm text-outline uppercase">PVP AL PÚBLICO:</span>
+<span class="font-headline-md text-headline-md text-outline">S/ 320.00</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-data-mono text-outline">
+<span>Costo: S/ 195.00</span>
+<span>MARGEN: 39.0%</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-2">
+<button class="flex-1 py-2.5 px-3 rounded bg-surface-container-high text-outline font-headline-md text-body-lg uppercase tracking-wider flex items-center justify-center gap-2 cursor-not-allowed">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span> REORDENAR
+          </button>
+<button class="py-2.5 px-3 rounded bg-surface-container-high text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Barra Flotante de Acciones en Esquina Inferior Derecha -->
+<div class="fixed bottom-6 right-8 z-40 flex items-center gap-4 bg-surface-container-lowest/95 backdrop-blur-xl p-2.5 rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+<!-- Botón Azul Grande: [+] AGREGAR PRODUCTOS -->
+<button class="px-6 py-4 rounded-lg bg-primary-container hover:bg-primary-container/85 text-on-primary-container font-headline-md text-headline-md uppercase tracking-wider flex items-center gap-3 transition-all shadow-[0_0_20px_rgba(31,113,239,0.35)] active:scale-95" onclick="document.getElementById('modal-agregar-producto').classList.remove('hidden')">
+<span class="material-symbols-outlined text-[26px]">add_box</span>
+<span>[+] AGREGAR PRODUCTOS</span>
+</button>
+<!-- Botón Verde Grande: [$] VENDER PRODUCTO -->
+<button class="px-6 py-4 rounded-lg bg-primary hover:bg-primary/90 text-on-primary font-headline-md text-headline-md uppercase tracking-wider flex items-center gap-3 transition-all shadow-[0_0_20px_rgba(175,198,255,0.45)] active:scale-95" onclick="document.getElementById('modal-vender-producto').classList.remove('hidden')">
+<span class="material-symbols-outlined text-[26px]">point_of_sale</span>
+<span>[$] VENDER PRODUCTO</span>
+</button>
+</div>
+<!-- ========================================== -->
+<!-- MODAL 1: AGREGAR PRODUCTO (INTERACTIVO) -->
+<!-- ========================================== -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-dim/85 backdrop-blur-md overflow-y-auto" id="modal-agregar-producto">
+<div class="w-full max-w-2xl bg-surface-container rounded-xl shadow-2xl overflow-hidden my-8">
+<!-- Header Modal -->
+<div class="px-6 py-5 bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">inventory_2</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">
+              AGREGAR NUEVO PRODUCTO AL INVENTARIO
+            </h2>
+<span class="font-data-mono text-body-sm text-primary uppercase">CATÁLOGO OPERACIONAL // GYMCORE</span>
+</div>
+</div>
+<button class="w-9 h-9 rounded-lg bg-surface-container-high hover:bg-surface-bright text-outline hover:text-on-surface flex items-center justify-center transition-colors" onclick="document.getElementById('modal-agregar-producto').classList.add('hidden')">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Formulario de Producto -->
+<form class="p-6 flex flex-col gap-5" onsubmit="event.preventDefault(); alert('Producto guardado correctamente en el inventario.'); document.getElementById('modal-agregar-producto').classList.add('hidden');">
+<!-- Zona Drag & Drop para Imagen -->
+<div class="flex flex-col gap-1.5">
+<label class="font-data-mono text-body-sm text-outline uppercase font-semibold">FOTOGRAFÍA DEL PRODUCTO</label>
+<div class="w-full p-6 rounded-lg bg-surface-container-lowest flex flex-col items-center justify-center gap-2 hover:bg-surface-container-low transition-all cursor-pointer">
+<span class="material-symbols-outlined text-[36px] text-primary">cloud_upload</span>
+<span class="font-headline-md text-body-lg text-on-surface uppercase tracking-wider">Subir Foto Producto JPG/PNG</span>
+<span class="font-data-mono text-[11px] text-outline uppercase">Resolución sugerida: 1200x800px (Máx. 5MB)</span>
+</div>
+</div>
+<!-- Nombre del Producto -->
+<div class="flex flex-col gap-1.5">
+<label class="font-data-mono text-body-sm text-outline uppercase font-semibold">NOMBRE DEL PRODUCTO</label>
+<input class="px-4 py-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-md placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Ej. Pre-Entreno Nuclear Pump 400g" required="" type="text"/>
+</div>
+<!-- Descripción -->
+<div class="flex flex-col gap-1.5">
+<label class="font-data-mono text-body-sm text-outline uppercase font-semibold">DESCRIPCIÓN TÉCNICA / BENEFICIOS</label>
+<textarea class="px-4 py-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-md placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Ej. Fórmula de vasodilatación con citrulina y beta-alanina para bombeo y congestión muscular prolongada..." rows="2"></textarea>
+</div>
+<!-- Precios Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- PVP en S/ -->
+<div class="flex flex-col gap-1.5">
+<label class="font-data-mono text-body-sm text-on-surface uppercase font-semibold flex items-center justify-between">
+<span>PRECIO DE VENTA PÚBLICO (PVP)</span>
+<span class="text-primary text-[11px]">S/ IMPUESTOS INC.</span>
+</label>
+<div class="relative flex items-center">
+<span class="absolute left-3.5 font-data-mono text-outline">S/</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-lg bg-surface-container-lowest text-on-surface font-data-mono font-bold placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary" min="0" placeholder="189.00" required="" step="0.50" type="number"/>
+</div>
+</div>
+<!-- Precio de Costo Privado (Admin) -->
+<div class="flex flex-col gap-1.5">
+<label class="font-data-mono text-body-sm text-tertiary uppercase font-semibold flex items-center justify-between">
+<span>PRECIO DE COSTO PRIVADO</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-tertiary text-[10px] flex items-center gap-1 font-bold">
+<span class="material-symbols-outlined text-[12px]">lock</span> Invisible para Recepción
+              </span>
+</label>
+<div class="relative flex items-center">
+<span class="absolute left-3.5 font-data-mono text-outline">S/</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-lg bg-surface-container-lowest text-on-surface font-data-mono font-bold placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-tertiary" min="0" placeholder="110.00" required="" step="0.50" type="number"/>
+</div>
+</div>
+</div>
+<!-- Stock Inicial -->
+<div class="flex flex-col gap-1.5">
+<label class="font-data-mono text-body-sm text-outline uppercase font-semibold">STOCK INICIAL (UNIDADES DISPONIBLES)</label>
+<input class="px-4 py-3 rounded-lg bg-surface-container-lowest text-on-surface font-data-mono font-bold placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary" min="1" placeholder="25" required="" type="number"/>
+</div>
+<!-- Botones de Acción -->
+<div class="flex items-center justify-end gap-3 pt-4 border-t-0">
+<button class="px-5 py-3 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface-variant font-headline-md text-body-lg uppercase tracking-wider transition-colors" onclick="document.getElementById('modal-agregar-producto').classList.add('hidden')" type="button">
+            Cancelar
+          </button>
+<button class="px-6 py-3 rounded-lg bg-primary-container text-on-primary-container font-headline-md text-headline-md uppercase tracking-wider shadow-[0_0_16px_rgba(31,113,239,0.3)] hover:brightness-110 transition-all flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined text-[20px]">save</span>
+            Guardar Producto en Inventario
+          </button>
+</div>
+</form>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- MODAL 2: VENDER PRODUCTO EN MOSTRADOR -->
+<!-- ========================================== -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-dim/85 backdrop-blur-md overflow-y-auto" id="modal-vender-producto">
+<div class="w-full max-w-xl bg-surface-container rounded-xl shadow-2xl overflow-hidden my-8">
+<!-- Header Modal Venta -->
+<div class="px-6 py-5 bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">point_of_sale</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">
+              VENTA DE PRODUCTO EN MOSTRADOR
+            </h2>
+<span class="font-data-mono text-body-sm text-primary uppercase">TERMINAL POS TÁCTICO // CAJA CENTRAL</span>
+</div>
+</div>
+<button class="w-9 h-9 rounded-lg bg-surface-container-high hover:bg-surface-bright text-outline hover:text-on-surface flex items-center justify-center transition-colors" onclick="document.getElementById('modal-vender-producto').classList.add('hidden')">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Formulario de Venta -->
+<form class="p-6 flex flex-col gap-5" id="form-venta" onsubmit="event.preventDefault(); alert('Venta procesada con éxito y comprobante generado.'); document.getElementById('modal-vender-producto').classList.add('hidden');">
+<!-- Selección de Producto en Stock (Solo con stock disponible) -->
+<div class="flex flex-col gap-1.5">
+<label class="font-data-mono text-body-sm text-outline uppercase font-semibold">PRODUCTO A VENDER</label>
+<div class="relative">
+<select class="w-full px-4 py-3.5 rounded-lg bg-surface-container-lowest text-on-surface font-headline-md text-body-lg uppercase focus:outline-none focus:ring-2 focus:ring-primary appearance-none cursor-pointer" id="select-producto" onchange="actualizarPrecioVenta()">
+<option data-stock="14" value="249">Whey Isolate 2kg Gold — S/ 249.00 (Stock: 14)</option>
+<option data-stock="22" selected="" value="115">Creatina Creapure 300g — S/ 115.00 (Stock: 22)</option>
+<option data-stock="31" value="10">Bebida Isotónica Electrolitos 500ml — S/ 10.00 (Stock: 31)</option>
+<option data-stock="18" value="79">Shaker Inox 900ml — S/ 79.00 (Stock: 18)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3.5 top-3.5 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Cantidad Vendida con Selector Numérico -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="font-data-mono text-body-sm text-outline uppercase font-semibold">CANTIDAD VENDIDA</label>
+<span class="font-data-mono text-body-sm text-primary uppercase" id="label-stock-max">MÁXIMO DISPONIBLE: 22</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="w-12 h-12 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-data-mono text-headline-md flex items-center justify-center transition-colors" onclick="cambiarCantidad(-1)" type="button">
+              -
+            </button>
+<input class="flex-1 text-center py-3 rounded-lg bg-surface-container-lowest text-on-surface font-data-mono text-headline-md font-bold focus:outline-none focus:ring-2 focus:ring-primary" id="input-cantidad" max="22" min="1" oninput="calcularTotalVenta()" type="number" value="1"/>
+<button class="w-12 h-12 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface font-data-mono text-headline-md flex items-center justify-center transition-colors" onclick="cambiarCantidad(1)" type="button">
+              +
+            </button>
+</div>
+</div>
+<!-- Selector Método de Pago -->
+<div class="flex flex-col gap-2">
+<label class="font-data-mono text-body-sm text-outline uppercase font-semibold">MÉTODO DE PAGO</label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<!-- Opción 1: Efectivo -->
+<label class="flex flex-col p-3.5 rounded-lg bg-surface-container-lowest cursor-pointer hover:bg-surface-container-high transition-colors has-[:checked]:bg-surface-container-high has-[:checked]:ring-2 has-[:checked]:ring-primary">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-body-lg text-on-surface uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">payments</span> Efectivo
+                </span>
+<input checked="" class="text-primary focus:ring-primary" name="metodo-pago" onchange="toggleComprobante(false)" type="radio" value="efectivo"/>
+</div>
+<span class="font-data-mono text-[11px] text-outline uppercase mt-1">Registro y aprobación automática en caja</span>
+</label>
+<!-- Opción 2: Transferencia / Yape / Plin -->
+<label class="flex flex-col p-3.5 rounded-lg bg-surface-container-lowest cursor-pointer hover:bg-surface-container-high transition-colors has-[:checked]:bg-surface-container-high has-[:checked]:ring-2 has-[:checked]:ring-secondary">
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-body-lg text-on-surface uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-secondary">qr_code_scanner</span> Transferencia / Yape / Plin
+                </span>
+<input class="text-secondary focus:ring-secondary" name="metodo-pago" onchange="toggleComprobante(true)" type="radio" value="transferencia"/>
+</div>
+<span class="font-data-mono text-[11px] text-outline uppercase mt-1">Requiere comprobante digital obligatorio</span>
+</label>
+</div>
+</div>
+<!-- Campo Comprobante Digital (Oculto inicialmente si es efectivo) -->
+<div class="hidden flex flex-col gap-1.5 p-4 rounded-lg bg-surface-container-lowest" id="campo-comprobante">
+<label class="font-data-mono text-body-sm text-secondary uppercase font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">receipt_long</span> COMPROBANTE DE TRANSFERENCIA (OBLIGATORIO PARA AUDITORÍA ADMIN)
+          </label>
+<div class="w-full p-4 rounded bg-surface-container flex items-center justify-between gap-3">
+<span class="font-data-mono text-body-sm text-outline">Subir captura bancaria o constancia Yape/Plin</span>
+<button class="px-3 py-1.5 rounded bg-surface-container-high hover:bg-surface-bright text-on-surface font-data-mono text-body-sm uppercase flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">upload_file</span> Adjuntar
+            </button>
+</div>
+</div>
+<!-- Resumen de Total a Cobrar en Tiempo Real -->
+<div class="p-4 rounded-lg bg-surface-container-lowest flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-data-mono text-body-sm text-outline uppercase">TOTAL A COBRAR EN MOSTRADOR</span>
+<span class="font-data-mono text-[11px] text-primary">TICKET IMPRESO AUTOMÁTICO</span>
+</div>
+<span class="font-metric-huge text-headline-lg text-primary tracking-tight font-bold" id="monto-total-venta">
+            S/ 115.00
+          </span>
+</div>
+<!-- Botones de Acción Venta -->
+<div class="flex items-center justify-end gap-3 pt-2">
+<button class="px-5 py-3 rounded-lg bg-surface-container-high hover:bg-surface-bright text-on-surface-variant font-headline-md text-body-lg uppercase tracking-wider transition-colors" onclick="document.getElementById('modal-vender-producto').classList.add('hidden')" type="button">
+            Cancelar
+          </button>
+<button class="px-8 py-3.5 rounded-lg bg-primary text-on-primary font-headline-md text-headline-md uppercase tracking-wider shadow-[0_0_20px_rgba(175,198,255,0.4)] hover:brightness-110 active:scale-95 transition-all flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined text-[22px]">check_circle</span>
+            VENDER
+          </button>
+</div>
+</form>
+</div>
+</div>
+<!-- Script interactivo en Vanilla JS para cálculos de inventario y terminal POS -->
+<script>
+    function actualizarPrecioVenta() {
+      const select = document.getElementById('select-producto');
+      const selectedOption = select.options[select.selectedIndex];
+      const stockMax = parseInt(selectedOption.getAttribute('data-stock') || '1');
+      const inputCantidad = document.getElementById('input-cantidad');
+      
+      document.getElementById('label-stock-max').textContent = 'MÁXIMO DISPONIBLE: ' + stockMax;
+      inputCantidad.max = stockMax;
+      if (parseInt(inputCantidad.value) > stockMax) {
+        inputCantidad.value = stockMax;
+      }
+      calcularTotalVenta();
+    }
+
+    function cambiarCantidad(delta) {
+      const input = document.getElementById('input-cantidad');
+      let val = parseInt(input.value) || 1;
+      const min = parseInt(input.min) || 1;
+      const max = parseInt(input.max) || 99;
+      val += delta;
+      if (val >= min && val <= max) {
+        input.value = val;
+        calcularTotalVenta();
+      }
+    }
+
+    function calcularTotalVenta() {
+      const select = document.getElementById('select-producto');
+      const precioUnitario = parseFloat(select.value) || 0;
+      const cantidad = parseInt(document.getElementById('input-cantidad').value) || 1;
+      const total = precioUnitario * cantidad;
+      document.getElementById('monto-total-venta').textContent = 'S/ ' + total.toFixed(2);
+    }
+
+    function toggleComprobante(mostrar) {
+      const div = document.getElementById('campo-comprobante');
+      if (mostrar) {
+        div.classList.remove('hidden');
+      } else {
+        div.classList.add('hidden');
+      }
+    }
+
+    // Inicializar valores al cargar
+    actualizarPrecioVenta();
+  </script>
+</div></main></div></body></html>

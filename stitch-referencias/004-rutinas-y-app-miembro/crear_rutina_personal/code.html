@@ -1,0 +1,595 @@
+<!DOCTYPE html><html class="dark" lang="es"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700&amp;family=Chivo:ital,wght@0,400;0,500;0,700;1,400&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#131317;color:#e4e1e7;}body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"primary-container": "#1a6fed", "secondary-container": "#30487a", secondary: "#afc6ff", primary: "#afc6ff", "inverse-surface": "#e1e2ed", "tertiary-fixed-dim": "#ffb693", "outline-variant": "#424754", "on-primary-fixed": "#001944", "surface-container-lowest": "#0b0e15", "on-tertiary-container": "#fffdff", "on-primary-container": "#fffcff", "on-secondary-container": "#a1b8f1", "tertiary-container": "#c55100", "on-error": "#690005", "on-primary": "#002d6d", surface: "#10131b", "on-surface": "#e1e2ed", "on-error-container": "#ffdad6", "secondary-fixed": "#d9e2ff", tertiary: "#ffb693", "surface-tint": "#afc6ff", "surface-variant": "#32353d", "surface-container-highest": "#32353d", "on-secondary": "#142f5f", error: "#ffb4ab", background: "#10131b", "surface-container-high": "#272a32", "inverse-primary": "#0059c7", "primary-fixed-dim": "#afc6ff", "surface-container-low": "#191b23", "secondary-fixed-dim": "#afc6ff", "on-tertiary-fixed": "#351000", "inverse-on-surface": "#2e3038", "on-primary-fixed-variant": "#004299", "tertiary-fixed": "#ffdbcc", "error-container": "#93000a", "primary-fixed": "#d9e2ff", "surface-container": "#1d1f27", outline: "#8c90a0", "on-background": "#e1e2ed", "on-surface-variant": "#c2c6d7", "surface-bright": "#363941", "on-secondary-fixed-variant": "#2e4677", "on-tertiary-fixed-variant": "#7a3000", "surface-dim": "#10131b", "on-secondary-fixed": "#001944", "on-tertiary": "#561f00"}, borderRadius: {DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem"}, spacing: {"space-xs": "0.25rem", "space-md": "1rem", gutter: "1rem", "gutter-mobile": "0.75rem", margin: "2rem", "space-lg": "1.5rem", "margin-mobile": "1rem", "space-sm": "0.5rem", "space-xl": "2.5rem"}, fontFamily: {"headline-md": ["Barlow Condensed"], "display-hero": ["Barlow Condensed"], "body-md": ["Chivo"], "label-badge": ["Barlow Condensed"], "metric-huge": ["Barlow Condensed"], "display-hero-mobile": ["Barlow Condensed"], "headline-lg": ["Barlow Condensed"], "body-lg": ["Chivo"], "body-sm": ["Chivo"], "headline-lg-mobile": ["Barlow Condensed"], "data-mono": ["JetBrains Mono"], "metric-huge-mobile": ["Barlow Condensed"], headline: ["Barlow Condensed"], display: ["Barlow Condensed"], body: ["Chivo"], label: ["JetBrains Mono"]}, fontSize: {"headline-md": ["24px", {lineHeight: "28px", letterSpacing: "0.02em", fontWeight: "700"}], "display-hero": ["56px", {lineHeight: "56px", letterSpacing: "0.02em", fontWeight: "800"}], "body-md": ["15px", {lineHeight: "22px", fontWeight: "400"}], "label-badge": ["14px", {lineHeight: "16px", letterSpacing: "0.08em", fontWeight: "800"}], "metric-huge": ["64px", {lineHeight: "64px", letterSpacing: "-0.01em", fontWeight: "800"}], "display-hero-mobile": ["40px", {lineHeight: "42px", letterSpacing: "0.02em", fontWeight: "800"}], "headline-lg": ["36px", {lineHeight: "40px", letterSpacing: "0.03em", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "26px", fontWeight: "500"}], "body-sm": ["13px", {lineHeight: "18px", fontWeight: "400"}], "headline-lg-mobile": ["28px", {lineHeight: "32px", letterSpacing: "0.02em", fontWeight: "700"}], "data-mono": ["14px", {lineHeight: "18px", letterSpacing: "0.05em", fontWeight: "600"}], "metric-huge-mobile": ["48px", {lineHeight: "48px", letterSpacing: "-0.01em", fontWeight: "800"}]}}}};</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="h-16 px-gutter-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><img alt="KINETIC IRON Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYAydwoDhIL0iuTNVVDwWFnexlqTb6f0GnsTmY0fKLYAyta_yPrzeo4lK-lDykufLZ4IrlBw3QbEG2aw9siynQGr2M5ALVhsoZPvFTPM2brQFbcR6lfw5EdQeiLLqqOL3Jv9QW6JJg-xwsxQUG7fnqlpmOnjNSTagZsfCHo3SRgRbeOW2o_NdXt_GOBEFrUU_-qCQ3MrPkYYEldXqDNSsYzdWTwPdd0hK4WA-VmjdGJLbTzNkcWd8"><div class="flex flex-col truncate"><span class="font-label-badge text-label-badge text-primary uppercase tracking-widest leading-none">KINETIC IRON</span><span class="font-headline-md text-headline-md text-on-surface truncate uppercase leading-tight">Crear Rutina</span></div></div><div class="flex items-center gap-space-sm flex-shrink-0"><div class="flex items-center justify-center p-0.5 rounded-full bg-secondary-fixed/20 shadow-[0_0_10px_rgba(0,255,135,0.25)]"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHtjeCgU8hF45uBYlfVE0KZajsix_KXeoFfvglFteQV6_RXk4S5QbhN-7LyYIt-vcc4aKCyit672L_sdCQEsxW5m1-Zvpfe9NGeRPO-P11Y3rabR1MRyyNLdhzIR337khDv2KedSE7qt7tbFxGO4vQk_4zh5mavfutVIgEbUn4mnu3L12n76DGyv3u7ipakYtw7tpEe2wlclIazDQleGpWoI6BUevmqXXV4SDX7Ae7hmh4nC1hITk"></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full px-gutter-mobile gap-space-md select-none">
+<!-- BANNER INFORMATIVO PRIVADO -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container-high p-space-md shadow-xl flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-primary-container">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+<span class="font-label-badge text-label-badge tracking-wider uppercase text-primary">Rutina Personal Privada</span>
+<span class="ml-auto font-data-mono text-[10px] uppercase bg-surface-container-lowest px-2 py-0.5 rounded text-on-surface-variant">Solo local</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+      Solo tú tienes control total de esta rutina. Se aloja exclusivamente en este terminal, oculta del panel de recepción y entrenadores.
+    </p>
+<div class="mt-space-xs flex flex-col gap-1">
+<label class="font-data-mono text-[11px] text-on-surface-variant uppercase tracking-wider">Nombre del Protocolo</label>
+<div class="relative flex items-center">
+<input class="w-full h-12 bg-surface-container-lowest rounded-lg px-space-md font-headline-md text-headline-md uppercase text-on-surface focus:outline-none focus:bg-surface-container text-[18px] transition-colors" id="routine-name-input" placeholder="Ej. Hipertrofia Titán..." type="text" value="Mi Rutina Brutal de Brazos &amp; Hombros">
+<span class="material-symbols-outlined absolute right-3 text-outline pointer-events-none text-[20px]">edit</span>
+</div>
+</div>
+</div>
+<!-- SELECTOR DE DÍA (TABS HORIZONTALES) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between px-1">
+<span class="font-label-badge text-label-badge text-on-surface-variant tracking-wider uppercase">Programación Semanal</span>
+<span class="font-data-mono text-[11px] text-secondary-fixed tracking-wider" id="active-day-counter">3 EJERCICIOS ACTIVOS</span>
+</div>
+<div class="flex items-center gap-space-xs overflow-x-auto py-1 scrollbar-none" id="day-tabs">
+<button class="day-tab flex-1 min-w-[50px] h-12 rounded-lg bg-surface-container text-on-surface flex flex-col items-center justify-center transition-all active:scale-95 shadow-md" onclick="selectDay('LUN', this)">
+<span class="font-headline-md text-headline-md text-[16px] leading-tight">LUN</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim mt-0.5"></span>
+</button>
+<button class="day-tab flex-1 min-w-[50px] h-12 rounded-lg bg-primary-container text-on-primary-container flex flex-col items-center justify-center transition-all active:scale-95 shadow-md shadow-primary-container/20" onclick="selectDay('MAR', this)">
+<span class="font-headline-md text-headline-md text-[16px] leading-tight">MAR</span>
+<span class="w-1.5 h-1.5 rounded-full bg-on-primary-container mt-0.5"></span>
+</button>
+<button class="day-tab flex-1 min-w-[50px] h-12 rounded-lg bg-surface-container text-on-surface flex flex-col items-center justify-center transition-all active:scale-95 shadow-md" onclick="selectDay('MIE', this)">
+<span class="font-headline-md text-headline-md text-[16px] leading-tight">MIÉ</span>
+<span class="w-1.5 h-1.5 rounded-full bg-transparent mt-0.5"></span>
+</button>
+<button class="day-tab flex-1 min-w-[50px] h-12 rounded-lg bg-surface-container text-on-surface flex flex-col items-center justify-center transition-all active:scale-95 shadow-md" onclick="selectDay('JUE', this)">
+<span class="font-headline-md text-headline-md text-[16px] leading-tight">JUE</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim mt-0.5"></span>
+</button>
+<button class="day-tab flex-1 min-w-[50px] h-12 rounded-lg bg-surface-container text-on-surface flex flex-col items-center justify-center transition-all active:scale-95 shadow-md" onclick="selectDay('VIE', this)">
+<span class="font-headline-md text-headline-md text-[16px] leading-tight">VIE</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim mt-0.5"></span>
+</button>
+<button class="day-tab flex-1 min-w-[50px] h-12 rounded-lg bg-surface-container text-on-surface flex flex-col items-center justify-center transition-all active:scale-95 shadow-md" onclick="selectDay('SAB', this)">
+<span class="font-headline-md text-headline-md text-[16px] leading-tight">SÁB</span>
+<span class="w-1.5 h-1.5 rounded-full bg-transparent mt-0.5"></span>
+</button>
+</div>
+</div>
+<!-- LISTA ORDENADA DEL DÍA (DROP ZONE / WORKOUT TRACK) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary-fixed text-[18px]">reorder</span>
+<span class="font-label-badge text-label-badge uppercase tracking-wider text-on-surface">Circuito Planificado</span>
+</div>
+<button class="font-data-mono text-[11px] text-error flex items-center gap-1 active:opacity-75" onclick="clearCurrentDay()">
+<span class="material-symbols-outlined text-[14px]">delete_sweep</span> Limpiar Día
+      </button>
+</div>
+<!-- Contenedor Reordenable de Ejercicios -->
+<div class="flex flex-col gap-space-xs min-h-[140px] p-space-xs rounded-xl bg-surface-container-lowest" id="workout-sequence">
+<!-- Ejercicio 1 -->
+<div class="sequence-card flex items-center justify-between p-space-sm bg-surface-container rounded-lg shadow-md transition-all" data-id="ex-1" data-mach="07" data-name="Jalón Polea Ancha" data-notes="Retracción escapular explosiva" data-reps="10-12" data-rest="60" data-series="4">
+<div class="flex items-center gap-space-sm min-w-0 flex-1" onclick="openConfigModal('07', 'Jalón Polea Ancha', 4, '10-12', 60, 'Retracción escapular explosiva')">
+<div class="flex flex-col items-center justify-center w-8 h-10 rounded bg-surface-container-high text-on-surface">
+<span class="font-data-mono text-[10px] text-outline">POS</span>
+<span class="font-headline-md text-headline-md leading-none text-primary order-index">01</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-data-mono text-[10px] text-secondary-fixed bg-surface-container-lowest px-1.5 py-0.2 rounded font-bold">#07</span>
+<span class="font-headline-md text-headline-md text-[17px] text-on-surface truncate">JALÓN POLEA ANCHA</span>
+</div>
+<div class="flex items-center gap-2 font-data-mono text-[11px] text-on-surface-variant">
+<span><b class="text-on-surface">4</b> Series</span>
+<span>•</span>
+<span><b class="text-on-surface">10-12</b> Reps</span>
+<span>•</span>
+<span class="text-secondary-fixed">60s Descanso</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-0.5 ml-2">
+<button class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-on-surface hover:text-primary active:scale-90 transition-transform" onclick="moveStep(this, -1)">
+<span class="material-symbols-outlined text-[18px]">keyboard_arrow_up</span>
+</button>
+<button class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-on-surface hover:text-primary active:scale-90 transition-transform" onclick="moveStep(this, 1)">
+<span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+</button>
+<button class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-outline hover:text-error active:scale-90 transition-colors ml-1" onclick="removeExercise(this)">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+<!-- Ejercicio 2 -->
+<div class="sequence-card flex items-center justify-between p-space-sm bg-surface-container rounded-lg shadow-md transition-all" data-id="ex-2" data-mach="12" data-name="Remo Polea Baja" data-notes="Mantener torso erguido" data-reps="8-10" data-rest="90" data-series="4">
+<div class="flex items-center gap-space-sm min-w-0 flex-1" onclick="openConfigModal('12', 'Remo Polea Baja', 4, '8-10', 90, 'Mantener torso erguido')">
+<div class="flex flex-col items-center justify-center w-8 h-10 rounded bg-surface-container-high text-on-surface">
+<span class="font-data-mono text-[10px] text-outline">POS</span>
+<span class="font-headline-md text-headline-md leading-none text-primary order-index">02</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-data-mono text-[10px] text-secondary-fixed bg-surface-container-lowest px-1.5 py-0.2 rounded font-bold">#12</span>
+<span class="font-headline-md text-headline-md text-[17px] text-on-surface truncate">REMO POLEA BAJA</span>
+</div>
+<div class="flex items-center gap-2 font-data-mono text-[11px] text-on-surface-variant">
+<span><b class="text-on-surface">4</b> Series</span>
+<span>•</span>
+<span><b class="text-on-surface">8-10</b> Reps</span>
+<span>•</span>
+<span class="text-secondary-fixed">90s Descanso</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-0.5 ml-2">
+<button class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-on-surface hover:text-primary active:scale-90 transition-transform" onclick="moveStep(this, -1)">
+<span class="material-symbols-outlined text-[18px]">keyboard_arrow_up</span>
+</button>
+<button class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-on-surface hover:text-primary active:scale-90 transition-transform" onclick="moveStep(this, 1)">
+<span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+</button>
+<button class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-outline hover:text-error active:scale-90 transition-colors ml-1" onclick="removeExercise(this)">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+<!-- Ejercicio 3 -->
+<div class="sequence-card flex items-center justify-between p-space-sm bg-surface-container rounded-lg shadow-md transition-all" data-id="ex-3" data-mach="02" data-name="Hack Squat Guiada" data-notes="Descenso 3 segundos controlados" data-reps="12" data-rest="90" data-series="3">
+<div class="flex items-center gap-space-sm min-w-0 flex-1" onclick="openConfigModal('02', 'Hack Squat Guiada', 3, '12', 90, 'Descenso 3 segundos controlados')">
+<div class="flex flex-col items-center justify-center w-8 h-10 rounded bg-surface-container-high text-on-surface">
+<span class="font-data-mono text-[10px] text-outline">POS</span>
+<span class="font-headline-md text-headline-md leading-none text-primary order-index">03</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-data-mono text-[10px] text-secondary-fixed bg-surface-container-lowest px-1.5 py-0.2 rounded font-bold">#02</span>
+<span class="font-headline-md text-headline-md text-[17px] text-on-surface truncate">HACK SQUAT GUIADA</span>
+</div>
+<div class="flex items-center gap-2 font-data-mono text-[11px] text-on-surface-variant">
+<span><b class="text-on-surface">3</b> Series</span>
+<span>•</span>
+<span><b class="text-on-surface">12</b> Reps</span>
+<span>•</span>
+<span class="text-secondary-fixed">90s Descanso</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-0.5 ml-2">
+<button class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-on-surface hover:text-primary active:scale-90 transition-transform" onclick="moveStep(this, -1)">
+<span class="material-symbols-outlined text-[18px]">keyboard_arrow_up</span>
+</button>
+<button class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-on-surface hover:text-primary active:scale-90 transition-transform" onclick="moveStep(this, 1)">
+<span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+</button>
+<button class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-outline hover:text-error active:scale-90 transition-colors ml-1" onclick="removeExercise(this)">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- BIBLIOTECA DE MÁQUINAS DEL GIMNASIO -->
+<div class="flex flex-col gap-space-xs mt-space-xs">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">storefront</span>
+<span class="font-label-badge text-label-badge uppercase tracking-wider text-on-surface">Catálogo de Máquinas K-IRON</span>
+</div>
+<span class="font-data-mono text-[11px] text-outline">TOCA PARA SUMAR (+)</span>
+</div>
+<!-- Buscador y Filtros -->
+<div class="flex flex-col gap-space-xs">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">search</span>
+<input class="w-full h-11 bg-surface-container-high rounded-lg pl-10 pr-space-md text-on-surface font-body-sm text-body-sm focus:outline-none focus:bg-surface-container-highest transition-colors" id="machine-search" oninput="filterMachines()" placeholder="Buscar por número o nombre..." type="text">
+</div>
+<!-- Filtros musculares chips -->
+<div class="flex items-center gap-space-xs overflow-x-auto scrollbar-none py-0.5" id="group-filters">
+<button class="muscle-chip px-3 py-1 rounded bg-primary-container text-on-primary-container font-label-badge text-label-badge text-[12px] whitespace-nowrap uppercase" onclick="setMuscleFilter('TODOS', this)">TODOS</button>
+<button class="muscle-chip px-3 py-1 rounded bg-surface-container text-on-surface-variant font-label-badge text-label-badge text-[12px] whitespace-nowrap uppercase" onclick="setMuscleFilter('PIERNA', this)">PIERNA</button>
+<button class="muscle-chip px-3 py-1 rounded bg-surface-container text-on-surface-variant font-label-badge text-label-badge text-[12px] whitespace-nowrap uppercase" onclick="setMuscleFilter('ESPALDA', this)">ESPALDA</button>
+<button class="muscle-chip px-3 py-1 rounded bg-surface-container text-on-surface-variant font-label-badge text-label-badge text-[12px] whitespace-nowrap uppercase" onclick="setMuscleFilter('PECHO', this)">PECHO</button>
+<button class="muscle-chip px-3 py-1 rounded bg-surface-container text-on-surface-variant font-label-badge text-label-badge text-[12px] whitespace-nowrap uppercase" onclick="setMuscleFilter('BRAZO', this)">BRAZO</button>
+</div>
+</div>
+<!-- Grid de Máquinas Seleccionables -->
+<div class="grid grid-cols-1 gap-space-xs mt-1" id="machines-grid">
+<!-- Card Máquina #01 -->
+<div class="machine-item flex items-center justify-between p-space-sm bg-surface-container-low rounded-lg active:bg-surface-container-high transition-colors" data-group="PIERNA" data-name="Prensa de Piernas 45°" data-num="01">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded bg-surface-container flex flex-col items-center justify-center font-data-mono text-[13px] font-bold text-secondary-fixed">
+            #01
+          </div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-[17px] text-on-surface uppercase">Prensa de Piernas 45°</span>
+<div class="flex items-center gap-2">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase">Pierna • Cuádriceps / Glúteo</span>
+</div>
+</div>
+</div>
+<button class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container active:scale-90 transition-transform" onclick="openConfigModal('01', 'Prensa de Piernas 45°')">
+<span class="material-symbols-outlined text-[24px]">add_circle</span>
+</button>
+</div>
+<!-- Card Máquina #02 -->
+<div class="machine-item flex items-center justify-between p-space-sm bg-surface-container-low rounded-lg active:bg-surface-container-high transition-colors" data-group="PIERNA" data-name="Hack Squat Guiada" data-num="02">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded bg-surface-container flex flex-col items-center justify-center font-data-mono text-[13px] font-bold text-secondary-fixed">
+            #02
+          </div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-[17px] text-on-surface uppercase">Hack Squat Guiada</span>
+<div class="flex items-center gap-2">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase">Pierna • Vasto Externo</span>
+</div>
+</div>
+</div>
+<button class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container active:scale-90 transition-transform" onclick="openConfigModal('02', 'Hack Squat Guiada')">
+<span class="material-symbols-outlined text-[24px]">add_circle</span>
+</button>
+</div>
+<!-- Card Máquina #07 -->
+<div class="machine-item flex items-center justify-between p-space-sm bg-surface-container-low rounded-lg active:bg-surface-container-high transition-colors" data-group="ESPALDA" data-name="Jalón al Pecho Polea Ancha" data-num="07">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded bg-surface-container flex flex-col items-center justify-center font-data-mono text-[13px] font-bold text-secondary-fixed">
+            #07
+          </div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-[17px] text-on-surface uppercase">Jalón al Pecho Polea Ancha</span>
+<div class="flex items-center gap-2">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase">Espalda • Dorsal Ancho</span>
+</div>
+</div>
+</div>
+<button class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container active:scale-90 transition-transform" onclick="openConfigModal('07', 'Jalón al Pecho Polea Ancha')">
+<span class="material-symbols-outlined text-[24px]">add_circle</span>
+</button>
+</div>
+<!-- Card Máquina #12 -->
+<div class="machine-item flex items-center justify-between p-space-sm bg-surface-container-low rounded-lg active:bg-surface-container-high transition-colors" data-group="ESPALDA" data-name="Remo en Polea Baja" data-num="12">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded bg-surface-container flex flex-col items-center justify-center font-data-mono text-[13px] font-bold text-secondary-fixed">
+            #12
+          </div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-[17px] text-on-surface uppercase">Remo en Polea Baja</span>
+<div class="flex items-center gap-2">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase">Espalda • Densidad Dorsal</span>
+</div>
+</div>
+</div>
+<button class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container active:scale-90 transition-transform" onclick="openConfigModal('12', 'Remo en Polea Baja')">
+<span class="material-symbols-outlined text-[24px]">add_circle</span>
+</button>
+</div>
+<!-- Card Máquina #18 -->
+<div class="machine-item flex items-center justify-between p-space-sm bg-surface-container-low rounded-lg active:bg-surface-container-high transition-colors" data-group="PIERNA" data-name="Curl Femoral Tumbado" data-num="18">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded bg-surface-container flex flex-col items-center justify-center font-data-mono text-[13px] font-bold text-secondary-fixed">
+            #18
+          </div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-[17px] text-on-surface uppercase">Curl Femoral Tumbado</span>
+<div class="flex items-center gap-2">
+<span class="font-data-mono text-[10px] text-on-surface-variant uppercase">Pierna • Isquiosurales</span>
+</div>
+</div>
+</div>
+<button class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container active:scale-90 transition-transform" onclick="openConfigModal('18', 'Curl Femoral Tumbado')">
+<span class="material-symbols-outlined text-[24px]">add_circle</span>
+</button>
+</div>
+</div>
+</div>
+<!-- ACTION BAR FINAL -->
+<div class="flex flex-col gap-space-xs mt-space-md mb-space-sm">
+<button class="w-full h-14 rounded-lg bg-primary-container text-on-primary-container font-headline-md text-headline-md flex items-center justify-center gap-space-xs shadow-lg shadow-primary-container/25 active:scale-98 transition-all" onclick="saveRoutineLocally()">
+<span class="material-symbols-outlined text-[24px]">verified_user</span>
+<span class="tracking-wider uppercase">Guardar Rutina Privada</span>
+</button>
+<p class="text-center font-data-mono text-[10px] text-outline uppercase tracking-wider">
+      Almacenamiento encriptado de alta velocidad en cliente
+    </p>
+</div>
+<!-- NOTIFICACIÓN TOAST FLASH -->
+<div class="fixed bottom-20 left-4 right-4 z-50 transform translate-y-32 opacity-0 transition-all duration-300 pointer-events-none" id="toast-save">
+<div class="bg-secondary-fixed text-on-secondary-fixed rounded-lg p-space-md flex items-center justify-between shadow-2xl">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[26px]">check_circle</span>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-[16px] uppercase leading-none">Rutina Privada Guardada</span>
+<span class="font-body-sm text-body-sm text-[12px] opacity-90">Sincronizada únicamente en tu dispositivo.</span>
+</div>
+</div>
+<span class="font-data-mono text-[10px] font-bold uppercase bg-surface-container-lowest text-secondary-fixed px-2 py-1 rounded">LOCAL OK</span>
+</div>
+</div>
+<!-- MODAL / DRAWER DE CONFIGURACIÓN DE EJERCICIO -->
+<div class="fixed inset-0 z-50 bg-surface-container-lowest/80 backdrop-blur-sm hidden flex items-end justify-center" id="config-drawer">
+<div class="w-full max-w-lg bg-surface-container rounded-t-xl p-space-md flex flex-col gap-space-md shadow-2xl transition-transform">
+<!-- Drawer Header -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-data-mono text-[12px] text-secondary-fixed bg-surface-container-lowest px-2 py-1 rounded font-bold" id="modal-mach-badge">#01</span>
+<div class="flex flex-col">
+<span class="font-label-badge text-label-badge text-outline uppercase text-[11px] leading-tight">Configuración de Carga</span>
+<span class="font-headline-md text-headline-md text-on-surface uppercase truncate" id="modal-mach-title">Prensa de Piernas 45°</span>
+</div>
+</div>
+<button class="w-9 h-9 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center" onclick="closeConfigModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Selectores de Series & Reps -->
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Input Series con Stepper -->
+<div class="flex flex-col gap-1 bg-surface-container-lowest p-space-sm rounded-lg">
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase">Número de Series</span>
+<div class="flex items-center justify-between mt-1">
+<button class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-primary-container font-headline-md text-[20px] active:bg-primary active:text-on-primary" onclick="adjustModalVal('series', -1)">-</button>
+<span class="font-metric-huge-mobile text-metric-huge-mobile text-on-surface leading-none" id="modal-series-val">4</span>
+<button class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-primary-container font-headline-md text-[20px] active:bg-primary active:text-on-primary" onclick="adjustModalVal('series', 1)">+</button>
+</div>
+</div>
+<!-- Input Repeticiones -->
+<div class="flex flex-col gap-1 bg-surface-container-lowest p-space-sm rounded-lg">
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase">Rango Reps</span>
+<input class="w-full h-10 mt-1 bg-surface-container rounded px-2 text-center font-headline-md text-headline-md text-[20px] text-on-surface focus:outline-none" id="modal-reps-val" type="text" value="8 - 12">
+<span class="font-data-mono text-[9px] text-outline text-center uppercase">Ej: 10, 8-12, Al Fallo</span>
+</div>
+</div>
+<!-- Selector Descanso con Quick Chips -->
+<div class="flex flex-col gap-1.5 bg-surface-container-lowest p-space-sm rounded-lg">
+<div class="flex items-center justify-between">
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase">Tiempo de Descanso</span>
+<span class="font-data-mono text-[12px] font-bold text-secondary-fixed" id="modal-rest-display">90 SEG</span>
+</div>
+<div class="grid grid-cols-4 gap-space-xs mt-1">
+<button class="rest-btn py-2 rounded bg-surface-container text-on-surface-variant font-data-mono text-[12px] active:scale-95" onclick="setRestVal(30, this)">30s</button>
+<button class="rest-btn py-2 rounded bg-surface-container text-on-surface-variant font-data-mono text-[12px] active:scale-95" onclick="setRestVal(60, this)">60s</button>
+<button class="rest-btn py-2 rounded bg-secondary-fixed text-on-secondary-fixed font-data-mono text-[12px] font-bold active:scale-95" onclick="setRestVal(90, this)">90s</button>
+<button class="rest-btn py-2 rounded bg-surface-container text-on-surface-variant font-data-mono text-[12px] active:scale-95" onclick="setRestVal(120, this)">120s</button>
+</div>
+</div>
+<!-- Notas Técnicas Personales -->
+<div class="flex flex-col gap-1">
+<label class="font-data-mono text-[11px] text-on-surface-variant uppercase">Notas Personales de Ejecución</label>
+<textarea class="w-full bg-surface-container-lowest rounded-lg p-space-sm font-body-sm text-body-sm text-on-surface focus:outline-none resize-none" id="modal-notes-val" placeholder="Ej: Usar agarre prono neutro. Cuidar no despegar zona lumbar..." rows="2"></textarea>
+</div>
+<!-- Botón Confirmar Modal -->
+<button class="w-full h-12 rounded-lg bg-primary-container text-on-primary-container font-headline-md text-headline-md uppercase flex items-center justify-center gap-space-xs active:scale-98 transition-all" onclick="applyExerciseToPlan()">
+<span class="material-symbols-outlined text-[20px]">add_task</span>
+<span>Confirmar &amp; Agregar al Día</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  let currentModalMach = {
+    num: "01",
+    name: "Prensa de Piernas 45°",
+    series: 4,
+    reps: "8-12",
+    rest: 90,
+    notes: ""
+  };
+
+  function selectDay(dayCode, btn) {
+    document.querySelectorAll('.day-tab').forEach(b => {
+      b.classList.remove('bg-primary-container', 'text-on-primary-container', 'shadow-primary-container/20');
+      b.classList.add('bg-surface-container', 'text-on-surface');
+      const dot = b.querySelector('span:nth-child(2)');
+      if(dot && !dot.classList.contains('bg-transparent')) {
+        dot.classList.remove('bg-on-primary-container');
+        dot.classList.add('bg-secondary-fixed-dim');
+      }
+    });
+
+    btn.classList.remove('bg-surface-container', 'text-on-surface');
+    btn.classList.add('bg-primary-container', 'text-on-primary-container', 'shadow-primary-container/20');
+    const activeDot = btn.querySelector('span:nth-child(2)');
+    if(activeDot) {
+      activeDot.classList.remove('bg-secondary-fixed-dim', 'bg-transparent');
+      activeDot.classList.add('bg-on-primary-container');
+    }
+  }
+
+  function moveStep(btn, direction) {
+    const card = btn.closest('.sequence-card');
+    const container = document.getElementById('workout-sequence');
+    if (direction === -1 && card.previousElementSibling) {
+      container.insertBefore(card, card.previousElementSibling);
+    } else if (direction === 1 && card.nextElementSibling) {
+      container.insertBefore(card.nextElementSibling, card);
+    }
+    recalculateIndices();
+  }
+
+  function removeExercise(btn) {
+    const card = btn.closest('.sequence-card');
+    card.remove();
+    recalculateIndices();
+  }
+
+  function recalculateIndices() {
+    const cards = document.querySelectorAll('#workout-sequence .sequence-card');
+    cards.forEach((card, index) => {
+      const idxElem = card.querySelector('.order-index');
+      if (idxElem) {
+        idxElem.textContent = String(index + 1).padStart(2, '0');
+      }
+    });
+    const counter = document.getElementById('active-day-counter');
+    if (counter) {
+      counter.textContent = `${cards.length} EJERCICIOS ACTIVOS`;
+    }
+  }
+
+  function clearCurrentDay() {
+    const container = document.getElementById('workout-sequence');
+    container.innerHTML = `
+      <div id="empty-day-state" class="py-8 flex flex-col items-center justify-center text-center gap-space-xs">
+        <span class="material-symbols-outlined text-[36px] text-outline">fitness_center</span>
+        <span class="font-headline-md text-headline-md text-[18px] text-on-surface">Día sin ejercicios</span>
+        <p class="font-body-sm text-body-sm text-outline max-w-[200px]">Toca máquinas del catálogo abajo para armar la rutina.</p>
+      </div>
+    `;
+    recalculateIndices();
+  }
+
+  function openConfigModal(machNum, machName, series = 4, reps = "8 - 12", rest = 90, notes = "") {
+    currentModalMach = {
+      num: machNum,
+      name: machName,
+      series: series,
+      reps: reps,
+      rest: rest,
+      notes: notes
+    };
+
+    document.getElementById('modal-mach-badge').textContent = '#' + machNum;
+    document.getElementById('modal-mach-title').textContent = machName;
+    document.getElementById('modal-series-val').textContent = series;
+    document.getElementById('modal-reps-val').value = reps;
+    document.getElementById('modal-notes-val').value = notes;
+    setRestVal(rest);
+
+    const drawer = document.getElementById('config-drawer');
+    drawer.classList.remove('hidden');
+  }
+
+  function closeConfigModal() {
+    document.getElementById('config-drawer').classList.add('hidden');
+  }
+
+  function adjustModalVal(field, delta) {
+    if (field === 'series') {
+      let val = parseInt(document.getElementById('modal-series-val').textContent) || 4;
+      val = Math.max(1, Math.min(10, val + delta));
+      document.getElementById('modal-series-val').textContent = val;
+      currentModalMach.series = val;
+    }
+  }
+
+  function setRestVal(seconds, btn) {
+    currentModalMach.rest = seconds;
+    document.getElementById('modal-rest-display').textContent = seconds + ' SEG';
+    document.querySelectorAll('.rest-btn').forEach(b => {
+      b.classList.remove('bg-secondary-fixed', 'text-on-secondary-fixed', 'font-bold');
+      b.classList.add('bg-surface-container', 'text-on-surface-variant');
+    });
+    if (btn) {
+      btn.classList.remove('bg-surface-container', 'text-on-surface-variant');
+      btn.classList.add('bg-secondary-fixed', 'text-on-secondary-fixed', 'font-bold');
+    } else {
+      document.querySelectorAll('.rest-btn').forEach(b => {
+        if (b.textContent.trim() === seconds + 's') {
+          b.classList.remove('bg-surface-container', 'text-on-surface-variant');
+          b.classList.add('bg-secondary-fixed', 'text-on-secondary-fixed', 'font-bold');
+        }
+      });
+    }
+  }
+
+  function applyExerciseToPlan() {
+    const emptyState = document.getElementById('empty-day-state');
+    if (emptyState) emptyState.remove();
+
+    const reps = document.getElementById('modal-reps-val').value || "8-12";
+    const notes = document.getElementById('modal-notes-val').value || "";
+    const series = currentModalMach.series;
+    const rest = currentModalMach.rest;
+    const machNum = currentModalMach.num;
+    const machName = currentModalMach.name;
+
+    const card = document.createElement('div');
+    card.className = "sequence-card flex items-center justify-between p-space-sm bg-surface-container rounded-lg shadow-md transition-all";
+    card.setAttribute('data-mach', machNum);
+    card.setAttribute('data-name', machName);
+    card.setAttribute('data-series', series);
+    card.setAttribute('data-reps', reps);
+    card.setAttribute('data-rest', rest);
+    card.setAttribute('data-notes', notes);
+
+    card.innerHTML = `
+      <div class="flex items-center gap-space-sm min-w-0 flex-1" onclick="openConfigModal('${machNum}', '${machName}', ${series}, '${reps}', ${rest}, '${notes}')">
+        <div class="flex flex-col items-center justify-center w-8 h-10 rounded bg-surface-container-high text-on-surface">
+          <span class="font-data-mono text-[10px] text-outline">POS</span>
+          <span class="font-headline-md text-headline-md leading-none text-primary order-index">00</span>
+        </div>
+        <div class="flex flex-col min-w-0">
+          <div class="flex items-center gap-1.5">
+            <span class="font-data-mono text-[10px] text-secondary-fixed bg-surface-container-lowest px-1.5 py-0.2 rounded font-bold">#${machNum}</span>
+            <span class="font-headline-md text-headline-md text-[17px] text-on-surface truncate uppercase">${machName}</span>
+          </div>
+          <div class="flex items-center gap-2 font-data-mono text-[11px] text-on-surface-variant">
+            <span><b class="text-on-surface">${series}</b> Series</span>
+            <span>•</span>
+            <span><b class="text-on-surface">${reps}</b> Reps</span>
+            <span>•</span>
+            <span class="text-secondary-fixed">${rest}s Descanso</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-0.5 ml-2">
+        <button onclick="moveStep(this, -1)" class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-on-surface hover:text-primary active:scale-90 transition-transform">
+          <span class="material-symbols-outlined text-[18px]">keyboard_arrow_up</span>
+        </button>
+        <button onclick="moveStep(this, 1)" class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-on-surface hover:text-primary active:scale-90 transition-transform">
+          <span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+        </button>
+        <button onclick="removeExercise(this)" class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-outline hover:text-error active:scale-90 transition-colors ml-1">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+    `;
+
+    document.getElementById('workout-sequence').appendChild(card);
+    recalculateIndices();
+    closeConfigModal();
+  }
+
+  function filterMachines() {
+    const q = document.getElementById('machine-search').value.toLowerCase();
+    const items = document.querySelectorAll('.machine-item');
+    items.forEach(it => {
+      const name = it.getAttribute('data-name').toLowerCase();
+      const num = it.getAttribute('data-num');
+      const match = name.includes(q) || num.includes(q);
+      it.style.display = match ? 'flex' : 'none';
+    });
+  }
+
+  function setMuscleFilter(grp, btn) {
+    document.querySelectorAll('.muscle-chip').forEach(c => {
+      c.classList.remove('bg-primary-container', 'text-on-primary-container');
+      c.classList.add('bg-surface-container', 'text-on-surface-variant');
+    });
+    btn.classList.remove('bg-surface-container', 'text-on-surface-variant');
+    btn.classList.add('bg-primary-container', 'text-on-primary-container');
+
+    const items = document.querySelectorAll('.machine-item');
+    items.forEach(it => {
+      const matchGroup = (grp === 'TODOS' || it.getAttribute('data-group') === grp);
+      it.style.display = matchGroup ? 'flex' : 'none';
+    });
+  }
+
+  function saveRoutineLocally() {
+    const toast = document.getElementById('toast-save');
+    toast.classList.remove('translate-y-32', 'opacity-0');
+    toast.classList.add('translate-y-0', 'opacity-100');
+    
+    setTimeout(() => {
+      toast.classList.add('translate-y-32', 'opacity-0');
+      toast.classList.remove('translate-y-0', 'opacity-100');
+    }, 2400);
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/85 backdrop-blur-xl shadow-[0_-1px_12px_rgba(0,0,0,0.5)]" data-active-classes="text-primary-container [filter:drop-shadow(0_0_6px_rgba(255,82,93,0.5))]"><div class="grid grid-cols-4 items-center h-16 px-space-xs"><a class="flex flex-col items-center justify-center gap-space-xs h-full min-h-[48px] text-on-surface-variant hover:text-on-surface transition-all duration-200" data-path="inicio" href="#"><span class="material-symbols-outlined text-[24px]">speed</span><span class="font-label-badge text-label-badge uppercase tracking-wider text-[11px] leading-tight">Inicio</span></a><a class="flex flex-col items-center justify-center gap-space-xs h-full min-h-[48px] text-on-surface-variant hover:text-on-surface transition-all duration-200" data-path="mi-rutina" href="#"><span class="material-symbols-outlined text-[24px]">fitness_center</span><span class="font-label-badge text-label-badge uppercase tracking-wider text-[11px] leading-tight">Mi Rutina</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-space-xs h-full min-h-[48px] transition-all duration-200 text-primary-container [filter:drop-shadow(0_0_6px_rgba(255,82,93,0.5))]" data-path="crear-rutina" href="#"><span class="material-symbols-outlined text-[24px]">add_box</span><span class="font-label-badge text-label-badge uppercase tracking-wider text-[11px] leading-tight">Crear</span></a><a class="flex flex-col items-center justify-center gap-space-xs h-full min-h-[48px] text-on-surface-variant hover:text-on-surface transition-all duration-200" data-path="asistente-ia" href="#"><span class="material-symbols-outlined text-[24px]">smart_toy</span><span class="font-label-badge text-label-badge uppercase tracking-wider text-[11px] leading-tight">IA Coach</span></a></div></nav></body></html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,700&amp;family=Chivo:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-variant": "#31353d", "inverse-surface": "#e0e2ec", "on-primary-fixed-variant": "#004299", "surface-tint": "#afc6ff", "error": "#ffb4ab", "surface-container-highest": "#31353d", "surface-container-high": "#272a32", "outline-variant": "#424754", "on-secondary-fixed": "#001944", "on-tertiary-container": "#ffffff", "primary-fixed-dim": "#afc6ff", "primary-fixed": "#d9e2ff", "on-tertiary-fixed-variant": "#7a3000", "background": "#10131a", "on-primary": "#002d6d", "tertiary-container": "#c75302", "on-tertiary": "#561f00", "on-surface-variant": "#c2c6d7", "on-primary-fixed": "#001944", "on-error-container": "#ffdad6", "on-secondary": "#142f5f", "secondary": "#afc6ff", "surface-container-low": "#181c23", "inverse-primary": "#0059c8", "surface-container": "#1c2027", "outline": "#8c90a0", "on-primary-container": "#000414", "surface-bright": "#363941", "inverse-on-surface": "#2d3038", "secondary-fixed-dim": "#afc6ff", "tertiary": "#ffb693", "error-container": "#93000a", "on-surface": "#e0e2ec", "surface-dim": "#10131a", "surface": "#10131a", "on-error": "#690005", "secondary-container": "#30487a", "primary": "#afc6ff", "surface-container-lowest": "#0b0e15", "on-secondary-container": "#a1b8f1", "primary-container": "#1f71ef", "on-tertiary-fixed": "#351000", "tertiary-fixed-dim": "#ffb693", "on-background": "#e0e2ec", "secondary-fixed": "#d9e2ff", "tertiary-fixed": "#ffdbcc", "on-secondary-fixed-variant": "#2e4677" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "margin-mobile": "1rem", "space-xs": "0.25rem", "gutter": "1rem", "space-md": "1rem", "space-xl": "2.5rem", "gutter-mobile": "0.75rem", "margin": "2rem", "space-sm": "0.5rem", "space-lg": "1.5rem" }, "fontFamily": { "headline-lg-mobile": [ "Barlow Condensed" ], "headline-lg": [ "Barlow Condensed" ], "display-hero-mobile": [ "Barlow Condensed" ], "headline-md": [ "Barlow Condensed" ], "body-sm": [ "Chivo" ], "label-badge": [ "Barlow Condensed" ], "body-lg": [ "Chivo" ], "data-mono": [ "JetBrains Mono" ], "metric-huge": [ "Barlow Condensed" ], "display-hero": [ "Barlow Condensed" ], "body-md": [ "Chivo" ], "metric-huge-mobile": [ "Barlow Condensed" ] }, "fontSize": { "headline-lg-mobile": [ "28px", { "lineHeight": "32px", "letterSpacing": "0.02em", "fontWeight": "700" } ], "headline-lg": [ "36px", { "lineHeight": "40px", "letterSpacing": "0.03em", "fontWeight": "700" } ], "display-hero-mobile": [ "40px", { "lineHeight": "42px", "letterSpacing": "0.02em", "fontWeight": "800" } ], "headline-md": [ "24px", { "lineHeight": "28px", "letterSpacing": "0.02em", "fontWeight": "700" } ], "body-sm": [ "13px", { "lineHeight": "18px", "fontWeight": "400" } ], "label-badge": [ "14px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "800" } ], "body-lg": [ "18px", { "lineHeight": "26px", "fontWeight": "500" } ], "data-mono": [ "14px", { "lineHeight": "18px", "letterSpacing": "0.05em", "fontWeight": "600" } ], "metric-huge": [ "64px", { "lineHeight": "64px", "letterSpacing": "-0.01em", "fontWeight": "800" } ], "display-hero": [ "56px", { "lineHeight": "56px", "letterSpacing": "0.02em", "fontWeight": "800" } ], "body-md": [ "15px", { "lineHeight": "22px", "fontWeight": "400" } ], "metric-huge-mobile": [ "48px", { "lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "800" } ] } } } };</script></head><body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen relative selection:bg-primary-container selection:text-on-primary-container"><aside class="fixed left-0 top-0 h-screen w-72 bg-surface-container-lowest z-50 flex flex-col justify-between py-6 shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="flex flex-col gap-6"><div class="px-6 flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center text-on-primary-container shadow-[0_0_16px_rgba(31,113,239,0.35)]"><span class="material-symbols-outlined text-[24px]">fitness_center</span></div><div class="flex flex-col"><span class="font-headline-md text-headline-md tracking-wider uppercase text-on-surface leading-none">GYMCORE</span><span class="font-data-mono text-[10px] tracking-widest uppercase text-outline text-primary">ADMIN // OPS</span></div></div><span class="font-label-badge text-label-badge px-2 py-0.5 rounded bg-surface-container-high text-primary tracking-widest uppercase">V2.4</span></div><div class="px-6"><div class="p-3 rounded-lg bg-surface-container-low flex items-center justify-between"><div class="flex flex-col"><span class="font-data-mono text-[11px] uppercase text-outline">ESTADO RED</span><span class="font-data-mono text-body-sm text-on-surface flex items-center gap-1.5 font-semibold"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span> TELEMETRÍA OK</span></div><span class="font-data-mono text-body-sm text-secondary font-semibold">99.9%</span></div></div><div class="px-3"><span class="px-3 font-data-mono text-[11px] uppercase tracking-wider text-outline block mb-2">Operaciones Tácticas</span><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary-container font-bold rounded-lg shadow-[0_0_12px_rgba(31,113,239,0.25)]"><a class="flex items-center gap-3 px-3 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="panel-de-control" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-headline-md text-body-lg uppercase tracking-wide">Panel Central</span></a><a aria-current="page" class="flex items-center gap-3 px-3 py-3 transition-all bg-primary-container text-on-primary-container font-bold rounded-lg shadow-[0_0_12px_rgba(31,113,239,0.25)]" data-path="lista-de-usuarios" href="#"><span class="material-symbols-outlined text-[20px]">group</span><span class="font-headline-md text-body-lg uppercase tracking-wide">Lista de Usuarios</span></a><a class="flex items-center gap-3 px-3 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="inventario-y-manejo-de-productos" href="#"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-headline-md text-body-lg uppercase tracking-wide">Inventario y Stock</span></a><a class="flex items-center gap-3 px-3 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="reportes-y-rendimiento" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-headline-md text-body-lg uppercase tracking-wide">Rendimiento</span></a></nav></div></div><div class="px-6 flex flex-col gap-4"><div class="p-3 rounded-lg bg-surface-container-low flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container"><span class="material-symbols-outlined text-[20px]">shield_person</span></div><div class="flex flex-col overflow-hidden"><span class="font-headline-md text-body-md uppercase truncate text-on-surface">Comandante Admin</span><span class="font-data-mono text-[11px] text-outline truncate">ACCESO NIVEL ANIMAL</span></div></div><div class="flex items-center justify-between text-outline px-1"><a class="flex items-center gap-2 font-data-mono text-body-sm text-outline hover:text-error transition-colors" data-path="login" href="#"><span class="material-symbols-outlined text-[18px]">logout</span> TERMINAR SESIÓN</a><span class="font-data-mono text-[11px]">LAT: 14MS</span></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/85 backdrop-blur-xl z-40 flex items-center justify-between px-gutter shadow-[0_1px_8px_rgba(0,0,0,0.3)]"><div class="flex items-center gap-4"><div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-low"><span class="material-symbols-outlined text-outline text-[18px]">search</span><input class="bg-transparent font-data-mono text-body-sm text-on-surface placeholder:text-outline focus:outline-none w-64 uppercase tracking-wider" placeholder="BUSCAR SOCIO, SKU O TICKET..." type="text"/></div><div class="hidden xl:flex items-center gap-3 px-3 py-1 rounded bg-surface-container-high"><span class="w-2 h-2 rounded-full bg-primary"></span><span class="font-data-mono text-body-sm text-on-surface-variant uppercase">CAPACIDAD SALA:</span><span class="font-data-mono text-body-sm text-primary font-bold">142 / 180</span></div></div><div class="flex items-center gap-3"><div class="hidden md:flex items-center gap-2 px-3 py-1 rounded bg-surface-container-low"><span class="material-symbols-outlined text-tertiary text-[18px]">bolt</span><span class="font-data-mono text-body-sm text-on-surface-variant uppercase">MODO TÁCTICO ACTIVO</span></div><button class="w-10 h-10 rounded-lg bg-surface-container-low hover:bg-surface-container-high hover:text-on-surface flex items-center justify-center text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span></button><button class="w-10 h-10 rounded-lg bg-surface-container-low hover:bg-surface-container-high hover:text-on-surface flex items-center justify-center text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">tune</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[0_0_12px_rgba(175,198,255,0.4)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 w-full min-h-screen bg-surface px-gutter py-space-lg"><div class="flex flex-col w-full relative">
+<!-- BACKGROUND LAYER: Complete Users Table Interface (Dimmed / Backdrop state) -->
+<div class="flex flex-col w-full gap-space-lg select-none opacity-40 pointer-events-none filter blur-[1.5px] transition-all duration-300">
+<!-- Top Bar Controls -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-surface-container-low p-4 rounded-xl shadow-md">
+<div class="flex items-center gap-3">
+<div class="w-2.5 h-8 bg-primary rounded"></div>
+<div>
+<span class="font-data-mono text-[11px] text-outline uppercase tracking-widest block">SISTEMA GYMCORE // BASE DE DATOS</span>
+<h1 class="font-headline-lg text-headline-lg uppercase text-on-surface leading-tight tracking-wider">REGISTRO ALFABÉTICO DE ATLETAS</h1>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="px-3 py-1.5 rounded-lg bg-surface-container flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">filter_list</span>
+<span class="font-data-mono text-body-sm text-on-surface uppercase">ORDEN: APELLIDOS (A-Z)</span>
+</div>
+<button class="h-10 px-4 rounded bg-primary-container text-on-primary-container font-headline-md text-body-md uppercase flex items-center gap-2 shadow-[0_0_12px_rgba(31,113,239,0.3)]">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+          NUEVO INGRESO
+        </button>
+</div>
+</div>
+<!-- Alphabetical Table Container -->
+<div class="w-full bg-surface-container-low rounded-xl overflow-hidden shadow-xl">
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high text-outline font-data-mono text-body-sm uppercase tracking-wider">
+<th class="py-4 px-5">APELLIDOS</th>
+<th class="py-4 px-5">NOMBRES</th>
+<th class="py-4 px-5">MEMBRESÍA</th>
+<th class="py-4 px-5">USUARIO</th>
+<th class="py-4 px-5">CONTRASEÑA</th>
+<th class="py-4 px-4 text-center">ACCIONES</th>
+<th class="py-4 px-5 text-right">TELEMETRÍA</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-on-surface font-body-md">
+<!-- Row 1: Almeyda Gómez -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-4 px-5 font-headline-md text-body-lg uppercase tracking-wide text-on-surface">Almeyda Gómez</td>
+<td class="py-4 px-5 font-body-md text-on-surface-variant">Renzo Favio</td>
+<td class="py-4 px-5">
+<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface-container text-primary font-data-mono text-body-sm font-semibold">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                  ACTIVA
+                </span>
+</td>
+<td class="py-4 px-5 font-data-mono text-body-sm text-secondary">@renzo.a</td>
+<td class="py-4 px-5">
+<div class="flex items-center gap-2 font-data-mono text-body-sm text-outline">
+<span>••••••••••••</span>
+<span class="material-symbols-outlined text-[16px] text-outline">visibility</span>
+</div>
+</td>
+<td class="py-4 px-4 text-center">
+<button class="px-3 py-1.5 rounded bg-surface-container-high text-on-surface font-headline-md text-body-sm uppercase inline-flex items-center gap-1.5 hover:bg-surface-bright">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+                  Editar
+                </button>
+</td>
+<td class="py-4 px-5 text-right">
+<button class="px-3.5 py-1.5 rounded bg-surface-container-highest text-primary font-headline-md text-body-sm uppercase inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">badge</span>
+                  Ver más
+                </button>
+</td>
+</tr>
+<!-- Row 2: Benavides Castro -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-4 px-5 font-headline-md text-body-lg uppercase tracking-wide text-on-surface">Benavides Castro</td>
+<td class="py-4 px-5 font-body-md text-on-surface-variant">Carla Sofía</td>
+<td class="py-4 px-5">
+<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface-container text-primary font-data-mono text-body-sm font-semibold">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                  ACTIVA
+                </span>
+</td>
+<td class="py-4 px-5 font-data-mono text-body-sm text-secondary">@carla.fit</td>
+<td class="py-4 px-5">
+<div class="flex items-center gap-2 font-data-mono text-body-sm text-outline">
+<span>••••••••••••</span>
+<span class="material-symbols-outlined text-[16px] text-outline">visibility</span>
+</div>
+</td>
+<td class="py-4 px-4 text-center">
+<button class="px-3 py-1.5 rounded bg-surface-container-high text-on-surface font-headline-md text-body-sm uppercase inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+                  Editar
+                </button>
+</td>
+<td class="py-4 px-5 text-right">
+<button class="px-3.5 py-1.5 rounded bg-surface-container-highest text-primary font-headline-md text-body-sm uppercase inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">badge</span>
+                  Ver más
+                </button>
+</td>
+</tr>
+<!-- Row 3: Guzmán Prado -->
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-4 px-5 font-headline-md text-body-lg uppercase tracking-wide text-on-surface">Guzmán Prado</td>
+<td class="py-4 px-5 font-body-md text-on-surface-variant">Diego Alonso</td>
+<td class="py-4 px-5">
+<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface-container text-primary font-data-mono text-body-sm font-semibold">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                  ACTIVA
+                </span>
+</td>
+<td class="py-4 px-5 font-data-mono text-body-sm text-secondary">@dguzman</td>
+<td class="py-4 px-5">
+<div class="flex items-center gap-2 font-data-mono text-body-sm text-outline">
+<span>••••••••••••</span>
+<span class="material-symbols-outlined text-[16px] text-outline">visibility</span>
+</div>
+</td>
+<td class="py-4 px-4 text-center">
+<button class="px-3 py-1.5 rounded bg-surface-container-high text-on-surface font-headline-md text-body-sm uppercase inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+                  Editar
+                </button>
+</td>
+<td class="py-4 px-5 text-right">
+<button class="px-3.5 py-1.5 rounded bg-surface-container-highest text-primary font-headline-md text-body-sm uppercase inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">badge</span>
+                  Ver más
+                </button>
+</td>
+</tr>
+<!-- Row 4: Mejía Loyola (Vencido) -->
+<tr class="hover:bg-surface-container transition-colors bg-surface-container/30">
+<td class="py-4 px-5 font-headline-md text-body-lg uppercase tracking-wide text-on-surface-variant">Mejía Loyola</td>
+<td class="py-4 px-5 font-body-md text-outline">Andrés Felipe</td>
+<td class="py-4 px-5">
+<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface-container text-error font-data-mono text-body-sm font-semibold">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+                  VENCIDA
+                </span>
+</td>
+<td class="py-4 px-5 font-data-mono text-body-sm text-outline">@andres_m</td>
+<td class="py-4 px-5">
+<div class="flex items-center gap-2 font-data-mono text-body-sm text-outline">
+<span>••••••••••••</span>
+<span class="material-symbols-outlined text-[16px] text-outline">visibility</span>
+</div>
+</td>
+<td class="py-4 px-4 text-center">
+<button class="px-3 py-1.5 rounded bg-surface-container-high text-on-surface font-headline-md text-body-sm uppercase inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+                  Editar
+                </button>
+</td>
+<td class="py-4 px-5 text-right">
+<button class="px-3.5 py-1.5 rounded bg-surface-container-highest text-outline font-headline-md text-body-sm uppercase inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">badge</span>
+                  Ver más
+                </button>
+</td>
+</tr>
+<!-- Row 5: Valdivia Roca (Active in modal) -->
+<tr class="bg-primary-container/10">
+<td class="py-4 px-5 font-headline-md text-body-lg uppercase tracking-wide text-primary">Valdivia Roca</td>
+<td class="py-4 px-5 font-body-md text-on-surface font-semibold">Mateo Sebastián</td>
+<td class="py-4 px-5">
+<span class="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-surface-container text-error font-data-mono text-body-sm font-semibold">
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+                  CRÍTICA (8d)
+                </span>
+</td>
+<td class="py-4 px-5 font-data-mono text-body-sm text-primary font-bold">@mateo_val</td>
+<td class="py-4 px-5">
+<div class="flex items-center gap-2 font-data-mono text-body-sm text-primary">
+<span>••••••••••••</span>
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</div>
+</td>
+<td class="py-4 px-4 text-center">
+<button class="px-3 py-1.5 rounded bg-surface-container-high text-on-surface font-headline-md text-body-sm uppercase inline-flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+                  Editar
+                </button>
+</td>
+<td class="py-4 px-5 text-right">
+<button class="px-3.5 py-1.5 rounded bg-primary-container text-on-primary-container font-headline-md text-body-sm uppercase inline-flex items-center gap-1.5 shadow-[0_0_10px_rgba(31,113,239,0.5)]">
+<span class="material-symbols-outlined text-[16px]">badge</span>
+                  Ver más
+                </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- FOREGROUND LAYER: Tactical Carnet Digital Modal Window -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-md" id="stitch-modal-ver-mas">
+<!-- Modal Dialog Frame: Military ID Badge Aesthetic -->
+<div class="relative w-full max-w-4xl bg-surface-container-low rounded-xl shadow-[0_0_40px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col max-h-[942px]">
+<!-- Top Decorative Tactical Status Line -->
+<div class="h-1.5 w-full bg-gradient-to-r from-primary via-primary-container to-secondary"></div>
+<!-- Carnet Header -->
+<div class="px-6 py-4 bg-surface-container flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center text-on-primary-container shadow-[0_0_12px_rgba(31,113,239,0.35)]">
+<span class="material-symbols-outlined text-[24px]">badge</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-body-lg text-primary uppercase tracking-widest font-bold">GYMADMINPRO // GYMCORE</span>
+<span class="px-2 py-0.5 rounded bg-primary text-on-primary font-data-mono text-[10px] font-bold">SEC-OPS</span>
+</div>
+<span class="font-data-mono text-body-sm text-on-surface tracking-wider uppercase font-semibold">CARNET DE SOCIO ACTIVO // ID DIGITAL #8841</span>
+</div>
+</div>
+<!-- Close 'X' Button -->
+<button aria-label="Cerrar modal" class="w-10 h-10 rounded-lg bg-surface-container-high hover:bg-surface-bright flex items-center justify-center text-on-surface transition-all focus:outline-none focus:ring-2 focus:ring-primary shadow-sm" onclick="document.getElementById('stitch-modal-ver-mas').style.display='none'">
+<span class="material-symbols-outlined text-[22px]">close</span>
+</button>
+</div>
+<!-- Carnet Body Scrollable Content -->
+<div class="p-6 overflow-y-auto space-y-6">
+<!-- Top Tactical Bio Panel -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-surface-container rounded-xl p-5 shadow-inner">
+<!-- Tactical Photo Profile (Left) -->
+<div class="lg:col-span-4 flex flex-col items-center">
+<div class="relative w-44 h-52 rounded-lg overflow-hidden bg-surface-container-lowest shadow-lg">
+<img class="w-full h-full object-cover" data-alt="Athletic male lifter tactical ID portrait photo, dynamic gym lighting with cold neon blue rim lights, dark atmospheric backdrop, focused expression with sharp athletic contrast, ultra high resolution sports engineering look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0nNb-rdRGYdH3s9JOhlBprJiQA8OEjWoscd2CbnvHbnSmeUaDBDFUYUWXPuUc_D7KnHjAuxhpJTuWsR4oPQeOMIq1Eguc793LO1bj4r_PdPAykl32XfNDLdBi4_jh2uZENp14QcceofgQ07059NCYc--QXzk79ad2ksdV3Mj7Fq98L_TJcHcYFTktadIzKWO3bUMPxYliJVkF5jQpDjI46d81G3PP1ImraNqzJeLpcfiOedSSXNQ"/>
+<!-- Reticle / Sci-fi Frame Elements -->
+<div class="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent"></div>
+<div class="absolute top-2 left-2 px-1.5 py-0.5 rounded bg-surface-container-highest/90 text-primary font-data-mono text-[10px] uppercase font-bold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[12px] text-primary">verified</span>
+                BIO-VERIFIED
+              </div>
+<div class="absolute bottom-2 left-2 right-2 text-center">
+<span class="font-data-mono text-[11px] text-primary tracking-widest font-bold uppercase block">RFID SYNC: 99.4%</span>
+</div>
+</div>
+<span class="font-data-mono text-[11px] text-outline uppercase tracking-wider mt-2.5">SISTEMA FACIAL CERTIFICADO</span>
+</div>
+<!-- Personal Data Fields (Right) -->
+<div class="lg:col-span-8 flex flex-col justify-between gap-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Full Name -->
+<div class="md:col-span-2 bg-surface-container-low p-3.5 rounded-lg">
+<span class="font-data-mono text-[11px] uppercase text-outline tracking-wider block mb-1">APELLIDOS Y NOMBRES</span>
+<span class="font-headline-lg text-headline-md text-on-surface uppercase tracking-wide font-extrabold leading-none">
+                  VALDIVIA ROCA, MATEO SEBASTIÁN
+                </span>
+</div>
+<!-- DNI -->
+<div class="bg-surface-container-low p-3.5 rounded-lg">
+<span class="font-data-mono text-[11px] uppercase text-outline tracking-wider block mb-1">DOCUMENTO NACIONAL (DNI)</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">fingerprint</span>
+<span class="font-data-mono text-headline-md text-secondary font-bold tracking-widest">72849102</span>
+</div>
+</div>
+<!-- Phone -->
+<div class="bg-surface-container-low p-3.5 rounded-lg">
+<span class="font-data-mono text-[11px] uppercase text-outline tracking-wider block mb-1">NÚMERO CELULAR / CONTACTO</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">call</span>
+<span class="font-data-mono text-headline-md text-on-surface font-semibold tracking-wider">+51 987 654 321</span>
+</div>
+</div>
+</div>
+<!-- Assigned Workout Routine Banner -->
+<div class="bg-surface-container-high p-3.5 rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary flex items-center justify-center text-on-primary font-bold">
+<span class="material-symbols-outlined text-[18px]">exercise</span>
+</div>
+<div>
+<span class="font-data-mono text-[10px] text-outline uppercase tracking-wider block">PLAN DE ENTRENAMIENTO ASIGNADO</span>
+<span class="font-headline-md text-body-lg text-on-surface uppercase tracking-wide font-bold">
+                    rutina: Hipertrofia PPL (Push-Pull-Legs) // 5 Días
+                  </span>
+</div>
+</div>
+<span class="px-2 py-1 rounded bg-surface-container text-primary font-data-mono text-[11px] uppercase font-bold">FASE 2</span>
+</div>
+</div>
+</div>
+<!-- Membership Remaining Time Card with Traffic-Light Semáforo -->
+<div class="bg-surface-container-low rounded-xl p-5 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="flex flex-col gap-2">
+<span class="font-data-mono text-body-sm uppercase text-outline tracking-wider flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-error">timer</span>
+              TIEMPO DE MEMBRESÍA RESTANTE
+            </span>
+<div class="flex items-baseline gap-3">
+<span class="font-metric-huge text-metric-huge text-error uppercase leading-none font-extrabold tracking-tight">
+                0 MESES Y 8 DÍAS
+              </span>
+</div>
+<!-- Semáforo Logic Rule Explanation -->
+<div class="flex flex-wrap items-center gap-3 mt-1 font-data-mono text-[11px] text-outline">
+<span class="flex items-center gap-1 text-error font-semibold">
+<span class="w-2.5 h-2.5 rounded-full bg-error animate-pulse"></span>
+                ROJO: &lt;10 DÍAS (CRÍTICO)
+              </span>
+<span class="opacity-40">|</span>
+<span class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+                NARANJA: 10-30 DÍAS
+              </span>
+<span class="opacity-40">|</span>
+<span class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                VERDE: &gt;1 MES
+              </span>
+</div>
+</div>
+<!-- Semáforo Hardware-style Indicator Box -->
+<div class="bg-surface-container-lowest p-3 rounded-lg flex md:flex-col items-center justify-center gap-2.5 shadow-inner">
+<div class="w-7 h-7 rounded-full bg-error flex items-center justify-center text-on-error shadow-[0_0_14px_rgba(255,180,171,0.8)]" title="Alerta Crítica: Menor a 10 días">
+<span class="material-symbols-outlined text-[16px]">priority_high</span>
+</div>
+<div class="w-7 h-7 rounded-full bg-surface-container-high opacity-30" title="Alerta Media"></div>
+<div class="w-7 h-7 rounded-full bg-surface-container-high opacity-30" title="Vigente"></div>
+</div>
+</div>
+<!-- Gamified Tier Loyalty System (Nivel de Fidelidad) -->
+<div class="bg-surface-container-low rounded-xl p-5 shadow-md flex flex-col gap-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div>
+<span class="font-data-mono text-[11px] uppercase text-outline tracking-wider block">SISTEMA GAMIFICADO DE FIDELIZACIÓN</span>
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wider">
+                NIVEL ACTUAL: <span class="text-primary font-bold">★ MUTANDO</span> / 9 MESES Y 14 DÍAS
+              </h2>
+</div>
+<div class="px-3 py-1 rounded bg-primary-container text-on-primary-container font-headline-md text-body-md uppercase font-bold tracking-widest shadow-[0_0_12px_rgba(31,113,239,0.3)]">
+              TIER 5 DE 8
+            </div>
+</div>
+<!-- Visual Multi-Tier Progression Track -->
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden relative">
+<div class="bg-gradient-to-r from-primary to-primary-container h-full w-[62%] rounded-full shadow-[0_0_10px_rgba(31,113,239,0.5)]"></div>
+</div>
+<!-- Detailed 8-Level Tier Map -->
+<div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 pt-1">
+<!-- Tier 1: Novato -->
+<div class="p-2 rounded bg-surface-container flex flex-col items-center text-center opacity-60">
+<span class="font-data-mono text-[9px] text-outline uppercase tracking-tight block">&lt;1 MES</span>
+<span class="font-headline-md text-[13px] text-on-surface uppercase tracking-wider">Novato</span>
+<span class="material-symbols-outlined text-[16px] text-outline mt-1">check_circle</span>
+</div>
+<!-- Tier 2: Principiante -->
+<div class="p-2 rounded bg-surface-container flex flex-col items-center text-center opacity-60">
+<span class="font-data-mono text-[9px] text-outline uppercase tracking-tight block">1-3 MESES</span>
+<span class="font-headline-md text-[13px] text-on-surface uppercase tracking-wider">Principiante</span>
+<span class="material-symbols-outlined text-[16px] text-outline mt-1">check_circle</span>
+</div>
+<!-- Tier 3: Promedio -->
+<div class="p-2 rounded bg-surface-container flex flex-col items-center text-center opacity-60">
+<span class="font-data-mono text-[9px] text-outline uppercase tracking-tight block">3-5 MESES</span>
+<span class="font-headline-md text-[13px] text-on-surface uppercase tracking-wider">Promedio</span>
+<span class="material-symbols-outlined text-[16px] text-outline mt-1">check_circle</span>
+</div>
+<!-- Tier 4: En Progreso -->
+<div class="p-2 rounded bg-surface-container flex flex-col items-center text-center opacity-70">
+<span class="font-data-mono text-[9px] text-outline uppercase tracking-tight block">5-8 MESES</span>
+<span class="font-headline-md text-[13px] text-on-surface uppercase tracking-wider">En Progreso</span>
+<span class="material-symbols-outlined text-[16px] text-outline mt-1">check_circle</span>
+</div>
+<!-- Tier 5: Mutando (ACTIVE CURRENT TIER) -->
+<div class="p-2 rounded bg-primary-container text-on-primary-container flex flex-col items-center text-center shadow-[0_0_14px_rgba(31,113,239,0.4)] transform scale-105 z-10 font-bold">
+<span class="font-data-mono text-[9px] text-on-primary uppercase tracking-tight block font-extrabold">8-12 MESES</span>
+<span class="font-headline-md text-[14px] uppercase tracking-wider">★ Mutando</span>
+<span class="material-symbols-outlined text-[16px] text-on-primary-container mt-1">stars</span>
+</div>
+<!-- Tier 6: Mamado/a -->
+<div class="p-2 rounded bg-surface-container flex flex-col items-center text-center opacity-40">
+<span class="font-data-mono text-[9px] text-outline uppercase tracking-tight block">1-2 AÑOS</span>
+<span class="font-headline-md text-[13px] text-on-surface-variant uppercase tracking-wider">Mamado/a</span>
+<span class="material-symbols-outlined text-[16px] text-outline mt-1">lock</span>
+</div>
+<!-- Tier 7: Dios/a Griego/a -->
+<div class="p-2 rounded bg-surface-container flex flex-col items-center text-center opacity-40">
+<span class="font-data-mono text-[9px] text-outline uppercase tracking-tight block">2-4 AÑOS</span>
+<span class="font-headline-md text-[13px] text-on-surface-variant uppercase tracking-wider leading-tight">Dios Griego</span>
+<span class="material-symbols-outlined text-[16px] text-outline mt-1">lock</span>
+</div>
+<!-- Tier 8: Animal -->
+<div class="p-2 rounded bg-surface-container flex flex-col items-center text-center opacity-40">
+<span class="font-data-mono text-[9px] text-outline uppercase tracking-tight block">&gt;4 AÑOS</span>
+<span class="font-headline-md text-[13px] text-on-surface-variant uppercase tracking-wider">Animal</span>
+<span class="material-symbols-outlined text-[16px] text-outline mt-1">lock</span>
+</div>
+</div>
+</div>
+<!-- Tactical Security Barcode & UID -->
+<div class="bg-surface-container-high rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-4">
+<!-- Inline Tactical Barcode Graphic -->
+<div class="h-10 px-3 py-1 bg-surface-container-lowest rounded flex items-center gap-1">
+<div class="w-1 h-8 bg-on-surface"></div>
+<div class="w-0.5 h-8 bg-on-surface"></div>
+<div class="w-2 h-8 bg-on-surface"></div>
+<div class="w-0.5 h-8 bg-on-surface"></div>
+<div class="w-1.5 h-8 bg-on-surface"></div>
+<div class="w-0.5 h-8 bg-on-surface"></div>
+<div class="w-2 h-8 bg-on-surface"></div>
+<div class="w-1 h-8 bg-on-surface"></div>
+<div class="w-0.5 h-8 bg-on-surface"></div>
+<div class="w-2.5 h-8 bg-on-surface"></div>
+<div class="w-1 h-8 bg-on-surface"></div>
+<div class="w-0.5 h-8 bg-on-surface"></div>
+<div class="w-1.5 h-8 bg-on-surface"></div>
+<div class="w-1 h-8 bg-on-surface"></div>
+</div>
+<div>
+<span class="font-data-mono text-[10px] text-outline uppercase block">ENCRIPTACIÓN SHA-256</span>
+<span class="font-data-mono text-body-sm text-secondary tracking-widest font-bold">UID: 994-MVR-8841-SEC</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-data-mono text-[11px] text-outline uppercase">PUERTA TORNIQUETE:</span>
+<span class="px-2.5 py-1 rounded bg-surface-container text-primary font-data-mono text-body-sm font-bold flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+              HABILITADO
+            </span>
+</div>
+</div>
+</div>
+<!-- Carnet Footer: Action Controls & Danger State -->
+<div class="px-6 py-4 bg-surface-container flex flex-col sm:flex-row items-center justify-between gap-4">
+<!-- Left: Deletion Control (Disabled by Rule) -->
+<div class="flex flex-col sm:flex-row sm:items-center gap-3 w-full sm:w-auto">
+<button class="h-11 px-4 rounded bg-error-container/40 text-error/60 font-headline-md text-body-md uppercase cursor-not-allowed flex items-center justify-center gap-2 opacity-50 shadow-none" disabled="">
+<span class="material-symbols-outlined text-[18px]">delete_forever</span>
+            ELIMINAR USUARIO
+          </button>
+<span class="font-data-mono text-[11px] text-outline leading-tight max-w-xs">
+            (Visible solo si lleva &gt;1 mes sin renovar membresía - actualmente inactivo/bloqueado por vigencia)
+          </span>
+</div>
+<!-- Right: Secondary Actions -->
+<div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+<button class="h-11 px-5 rounded bg-surface-container-high text-on-surface hover:bg-surface-bright font-headline-md text-body-md uppercase transition-all" onclick="document.getElementById('stitch-modal-ver-mas').style.display='none'">
+            VOLVER AL PANEL
+          </button>
+<button class="h-11 px-6 rounded bg-primary-container text-on-primary-container font-headline-md text-body-md uppercase font-bold tracking-wider hover:bg-primary transition-all shadow-[0_0_16px_rgba(31,113,239,0.4)] flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">credit_card</span>
+            RENOVAR MEMBRESÍA
+          </button>
+</div>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

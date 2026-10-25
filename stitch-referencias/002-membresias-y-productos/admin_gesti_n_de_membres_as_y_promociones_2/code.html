@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,800&amp;family=Chivo:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "primary-container": "#1f71ef",
+          "primary-fixed": "#d9e2ff",
+          "surface-tint": "#afc6ff",
+          "tertiary-container": "#c75302",
+          "surface-container-highest": "#31353d",
+          "on-primary-container": "#000414",
+          "surface-dim": "#10131a",
+          "inverse-on-surface": "#2d3038",
+          "on-error-container": "#ffdad6",
+          "secondary-fixed": "#d9e2ff",
+          "tertiary-fixed": "#ffdbcc",
+          "error": "#ffb4ab",
+          "surface": "#10131a",
+          "outline": "#8c90a0",
+          "surface-container": "#1c2027",
+          "outline-variant": "#424754",
+          "on-surface-variant": "#c2c6d7",
+          "surface-variant": "#31353d",
+          "on-tertiary-fixed-variant": "#7a3000",
+          "on-background": "#e0e2ec",
+          "on-secondary-fixed": "#001944",
+          "on-surface": "#e0e2ec",
+          "surface-bright": "#363941",
+          "primary-fixed-dim": "#afc6ff",
+          "tertiary-fixed-dim": "#ffb693",
+          "secondary-fixed-dim": "#afc6ff",
+          "inverse-surface": "#e0e2ec",
+          "on-secondary": "#142f5f",
+          "surface-container-high": "#272a32",
+          "on-tertiary-fixed": "#351000",
+          "background": "#10131a",
+          "tertiary": "#ffb693",
+          "on-primary": "#002d6d",
+          "on-secondary-fixed-variant": "#2e4677",
+          "surface-container-low": "#181c23",
+          "on-primary-fixed": "#001944",
+          "on-tertiary": "#561f00",
+          "inverse-primary": "#0059c8",
+          "on-tertiary-container": "#ffffff",
+          "on-error": "#690005",
+          "on-primary-fixed-variant": "#004299",
+          "surface-container-lowest": "#0b0e15",
+          "primary": "#afc6ff",
+          "secondary-container": "#30487a",
+          "error-container": "#93000a",
+          "secondary": "#afc6ff",
+          "on-secondary-container": "#a1b8f1"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "gutter-mobile": "0.75rem",
+          "gutter": "1rem",
+          "margin": "2rem",
+          "space-lg": "1.5rem",
+          "space-md": "1rem",
+          "margin-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "space-xl": "2.5rem",
+          "space-sm": "0.5rem"
+        },
+        "fontFamily": {
+          "display-hero-mobile": ["Barlow Condensed"],
+          "label-badge": ["Barlow Condensed"],
+          "display-hero": ["Barlow Condensed"],
+          "body-sm": ["Chivo"],
+          "metric-huge": ["Barlow Condensed"],
+          "body-md": ["Chivo"],
+          "headline-md": ["Barlow Condensed"],
+          "body-lg": ["Chivo"],
+          "headline-lg": ["Barlow Condensed"],
+          "data-mono": ["JetBrains Mono"],
+          "headline-lg-mobile": ["Barlow Condensed"],
+          "metric-huge-mobile": ["Barlow Condensed"]
+        },
+        "fontSize": {
+          "display-hero-mobile": ["40px", {"lineHeight": "42px", "letterSpacing": "0.02em", "fontWeight": "800"}],
+          "label-badge": ["14px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "800"}],
+          "display-hero": ["56px", {"lineHeight": "56px", "letterSpacing": "0.02em", "fontWeight": "800"}],
+          "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+          "metric-huge": ["64px", {"lineHeight": "64px", "letterSpacing": "-0.01em", "fontWeight": "800"}],
+          "body-md": ["15px", {"lineHeight": "22px", "fontWeight": "400"}],
+          "headline-md": ["24px", {"lineHeight": "28px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+          "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "500"}],
+          "headline-lg": ["36px", {"lineHeight": "40px", "letterSpacing": "0.03em", "fontWeight": "700"}],
+          "data-mono": ["14px", {"lineHeight": "18px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+          "headline-lg-mobile": ["28px", {"lineHeight": "32px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+          "metric-huge-mobile": ["48px", {"lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "800"}]
+        }
+      },
+    },
+  }</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary selection:text-on-primary"><header class="fixed top-0 left-0 right-0 h-16 z-40 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.5)]"><div class="w-full h-full px-gutter flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-[24px]">fitness_center</span><span class="font-headline-md text-headline-md tracking-wider uppercase text-on-surface">GYMCORE <span class="text-primary">//</span> ADMIN MASTER SUITE</span></div><span class="px-space-sm py-0.5 rounded bg-error-container text-on-error font-label-badge text-label-badge tracking-widest uppercase">SUPERADMIN</span></div><div class="flex items-center gap-space-lg"><div class="hidden xl:flex items-center gap-space-sm bg-surface-container px-space-sm py-1 rounded"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-data-mono text-data-mono text-on-surface-variant uppercase">SYS_ONLINE : 99.98%</span></div><div class="hidden md:flex items-center gap-space-xs font-data-mono text-data-mono text-primary bg-surface-container-high px-space-md py-1 rounded"><span class="material-symbols-outlined text-[16px]">schedule</span><span id="system-clock">23:42:10 UTC</span></div><div class="flex items-center gap-space-sm pl-space-sm"><div class="text-right hidden sm:block"><p class="font-label-badge text-label-badge uppercase leading-none text-on-surface">Commander.K</p><p class="font-data-mono text-[11px] leading-tight text-on-surface-variant">ROOT_ACCESS</p></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><aside class="fixed left-0 top-16 bottom-0 w-72 bg-surface-container-lowest z-30 flex flex-col justify-between py-space-md shadow-[1px_0_12px_rgba(0,0,0,0.4)]"><div class="flex flex-col gap-space-md"><div class="px-space-lg"><p class="font-data-mono text-[11px] tracking-widest uppercase text-on-surface-variant">NÚCLEO TÁCTICO // RUTAS</p></div><nav class="flex flex-col gap-space-xs px-space-sm"><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="dashboard-principal" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Dashboard Principal</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="lista-de-cambios-y-aprobaciones" href="#"><span class="material-symbols-outlined text-[20px]">verified_user</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Cambios &amp; Aprobaciones</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded bg-primary-container text-on-primary-container font-headline-md shadow-[0_0_16px_rgba(31,113,239,0.25)]" data-path="gestion-de-membresias-y-promociones" href="#"><span class="material-symbols-outlined text-[20px]">card_membership</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Membresías &amp; Promociones</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="lista-de-usuarios-y-fidelidad" href="#"><span class="material-symbols-outlined text-[20px]">military_tech</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Usuarios &amp; Fidelidad</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="configurar-rutinas-y-asignar" href="#"><span class="material-symbols-outlined text-[20px]">reorder</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Configurar Rutinas</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="inventario-maestro-de-productos" href="#"><span class="material-symbols-outlined text-[20px]">inventory_2</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Inventario Maestro</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="nuevo-usuario" href="#"><span class="material-symbols-outlined text-[20px]">person_add</span><span class="font-label-badge text-label-badge tracking-wider uppercase">Nuevo Usuario</span></a></nav></div><div class="px-space-md"><div class="bg-surface-container-low p-space-sm rounded flex flex-col gap-space-xs"><div class="flex justify-between items-center"><span class="font-data-mono text-[10px] text-on-surface-variant uppercase">TERMINAL NODE</span><span class="font-data-mono text-[10px] text-primary uppercase">ALPHA-01</span></div><div class="flex justify-between items-center"><span class="font-data-mono text-[10px] text-on-surface-variant uppercase">PROTOCOL</span><span class="font-data-mono text-[10px] text-on-surface uppercase">TLS 1.3 / AES-GCM</span></div></div></div></aside><div class="pl-72"><main class="w-full min-h-screen pt-16 px-gutter bg-background"><div class="flex flex-col w-full pb-space-xl">
+<!-- Operational Sub-Header: Telemetry & State Tracker -->
+<div class="relative w-full mb-space-lg flex flex-col md:flex-row md:items-end justify-between gap-space-md pt-space-xs">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="font-data-mono text-data-mono text-primary uppercase tracking-widest">// COMANDO DE MEMBRESÍAS &amp; PLANES</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+<span class="bg-surface-container-high px-space-xs py-0.5 rounded font-data-mono text-[11px] text-on-surface-variant uppercase">MODULO_M03</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface uppercase tracking-tight flex items-center gap-space-sm">
+        GESTIÓN DE MEMBRESÍAS <span class="text-primary-container">&amp;</span> PROMOCIONES
+      </h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-2xl">
+        Configura promociones con segmentación por nivel de fidelidad, emite tarifas fijas y gestiona membresías de atletas con conciliación directa o por comprobante de pago.
+      </p>
+</div>
+<!-- Quick Telemetry Chips -->
+<div class="flex items-center gap-space-sm bg-surface-container-low p-space-xs rounded-xl shadow-inner">
+<div class="px-space-md py-space-xs bg-surface-container rounded-lg flex flex-col">
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase">PLANES_ACTIVOS</span>
+<span class="font-headline-md text-headline-md text-on-surface leading-none">08 <span class="text-primary text-[14px]">TARIFAS</span></span>
+</div>
+<div class="px-space-md py-space-xs bg-surface-container rounded-lg flex flex-col">
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase">CONCILIACIONES_PEND</span>
+<span class="font-headline-md text-headline-md text-tertiary leading-none">03 <span class="text-[14px] text-outline">DOCS</span></span>
+</div>
+</div>
+</div>
+<!-- Primary Layout: Dual Modular Command Panel -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- SECCIÓN 2: 'Manejar Promociones / Precios' (Formulario & Catálogo) -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<!-- Box 1: Formulario Creador de Promociones / Precios -->
+<section class="bg-surface-container-low rounded-xl p-space-lg shadow-xl relative overflow-hidden flex flex-col gap-space-md border border-outline-variant/30">
+<div class="absolute -right-8 -top-8 w-36 h-36 bg-primary-container/10 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[26px]">tune</span>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">FORJA DE PROMOCIONES Y PRECIOS</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase">CREAR PROMOCIÓN CON FILTRO DE FIDELIDAD O PRECIO FIJO</span>
+</div>
+</div>
+<span class="px-space-sm py-1 rounded bg-surface-container-highest text-primary font-data-mono text-[11px] uppercase tracking-wider font-semibold">
+            TARIFA_SOL / PER
+          </span>
+</div>
+<form class="flex flex-col gap-space-md" id="promoForm" onsubmit="event.preventDefault(); window.toastPromoSaved();">
+<!-- Campo: Nombre de promo -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-badge text-label-badge text-on-surface-variant uppercase flex items-center justify-between" for="planName">
+<span>Nombre de Promo / Tarifa Fija</span>
+<span class="font-data-mono text-[10px] text-outline">IDENTIFICADOR_COMERCIAL</span>
+</label>
+<div class="relative">
+<input class="w-full h-12 bg-surface-container px-space-md rounded text-on-surface font-body-md placeholder:text-outline-variant focus:outline-none focus:bg-surface-container-high transition-all" id="planName" placeholder="Ej: Plan Anual Mutación 2025" required="" type="text" value="Plan Anual Mutación 2025"/>
+<span class="material-symbols-outlined absolute right-space-md top-1/2 -translate-y-1/2 text-outline-variant text-[20px] pointer-events-none">sports_kabaddi</span>
+</div>
+</div>
+<!-- Campos Numéricos: Tiempo de Membresía y Precio en Soles -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<!-- Tiempo de membresía (meses o días) -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-badge text-label-badge text-on-surface-variant uppercase flex items-center justify-between" for="planDuration">
+<span>Tiempo de Membresía</span>
+<span class="font-data-mono text-[10px] text-outline">DÍAS O MESES</span>
+</label>
+<div class="flex gap-space-xs">
+<input class="w-2/3 h-12 bg-surface-container px-space-md rounded text-on-surface font-data-mono text-[16px] placeholder:text-outline-variant focus:outline-none focus:bg-surface-container-high transition-all" id="planDuration" max="1000" min="1" placeholder="12" required="" type="number" value="12"/>
+<select class="w-1/3 h-12 bg-surface-container px-space-xs rounded text-primary font-label-badge text-label-badge uppercase focus:outline-none focus:bg-surface-container-high cursor-pointer" id="durationUnit">
+<option selected="" value="MESES">Meses</option>
+<option value="DIAS">Días</option>
+</select>
+</div>
+</div>
+<!-- Precio en Soles (S/) -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-badge text-label-badge text-on-surface-variant uppercase flex items-center justify-between" for="planPrice">
+<span>Precio en Soles (S/)</span>
+<span class="font-data-mono text-[10px] text-primary">MONEDA_NACIONAL (PEN)</span>
+</label>
+<div class="relative">
+<span class="absolute left-space-md top-1/2 -translate-y-1/2 font-data-mono text-primary font-bold">S/</span>
+<input class="w-full h-12 bg-surface-container pl-10 pr-space-md rounded text-on-surface font-data-mono text-[16px] placeholder:text-outline-variant focus:outline-none focus:bg-surface-container-high transition-all" id="planPrice" min="1" placeholder="899.00" required="" step="0.50" type="number" value="899.00"/>
+</div>
+</div>
+</div>
+<!-- Filtro por Nivel de Fidelidad -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-badge text-label-badge text-on-surface-variant uppercase flex items-center justify-between" for="fidelityFilter">
+<span>Filtro por Nivel de Fidelidad (Segmentación de Atleta)</span>
+<span class="font-data-mono text-[10px] text-tertiary">RESTRICCIÓN_FIDELIDAD</span>
+</label>
+<div class="relative">
+<select class="w-full h-12 bg-surface-container px-space-md rounded text-on-surface font-body-md focus:outline-none focus:bg-surface-container-high transition-all cursor-pointer border border-transparent focus:border-primary-container" id="fidelityFilter">
+<option selected="" value="todos">Todos los Atletas (Sin Restricción)</option>
+<option value="novato">Nivel: Novato (0 - 30 días de antigüedad)</option>
+<option value="intermedio">Nivel: Constante / Activo (31 - 120 días)</option>
+<option value="mutando">Nivel: Mutando / Avanzado (121 - 365 días)</option>
+<option value="bestia">Nivel: Bestia / Élite (+365 días con membresía)</option>
+<option value="vip">Nivel: Embajador VIP / Competidor</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-md top-1/2 -translate-y-1/2 text-outline-variant text-[20px] pointer-events-none">military_tech</span>
+</div>
+</div>
+<!-- Subir Imagen de la Promoción o Precio Fijo Mensual & Preview -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-badge text-label-badge text-on-surface-variant uppercase">Subir Imagen de la Promoción o Precio Fijo Mensual</span>
+<div class="grid grid-cols-1 sm:grid-cols-12 gap-space-md items-center">
+<!-- Botón / Input de Carga -->
+<div class="sm:col-span-5 flex flex-col gap-space-xs">
+<label class="group h-32 flex flex-col items-center justify-center bg-surface-container hover:bg-surface-container-high rounded-xl cursor-pointer transition-all p-space-sm text-center border-2 border-dashed border-outline-variant/40 hover:border-primary" for="bannerUpload">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary text-[32px] transition-colors">add_photo_alternate</span>
+<span class="font-label-badge text-[12px] uppercase text-on-surface-variant group-hover:text-on-surface mt-1">Seleccionar Gráfica (16:9)</span>
+<span class="font-data-mono text-[10px] text-outline">JPG / PNG / WEBP MÁX 4MB</span>
+<input accept="image/*" class="hidden" id="bannerUpload" onchange="window.previewUploadedBanner(this)" type="file"/>
+</label>
+</div>
+<!-- Banner Preview -->
+<div class="sm:col-span-7">
+<div class="relative w-full h-32 rounded-xl overflow-hidden bg-surface-container-lowest shadow-md flex items-center justify-center border border-outline-variant/30">
+<img class="w-full h-full object-cover object-center filter brightness-90 hover:brightness-100 transition-all" data-alt="High-contrast kinetic fitness promo banner with electric blue lighting, athletic muscular silhouette performing heavy powerlifting, dark carbon textures, aggressive typography with bold glowing letters reading MUTATION SEASON, precision athletic brand identity" id="bannerDisplayImg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCY4adIhk1gT9AxMtuOWnyrCcj2ZzoEmGpZbJKAucaUiLGKYIJx5fjYMigsn82gl6r8X45AecTenu69X6U-iG4mUlYySg31b6VXCHzWH6cMATvyIHkQjhZBnrUhzjTQjF69lk_BadldgEhrmvC1vL3dcBtxRfRwquE6vj_5FUkfxJNG4q2_ouEvKPkG3cwGsRSdKhCzMWd4mVBFJ8bSNNEtoSjVR14p7jtjI-vySjWfxFLw68igWOo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim/90 via-surface-dim/20 to-transparent flex items-end p-space-sm">
+<div class="flex flex-col">
+<span class="font-data-mono text-[9px] uppercase px-1.5 py-0.5 rounded bg-primary-container text-on-primary-container w-fit font-bold">VISTA PREVIA APP</span>
+<span class="font-headline-md text-[16px] text-on-surface uppercase tracking-wide line-clamp-1" id="previewPlanText">Plan Anual Mutación 2025</span>
+</div>
+</div>
+<span class="absolute top-2 right-2 bg-surface-container-highest/80 backdrop-blur px-2 py-0.5 rounded font-data-mono text-[10px] text-primary">S/ 899.00</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Botón Guardar -->
+<div class="flex items-center justify-end gap-space-md pt-space-xs">
+<button class="px-space-md h-12 rounded font-label-badge text-label-badge tracking-wider uppercase text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" type="reset">
+              Limpiar Campos
+            </button>
+<button class="h-12 px-space-xl bg-primary-container hover:bg-tertiary-container text-on-primary-container hover:text-on-tertiary-container rounded font-label-badge text-label-badge tracking-widest uppercase flex items-center gap-space-sm transition-all shadow-[0_0_16px_rgba(31,113,239,0.35)]" type="submit">
+<span class="material-symbols-outlined text-[20px]">save</span>
+<span>Guardar Promoción</span>
+</button>
+</div>
+</form>
+<!-- Feedback Alert Toast -->
+<div class="hidden transition-all duration-300 p-space-sm bg-surface-container-highest rounded-lg flex items-center justify-between" id="saveToast">
+<div class="flex items-center gap-space-sm text-primary">
+<span class="material-symbols-outlined text-[20px]">task_alt</span>
+<span class="font-data-mono text-data-mono text-on-surface">PROMOCIÓN_GUARDADA : Tarifa y segmento de fidelidad sincronizados con éxito.</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface" onclick="document.getElementById('saveToast').classList.add('hidden')">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</section>
+<!-- Box 2: Catálogo de Promociones y Precios Activos (Tarjetas) -->
+<section class="bg-surface-container-low rounded-xl p-space-lg shadow-xl flex flex-col gap-space-md border border-outline-variant/30">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[24px]">verified</span>
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">PROMOCIONES Y PRECIOS ACTIVOS</h2>
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase">3 OFERTAS HABILITADAS EN BASE DE DATOS</span>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-primary-container/20 text-primary font-data-mono text-[11px] font-bold">CATALOGO_SYNC</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Card Promo 1: Anual Mutación -->
+<div class="bg-surface-container rounded-xl overflow-hidden flex flex-col justify-between p-space-md group hover:bg-surface-container-high transition-all shadow-md relative border border-outline-variant/20">
+<div class="absolute top-0 right-0 left-0 h-1 bg-primary-container"></div>
+<div class="flex flex-col gap-space-xs mb-space-md">
+<div class="flex justify-between items-start">
+<span class="font-label-badge text-[11px] uppercase px-space-xs py-0.5 rounded bg-primary-container text-on-primary-container font-extrabold tracking-wider">
+                  MUTANDO / BESTIA
+                </span>
+<span class="material-symbols-outlined text-primary text-[18px]">local_fire_department</span>
+</div>
+<h3 class="font-headline-md text-[18px] text-on-surface uppercase tracking-wide mt-1">PLAN ANUAL MUTACIÓN</h3>
+<p class="font-body-sm text-[12px] text-on-surface-variant line-clamp-2">Pase 365 días + asesoría biométrica y acceso total 24/7.</p>
+<div class="mt-space-sm pt-space-xs flex items-baseline justify-between">
+<span class="font-data-mono text-[12px] text-on-surface-variant uppercase">12 MESES</span>
+<span class="font-metric-huge text-[28px] leading-none text-primary font-extrabold">S/ 899</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs border-t border-outline-variant/20">
+<span class="inline-flex items-center gap-1 font-data-mono text-[10px] text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> VIGENTE
+              </span>
+<span class="font-data-mono text-[10px] text-outline">SEG: MUTANDO+</span>
+</div>
+</div>
+<!-- Card Promo 2: Trimestre Hipertrofia -->
+<div class="bg-surface-container rounded-xl overflow-hidden flex flex-col justify-between p-space-md group hover:bg-surface-container-high transition-all shadow-md relative border border-outline-variant/20">
+<div class="absolute top-0 right-0 left-0 h-1 bg-secondary"></div>
+<div class="flex flex-col gap-space-xs mb-space-md">
+<div class="flex justify-between items-start">
+<span class="font-label-badge text-[11px] uppercase px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container font-extrabold tracking-wider">
+                  TODOS
+                </span>
+<span class="material-symbols-outlined text-on-secondary-container text-[18px]">bolt</span>
+</div>
+<h3 class="font-headline-md text-[18px] text-on-surface uppercase tracking-wide mt-1">TRIMESTRE HIPERTROFIA</h3>
+<p class="font-body-sm text-[12px] text-on-surface-variant line-clamp-2">Bloque de 90 días enfocado en sobrecarga progresiva y zona húmeda.</p>
+<div class="mt-space-sm pt-space-xs flex items-baseline justify-between">
+<span class="font-data-mono text-[12px] text-on-surface-variant uppercase">3 MESES</span>
+<span class="font-metric-huge text-[28px] leading-none text-on-surface font-extrabold">S/ 320</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs border-t border-outline-variant/20">
+<span class="inline-flex items-center gap-1 font-data-mono text-[10px] text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> VIGENTE
+              </span>
+<span class="font-data-mono text-[10px] text-outline">SEG: TODOS</span>
+</div>
+</div>
+<!-- Card Promo 3: Pase Fijo 1 Mes Élite -->
+<div class="bg-surface-container rounded-xl overflow-hidden flex flex-col justify-between p-space-md group hover:bg-surface-container-high transition-all shadow-md relative border border-outline-variant/20">
+<div class="absolute top-0 right-0 left-0 h-1 bg-outline-variant"></div>
+<div class="flex flex-col gap-space-xs mb-space-md">
+<div class="flex justify-between items-start">
+<span class="font-label-badge text-[11px] uppercase px-space-xs py-0.5 rounded bg-surface-container-highest text-on-surface font-extrabold tracking-wider">
+                  PRECIO FIJO
+                </span>
+<span class="material-symbols-outlined text-outline text-[18px]">calendar_month</span>
+</div>
+<h3 class="font-headline-md text-[18px] text-on-surface uppercase tracking-wide mt-1">PASE FIJO 1 MES</h3>
+<p class="font-body-sm text-[12px] text-on-surface-variant line-clamp-2">Tarifa plana mensual para atletas recurrentes sin permanencia forzosa.</p>
+<div class="mt-space-sm pt-space-xs flex items-baseline justify-between">
+<span class="font-data-mono text-[12px] text-on-surface-variant uppercase">30 DÍAS</span>
+<span class="font-metric-huge text-[28px] leading-none text-on-surface font-extrabold">S/ 120</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs border-t border-outline-variant/20">
+<span class="inline-flex items-center gap-1 font-data-mono text-[10px] text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> TARIFA FIJA
+              </span>
+<span class="font-data-mono text-[10px] text-outline">SEG: TODOS</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- SECCIÓN 1: 'Manejar Membresías' (Buscador por DNI, Ficha y Botón Destacado) -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<section class="bg-surface-container-low rounded-xl p-space-lg shadow-xl relative flex flex-col gap-space-md border border-outline-variant/30">
+<!-- Header Sección 1 -->
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[26px]">badge</span>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">MANEJAR MEMBRESÍAS</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant uppercase">LOCALIZACIÓN Y RENOVACIÓN DE ATLETA</span>
+</div>
+</div>
+<!-- Buscador por DNI -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-badge text-label-badge text-on-surface-variant uppercase flex justify-between items-center" for="dniInput">
+<span>Buscador por Documento (DNI)</span>
+<span class="font-data-mono text-[10px] text-primary">SISTEMA_RENIEC_CACHE</span>
+</label>
+<div class="flex gap-space-xs">
+<div class="relative flex-1">
+<input class="w-full h-12 bg-surface-container px-space-md rounded text-on-surface font-data-mono text-[16px] tracking-wider placeholder:text-outline-variant focus:outline-none focus:bg-surface-container-high transition-all" id="dniInput" maxlength="8" placeholder="Digitar 8 dígitos..." type="text" value="72849102"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface" onclick="document.getElementById('dniInput').value=''" type="button">
+<span class="material-symbols-outlined text-[18px]">backspace</span>
+</button>
+</div>
+<button class="h-12 px-space-md bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-on-primary-container rounded font-label-badge text-label-badge tracking-wider uppercase flex items-center gap-space-xs transition-all" id="btnSearchDNI" onclick="window.triggerDNILookup()" type="button">
+<span class="material-symbols-outlined text-[20px]">search</span>
+<span class="hidden sm:inline">Consultar</span>
+</button>
+</div>
+</div>
+<!-- Resultado de Consulta: Muestra claramente Nombre y Apellido, DNI, Tiempo Restante y Botón Destacado -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-md flex flex-col gap-space-md border border-outline-variant/30" id="athleteCard">
+<div class="flex items-start gap-space-md">
+<div class="relative">
+<div class="w-16 h-16 rounded-xl overflow-hidden bg-surface-container-highest border border-primary/30">
+<img class="w-full h-full object-cover" data-alt="Intense high-definition portrait of a focused male athlete Mateo Valdivia Roca with athletic gym towel, short buzz haircut, sweat droplets on forehead, moody gym background with blue cinematic backlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfql8IbAeQ_OgXsYQ8FIacRq_ljj0y8y9fQq3MFmWTlXOkzwuKLid4EhBL84gtoau0tb7Y4ozUqFlpzFFAqNscN0bPkh34aOKkIK1a26LS462dZDEVdHSOCrvSUP3EM2rIdJ8ajb8foir9m-KFdY-caJt87HWtawPRdXwLTD3aXeRCFnrhNxMa55tkca4fXfDGf9FyEFiTvdWuwWLFmTkzxyeLzq6hLhME0sPS4RctikluwOzENn0"/>
+</div>
+<span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-primary flex items-center justify-center text-[10px] text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-[13px]">military_tech</span>
+</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-space-xs mb-0.5">
+<span class="font-data-mono text-[11px] text-primary uppercase font-bold tracking-wider">ATLETA ACTIVO // RENOVABLE</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-data-mono text-[10px]">ID #8841</span>
+</div>
+<!-- Nombre y Apellido destacado -->
+<h3 class="font-headline-md text-[22px] text-on-surface uppercase tracking-wide leading-tight truncate">
+                  Mateo Valdivia Roca
+                </h3>
+<!-- DNI claramente indicado -->
+<p class="font-data-mono text-data-mono text-on-surface-variant flex items-center gap-1.5 mt-0.5">
+<span class="text-outline uppercase text-[12px]">DNI:</span>
+<span class="text-on-surface font-bold tracking-wider">72849102</span>
+</p>
+</div>
+</div>
+<!-- Bloque de Tiempo Restante -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest border border-outline-variant/30 flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="relative flex items-center justify-center">
+<span class="w-3.5 h-3.5 rounded-full bg-primary-container animate-ping absolute"></span>
+<span class="w-3.5 h-3.5 rounded-full bg-primary-container relative"></span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-badge text-[12px] uppercase text-on-surface-variant">Tiempo Restante de Membresía</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-[26px] text-primary leading-none font-extrabold">48 DÍAS</span>
+<span class="font-data-mono text-[12px] text-on-surface-variant">RESTANTES</span>
+</div>
+</div>
+</div>
+<div class="text-right flex flex-col">
+<span class="font-data-mono text-[10px] text-outline uppercase block">Fecha de Vencimiento</span>
+<span class="font-data-mono text-[13px] text-on-surface font-bold">12 / DIC / 2024</span>
+<span class="font-data-mono text-[10px] text-tertiary">ESTADO_VIGENTE</span>
+</div>
+</div>
+<!-- Botón Destacado: Agregar tiempo de membresía (Abre el Modal) -->
+<button class="w-full h-14 bg-primary-container hover:bg-surface-tint text-on-primary-container hover:text-on-primary rounded-xl font-label-badge text-[16px] tracking-widest uppercase flex items-center justify-center gap-space-sm transition-all shadow-[0_0_20px_rgba(31,113,239,0.4)] group" onclick="window.openMembershipModal()" type="button">
+<span class="material-symbols-outlined text-[24px] group-hover:scale-110 transition-transform">add_circle</span>
+<span>Agregar Tiempo de Membresía</span>
+</button>
+</div>
+<!-- Quick Historical Access -->
+<div class="p-space-sm rounded-lg bg-surface-container flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-space-xs font-data-mono text-[11px]">
+<span class="material-symbols-outlined text-primary text-[18px]">history</span>
+<span>ÚLTIMA ASIGNACIÓN: 12/NOV/2024 (Pase Fijo 1 Mes - Efectivo)</span>
+</div>
+<span class="font-data-mono text-[11px] text-outline">RECIBO #4491</span>
+</div>
+<!-- Mini Telemetry: Registro de Auditoría Rápida -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-lg flex items-center justify-between border border-outline-variant/30">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-outline-variant text-[20px]">shield</span>
+<div class="flex flex-col">
+<span class="font-label-badge text-[12px] uppercase text-on-surface">Cifrado de Conciliaciones</span>
+<span class="font-data-mono text-[10px] text-outline">SHA256 EN ARCHIVOS DE PAGO BANCARIO</span>
+</div>
+</div>
+<span class="font-data-mono text-[11px] text-primary px-space-sm py-0.5 rounded bg-surface-container">SEGURO_ACTIVO</span>
+</div>
+</section>
+</div>
+</div>
+</div>
+<!-- MODAL EMERGENTE EN PRIMER PLANO: 'Agregar Tiempo de Membresía' (ABIERTO POR DEFECTO) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-container-lowest/80 backdrop-blur-md transition-all duration-300" id="membershipModal" role="dialog">
+<div class="relative w-full max-w-2xl bg-surface-container-low border border-primary/40 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col max-h-[92vh]">
+<!-- Modal Accent Top Line -->
+<div class="h-1.5 w-full bg-gradient-to-r from-primary-container via-surface-tint to-tertiary"></div>
+<!-- Modal Header -->
+<div class="px-space-lg py-space-md bg-surface-container border-b border-outline-variant/30 flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]">more_time</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">
+              AGREGAR TIEMPO DE MEMBRESÍA
+            </h2>
+<span class="font-data-mono text-[11px] text-primary uppercase">
+              MODAL DE IMPUTACIÓN // ATLETA: MATEO VALDIVIA ROCA (DNI: 72849102)
+            </span>
+</div>
+</div>
+<button aria-label="Cerrar Modal" class="w-9 h-9 rounded-lg bg-surface-container-highest hover:bg-surface-variant text-on-surface-variant hover:text-on-surface flex items-center justify-center transition-all" onclick="window.closeMembershipModal()" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Modal Scrollable Content -->
+<div class="px-space-lg py-space-md overflow-y-auto flex flex-col gap-space-md">
+<!-- Target Athlete Mini-Banner -->
+<div class="p-space-sm bg-surface-container rounded-xl flex items-center justify-between border border-outline-variant/30">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">person_check</span>
+<div class="flex flex-col">
+<span class="font-headline-md text-[16px] text-on-surface uppercase">Mateo Valdivia Roca</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant">DNI: <span class="text-on-surface">72849102</span> • SALDO ACTUAL: <strong class="text-primary">48 DÍAS</strong></span>
+</div>
+</div>
+<span class="px-space-sm py-0.5 rounded bg-surface-container-highest text-primary font-data-mono text-[11px] uppercase">
+            ESTADO_OK
+          </span>
+</div>
+<!-- Selector Modalidad de Asignación: Promoción Activa vs Manual (Meses/Días) -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-badge text-label-badge text-on-surface-variant uppercase flex justify-between items-center">
+<span>Modo de Adición de Tiempo</span>
+<span class="font-data-mono text-[10px] text-outline">ELIJA DESPLEGABLE O TIEMPO DIRECTO</span>
+</label>
+<div class="grid grid-cols-2 gap-space-xs p-1 bg-surface-container rounded-xl">
+<button class="py-2.5 px-space-sm rounded-lg font-label-badge text-label-badge uppercase tracking-wider transition-all bg-primary-container text-on-primary-container font-bold shadow-md" id="tabPromoBtn" onclick="window.switchTimeMode('promo')" type="button">
+              Elegir Promoción Activa
+            </button>
+<button class="py-2.5 px-space-sm rounded-lg font-label-badge text-label-badge uppercase tracking-wider transition-all text-on-surface-variant hover:text-on-surface font-semibold" id="tabManualBtn" onclick="window.switchTimeMode('manual')" type="button">
+              Agregar Meses / Días
+            </button>
+</div>
+</div>
+<!-- Opción A: Desplegable de Promoción Activa -->
+<div class="flex flex-col gap-space-xs" id="modePromoBlock">
+<label class="font-label-badge text-label-badge text-on-surface-variant uppercase flex justify-between items-center" for="modalPlanSelector">
+<span>Promociones Activas en Catálogo</span>
+<span class="font-data-mono text-[10px] text-primary">TARIFAS REGISTRADAS</span>
+</label>
+<div class="relative">
+<select class="w-full h-12 bg-surface-container px-space-md rounded text-on-surface font-body-md focus:outline-none focus:bg-surface-container-high transition-all cursor-pointer border border-outline-variant/40" id="modalPlanSelector" onchange="window.updateModalPriceFromPromo(this.value)">
+<option data-days="365" data-price="899.00" value="anual">Plan Anual Mutación 2025 // S/ 899.00 (+365 Días)</option>
+<option data-days="90" data-price="320.00" value="trimestre">Trimestre Hipertrofia // S/ 320.00 (+90 Días)</option>
+<option data-days="30" data-price="120.00" selected="" value="mensual">Pase Fijo 1 Mes // S/ 120.00 (+30 Días)</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-md top-1/2 -translate-y-1/2 text-outline-variant text-[20px] pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Opción B: Agregar Meses / Días Manualmente (Oculto inicialmente o toggleable) -->
+<div class="hidden flex flex-col gap-space-xs" id="modeManualBlock">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-badge text-label-badge text-on-surface-variant uppercase flex justify-between items-center" for="manualTimeQty">
+<span>Cantidad de Tiempo</span>
+<span class="font-data-mono text-[10px] text-outline">VALOR NUMÉRICO</span>
+</label>
+<div class="flex gap-space-xs">
+<input class="w-2/3 h-12 bg-surface-container px-space-md rounded text-on-surface font-data-mono text-[16px] focus:outline-none focus:bg-surface-container-high border border-outline-variant/40" id="manualTimeQty" min="1" oninput="window.calculateManualProjection()" type="number" value="1"/>
+<select class="w-1/3 h-12 bg-surface-container px-space-xs rounded text-primary font-label-badge text-label-badge uppercase focus:outline-none focus:bg-surface-container-high cursor-pointer border border-outline-variant/40" id="manualTimeUnit" onchange="window.calculateManualProjection()">
+<option selected="" value="meses">Meses</option>
+<option value="dias">Días</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-badge text-label-badge text-on-surface-variant uppercase flex justify-between items-center" for="manualCost">
+<span>Importe a Cobrar (S/)</span>
+<span class="font-data-mono text-[10px] text-primary">MONTO EN CAJA</span>
+</label>
+<div class="relative">
+<span class="absolute left-space-md top-1/2 -translate-y-1/2 font-data-mono text-primary font-bold">S/</span>
+<input class="w-full h-12 bg-surface-container pl-10 pr-space-md rounded text-on-surface font-data-mono text-[16px] focus:outline-none focus:bg-surface-container-high border border-outline-variant/40" id="manualCost" min="0" oninput="window.calculateManualProjection()" step="0.50" type="number" value="120.00"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Opción de Método de Pago: Efectivo o Transferencia -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-badge text-label-badge text-on-surface-variant uppercase flex items-center justify-between">
+<span>Método de Pago</span>
+<span class="font-data-mono text-[10px] text-tertiary">SELECCIÓN OBLIGATORIA</span>
+</span>
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Opción: Efectivo -->
+<label class="modal-pay-label flex items-center justify-between p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high cursor-pointer border-2 border-primary-container transition-all" id="payRadioLabelCash">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-[16px] text-on-surface uppercase">Efectivo</span>
+<span class="font-data-mono text-[10px] text-outline">APROBACIÓN INMEDIATA EN CAJA</span>
+</div>
+</div>
+<input checked="" class="accent-primary w-5 h-5 cursor-pointer" name="modal_payment_method" onchange="window.handleModalPaymentToggle('efectivo')" type="radio" value="efectivo"/>
+</label>
+<!-- Opción: Transferencia -->
+<label class="modal-pay-label flex items-center justify-between p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high cursor-pointer border-2 border-transparent transition-all" id="payRadioLabelTransfer">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-tertiary-container/20 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-[16px] text-on-surface uppercase">Transferencia</span>
+<span class="font-data-mono text-[10px] text-outline">REQUIERE SUBIDA DE COMPROBANTE</span>
+</div>
+</div>
+<input class="accent-primary w-5 h-5 cursor-pointer" name="modal_payment_method" onchange="window.handleModalPaymentToggle('transferencia')" type="radio" value="transferencia"/>
+</label>
+</div>
+</div>
+<!-- Detalle Efectivo: Mensaje de confirmación -->
+<div class="p-space-sm bg-surface-container rounded-lg flex items-center gap-space-sm border border-outline-variant/30" id="modalCashNotice">
+<span class="material-symbols-outlined text-primary text-[22px]">verified</span>
+<div class="flex flex-col">
+<span class="font-label-badge text-[13px] uppercase text-on-surface">Validación Instantánea</span>
+<span class="font-data-mono text-[11px] text-on-surface-variant">El pago se registra como liquidado en caja y el tiempo se suma de inmediato.</span>
+</div>
+</div>
+<!-- Detalle Transferencia: Botón/Zona para subir foto de comprobante de pago requerida -->
+<div class="hidden flex flex-col gap-space-xs" id="modalTransferUploadSection">
+<div class="flex items-center justify-between">
+<span class="font-label-badge text-label-badge text-tertiary uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">priority_high</span> Comprobante de Pago Requerido
+              </span>
+<span class="font-data-mono text-[10px] text-outline">FORMATO IMAGEN / PDF</span>
+</div>
+<!-- Botón / Zona destacada para subir foto -->
+<label class="relative group min-h-28 flex flex-col items-center justify-center bg-surface-container rounded-xl cursor-pointer hover:bg-surface-container-high transition-all p-space-md text-center border-2 border-dashed border-tertiary/60 hover:border-tertiary" for="modalVoucherFile">
+<span class="material-symbols-outlined text-tertiary text-[32px] mb-1 group-hover:scale-110 transition-transform" id="modalVoucherIcon">add_a_photo</span>
+<span class="font-label-badge text-[13px] uppercase text-on-surface font-bold tracking-wide" id="modalVoucherFileName">
+                Subir Foto del Comprobante de Pago (Voucher / Captura)
+              </span>
+<span class="font-data-mono text-[10px] text-outline mt-0.5" id="modalVoucherHelper">
+                OBLIGATORIO PARA TRANSFERENCIAS BANCARIAS O BILLETERAS DIGITALES (YAPE / PLIN)
+              </span>
+<input accept="image/*,.pdf" class="hidden" id="modalVoucherFile" onchange="window.handleModalVoucherUploaded(this)" type="file"/>
+</label>
+<div class="p-space-xs bg-tertiary-container/15 rounded-lg flex items-center gap-space-xs text-tertiary font-data-mono text-[11px]">
+<span class="material-symbols-outlined text-[16px]">info</span>
+<span>La solicitud se enviará con el comprobante a la 'Lista de Cambios' para aprobación del Admin.</span>
+</div>
+</div>
+<!-- Resumen de Proyección de Saldo -->
+<div class="p-space-md bg-surface-container rounded-xl flex items-center justify-between border border-outline-variant/30">
+<div class="flex flex-col">
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant">NUEVO SALDO DE MEMBRESÍA</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface" id="modalProjectedDays">78</span>
+<span class="font-data-mono text-[12px] text-primary uppercase font-bold" id="modalAddedDaysLabel">(+30 Días)</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-data-mono text-[10px] uppercase text-on-surface-variant">IMPORTE TOTAL</span>
+<span class="font-metric-huge text-[32px] text-primary leading-none font-black" id="modalTotalCost">S/ 120.00</span>
+</div>
+</div>
+</div>
+<!-- Modal Footer: Botones para confirmar y cerrar -->
+<div class="px-space-lg py-space-md bg-surface-container border-t border-outline-variant/30 flex items-center justify-end gap-space-md">
+<button class="h-12 px-space-lg rounded-xl font-label-badge text-label-badge tracking-wider uppercase text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all border border-outline-variant/40" onclick="window.closeMembershipModal()" type="button">
+            Cerrar
+          </button>
+<button class="h-12 px-space-xl bg-primary-container hover:bg-surface-tint text-on-primary-container hover:text-on-primary rounded-xl font-label-badge text-label-badge tracking-widest uppercase flex items-center gap-space-sm transition-all shadow-[0_0_16px_rgba(31,113,239,0.4)]" onclick="window.confirmMembershipModal()" type="button">
+<span class="material-symbols-outlined text-[20px]">assignment_turned_in</span>
+<span>Confirmar Asignación</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  // Clock update
+  function updateClock() {
+    const clockEl = document.getElementById('system-clock');
+    if (clockEl) {
+      const now = new Date();
+      clockEl.innerText = now.toTimeString().split(' ')[0] + ' UTC';
+    }
+  }
+  setInterval(updateClock, 1000);
+
+  // Modal Control Functions (Open by default per prompt specification)
+  window.openMembershipModal = function() {
+    const modal = document.getElementById('membershipModal');
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+  };
+
+  window.closeMembershipModal = function() {
+    const modal = document.getElementById('membershipModal');
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+  };
+
+  // Switch between Promo active dropdown vs Manual Months/Days
+  window.switchTimeMode = function(mode) {
+    const tabPromo = document.getElementById('tabPromoBtn');
+    const tabManual = document.getElementById('tabManualBtn');
+    const blockPromo = document.getElementById('modePromoBlock');
+    const blockManual = document.getElementById('modeManualBlock');
+
+    if (mode === 'promo') {
+      tabPromo.className = 'py-2.5 px-space-sm rounded-lg font-label-badge text-label-badge uppercase tracking-wider transition-all bg-primary-container text-on-primary-container font-bold shadow-md';
+      tabManual.className = 'py-2.5 px-space-sm rounded-lg font-label-badge text-label-badge uppercase tracking-wider transition-all text-on-surface-variant hover:text-on-surface font-semibold';
+      blockPromo.classList.remove('hidden');
+      blockManual.classList.add('hidden');
+      const promoSelector = document.getElementById('modalPlanSelector');
+      window.updateModalPriceFromPromo(promoSelector.value);
+    } else {
+      tabManual.className = 'py-2.5 px-space-sm rounded-lg font-label-badge text-label-badge uppercase tracking-wider transition-all bg-primary-container text-on-primary-container font-bold shadow-md';
+      tabPromo.className = 'py-2.5 px-space-sm rounded-lg font-label-badge text-label-badge uppercase tracking-wider transition-all text-on-surface-variant hover:text-on-surface font-semibold';
+      blockManual.classList.remove('hidden');
+      blockPromo.classList.add('hidden');
+      window.calculateManualProjection();
+    }
+  };
+
+  // Update modal prices & days from active promo selector
+  window.updateModalPriceFromPromo = function() {
+    const selector = document.getElementById('modalPlanSelector');
+    const selected = selector.options[selector.selectedIndex];
+    const price = parseFloat(selected.getAttribute('data-price') || '120');
+    const days = parseInt(selected.getAttribute('data-days') || '30', 10);
+    const baseDays = 48; // Current days for athlete
+
+    document.getElementById('modalTotalCost').innerText = 'S/ ' + price.toFixed(2);
+    document.getElementById('modalAddedDaysLabel').innerText = '(+' + days + ' Días)';
+    document.getElementById('modalProjectedDays').innerText = (baseDays + days);
+  };
+
+  // Calculate manual addition
+  window.calculateManualProjection = function() {
+    const qty = parseInt(document.getElementById('manualTimeQty').value || '1', 10);
+    const unit = document.getElementById('manualTimeUnit').value;
+    const cost = parseFloat(document.getElementById('manualCost').value || '0');
+    const baseDays = 48;
+    const addedDays = unit === 'meses' ? (qty * 30) : qty;
+
+    document.getElementById('modalTotalCost').innerText = 'S/ ' + cost.toFixed(2);
+    document.getElementById('modalAddedDaysLabel').innerText = '(+' + addedDays + ' Días)';
+    document.getElementById('modalProjectedDays').innerText = (baseDays + addedDays);
+  };
+
+  // Payment Method selection inside modal
+  window.handleModalPaymentToggle = function(method) {
+    const cashNotice = document.getElementById('modalCashNotice');
+    const transferSection = document.getElementById('modalTransferUploadSection');
+    const voucherFile = document.getElementById('modalVoucherFile');
+    const labelCash = document.getElementById('payRadioLabelCash');
+    const labelTransfer = document.getElementById('payRadioLabelTransfer');
+
+    if (method === 'efectivo') {
+      cashNotice.classList.remove('hidden');
+      transferSection.classList.add('hidden');
+      voucherFile.removeAttribute('required');
+      labelCash.classList.add('border-primary-container');
+      labelCash.classList.remove('border-transparent');
+      labelTransfer.classList.add('border-transparent');
+      labelTransfer.classList.remove('border-tertiary');
+    } else {
+      cashNotice.classList.add('hidden');
+      transferSection.classList.remove('hidden');
+      voucherFile.setAttribute('required', 'required');
+      labelCash.classList.remove('border-primary-container');
+      labelCash.classList.add('border-transparent');
+      labelTransfer.classList.remove('border-transparent');
+      labelTransfer.classList.add('border-tertiary');
+    }
+  };
+
+  // File upload indicator for voucher
+  window.handleModalVoucherUploaded = function(input) {
+    const nameLabel = document.getElementById('modalVoucherFileName');
+    const helper = document.getElementById('modalVoucherHelper');
+    const icon = document.getElementById('modalVoucherIcon');
+    if (input.files && input.files[0]) {
+      nameLabel.innerText = 'FOTO CARGADA: ' + input.files[0].name.toUpperCase();
+      nameLabel.classList.add('text-primary');
+      helper.innerText = 'COMPROBANTE LISTO PARA VALIDACIÓN EN CAJA CENTRAL';
+      icon.innerText = 'check_circle';
+      icon.classList.remove('text-tertiary');
+      icon.classList.add('text-primary');
+    }
+  };
+
+  // Confirm membership extension
+  window.confirmMembershipModal = function() {
+    const paymentMethod = document.querySelector('input[name="modal_payment_method"]:checked').value;
+    const voucherFile = document.getElementById('modalVoucherFile');
+
+    if (paymentMethod === 'transferencia' && (!voucherFile.files || voucherFile.files.length === 0)) {
+      alert('Por favor suba la foto o archivo del comprobante de pago de la transferencia.');
+      return;
+    }
+
+    if (paymentMethod === 'efectivo') {
+      alert('¡Membresía asignada exitosamente en EFECTIVO! Se liquidó directamente en caja.');
+    } else {
+      alert('¡Transferencia registrada y comprobante adjuntado! Se ha derivado a la Lista de Cambios para su aprobación.');
+    }
+    window.closeMembershipModal();
+  };
+
+  // Banner Preview for Promo Creation Form
+  window.previewUploadedBanner = function(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('bannerDisplayImg').src = e.target.result;
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  };
+
+  // Keep promo title preview in sync
+  const planNameInput = document.getElementById('planName');
+  if (planNameInput) {
+    planNameInput.addEventListener('input', function(e) {
+      const target = document.getElementById('previewPlanText');
+      target.innerText = e.target.value.trim() !== '' ? e.target.value : 'Plan Anual Mutación 2025';
+    });
+  }
+
+  // Toast confirmation for promo saved
+  window.toastPromoSaved = function() {
+    const toast = document.getElementById('saveToast');
+    toast.classList.remove('hidden');
+    setTimeout(() => {
+      toast.classList.add('hidden');
+    }, 4500);
+  };
+
+  // DNI Lookup simulation
+  window.triggerDNILookup = function() {
+    const dni = document.getElementById('dniInput').value.trim();
+    const card = document.getElementById('athleteCard');
+    if (dni.length < 8) {
+      alert('Por favor ingrese un DNI válido de 8 dígitos');
+      return;
+    }
+    card.classList.add('opacity-50');
+    setTimeout(() => {
+      card.classList.remove('opacity-50');
+    }, 200);
+  };
+</script></main></div></body></html>

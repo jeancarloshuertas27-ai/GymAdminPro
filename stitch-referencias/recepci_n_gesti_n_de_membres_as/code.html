@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&amp;family=Chivo:wght@400;500;700&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-tint":"#afc6ff","primary-container":"#1f71ef","surface-container":"#1c2027","outline":"#8c90a0","surface-container-high":"#272a32","on-error-container":"#ffdad6","surface-container-lowest":"#0b0e15","error":"#ffb4ab","on-primary":"#002d6d","inverse-primary":"#0059c8","on-tertiary-fixed-variant":"#7a3000","tertiary-fixed":"#ffdbcc","background":"#10131a","surface-container-highest":"#31353d","tertiary-container":"#c75302","on-surface":"#e0e2ec","on-primary-container":"#000414","on-background":"#e0e2ec","on-error":"#690005","error-container":"#93000a","primary-fixed":"#d9e2ff","on-secondary-fixed-variant":"#2e4677","on-tertiary":"#561f00","secondary-fixed-dim":"#afc6ff","tertiary":"#ffb693","secondary-container":"#30487a","surface-container-low":"#181c23","outline-variant":"#424754","on-tertiary-fixed":"#351000","tertiary-fixed-dim":"#ffb693","surface-dim":"#10131a","on-tertiary-container":"#ffffff","secondary-fixed":"#d9e2ff","primary-fixed-dim":"#afc6ff","surface":"#10131a","surface-bright":"#363941","on-surface-variant":"#c2c6d7","primary":"#afc6ff","inverse-on-surface":"#2d3038","on-secondary-fixed":"#001944","on-secondary-container":"#a1b8f1","on-secondary":"#142f5f","on-primary-fixed":"#001944","secondary":"#afc6ff","surface-variant":"#31353d","on-primary-fixed-variant":"#004299","inverse-surface":"#e0e2ec"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"gutter":"1rem","space-xs":"0.25rem","space-xl":"2.5rem","space-sm":"0.5rem","space-md":"1rem","gutter-mobile":"0.75rem","margin":"2rem","margin-mobile":"1rem","space-lg":"1.5rem"},"fontFamily":{"display-hero-mobile":["Barlow Condensed"],"metric-huge":["Barlow Condensed"],"headline-lg-mobile":["Barlow Condensed"],"body-md":["Chivo"],"headline-lg":["Barlow Condensed"],"metric-huge-mobile":["Barlow Condensed"],"headline-md":["Barlow Condensed"],"label-badge":["Barlow Condensed"],"display-hero":["Barlow Condensed"],"data-mono":["JetBrains Mono"],"body-lg":["Chivo"],"body-sm":["Chivo"]},"fontSize":{"display-hero-mobile":["40px",{"lineHeight":"42px","letterSpacing":"0.02em","fontWeight":"800"}],"metric-huge":["64px",{"lineHeight":"64px","letterSpacing":"-0.01em","fontWeight":"800"}],"headline-lg-mobile":["28px",{"lineHeight":"32px","letterSpacing":"0.02em","fontWeight":"700"}],"body-md":["15px",{"lineHeight":"22px","fontWeight":"400"}],"headline-lg":["36px",{"lineHeight":"40px","letterSpacing":"0.03em","fontWeight":"700"}],"metric-huge-mobile":["48px",{"lineHeight":"48px","letterSpacing":"-0.01em","fontWeight":"800"}],"headline-md":["24px",{"lineHeight":"28px","letterSpacing":"0.02em","fontWeight":"700"}],"label-badge":["14px",{"lineHeight":"16px","letterSpacing":"0.08em","fontWeight":"800"}],"display-hero":["56px",{"lineHeight":"56px","letterSpacing":"0.02em","fontWeight":"800"}],"data-mono":["14px",{"lineHeight":"18px","letterSpacing":"0.05em","fontWeight":"600"}],"body-lg":["18px",{"lineHeight":"26px","fontWeight":"500"}],"body-sm":["13px",{"lineHeight":"18px","fontWeight":"400"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="flex flex-col"><div class="p-space-md bg-surface-container-low"><div class="flex items-center gap-space-sm"><div class="w-2.5 h-6 bg-primary-container rounded-DEFAULT"></div><div><span class="font-headline-md text-headline-md uppercase text-on-surface tracking-wider block">GYMCORE</span><span class="font-label-badge text-label-badge uppercase text-primary block tracking-widest">TERMINAL RECEPCION</span></div></div><div class="mt-space-md p-space-sm bg-surface-container rounded-DEFAULT flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span><div class="flex flex-col"><span class="font-data-mono text-data-mono text-on-surface-variant uppercase text-[11px] leading-tight">OPERADOR // TURNO ACTIVO</span><span class="font-body-sm text-body-sm text-on-surface font-bold">CARLOS MENDOZA</span></div></div><span class="material-symbols-outlined text-primary text-[18px]">badge</span></div></div><div class="px-space-md pt-space-md"><span class="font-data-mono text-data-mono uppercase text-on-surface-variant text-[11px] tracking-widest block mb-space-xs">MODULOS TACTICOS</span></div><nav class="flex flex-col gap-space-xs px-space-sm" data-active-classes="bg-primary-container text-on-primary-container font-headline-md text-headline-md"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="control-de-acceso-y-check-in" href="#"><span class="material-symbols-outlined text-[20px]">sensor_door</span><span class="font-label-badge text-label-badge uppercase tracking-wider">CONTROL ACCESO &amp; CHECK-IN</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="venta-rapida-de-productos" href="#"><span class="material-symbols-outlined text-[20px]">point_of_sale</span><span class="font-label-badge text-label-badge uppercase tracking-wider">VENTA RAPIDA PRODUCTOS</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="gestion-de-membresias" href="#"><span class="material-symbols-outlined text-[20px]">card_membership</span><span class="font-label-badge text-label-badge uppercase tracking-wider">GESTION MEMBRESIAS</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="lista-de-atletas" href="#"><span class="material-symbols-outlined text-[20px]">groups</span><span class="font-label-badge text-label-badge uppercase tracking-wider">LISTA DE ATLETAS</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="asignar-rutinas" href="#"><span class="material-symbols-outlined text-[20px]">fitness_center</span><span class="font-label-badge text-label-badge uppercase tracking-wider">ASIGNAR RUTINAS</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="agregar-miembro" href="#"><span class="material-symbols-outlined text-[20px]">person_add</span><span class="font-label-badge text-label-badge uppercase tracking-wider">AGREGAR MIEMBRO</span></a></nav></div><div class="p-space-md bg-surface-container-lowest flex flex-col gap-space-sm"><div class="p-space-sm bg-surface-container-low rounded-DEFAULT flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="w-2.5 h-2.5 rounded-full bg-primary-container shadow-[0_0_8px_rgba(31,113,239,0.8)]"></span><div class="flex flex-col"><span class="font-data-mono text-data-mono text-on-surface text-[12px]">TORNIQUETE #01</span><span class="font-data-mono text-data-mono text-primary text-[10px]">ESTADO: EN LINEA</span></div></div><span class="material-symbols-outlined text-primary text-[18px]">sync_alt</span></div><button class="w-full h-12 bg-error-container hover:bg-error text-on-error hover:text-on-primary-container rounded-DEFAULT flex items-center justify-center gap-space-sm transition-all shadow-[0_0_12px_rgba(147,0,10,0.4)]" type="button"><span class="material-symbols-outlined text-[20px]">e911_emergency</span><span class="font-headline-md text-headline-md uppercase tracking-wider text-[18px]">SOS // BLOQUEO TOTAL</span></button></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl z-40 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.3)]"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-1 bg-surface-container rounded-DEFAULT"><span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span><span class="font-data-mono text-data-mono text-primary text-[12px]">SYS_ONLINE: 99.98%</span></div><div class="flex items-center gap-space-sm px-space-md py-1 bg-tertiary-container rounded-DEFAULT shadow-[0_0_12px_rgba(199,83,2,0.4)] animate-pulse"><span class="material-symbols-outlined text-on-tertiary-container text-[18px]">warning</span><span class="font-headline-md text-headline-md text-on-tertiary-container text-[14px] uppercase tracking-wide">ALERTA: ASISTENCIA EN MAQUINA #15</span></div></div><div class="flex items-center gap-space-lg"><div class="hidden md:flex flex-col text-right"><span class="font-data-mono text-data-mono text-on-surface text-[14px]">19:42:08 UTC</span><span class="font-data-mono text-data-mono text-on-surface-variant text-[11px]">ZONA: LOCAL // SALA 01</span></div><div class="flex items-center gap-space-sm pl-space-md"><div class="flex flex-col text-right"><span class="font-body-sm text-body-sm font-bold text-on-surface leading-tight">Carlos Mendoza</span><span class="font-data-mono text-data-mono text-on-surface-variant text-[10px] leading-tight">RECEPCIONISTA // TURNO B</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<div class="p-space-lg space-y-space-lg max-w-[1720px] mx-auto w-full">
+<!-- HEADER CON BANNER TACTICO DE RESTRICCION SDD -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md bg-surface-container-low p-space-md rounded-DEFAULT shadow-md">
+<div class="flex items-center gap-space-md">
+<div class="w-3 h-12 bg-primary-container rounded-DEFAULT shadow-[0_0_12px_rgba(31,113,239,0.8)]"></div>
+<div>
+<div class="flex items-center gap-space-sm">
+<span class="font-data-mono text-data-mono text-primary text-[11px] uppercase tracking-widest">TERMINAL DE CAJA &amp; SUSCRIPCIONES</span>
+<span class="px-space-xs py-0.5 bg-surface-container-highest text-on-surface-variant font-data-mono text-[10px] uppercase rounded-DEFAULT">PERMISO: OPERADOR</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg uppercase text-on-surface tracking-wider leading-none mt-1">GESTIÓN DE MEMBRESÍAS // RECEPCIÓN</h1>
+</div>
+</div>
+<!-- Aviso SDD Rol Recepcionista -->
+<div class="flex items-center gap-space-sm px-space-md py-space-sm bg-surface-container rounded-DEFAULT shadow-sm">
+<span class="material-symbols-outlined text-tertiary-container text-[22px]">lock_clock</span>
+<div class="flex flex-col">
+<span class="font-data-mono text-data-mono text-tertiary text-[11px] uppercase">POLÍTICA TARIFARIA PROTEGIDA</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Configuración de tarifas reservada para Administración</span>
+</div>
+</div>
+</div>
+<!-- GRID PRINCIPAL DE ASIGNACION (2 COLUMNAS ASIMETRICAS) -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- COLUMNA IZQUIERDA: BUSCADOR & FICHA EXPEDIENTE (7 COLS) -->
+<div class="xl:col-span-7 space-y-space-lg">
+<!-- BUSCADOR POR DNI -->
+<div class="bg-surface-container-low p-space-md rounded-DEFAULT shadow-md relative overflow-hidden">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">fingerprint</span>
+<span class="font-data-mono text-data-mono uppercase text-on-surface-variant text-[11px] tracking-wider">EXPEDIENTE ATLETA // IDENTIFICADOR OFICIAL</span>
+</div>
+<span class="font-data-mono text-data-mono text-primary text-[11px]">BASE_DATOS: EN LINEA</span>
+</div>
+<div class="flex flex-col sm:flex-row items-center gap-space-sm">
+<div class="relative w-full">
+<span class="absolute inset-y-0 left-0 pl-space-md flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+</span>
+<input class="w-full h-12 pl-12 pr-space-md bg-surface-container-lowest text-on-surface font-data-mono text-data-mono tracking-widest rounded-DEFAULT outline-none focus:bg-surface-container-high transition-all" id="inputDni" placeholder="Ingrese DNI (8 dígitos)..." type="text" value="72849102"/>
+</div>
+<button class="w-full sm:w-auto h-12 px-space-xl bg-primary-container hover:bg-tertiary-container text-on-primary-container hover:text-on-tertiary-container font-headline-md text-headline-md uppercase tracking-wider rounded-DEFAULT flex items-center justify-center gap-space-xs transition-all shadow-[0_0_14px_rgba(31,113,239,0.35)] shrink-0" id="btnBuscar" type="button">
+<span class="material-symbols-outlined text-[20px]">person_search</span>
+<span>BUSCAR ATLETA</span>
+</button>
+</div>
+</div>
+<!-- FICHA EXPEDIENTE TACTICO -->
+<div class="bg-surface-container-low p-space-lg rounded-DEFAULT shadow-xl space-y-space-md relative">
+<!-- Decorador bioluminiscente de status activo -->
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md bg-surface-container p-space-md rounded-DEFAULT">
+<div class="flex items-center gap-space-md">
+<div class="relative">
+<img class="w-16 h-16 object-cover rounded-DEFAULT shadow-md" data-alt="Muscular male athlete portrait in high-contrast tactical gym lighting, subtle electric blue edge reflections, sweat and discipline, ultra-sharp profile view." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyKZ5PNtorvCpLcPrZCF7QBRx96BSnNgMRI3lYESSC8f8mMklBMdIK-fahnCBJ6XGTUeiTN3H97ohSMvzw6zZRvQCdTFdoh9qE93CQn9xmohTJHFEEsIAXbOX83hgFCoFwXQNx_ve2140ixJ1ntNX1G9jWXzr1crPGxwWoqzZ_nXn7QLUc0JTPnEu8GhI1kK_wZEYJeVpCE-CKFq1KDNKMIDwrgRvgpklooBsM0TcyaVjVWIiCeJU"/>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-primary-container shadow-[0_0_8px_rgba(31,113,239,0.9)] flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-on-primary-container font-bold">check</span>
+</span>
+</div>
+<div>
+<span class="font-data-mono text-data-mono text-primary text-[11px] uppercase tracking-wider block">ID: CORE-72849 // SOCIO REGISTRADO</span>
+<span class="font-headline-lg text-headline-lg uppercase text-on-surface leading-tight block">MATEO VALDIVIA ROCA</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-space-xs mt-0.5">
+<span class="material-symbols-outlined text-[16px] text-primary">call</span> +51 987 654 321
+                </span>
+</div>
+</div>
+<!-- FIDELIDAD GAMIFICADA & BADGE TIER -->
+<div class="flex flex-col items-start md:items-end gap-1">
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[10px] uppercase">RANGO DE FIDELIDAD</span>
+<div class="px-space-md py-1 bg-surface-container-highest text-primary font-label-badge text-label-badge tracking-widest uppercase rounded-DEFAULT shadow-[0_0_12px_rgba(31,113,239,0.3)] flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span>MUTANDO [TIER III]</span>
+</div>
+<span class="font-data-mono text-[10px] text-on-surface-variant">CHECK-INS: 142 TOTAL</span>
+</div>
+</div>
+<!-- STATUS SEMAFORO Y TELEMETRIA DE VIGENCIA -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm">
+<!-- Semáforo Estado Activo -->
+<div class="md:col-span-2 bg-surface-container-lowest p-space-md rounded-DEFAULT flex items-center justify-between shadow-inner">
+<div class="flex items-center gap-space-md">
+<div class="w-4 h-14 bg-primary-container rounded-DEFAULT shadow-[0_0_10px_rgba(31,113,239,0.9)] animate-pulse"></div>
+<div>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[11px] uppercase block">ESTADO DE ACCESO TORNIQUETE</span>
+<div class="flex items-center gap-space-xs mt-0.5">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container shadow-[0_0_6px_rgba(31,113,239,1)]"></span>
+<span class="font-headline-md text-headline-md uppercase text-primary tracking-wide">48 DÍAS RESTANTES // ACTIVO</span>
+</div>
+<span class="font-data-mono text-[11px] text-on-surface-variant block mt-1">Vence: 28 JUNIO 2025 // 23:59 HRS</span>
+</div>
+</div>
+<div class="hidden sm:flex flex-col items-end text-right">
+<span class="font-data-mono text-data-mono text-primary text-[10px] uppercase">SEMÁFORO</span>
+<span class="px-space-xs py-0.5 bg-surface-container-high text-primary font-data-mono text-[11px] uppercase rounded-DEFAULT">HABILITADO</span>
+</div>
+</div>
+<!-- Frecuencia Semanal Telemetría -->
+<div class="bg-surface-container-lowest p-space-md rounded-DEFAULT flex flex-col justify-between shadow-inner">
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[11px] uppercase">ASISTENCIA PROMEDIO</span>
+<div class="flex items-baseline gap-space-xs my-1">
+<span class="font-metric-huge text-metric-huge text-on-surface leading-none">5.2</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[12px]">DÍAS/SEM</span>
+</div>
+<span class="font-data-mono text-[11px] text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> ALTO RENDIMIENTO
+              </span>
+</div>
+</div>
+<!-- Historial de Últimas Adquisiciones del Socio -->
+<div class="bg-surface-container p-space-md rounded-DEFAULT space-y-space-xs">
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[11px] uppercase block tracking-wider">HISTORIAL DE ASIGNACIONES PREVIAS</span>
+<div class="space-y-1">
+<div class="flex items-center justify-between p-space-xs bg-surface-container-low rounded-DEFAULT text-[12px] font-data-mono">
+<span class="text-on-surface">15 ENE 2025 // TRIMESTRE HIPERTROFIA</span>
+<span class="text-on-surface-variant">S/ 320.00 [EFECTIVO]</span>
+<span class="text-primary font-bold">COMPLETADO</span>
+</div>
+<div class="flex items-center justify-between p-space-xs bg-surface-container-low rounded-DEFAULT text-[12px] font-data-mono">
+<span class="text-on-surface">15 OCT 2024 // PASE FIJO 1 MES</span>
+<span class="text-on-surface-variant">S/ 120.00 [YAPE]</span>
+<span class="text-primary font-bold">AUDITADO ADMIN</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- COLUMNA DERECHA: ASIGNACIÓN DE TIEMPO & PROCESO DE COBRO (5 COLS) -->
+<div class="xl:col-span-5 bg-surface-container-low p-space-lg rounded-DEFAULT shadow-xl space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary-container text-[20px]">add_circle</span>
+<h2 class="font-headline-md text-headline-md uppercase text-on-surface tracking-wider">AGREGAR TIEMPO A LA MEMBRESÍA</h2>
+</div>
+<span class="px-space-xs py-0.5 bg-surface-container text-on-surface-variant font-data-mono text-[10px] rounded-DEFAULT">SD-MOD-04</span>
+</div>
+<!-- FORMULARIO DE ACCIÓN DE RECEPCIÓN -->
+<form class="space-y-space-md" id="membershipForm" onsubmit="event.preventDefault();">
+<!-- SELECCIONADOR DE PLAN PRE-CONFIGURADO POR ADMIN -->
+<div class="space-y-space-xs">
+<label class="font-data-mono text-data-mono text-on-surface-variant text-[11px] uppercase tracking-wider block">
+              SELECCIONAR PLAN O PROMOCIÓN (MAESTRO ADMIN)
+            </label>
+<div class="relative">
+<select class="w-full h-12 pl-space-md pr-10 bg-surface-container-lowest text-on-surface font-body-lg font-bold rounded-DEFAULT outline-none focus:bg-surface-container-high transition-all appearance-none cursor-pointer" id="planSelector">
+<option data-days="365" data-price="899.00" value="anual">Plan Anual Mutación 2025 (12 Meses - S/ 899.00)</option>
+<option data-days="90" data-price="320.00" selected="" value="trimestre">Trimestre Hipertrofia (3 Meses - S/ 320.00)</option>
+<option data-days="30" data-price="120.00" value="mes">Pase Fijo 1 Mes Élite (30 Días - S/ 120.00)</option>
+</select>
+<span class="absolute inset-y-0 right-0 pr-space-md flex items-center pointer-events-none text-primary">
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</span>
+</div>
+<span class="font-data-mono text-[10px] text-on-surface-variant block">Solo tarifas publicadas y validadas por la Gerencia.</span>
+</div>
+<!-- RESUMEN DE PROYECCIÓN DE NUEVA FECHA -->
+<div class="p-space-md bg-surface-container rounded-DEFAULT space-y-space-xs shadow-inner">
+<div class="flex items-center justify-between text-on-surface-variant font-data-mono text-[11px] uppercase">
+<span>TIEMPO A SUMAR:</span>
+<span class="text-primary font-bold" id="txtDiasSumados">+90 DÍAS CALENDARIO</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-data-mono text-[11px] uppercase">
+<span>NUEVO VENCIMIENTO:</span>
+<span class="text-on-surface font-bold" id="txtNuevaFecha">26 SEPTIEMBRE 2025</span>
+</div>
+<div class="pt-space-xs flex items-center justify-between">
+<span class="font-headline-md text-headline-md uppercase text-on-surface">TOTAL A COBRAR:</span>
+<span class="font-headline-lg text-headline-lg text-primary tracking-wide" id="txtMontoTotal">S/ 320.00</span>
+</div>
+</div>
+<!-- SELECTOR DE METODO DE PAGO -->
+<div class="space-y-space-xs">
+<label class="font-data-mono text-data-mono text-on-surface-variant text-[11px] uppercase tracking-wider block">
+              MÉTODO DE PAGO REGISTRADO
+            </label>
+<div class="grid grid-cols-2 gap-space-sm">
+<label class="flex items-center justify-center gap-space-xs h-12 bg-surface-container-lowest hover:bg-surface-container p-space-sm rounded-DEFAULT cursor-pointer has-[:checked]:bg-primary-container has-[:checked]:text-on-primary-container transition-all">
+<input checked="" class="hidden" id="payEfectivo" name="paymentMethod" type="radio" value="efectivo"/>
+<span class="material-symbols-outlined text-[20px]">payments</span>
+<span class="font-headline-md text-headline-md uppercase text-[16px] tracking-wide">EFECTIVO</span>
+</label>
+<label class="flex items-center justify-center gap-space-xs h-12 bg-surface-container-lowest hover:bg-surface-container p-space-sm rounded-DEFAULT cursor-pointer has-[:checked]:bg-primary-container has-[:checked]:text-on-primary-container transition-all">
+<input class="hidden" id="payDigital" name="paymentMethod" type="radio" value="digital"/>
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+<span class="font-headline-md text-headline-md uppercase text-[16px] tracking-wide">TRANSFERENCIA / YAPE / PLIN</span>
+</label>
+</div>
+</div>
+<!-- SECCIÓN CONDICIONAL: DIGITAL (TRANSFERENCIA / YAPE / PLIN) -->
+<div class="hidden space-y-space-sm p-space-md bg-surface-container-highest rounded-DEFAULT transition-all" id="digitalPaymentBox">
+<div class="flex items-start gap-space-sm text-tertiary-fixed">
+<span class="material-symbols-outlined text-[20px] text-tertiary-container shrink-0 mt-0.5">policy</span>
+<p class="font-body-sm text-body-sm text-tertiary">
+<strong>AUDITORÍA OBLIGATORIA:</strong> Esta transacción se enviará a la Lista de Cambios del Administrador para verificación antes del balance contable final.
+              </p>
+</div>
+<!-- ADJUNTAR CAPTURA / VOUCHER -->
+<div class="space-y-space-xs">
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[11px] uppercase block">
+                COMPROBANTE BANCARIO / CAPTURA DE PAGO *
+              </span>
+<div class="relative bg-surface-container-lowest p-space-md rounded-DEFAULT flex flex-col items-center justify-center gap-space-xs cursor-pointer hover:bg-surface-container transition-all" onclick="document.getElementById('fileVoucher').click()">
+<input accept="image/*" class="hidden" id="fileVoucher" type="file"/>
+<span class="material-symbols-outlined text-primary text-[28px]">cloud_upload</span>
+<span class="font-data-mono text-data-mono text-on-surface text-[12px] text-center" id="voucherFileName">ADJUNTAR CAPTURA O FOTO DEL VOUCHER</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">Formatos aceptados: JPG, PNG (Máx 5MB)</span>
+</div>
+</div>
+</div>
+<!-- BOTONES DE CONFIRMACION Y ACCIÓN -->
+<div class="pt-space-sm space-y-space-xs">
+<button class="w-full h-14 bg-primary-container hover:bg-tertiary-container text-on-primary-container hover:text-on-tertiary-container font-headline-lg text-headline-lg uppercase tracking-wider rounded-DEFAULT flex items-center justify-center gap-space-sm transition-all shadow-[0_0_18px_rgba(31,113,239,0.4)]" id="btnConfirmar" type="submit">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+<span>CONFIRMAR Y ACTIVAR MEMBRESÍA</span>
+</button>
+<div class="flex items-center justify-center gap-space-xs text-on-surface-variant font-data-mono text-[11px]">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span>REGISTRO SINCRONIZADO CON TERMINAL CENTRAL Y TORNIQUETE #01</span>
+</div>
+</div>
+</form>
+</div>
+</div>
+<!-- CATALOGO VISUAL DE SOLO LECTURA: PROMOCIONES DISPONIBLES (ADMIN MANAGED) -->
+<div class="space-y-space-md pt-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">local_offer</span>
+<h3 class="font-headline-md text-headline-md uppercase text-on-surface tracking-wider">PROMOCIONES DISPONIBLES // CATÁLOGO OFICIAL</h3>
+</div>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[11px]">VISTA DE SOLO LECTURA • TARIFAS Y CONDICIONES FIJADAS POR EL ADMINISTRADOR</span>
+</div>
+<div class="flex items-center gap-space-xs px-space-sm py-1 bg-surface-container rounded-DEFAULT">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-data-mono text-data-mono text-primary text-[11px] uppercase">TARIFAS ACTIVAS TEMPORADA 2025</span>
+</div>
+</div>
+<!-- CARDS GRID -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+<!-- CARD 1: PLAN ANUAL MUTACION -->
+<div class="bg-surface-container-low rounded-DEFAULT overflow-hidden shadow-xl flex flex-col justify-between group hover:bg-surface-container transition-all">
+<div class="relative h-44 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" data-alt="Intense athlete doing heavy deadlift in a modern industrial training facility, dramatic neon blue backlight and chalk clouds in dark moody space." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBadiQTioCVYhVKtMaRb2g_afgC21d7qbubDDpU4xAUXa3owIsmHVXV-3kf2JuzOjdDKjB3uv0cdcaRkjtCeeWDmheB8S3f5l0zcJ08OALw6bo3Rr4mLpnVOsP5VyUAND0kaJXjodkqQzrc3U7hhhckvQ9779p0vEINcJmfdlrthLeUAa8s35rCN_I7DaM076pxhxI9t38ZpJGGT2nMAmty3aPjbrFrf0xKvbubbJwVBPZc3_J1Wpc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-surface-container-low/40 to-transparent"></div>
+<span class="absolute top-space-sm right-space-sm px-space-sm py-0.5 bg-primary-container text-on-primary-container font-label-badge text-label-badge uppercase tracking-wider rounded-DEFAULT shadow-[0_0_10px_rgba(31,113,239,0.8)]">
+              MÁXIMO AHORRO
+            </span>
+<div class="absolute bottom-space-sm left-space-md">
+<span class="font-data-mono text-data-mono text-primary text-[11px] uppercase tracking-widest block">DURACIÓN: 365 DÍAS</span>
+<h4 class="font-headline-md text-headline-md uppercase text-on-surface tracking-wider leading-none">PLAN ANUAL MUTACIÓN 2025</h4>
+</div>
+</div>
+<div class="p-space-md space-y-space-md">
+<div class="space-y-space-xs text-body-sm text-on-surface-variant">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[16px]">check_circle</span>
+<span>Acceso total 24/7 a sala de pesas y cardio</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[16px]">check_circle</span>
+<span>Evaluación biomecánica trimestral con entrenador</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[16px]">check_circle</span>
+<span>Congelamiento gratuito: hasta 30 días</span>
+</div>
+</div>
+<div class="pt-space-sm flex items-end justify-between bg-surface-container-lowest p-space-sm rounded-DEFAULT">
+<div>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[10px] block">PRECIO FIJADO ADMIN</span>
+<span class="font-headline-lg text-headline-lg text-on-surface leading-none">S/ 899.00</span>
+</div>
+<button class="h-9 px-space-md bg-surface-container-high hover:bg-primary-container text-on-surface hover:text-on-primary-container font-label-badge text-label-badge uppercase tracking-wider rounded-DEFAULT transition-all" onclick="selectPromo('anual')" type="button">
+                APLICAR PLAN
+              </button>
+</div>
+</div>
+</div>
+<!-- CARD 2: TRIMESTRE HIPERTROFIA -->
+<div class="bg-surface-container-low rounded-DEFAULT overflow-hidden shadow-xl flex flex-col justify-between group hover:bg-surface-container transition-all">
+<div class="relative h-44 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" data-alt="High-intensity training with kettlebells and heavy dumbbells, athletic lifter with dynamic lighting, deep carbon blacks and electric blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqFPVzTkIszCHjHvxI_gc4bKbk4KX6X8qOIxUgmlWYsD7OVlbRaAEdCnVIO7rQQHrYqyyx6xi1TZ7llUdXL7rlaor48VxHLYyHozvlvYdfAuong1kSwtzQ6kMVELtuuVd9RTj8eLptup5bXOQOVVGO7ZchzVjI_P66THgdEH90WUhw_qpyX4ZxnEJS1fne-RoBi2t2b1zcujfO9-JT9HweBlCiIteoYuKNgJ861uTewBTvsWEG-HA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-surface-container-low/40 to-transparent"></div>
+<span class="absolute top-space-sm right-space-sm px-space-sm py-0.5 bg-tertiary-container text-on-tertiary-container font-label-badge text-label-badge uppercase tracking-wider rounded-DEFAULT shadow-[0_0_10px_rgba(199,83,2,0.6)]">
+              POPULAR // FRECUENTE
+            </span>
+<div class="absolute bottom-space-sm left-space-md">
+<span class="font-data-mono text-data-mono text-primary text-[11px] uppercase tracking-widest block">DURACIÓN: 90 DÍAS</span>
+<h4 class="font-headline-md text-headline-md uppercase text-on-surface tracking-wider leading-none">TRIMESTRE HIPERTROFIA</h4>
+</div>
+</div>
+<div class="p-space-md space-y-space-md">
+<div class="space-y-space-xs text-body-sm text-on-surface-variant">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[16px]">check_circle</span>
+<span>Acceso ilimitado en horario extendido</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[16px]">check_circle</span>
+<span>1 Asesoría de inicio de rutina por entrenador</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[16px]">check_circle</span>
+<span>Congelamiento por lesión médica: 7 días</span>
+</div>
+</div>
+<div class="pt-space-sm flex items-end justify-between bg-surface-container-lowest p-space-sm rounded-DEFAULT">
+<div>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[10px] block">PRECIO FIJADO ADMIN</span>
+<span class="font-headline-lg text-headline-lg text-on-surface leading-none">S/ 320.00</span>
+</div>
+<button class="h-9 px-space-md bg-surface-container-high hover:bg-primary-container text-on-surface hover:text-on-primary-container font-label-badge text-label-badge uppercase tracking-wider rounded-DEFAULT transition-all" onclick="selectPromo('trimestre')" type="button">
+                APLICAR PLAN
+              </button>
+</div>
+</div>
+</div>
+<!-- CARD 3: PASE FIJO 1 MES ÉLITE -->
+<div class="bg-surface-container-low rounded-DEFAULT overflow-hidden shadow-xl flex flex-col justify-between group hover:bg-surface-container transition-all">
+<div class="relative h-44 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" data-alt="Chalk-covered barbell plates and barbell resting on heavy rubber gym flooring, moody cinematic sports tech ambient lights in obsidian space." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9o74qghNFp_eZ9QyhQ5kDBYwFHFKaazfn7wCTuUxvF8BT9Xxr2V1CeDBjVEIldSHBUH6hoawstNBJLuRzaKAhG52kXWuXn134vHOwCdq_MZqLpk3bjdWVDbZgZ9MW6KbwnnaeiISt8xpnfDAVVGsRCchz6G8A0ec6j57tABzpWqE2CqJ-Y8JVPCOmJ4D8gr7PhP_ZdFmB0S-WiPw841jXHaWnrTh6pFYIYCe_sTKRqJoQLN2OhKE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-surface-container-low/40 to-transparent"></div>
+<span class="absolute top-space-sm right-space-sm px-space-sm py-0.5 bg-surface-container-highest text-on-surface-variant font-label-badge text-label-badge uppercase tracking-wider rounded-DEFAULT">
+              ESTÁNDAR
+            </span>
+<div class="absolute bottom-space-sm left-space-md">
+<span class="font-data-mono text-data-mono text-primary text-[11px] uppercase tracking-widest block">DURACIÓN: 30 DÍAS</span>
+<h4 class="font-headline-md text-headline-md uppercase text-on-surface tracking-wider leading-none">PASE FIJO 1 MES ÉLITE</h4>
+</div>
+</div>
+<div class="p-space-md space-y-space-md">
+<div class="space-y-space-xs text-body-sm text-on-surface-variant">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[16px]">check_circle</span>
+<span>Acceso a todas las sedes GymCore</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[16px]">check_circle</span>
+<span>Locker de tránsito y duchas incluidos</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant/60">
+<span class="material-symbols-outlined text-[16px]">cancel</span>
+<span>Sin opción de congelamiento</span>
+</div>
+</div>
+<div class="pt-space-sm flex items-end justify-between bg-surface-container-lowest p-space-sm rounded-DEFAULT">
+<div>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[10px] block">PRECIO FIJADO ADMIN</span>
+<span class="font-headline-lg text-headline-lg text-on-surface leading-none">S/ 120.00</span>
+</div>
+<button class="h-9 px-space-md bg-surface-container-high hover:bg-primary-container text-on-surface hover:text-on-primary-container font-label-badge text-label-badge uppercase tracking-wider rounded-DEFAULT transition-all" onclick="selectPromo('mes')" type="button">
+                APLICAR PLAN
+              </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- MODAL DE NOTIFICACIÓN DE ÉXITO OPERACIONAL -->
+<div class="fixed inset-0 bg-background/80 backdrop-blur-md z-50 flex items-center justify-center p-space-md hidden" id="modalSuccess">
+<div class="bg-surface-container-low max-w-md w-full p-space-lg rounded-DEFAULT shadow-2xl space-y-space-md text-center">
+<div class="w-16 h-16 mx-auto bg-primary-container text-on-primary-container rounded-DEFAULT flex items-center justify-center shadow-[0_0_16px_rgba(31,113,239,0.8)]">
+<span class="material-symbols-outlined text-[36px]">task_alt</span>
+</div>
+<div>
+<span class="font-data-mono text-data-mono text-primary text-[11px] uppercase tracking-wider block">TRANSACCIÓN COMPLETADA</span>
+<h3 class="font-headline-lg text-headline-lg uppercase text-on-surface mt-1">MEMBRESÍA ACTUALIZADA</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-xs" id="modalMsg">
+            Se ha renovado con éxito la membresía de Mateo Valdivia Roca. Acceso sincronizado al torniquete central.
+          </p>
+</div>
+<div class="pt-space-xs">
+<button class="w-full h-12 bg-primary-container hover:bg-tertiary-container text-on-primary-container hover:text-on-tertiary-container font-headline-md text-headline-md uppercase tracking-wider rounded-DEFAULT transition-all" onclick="closeModal()" type="button">
+            ENTENDIDO // CONTINUAR
+          </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Comportamiento de selector de métodos de pago y planes
+  const payEfectivo = document.getElementById('payEfectivo');
+  const payDigital = document.getElementById('payDigital');
+  const digitalPaymentBox = document.getElementById('digitalPaymentBox');
+  const planSelector = document.getElementById('planSelector');
+  const txtDiasSumados = document.getElementById('txtDiasSumados');
+  const txtNuevaFecha = document.getElementById('txtNuevaFecha');
+  const txtMontoTotal = document.getElementById('txtMontoTotal');
+  const fileVoucher = document.getElementById('fileVoucher');
+  const voucherFileName = document.getElementById('voucherFileName');
+  const membershipForm = document.getElementById('membershipForm');
+  const modalSuccess = document.getElementById('modalSuccess');
+  const modalMsg = document.getElementById('modalMsg');
+
+  // Alternar visualización de comprobante según método de pago
+  function togglePaymentFields() {
+    if (payDigital.checked) {
+      digitalPaymentBox.classList.remove('hidden');
+    } else {
+      digitalPaymentBox.classList.add('hidden');
+    }
+  }
+
+  payEfectivo.addEventListener('change', togglePaymentFields);
+  payDigital.addEventListener('change', togglePaymentFields);
+
+  // Actualizar resumen al cambiar plan
+  function updatePlanSummary() {
+    const selectedOption = planSelector.options[planSelector.selectedIndex];
+    const price = selectedOption.getAttribute('data-price');
+    const days = selectedOption.getAttribute('data-days');
+
+    txtMontoTotal.textContent = `S/ ${price}`;
+    txtDiasSumados.textContent = `+${days} DÍAS CALENDARIO`;
+
+    // Fecha base actual de vencimiento simulada: 28 Junio 2025
+    if (days === "365") {
+      txtNuevaFecha.textContent = "28 JUNIO 2026";
+    } else if (days === "90") {
+      txtNuevaFecha.textContent = "26 SEPTIEMBRE 2025";
+    } else if (days === "30") {
+      txtNuevaFecha.textContent = "28 JULIO 2025";
+    }
+  }
+
+  planSelector.addEventListener('change', updatePlanSummary);
+
+  // Vincular selección desde el catálogo
+  window.selectPromo = function(tipo) {
+    if (tipo === 'anual') planSelector.value = 'anual';
+    if (tipo === 'trimestre') planSelector.value = 'trimestre';
+    if (tipo === 'mes') planSelector.value = 'mes';
+    updatePlanSummary();
+    planSelector.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
+  // Feedback de subida de archivo
+  fileVoucher.addEventListener('change', (e) => {
+    if (e.target.files && e.target.files[0]) {
+      voucherFileName.textContent = `VOUCHER CARGADO: ${e.target.files[0].name.toUpperCase()}`;
+    }
+  });
+
+  // Envío del formulario
+  membershipForm.addEventListener('submit', () => {
+    if (payDigital.checked && !fileVoucher.files.length) {
+      alert("ATENCIÓN: Debe adjuntar la captura del voucher para procesar pagos por Transferencia/Yape/Plin.");
+      return;
+    }
+
+    if (payDigital.checked) {
+      modalMsg.textContent = "Operación registrada y enviada a la Lista de Cambios del Administrador con voucher adjunto. Membresía habilitada temporalmente para el socio Mateo Valdivia Roca.";
+    } else {
+      modalMsg.textContent = "Cobro en efectivo registrado en caja terminal. Se activaron los días adicionales para Mateo Valdivia Roca.";
+    }
+
+    modalSuccess.classList.remove('hidden');
+  });
+
+  window.closeModal = function() {
+    modalSuccess.classList.add('hidden');
+  };
+
+  // Simulación de búsqueda por DNI
+  document.getElementById('btnBuscar').addEventListener('click', () => {
+    const dni = document.getElementById('inputDni').value.trim();
+    if(dni !== "72849102") {
+      alert(`Buscando expediente para DNI ${dni}... Ficha de prueba cargada: Mateo Valdivia Roca.`);
+    }
+  });
+</script></main></div></body></html>
