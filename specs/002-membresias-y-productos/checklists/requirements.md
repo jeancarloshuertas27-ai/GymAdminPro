@@ -32,3 +32,4 @@
 ## Notes
 
 - Especificación completa y alineada con los requisitos de negocio y las 4 maquetas de Stitch (`code.html` y `screen.png`). Lista para `$speckit-clarify` o `$speckit-plan`.
+
