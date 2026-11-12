@@ -2,7 +2,7 @@
 
 **Feature Branch**: `003-auditoria-reportes-y-3-sitios`  
 **Created**: 2026-11-12  
-**Status**: Draft  
+**Status**: Clarified  
 **Input**: Requisitos de separación limpia en 3 sitios independientes por rol conectados a la misma base de datos SQLite (Admin, Recepción y Miembro), Dashboard Principal del Administrador con métricas y alertas en tiempo real, Lista de Cambios y Aprobaciones en 2 columnas paralelas con visor forense de comprobantes, botón 'Aceptar cambio' con destrucción física de imágenes y preservación contable, botón 'Generar reporte' con descarga de PDF consolidado (`REPORTE <FECHA>.pdf`), lista de usuarios con credenciales para Admin y eliminación de inactivos > 1 mes, y vista móvil para miembros con estructura lista para rutinas y coach.
 
 ---
@@ -19,6 +19,18 @@ La Feature 003 consolida la arquitectura multi-portal y el sistema de control fi
    - **Lista de Cambios en 2 Columnas Maestras**: Paralelas y ordenadas para "Cambios en Membresía" y "Venta de Productos", con visor modal de alta resolución y zoom para comprobantes de transferencias (Yape, Plin, BCP, bancos).
    - **Aceptación de Cambios con Purga Física**: Botón "ACEPTAR CAMBIO" que elimina definitivamente el archivo físico de imagen del comprobante del servidor y BD (Principio V de la Constitución), retira la tarjeta de la vista activa y mantiene intacto el asiento contable para balances.
    - **Generación Oficial de Reporte PDF**: Descarga del consolidado oficial `REPORTE <FECHA>.pdf` integrando (a) ganancias por membresías, (b) nuevos usuarios inscritos, (c) recaudación por productos y (d) detalle desglosado de unidades vendidas y subtotales en `S/`.
+
+---
+
+## Clarifications
+
+### Session 2026-11-12
+- **Q1 (Eliminación de usuarios inactivos > 1 mes)**: ¿Cómo debe procesarse la depuración de un miembro inactivo por más de 1 mes?  
+  → **A**: **Borrado físico completo (Hard Delete)**. El botón "Eliminar Usuario Inactivo" se habilita exclusivamente si el miembro tiene más de 1 mes sin actualizar su membresía desde que venció (`fecha_vencimiento` expiró hace >30 días y no ha registrado renovaciones posteriores). Al confirmar, el sistema ejecuta un borrado físico completo del usuario en la base de datos, preservando los datos de auditoría contable previa desvinculados en texto plano.
+- **Q2 (Rango temporal para generar Reporte PDF)**: ¿Qué fecha debe abarcar el reporte al presionar "Generar reporte"?  
+  → **A**: **Reporte del día actual con selector opcional de fecha**. Al abrir el modal de reporte, el sistema previsualiza y compila por defecto la fecha en curso (`REPORTE <FECHA_HOY>.pdf`), pero incluye un selector de fecha para permitir al Administrador generar o reimprimir reportes de fechas anteriores.
+- **Q3 (Presentación del Sitio Miembro en monitores de escritorio)**: ¿Cómo se debe visualizar `/miembro` al abrirlo desde una computadora de escritorio?  
+  → **A**: **Marco móvil centrado estilo smartphone**. En monitores o pantallas grandes de escritorio, la vista se renderiza dentro de un marco vertical simulando un smartphone con bordes oscuros centrado en pantalla idéntico a las maquetas de Stitch, mientras que en pantallas móviles reales se adapta al 100% del viewport de manera responsiva.
 
 ---
 
@@ -93,7 +105,7 @@ La Feature 003 consolida la arquitectura multi-portal y el sistema de control fi
 2. **Given** una tarjeta de membresía o producto cuyo método de pago sea transferencia bancaria o billetera digital, **When** el Administrador hace clic en "Ver imagen", **Then** se abre el modal "Auditoría Forense de Comprobante" mostrando la imagen del comprobante en alta resolución con controles interactivos de zoom (+ / - / reiniciar), datos de la operación, importe declarado y lista de verificación.
 3. **Given** una tarjeta pendiente en cualquiera de las 2 columnas, **When** el Administrador hace clic en "ACEPTAR CAMBIO", **Then** el sistema ejecuta las siguientes acciones:
    - Elimina físicamente el archivo de imagen del comprobante del almacenamiento del servidor / base de datos para liberar recursos (Principio V).
-   - Oculta y retira de forma inmediata la tarjeta de la vista activa de cambios pendientes con una animación fluida y notificación toast.
+   - Oculta y retira de forma inmediata la tarjeta de la vista activa de cambios pendientes en pantalla.
    - Preserva los datos numéricos y metadatos contables (monto, fecha, hora, concepto, responsable, método de pago) en la base de datos SQLite para auditorías y generación de reportes.
    - Si la operación provenía de recepción y correspondía a una extensión de membresía, activa formalmente los días de vigencia en la cuenta del atleta.
 
@@ -102,54 +114,55 @@ La Feature 003 consolida la arquitectura multi-portal y el sistema de control fi
 ### User Story 5 - Generación y Descarga del Reporte Consolidado en PDF (Priority: P2)
 
 **Como** Administrador del gimnasio,  
-**quiero** hacer clic en el botón prominente "GENERAR REPORTE" en la Lista de Cambios y descargar un documento oficial en PDF titulado `REPORTE <FECHA>.pdf`,  
-**para** archivar el balance contable de la jornada, conciliar ingresos y auditar el desempeño diario del gimnasio.
+**quiero** hacer clic en el botón prominente "GENERAR REPORTE" en la Lista de Cambios y descargar un documento oficial en PDF titulado `REPORTE <FECHA>.pdf`, con opción de elegir la fecha a compilar,  
+**para** archivar el balance contable de la jornada o reimprimir fechas anteriores, conciliando ingresos y auditando el desempeño del gimnasio.
 
 - **Por qué esta prioridad**: Proporciona el cierre contable físico y legal del negocio al final del turno o del día, respaldando la administración tributaria e interna.
-- **Prueba Independiente**: Hacer clic en "GENERAR REPORTE", visualizar el modal de resumen consolidado, presionar "DESCARGAR 'REPORTE_<FECHA>.pdf'" y comprobar que el archivo descargado contenga las cuatro secciones obligatorias en español de Perú y con moneda Soles (`S/`).
+- **Prueba Independiente**: Hacer clic en "GENERAR REPORTE", visualizar el modal de resumen consolidado con selector de fecha, presionar "DESCARGAR 'REPORTE_<FECHA>.pdf'" y comprobar que el archivo descargado contenga las cuatro secciones obligatorias en español de Perú y con moneda Soles (`S/`).
 
 **Acceptance Scenarios**:
 1. **Given** que el Administrador está en la Lista de Cambios, **When** visualiza la pantalla, **Then** cuenta con un botón flotante destacado en la esquina inferior derecha rotulado "GENERAR REPORTE - DESCARGA PDF // CONSOLIDADO DIARIO".
-2. **Given** que el Administrador presiona "GENERAR REPORTE", **When** se abre el modal de consolidación, **Then** muestra la previsualización del documento con los totales acumulados del día y el nombre del archivo previsto `REPORTE <FECHA>.pdf` (ej. `REPORTE 2026-11-12.pdf`).
+2. **Given** que el Administrador presiona "GENERAR REPORTE", **When** se abre el modal de consolidación, **Then** muestra la previsualización del documento con los totales acumulados de la fecha seleccionada (por defecto la fecha de hoy) y el nombre previsto `REPORTE <FECHA>.pdf` (ej. `REPORTE 2026-11-12.pdf`), permitiendo cambiar la fecha a través de un selector interactivo.
 3. **Given** que el Administrador confirma la descarga, **When** el sistema compila el PDF, **Then** descarga automáticamente el archivo estructurado obligatoriamente con los siguientes 4 bloques:
-   - **(a) Ganancias por Membresías**: Monto total recaudado en Soles (`S/`) por renovaciones y planes de membresía del día.
+   - **(a) Ganancias por Membresías**: Monto total recaudado en Soles (`S/`) por renovaciones y planes de membresía de la fecha seleccionada.
    - **(b) Nuevos Usuarios Inscritos**: Cantidad de atletas dados de alta en la jornada y detalle de inscripciones.
-   - **(c) Ganancias por Venta de Productos**: Monto total recaudado en Soles (`S/`) por productos en mostrador.
+   - **(c) Ganancias por Venta de Productos**: Monto total recaudado en Soles (`S/`) por productos en mostrador en dicha fecha.
    - **(d) Detalle de Productos Vendidos**: Tabla pormenorizada con nombre de cada producto, unidades vendidas, precio unitario en `S/` y subtotal en `S/`.
-4. **Given** que no existen ventas o movimientos en algún rubro, **When** se genera el reporte, **Then** el reporte refleja con claridad `S/ 0.00` y 0 registros en dicho bloque sin presentar errores ni campos vacíos.
+4. **Given** que no existen ventas o movimientos en algún rubro para la fecha indicada, **When** se genera el reporte, **Then** el reporte refleja con claridad `S/ 0.00` y 0 registros en dicho bloque sin presentar errores ni campos vacíos.
 
 ---
 
 ### User Story 6 - Gestión Administrativa de Usuarios y Depuración de Inactivos > 1 Mes (Priority: P2)
 
 **Como** Administrador del gimnasio,  
-**quiero** ver la lista completa de usuarios con sus credenciales de acceso (usuario y contraseña) visibles para soporte, y contar con un botón "Eliminar" disponible para aquellos usuarios que lleven más de 1 mes inactivos,  
-**para** gestionar el soporte de cuentas a miembros y personal y depurar registros abandonados del padrón de socios.
+**quiero** ver la lista completa de usuarios con sus credenciales de acceso (usuario y contraseña) visibles para soporte, y contar con un botón "Eliminar Usuario Inactivo" habilitado solo si el miembro tiene más de 1 mes sin actualizar su membresía desde que venció para realizar un borrado físico completo,  
+**para** gestionar el soporte de cuentas a miembros y personal y depurar físicamente registros abandonados del padrón de socios.
 
-- **Por qué esta prioridad**: Otorga al Administrador control total sobre las cuentas de acceso y mantiene limpia la base de datos de socios que abandonaron el gimnasio.
-- **Prueba Independiente**: Ingresar a "Usuarios & Fidelidad" como Admin, comprobar que se visualicen los nombres de usuario y contraseñas; ubicar un usuario con membresía vencida hace más de 30 días y comprobar que el botón "Eliminar" esté habilitado y procese la baja tras confirmación; ubicar un usuario activo o vencido hace menos de 30 días y verificar que no permita su eliminación accidental.
+- **Por qué esta prioridad**: Otorga al Administrador control total sobre las cuentas de acceso y depura la base de datos de socios que dejaron de asistir al gimnasio hace más de 30 días.
+- **Prueba Independiente**: Ingresar a "Usuarios & Fidelidad" como Admin, comprobar que se visualicen los nombres de usuario y contraseñas; ubicar un socio cuya membresía venció hace más de 30 días sin actualizaciones posteriores y comprobar que el botón "Eliminar Usuario Inactivo" esté habilitado y procese el borrado físico tras confirmación; ubicar un socio activo o con membresía vencida hace menos de 30 días y verificar que el botón esté inhabilitado.
 
 **Acceptance Scenarios**:
 1. **Given** el Administrador en la "Lista de Usuarios & Fidelidad", **When** consulta las fichas de los usuarios registrados, **Then** la tabla exhibe de forma explícita las columnas o detalles de credenciales (Nombre de usuario y Contraseña/PIN) para permitir asistencia inmediata en mostrador.
-2. **Given** un usuario cuya última membresía haya vencido hace más de 30 días calendario y no registre ingresos recientes, **When** el Administrador revisa su registro, **Then** el sistema presenta un botón activo de "Eliminar Usuario Inactivo".
-3. **Given** un usuario activo o con membresía vencida hace menos de 30 días, **When** el Administrador revisa su registro, **Then** el botón de eliminación permanece deshabilitado o con un mensaje indicando que el socio no cumple la condición de inactividad mayor a 1 mes.
-4. **Given** que el Administrador presiona "Eliminar Usuario Inactivo", **When** confirma la acción en el cuadro de diálogo de advertencia, **Then** el sistema procesa la depuración del socio [NEEDS CLARIFICATION: ¿Baja lógica desvinculando credenciales o eliminación física si no tiene historial contable?] y actualiza la lista en pantalla.
+2. **Given** un miembro cuya membresía expiró hace más de 30 días calendario y no registra ninguna actualización ni extensión posterior, **When** el Administrador revisa su registro, **Then** el sistema presenta el botón activo de "Eliminar Usuario Inactivo".
+3. **Given** un miembro activo o cuya membresía haya vencido hace menos de 30 días (o que haya sido renovada recientemente), **When** el Administrador revisa su registro, **Then** el botón de eliminación permanece deshabilitado, indicando que el socio no cumple la condición de inactividad mayor a 1 mes desde su vencimiento.
+4. **Given** que el Administrador presiona "Eliminar Usuario Inactivo" para un miembro elegible, **When** confirma la acción en el cuadro de diálogo de advertencia, **Then** el sistema ejecuta el borrado físico completo (Hard Delete) del registro del usuario en la base de datos SQLite, preservando la información contable previa desvinculada para auditoría y actualizando la lista en pantalla en tiempo real.
 
 ---
 
 ### User Story 7 - Sitio Miembro Móvil y Preparación de Módulos Futuros (Priority: P3)
 
-**Como** Miembro del gimnasio que accede desde su smartphone,  
+**Como** Miembro del gimnasio que accede desde su smartphone (o visualiza desde escritorio en marco de simulación móvil),  
 **quiero** visualizar mi carnet digital con código QR de acceso, estado de membresía, nivel de fidelidad gamificada y catálogo de promociones activas para mi nivel, con accesos preparados para mis rutinas y llamada a coach,  
 **para** disfrutar de una experiencia ágil de auto-servicio desde mi teléfono móvil.
 
 - **Por qué esta prioridad**: Entrega valor directo al atleta en su dispositivo móvil y deja los cimientos listos para la Feature 004 (Rutinas y App Miembro).
-- **Prueba Independiente**: Ingresar a `/miembro` con credenciales de atleta, verificar el renderizado del carnet digital, el código QR de acceso táctico, el nivel de fidelidad, las promociones activas elegibles y los accesos preparados a rutinas.
+- **Prueba Independiente**: Ingresar a `/miembro` desde un teléfono o navegador de escritorio, verificar el renderizado en marco vertical de smartphone en escritorio o pantalla completa en móvil, el carnet digital, el código QR de acceso táctico, el nivel de fidelidad, las promociones activas elegibles y los accesos preparados a rutinas.
 
 **Acceptance Scenarios**:
-1. **Given** un socio que inicia sesión en `/miembro`, **When** carga su portal, **Then** la interfaz se presenta en formato vertical optimizado para teléfonos móviles, mostrando su nombre, DNI, foto de perfil, carnet digital con código QR dinámico de acceso y contador de días restantes.
-2. **Given** un socio con nivel de fidelidad asignado (ej. "Novato", "Principiante", "Mutando", "Dios Griego"), **When** consulta su panel, **Then** visualiza su insignia de rango, puntos de combate y la lista de promociones activas que corresponden a su nivel.
-3. **Given** la navegación inferior del Sitio Miembro, **When** el atleta revisa las opciones disponibles, **Then** cuenta con accesos directos estructurados para "Carnet", "Promociones", "Mi Rutina" y "Llamar Coach" (dejando la estructura de navegación lista para la integración completa de rutinas y ejercicios en la Etapa 4).
+1. **Given** un socio que inicia sesión en `/miembro`, **When** carga su portal desde un monitor de escritorio, **Then** la interfaz se presenta dentro de un marco vertical centrado simulando un smartphone (mockup con bordes oscuros) conforme al diseño de Stitch; y si accede desde un dispositivo móvil real, la interfaz ocupa el 100% del viewport vertical táctil.
+2. **Given** el carnet interactivo del socio, **When** se visualiza en pantalla, **Then** muestra su nombre, DNI, foto de perfil, código QR dinámico de acceso y contador de días restantes de vigencia.
+3. **Given** un socio con nivel de fidelidad asignado (ej. "Novato", "Principiante", "Mutando", "Dios Griego"), **When** consulta su panel, **Then** visualiza su insignia de rango, puntos de combate y la lista de promociones activas que corresponden a su nivel.
+4. **Given** la navegación inferior del Sitio Miembro, **When** el atleta revisa las opciones disponibles, **Then** cuenta con accesos directos estructurados para "Carnet", "Promociones", "Mi Rutina" y "Llamar Coach" (dejando la estructura de navegación lista para la integración completa de rutinas y ejercicios en la Etapa 4).
 
 ---
 
@@ -158,9 +171,9 @@ La Feature 003 consolida la arquitectura multi-portal y el sistema de control fi
 - **Intento de acceso cruzado entre sitios**: Si un usuario autenticado como recepcionista intenta forzar la URL `/admin`, el sistema intercepta la navegación, destruye la sesión no autorizada o redirige a `/recepcion` con mensaje de alerta.
 - **Comprobante de pago con formato inválido o corrupto**: Si al registrar un pago por transferencia el archivo subido se corrompe o no es una imagen válida, el visor modal muestra un estado de error legible y permite al Administrador solicitar un nuevo comprobante o rechazar el cambio.
 - **Pérdida de conectividad al aceptar cambio**: Si ocurre un fallo de red durante el clic en "Aceptar cambio", la transacción no debe quedar a medias: la foto no se destruye a menos que la base de datos confirme la aprobación contable.
-- **Generación de reporte sin transacciones en la fecha**: Si se genera el reporte PDF en un día feriado o sin ventas, el PDF debe compilarse correctamente mostrando S/ 0.00 en ganancias, 0 nuevos miembros y una nota informativa de "Sin movimientos registrados en la fecha".
-- **Eliminación de usuario con pagos históricos**: Si un usuario inactivo hace más de 1 mes tiene compras o renovaciones registradas en meses anteriores, su eliminación no debe romper las relaciones en reportes contables pasados (preservando integridad referencial en SQLite).
-- **Concurrencia entre Recepción y Administrador**: Si Recepción registra una venta o membresía por transferencia mientras el Administrador tiene abierta la pantalla de cambios, el nuevo registro debe reflejarse en tiempo real o mediante actualización instantánea sin recarga forzada.
+- **Generación de reporte sin transacciones en la fecha**: Si se genera el reporte PDF en una fecha sin ventas o movimientos, el PDF debe compilarse correctamente mostrando S/ 0.00 en ganancias, 0 nuevos miembros y una nota informativa de "Sin movimientos registrados en la fecha".
+- **Eliminación física de usuario con pagos históricos**: Al borrar físicamente a un usuario inactivo hace más de 1 mes, las tablas de auditoría y ventas conservan el nombre y DNI como datos textuales para que los balances y reportes pasados no se alteren.
+- **Concurrencia entre Recepción y Administrador**: Si Recepción registra una venta o membresía por transferencia mientras el Administrador tiene abierta la pantalla de cambios, el nuevo registro se refleja de inmediato en tiempo real sin requerir recarga completa del navegador.
 
 ---
 
@@ -174,7 +187,7 @@ La Feature 003 consolida la arquitectura multi-portal y el sistema de control fi
 - **FR-003**: El Sitio Administrador (`/admin`) DEBE incluir la barra de navegación completa con acceso a: (1) Dashboard Principal, (2) Control de Acceso (Check-in), (3) Manejar Promociones / Precios, (4) Manejar Membresías, (5) Lista de Cambios y Reporte PDF, (6) Lista de Usuarios (con credenciales visibles y botón de eliminar inactivos >1 mes), (7) Manejar Productos (Inventario Maestro con Costos Privados, CRUD y ventas) y (8) Agregar Usuario Nuevo (roles Recepción o Miembro).
 - **FR-004**: El Sitio Recepción (`/recepcion`) DEBE presentar por defecto la pantalla de "Control de Acceso / Check-in" con semáforo por DNI (Verde, Naranja y Rojo) y restringir su menú únicamente a: (1) Control de Acceso, (2) Manejar Membresías, (3) Lista de Usuarios (sin credenciales visibles y sin botón de eliminación), (4) Agregar Miembro Nuevo (únicamente rol Miembro) y (5) Venta Rápida de Productos.
 - **FR-005**: En el Sitio Recepción, la vista de productos DEBE mostrar existencias y atenuar de forma translúcida (con sello "AGOTADO") los productos con stock 0, ocultando totalmente el precio de costo privado y deshabilitando cualquier función de creación, edición o eliminación de productos.
-- **FR-006**: El Sitio Miembro (`/miembro`) DEBE desplegar una interfaz adaptada exclusivamente a dispositivos móviles, presentando el carnet digital interactivo, código QR dinámico de acceso, vigencia de membresía, nivel de fidelidad gamificada y promociones activas segmentadas, dejando preparadas las secciones para rutinas y alerta de coach.
+- **FR-006**: El Sitio Miembro (`/miembro`) DEBE desplegar una interfaz adaptada a dispositivos móviles. En pantallas de escritorio DEBE presentarse contenida dentro de un marco de simulación móvil vertical centrado (mockup de smartphone), y en pantallas móviles reales DEBE adaptarse al 100% del viewport; presentando el carnet digital interactivo, código QR dinámico de acceso, vigencia de membresía, nivel de fidelidad gamificada y promociones activas segmentadas, dejando preparadas las secciones para rutinas y alerta de coach.
 - **FR-007**: Los 3 sitios DEBEN conectarse al mismo backend Node.js y a la misma base de datos compartida SQLite (`server/gymcore.db`), garantizando consistencia inmediata de saldos, stock y membresías.
 
 #### Bloque B: Auditoría, Aprobaciones y Reportes PDF del Administrador
@@ -187,21 +200,13 @@ La Feature 003 consolida la arquitectura multi-portal y el sistema de control fi
   - (1) Eliminar físicamente el archivo de imagen del comprobante del servidor/base de datos para optimizar espacio (Principio V de la Constitución).
   - (2) Ocultar de inmediato la tarjeta de la vista activa de cambios pendientes en pantalla.
   - (3) Preservar los registros contables y metadatos de la operación en la base de datos SQLite para balances y reportes.
-- **FR-012**: La Lista de Cambios DEBE disponer de un botón prominente "GENERAR REPORTE" que abra la previsualización del balance diario y permita compilar y descargar un archivo PDF oficial titulado `REPORTE <FECHA>.pdf` (ej. `REPORTE 2026-11-12.pdf`).
+- **FR-012**: La Lista de Cambios DEBE disponer de un botón prominente "GENERAR REPORTE" que abra la previsualización del balance diario. Por defecto compila y descarga el reporte de la fecha actual (`REPORTE <FECHA>.pdf`), pero DEBE permitir seleccionar fechas anteriores mediante un control de fecha interactivo en el modal para generar reportes históricos retroactivos.
 - **FR-013**: El documento PDF generado DEBE consolidar obligatoriamente cuatro secciones en español de Perú y moneda Soles (`S/`):
-  - (a) Ganancias consolidadas por membresías y renovaciones del día en `S/`.
+  - (a) Ganancias consolidadas por membresías y renovaciones de la fecha seleccionada en `S/`.
   - (b) Cantidad de nuevos usuarios inscritos en la jornada.
-  - (c) Ganancias consolidadas por venta de productos en mostrador del día en `S/`.
+  - (c) Ganancias consolidadas por venta de productos en mostrador en `S/`.
   - (d) Lista detallada de productos vendidos indicando nombre, unidades vendidas, precio unitario y subtotal en `S/`.
-- **FR-014**: En la Lista de Usuarios del Administrador, el sistema DEBE mostrar el nombre de usuario y contraseña/PIN de cada cuenta para soporte administrativo, y proveer un botón "Eliminar Usuario Inactivo" habilitado estrictamente para aquellos socios cuya membresía registre más de 1 mes de vencida sin actividad reciente.
-
----
-
-### Clarification Needs & Questions
-
-- **[NEEDS CLARIFICATION: depuración_usuarios_inactivos]**: En la eliminación de usuarios inactivos > 1 mes desde el Sitio Administrador, ¿cómo debe proceder el sistema con el registro del usuario si tiene asistencias o transacciones contables pasadas en la base de datos?
-- **[NEEDS CLARIFICATION: rango_fechas_reporte_pdf]**: Al hacer clic en el botón "Generar reporte", ¿el reporte PDF debe generarse por defecto con los datos exclusivos del día en curso (fecha actual del sistema) o debe permitir al Administrador seleccionar una fecha específica del calendario para reimprimir reportes de días anteriores?
-- **[NEEDS CLARIFICATION: envoltorio_sitio_miembro_escritorio]**: Si un usuario abre la ruta del Sitio Miembro (`/miembro`) desde un navegador de escritorio, ¿el sistema debe renderizar la vista contenida dentro de un marco de simulación móvil (mockup de smartphone centrado como en Stitch) o debe expandirse a pantalla completa de forma responsiva?
+- **FR-014**: En la Lista de Usuarios del Administrador, el sistema DEBE mostrar el nombre de usuario y contraseña/PIN de cada cuenta para soporte administrativo, y proveer un botón "Eliminar Usuario Inactivo" habilitado estrictamente cuando el miembro registre más de 1 mes sin actualizar su membresía desde que venció (más de 30 días desde `fecha_vencimiento` sin renovaciones posteriores), procediendo a su borrado físico completo (Hard Delete) tras confirmación expresa.
 
 ---
 
@@ -223,7 +228,7 @@ La Feature 003 consolida la arquitectura multi-portal y el sistema de control fi
 - **SC-003**: En el Dashboard Principal del Administrador, las métricas de ingresos en `S/`, atletas activos y alerta de stock crítico se actualizan de forma sincronizada con la base de datos en menos de 1 segundo tras registrarse cualquier venta o extensión en mostrador.
 - **SC-004**: Al hacer clic en "ACEPTAR CAMBIO", el archivo de imagen de la transferencia es borrado físicamente del servidor en el 100% de los casos exitosos, y la tarjeta desaparece visualmente de la lista de pendientes en menos de 500 milisegundos sin recargar la página.
 - **SC-005**: Al pulsar "DESCARGAR REPORTE", la compilación y descarga del PDF `REPORTE <FECHA>.pdf` conteniendo las 4 secciones contables consolidadas toma menos de 3 segundos.
-- **SC-006**: Los usuarios inactivos con más de 30 días de vencimiento son identificables inmediatamente por el Administrador, y la acción de eliminación no puede ejecutarse sobre usuarios activos o con membresías vigentes.
+- **SC-006**: Los miembros inactivos con más de 30 días de vencimiento son identificables inmediatamente por el Administrador, y la acción de eliminación física (Hard Delete) no puede ejecutarse sobre usuarios activos o con membresías vigentes.
 
 ---
 
@@ -232,5 +237,5 @@ La Feature 003 consolida la arquitectura multi-portal y el sistema de control fi
 - **A-001**: Los 3 sitios (`/admin`, `/recepcion`, `/miembro`) se sirven desde la misma aplicación web React mediante enrutamiento modular dedicado, compartiendo los servicios de API y el estado centralizado.
 - **A-002**: La moneda del sistema es invariablemente Soles (`S/`) y el documento nacional de identidad peruano (DNI) consta invariablemente de 8 dígitos numéricos.
 - **A-003**: El servidor local Node.js cuenta con permisos del sistema de archivos para almacenar temporalmente los comprobantes de transferencias en un directorio designado (ej. `uploads/vouchers/`) y para eliminarlos físicamente cuando el Administrador acepta el cambio.
-- **A-004**: La librería de generación de PDF en el navegador o backend (ej. `jspdf` con `jspdf-autotable`) opera sin dependencias externas de internet una vez instalada en el proyecto.
+- **A-004**: La librería de generación de PDF en el cliente o backend opera sin dependencias externas de internet una vez instalada en el proyecto.
 - **A-005**: Las funcionalidades detalladas de rutinas guiadas, tracking de ejercicios y botón de llamada a coach corresponden a la Feature 004, por lo que en esta etapa el Sitio Miembro deja establecida su arquitectura, navegación y vistas base sin la lógica interna de entrenamientos complejos.
