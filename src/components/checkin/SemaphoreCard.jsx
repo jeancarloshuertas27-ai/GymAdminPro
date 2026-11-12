@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function SemaphoreCard({ checkinData, onForceOpen, onViewDetail }) {
+export default function SemaphoreCard({ checkinData, onViewDetail }) {
   if (!checkinData) {
     return (
       <div className="bg-surface-container-low p-space-lg rounded-DEFAULT shadow-lg flex flex-col items-center justify-center min-h-[380px] text-center border border-surface-container">
@@ -101,52 +101,38 @@ export default function SemaphoreCard({ checkinData, onForceOpen, onViewDetail }
               </div>
             </div>
 
-            <div className="flex flex-col flex-1 min-w-0">
-              <div className="flex items-center justify-between">
-                <span className="font-data-mono text-data-mono text-on-surface-variant text-[11px] uppercase">
-                  FICHA DE ATLETA
-                </span>
-                <span className="font-label-badge text-label-badge uppercase text-primary bg-surface-container px-2 py-0.5 rounded-DEFAULT">
-                  {atleta.planTag || 'MEMBRESÍA ACTIVA'}
-                </span>
-              </div>
-              <span className="font-headline-lg text-headline-lg uppercase text-on-surface tracking-wide truncate">
+            <div className="flex flex-col flex-1">
+              <span className="font-headline-lg text-headline-lg uppercase text-on-surface leading-tight">
                 {atleta.nombreCompleto}
               </span>
-              <div className="flex items-center gap-space-md mt-1">
-                <span className="font-data-mono text-data-mono text-on-surface-variant text-[13px]">
-                  DNI: <strong className="text-on-surface">{atleta.dni}</strong>
+              <div className="flex items-center gap-space-sm mt-1">
+                <span className="font-data-mono text-data-mono text-primary font-bold">
+                  DNI: {atleta.dni}
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                <span className="font-data-mono text-data-mono text-on-surface-variant text-[12px]">
+                  {atleta.planTag || 'PLAN GENERAL'}
                 </span>
               </div>
 
-              <div className="mt-space-sm p-space-xs bg-surface-container rounded-DEFAULT flex items-center justify-between">
-                <span className="font-data-mono text-data-mono text-on-surface-variant text-[11px] uppercase">
-                  ESTADO DE CUENTA:
-                </span>
+              <div className="mt-space-xs inline-flex items-center gap-1.5 px-space-sm py-1 rounded bg-surface-container-high w-fit">
                 <span
-                  className={`font-data-mono text-data-mono font-bold text-[12px] ${
-                    isGreen ? 'text-[#3bf589]' : isOrange ? 'text-[#f59e0b]' : 'text-error'
+                  className={`w-2.5 h-2.5 rounded-full ${
+                    isGreen ? 'bg-primary-container animate-pulse' : isOrange ? 'bg-tertiary-container' : 'bg-error-container'
                   }`}
-                >
-                  {atleta.tiempoRestante || atleta.estadoMembresia || atleta.tiempoRestanteCorto || 'ACTIVO'}
+                ></span>
+                <span className="font-data-mono text-data-mono text-[12px] font-bold text-on-surface">
+                  {atleta.tiempoRestante || 'CONSULTAR VIGENCIA'}
                 </span>
               </div>
             </div>
           </div>
 
-          {/* RUTINA ASIGNADA */}
-          <div className="bg-surface-container p-space-md rounded-DEFAULT flex flex-col gap-space-xs shadow-sm">
+          {/* RUTINA DEL DÍA */}
+          <div className="p-space-sm bg-surface-container rounded-DEFAULT">
             <div className="flex items-center justify-between">
-              <span className="font-data-mono text-data-mono text-secondary uppercase text-[11px]">
-                RUTINA ASIGNADA PARA HOY
-              </span>
-              <span className="font-label-badge text-label-badge text-on-surface-variant uppercase">
-                SALA DE MUSCULACIÓN
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="font-headline-md text-headline-md uppercase text-on-surface tracking-wide">
-                {atleta.rutinaAsignada || 'PPL Clásico // Fuerza & Hipertrofia'}
+              <span className="font-data-mono text-data-mono text-on-surface-variant text-[11px] uppercase">
+                RUTINA ACTUAL ASIGNADA: {atleta.rutinaAsignada || 'RUTINA BASE GENERAL'}
               </span>
               <span className="font-data-mono text-data-mono text-primary text-[12px]">RPE 8.5</span>
             </div>
@@ -174,19 +160,11 @@ export default function SemaphoreCard({ checkinData, onForceOpen, onViewDetail }
           </div>
 
           {/* ACCIONES DEL PUESTO DE CONTROL */}
-          <div className="grid grid-cols-2 gap-space-sm pt-space-xs">
-            <button
-              type="button"
-              onClick={onForceOpen}
-              className="h-12 bg-primary-container hover:bg-tertiary-container hover:text-on-tertiary-container text-on-primary-container font-headline-md text-headline-md uppercase tracking-wider rounded-DEFAULT flex items-center justify-center gap-space-xs shadow-md transition-all active:scale-95"
-            >
-              <span className="material-symbols-outlined text-[20px]">door_open</span>
-              <span>FORZAR PASO</span>
-            </button>
+          <div className="pt-space-xs">
             <button
               type="button"
               onClick={() => onViewDetail(atleta.id)}
-              className="h-12 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-headline-md text-headline-md uppercase tracking-wider rounded-DEFAULT flex items-center justify-center gap-space-xs transition-all active:scale-95"
+              className="w-full h-12 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-headline-md text-headline-md uppercase tracking-wider rounded-DEFAULT flex items-center justify-center gap-space-xs transition-all active:scale-95 shadow-md border border-outline-variant/30 cursor-pointer"
             >
               <span className="material-symbols-outlined text-[20px]">id_card</span>
               <span>VER EXPEDIENTE</span>
@@ -198,13 +176,6 @@ export default function SemaphoreCard({ checkinData, onForceOpen, onViewDetail }
           <span className="font-data-mono text-xs text-on-surface-variant">
             Atleta no identificado en la base de datos local.
           </span>
-          <button
-            type="button"
-            onClick={onForceOpen}
-            className="px-space-md py-2 bg-primary-container text-on-primary-container font-headline-md uppercase text-sm rounded shadow active:scale-95"
-          >
-            FORZAR APERTURA
-          </button>
         </div>
       )}
 
@@ -230,4 +201,3 @@ export default function SemaphoreCard({ checkinData, onForceOpen, onViewDetail }
     </div>
   );
 }
-

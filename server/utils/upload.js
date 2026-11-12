@@ -5,15 +5,23 @@ import fs from 'node:fs';
 const uploadBaseDir = path.resolve(process.cwd(), 'uploads');
 const vouchersDir = path.join(uploadBaseDir, 'vouchers');
 const photosDir = path.join(uploadBaseDir, 'photos');
+const bannersDir = path.join(uploadBaseDir, 'banners');
+const productosDir = path.join(uploadBaseDir, 'productos');
 
 // Asegurar existencia de carpetas
 fs.mkdirSync(vouchersDir, { recursive: true });
 fs.mkdirSync(photosDir, { recursive: true });
+fs.mkdirSync(bannersDir, { recursive: true });
+fs.mkdirSync(productosDir, { recursive: true });
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    if (file.fieldname === 'voucher') {
+    if (file.fieldname === 'voucher' || file.fieldname === 'comprobante') {
       cb(null, vouchersDir);
+    } else if (file.fieldname === 'banner') {
+      cb(null, bannersDir);
+    } else if (file.fieldname === 'imagen' || file.fieldname === 'foto_producto') {
+      cb(null, productosDir);
     } else {
       cb(null, photosDir);
     }
@@ -34,8 +42,7 @@ export const upload = multer({
     if (allowed.test(ext)) {
       cb(null, true);
     } else {
-      cb(new Error('Formato no permitido. Solo se aceptan JPG, PNG o PDF.'));
+      cb(new Error('Formato no permitido. Solo se aceptan JPG, PNG, WEBP o PDF.'));
     }
   },
 });
-

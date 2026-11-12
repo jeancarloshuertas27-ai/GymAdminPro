@@ -112,85 +112,16 @@ export default function CheckIn({ onNavigate }) {
     }
   };
 
-  const handleForceOpen = async () => {
-    try {
-      const activeDni = dni || checkinResult?.atleta?.dni || '72849102';
-      await fetch('/api/checkin/force', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ dni: activeDni, motivo: 'Apertura forzada por operador en recepción' }),
-      });
-      fetchRecent();
-      alert('Paso forzado concedido por operador.');
-    } catch {
-      alert('Paso forzado concedido por operador.');
-    }
-  };
-
   return (
     <div className="p-space-lg flex flex-col gap-space-lg w-full">
-      {/* BARRA TÁCTICA SUPERIOR / AFORO & TELEMETRÍA */}
-      <div className="grid grid-cols-12 gap-space-md items-stretch">
-        <div className="col-span-12 lg:col-span-8 bg-surface-container-low p-space-md rounded-DEFAULT flex flex-col justify-between shadow-md relative overflow-hidden border border-surface-container">
-          <div className="absolute -right-10 -bottom-10 w-44 h-44 bg-primary-container/10 rounded-full blur-2xl pointer-events-none"></div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-space-sm">
-              <span className="w-3 h-3 bg-primary-container rounded-full animate-ping"></span>
-              <span className="font-data-mono text-data-mono text-primary uppercase">
-                TELEMETRÍA DE SALA 01 // V1.08
-              </span>
-            </div>
-            <span className="font-data-mono text-data-mono text-on-surface-variant text-[12px] bg-surface-container-high px-space-sm py-0.5 rounded-DEFAULT">
-              RELÉ: 12V DC ONLINE
-            </span>
-          </div>
-
-          <div className="flex flex-wrap items-baseline gap-x-space-md gap-y-space-xs my-space-sm">
-            <span className="font-headline-lg text-headline-lg uppercase text-on-surface tracking-wide">
-              CONTROL DE ACCESO & CHECK-IN EN SALA
-            </span>
-            <span className="font-label-badge text-label-badge text-primary uppercase tracking-widest bg-surface-container px-space-sm py-1 rounded-DEFAULT">
-              PUESTO FRONTAL
-            </span>
-          </div>
-
-          <div className="flex items-center gap-space-lg">
-            <div className="flex items-center gap-space-xs">
-              <span className="material-symbols-outlined text-primary text-[20px]">bolt</span>
-              <span className="font-data-mono text-data-mono text-on-surface text-[13px]">
-                CICLO DE ENTRADA: 1.2s
-              </span>
-            </div>
-            <div className="flex items-center gap-space-xs">
-              <span className="material-symbols-outlined text-secondary text-[20px]">sensors</span>
-              <span className="font-data-mono text-data-mono text-on-surface text-[13px]">
-                LECTOR ÓPTICO: ACTIVO
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* METRICA AFORO EN VIVO */}
-        <div className="col-span-12 lg:col-span-4 bg-surface-container-low p-space-md rounded-DEFAULT flex flex-col justify-between shadow-md border border-surface-container">
-          <div className="flex justify-between items-start">
-            <span className="font-data-mono text-data-mono text-on-surface-variant uppercase text-[12px]">
-              AFORO SALA CENTRAL
-            </span>
-            <span className="font-label-badge text-label-badge uppercase text-primary bg-surface-container px-1.5 py-0.5 rounded-DEFAULT">
-              49% OCUPADO
-            </span>
-          </div>
-          <div className="my-space-xs flex items-baseline gap-space-xs">
-            <span className="font-metric-huge text-metric-huge text-on-surface leading-none">42</span>
-            <span className="font-headline-md text-headline-md text-on-surface-variant uppercase">/ 85</span>
-          </div>
-          <div className="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
-            <div
-              className="bg-primary-container h-full rounded-full transition-all duration-500 shadow-[0_0_8px_rgba(31,113,239,0.8)]"
-              style={{ width: '49.4%' }}
-            ></div>
-          </div>
-        </div>
+      {/* HEADER DE CONTROL DE ACCESO */}
+      <div className="flex flex-col gap-1 pb-space-sm border-b border-outline-variant/30">
+        <h1 className="font-headline-lg text-headline-lg uppercase text-on-surface tracking-wide">
+          CONTROL DE ACCESO & CHECK-IN EN SALA
+        </h1>
+        <span className="font-body-sm text-body-sm text-outline">
+          Valida el ingreso de atletas digitando su DNI en el teclado táctico o lector de mostrador.
+        </span>
       </div>
 
       {/* BANNER CRÍTICO DE ALERTA EN SALA */}
@@ -198,35 +129,25 @@ export default function CheckIn({ onNavigate }) {
         <div className="w-full bg-tertiary-container text-on-tertiary-container p-space-md rounded-DEFAULT flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md shadow-[0_0_24px_rgba(199,83,2,0.45)]">
           <div className="flex items-start md:items-center gap-space-md">
             <div className="w-12 h-12 bg-on-tertiary-container/20 rounded-DEFAULT flex items-center justify-center shrink-0 animate-bounce">
-              <span className="material-symbols-outlined text-on-tertiary-container text-[30px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-                emergency
-              </span>
+              <span className="material-symbols-outlined text-[32px]">warning</span>
             </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-space-sm flex-wrap">
-                <span className="font-label-badge text-label-badge uppercase tracking-widest bg-on-tertiary-container/30 px-2 py-0.5 rounded-DEFAULT">
-                  PRIORIDAD ALTA // ASISTENCIA
-                </span>
-                <span className="font-data-mono text-data-mono text-on-tertiary-container text-[12px]">
-                  HACE 42 SEG • SALA DE PESO LIBRE
-                </span>
-              </div>
-              <span className="font-headline-md text-headline-md uppercase tracking-wide leading-tight mt-0.5">
-                ¡ALERTA EN SALA! ASISTENCIA REQUERIDA EN MÁQUINA #15 (PEC-DECK)
+            <div>
+              <span className="font-headline-md text-headline-md uppercase block">
+                ATLETA REPORTA ASISTENCIA URGENTE EN MÁQUINA #15
               </span>
-              <p className="font-body-sm text-body-sm text-on-tertiary-container/90">
-                Disparado por atleta <strong className="uppercase font-bold">Mateo Valdivia Roca</strong> (DNI: 72849102) mediante GymCore Mobile App.
-              </p>
+              <span className="font-body-sm text-body-sm opacity-90 block">
+                Spotting / ayuda técnica requerida de inmediato en sala de máquinas.
+              </span>
             </div>
           </div>
-          <div className="flex items-center gap-space-sm w-full md:w-auto shrink-0">
+          <div className="flex items-center gap-space-xs w-full md:w-auto">
             <button
               type="button"
-              onClick={() => alert('Mensaje transmitido a los coaches en piso mediante walkie-talkie / app.')}
-              className="flex-1 md:flex-none px-space-md py-2.5 bg-on-tertiary-container text-tertiary-container hover:bg-surface-container-lowest hover:text-on-surface font-headline-md text-headline-md uppercase tracking-wider rounded-DEFAULT shadow-md flex items-center justify-center gap-space-xs transition-all active:scale-95"
+              onClick={() => alert('Entrenador de piso notificado vía radio.')}
+              className="flex-1 md:flex-none px-space-md py-2.5 bg-on-tertiary-container text-tertiary-container font-label-badge text-label-badge uppercase tracking-wider rounded-DEFAULT flex items-center justify-center gap-space-xs transition-all active:scale-95 shadow-md"
             >
-              <span className="material-symbols-outlined text-[18px]">campaign</span>
-              <span>AVISAR AL COACH EN SALA</span>
+              <span className="material-symbols-outlined text-[18px]">directions_run</span>
+              <span>DESPACHAR COACH</span>
             </button>
             <button
               type="button"
@@ -258,7 +179,6 @@ export default function CheckIn({ onNavigate }) {
         <div className="col-span-12 lg:col-span-5 flex flex-col gap-space-md">
           <SemaphoreCard
             checkinData={checkinResult}
-            onForceOpen={handleForceOpen}
             onViewDetail={(id) => setSelectedAthleteId(id)}
           />
         </div>
@@ -283,4 +203,3 @@ export default function CheckIn({ onNavigate }) {
     </div>
   );
 }
-

@@ -5,6 +5,8 @@ import MobileHeader from '../../components/common/MobileHeader';
 export default function MemberCard() {
   const { user, authFetch } = useAuth();
   const [memberData, setMemberData] = useState(null);
+  const [promos, setPromos] = useState([]);
+  const [products, setProducts] = useState([]);
   const [showCoachModal, setShowCoachModal] = useState(false);
   const [selectedMachine, setSelectedMachine] = useState('Máquina #15 - Pec-Deck');
   const [selectedReason, setSelectedReason] = useState('Spot / Cuidado');
@@ -25,7 +27,28 @@ export default function MemberCard() {
         console.error('Error fetching member card:', e);
       }
     };
+
+    const fetchPromosAndProducts = async () => {
+      try {
+        const [resPromos, resProducts] = await Promise.all([
+          authFetch('/api/promociones'),
+          authFetch('/api/productos')
+        ]);
+        if (resPromos.ok) {
+          const dataP = await resPromos.json();
+          setPromos(dataP);
+        }
+        if (resProducts.ok) {
+          const dataProd = await resProducts.json();
+          setProducts(dataProd);
+        }
+      } catch (e) {
+        console.error('Error fetching promos/products for member:', e);
+      }
+    };
+
     fetchMemberInfo();
+    fetchPromosAndProducts();
   }, [user]);
 
   const handleSendCoachAlert = () => {
@@ -46,7 +69,7 @@ export default function MemberCard() {
   const progressPercent = memberData?.fidelity?.progressPercent || 75;
 
   return (
-    <div className="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen relative overflow-x-hidden pb-20">
+    <div className="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen relative overflow-x-hidden pb-24">
       <MobileHeader title="Carnet Digital" />
 
       <main className="flex flex-col relative w-full pt-20 px-gutter-mobile space-y-space-md">
@@ -168,29 +191,131 @@ export default function MemberCard() {
           </div>
         </div>
 
-        {/* PROMOS Y BENEFICIOS SOCIO */}
+        {/* PROMOS Y TARIFAS EXCLUSIVAS */}
         <div className="flex flex-col space-y-space-xs">
           <div className="flex items-center justify-between">
             <span className="font-label-badge text-label-badge text-on-surface uppercase tracking-wider flex items-center gap-1">
-              <span className="material-symbols-outlined text-[18px] text-primary">bolt</span> BENEFICIOS SOCIO
+              <span className="material-symbols-outlined text-[18px] text-primary">bolt</span> PLANES & PROMOCIONES ELEGIBLES
             </span>
-            <span className="font-data-mono text-[11px] text-outline">DESLIZA PARA VER &gt;</span>
+            <span className="font-data-mono text-[11px] text-outline">DESLIZA &gt;</span>
           </div>
 
           <div className="flex overflow-x-auto space-x-space-sm pb-2 pt-1 no-scrollbar">
-            <div className="flex-shrink-0 w-[84%] max-w-[320px] rounded-xl bg-surface-container p-space-md shadow-md flex flex-col justify-between border border-surface-container-high">
-              <div>
-                <span className="font-data-mono text-[11px] text-primary uppercase font-bold tracking-widest px-2 py-0.5 rounded bg-primary-container/20">
-                  30% OFF SUPLEMENTOS
-                </span>
-                <h3 className="font-headline-md text-headline-md text-on-surface uppercase mt-2 leading-tight">
-                  NUTRICIÓN TÁCTICA
-                </h3>
-                <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                  Descuento exclusivo en creatina monohidratada y proteínas aisladas en recepción.
-                </p>
+            {promos.length === 0 ? (
+              <div className="flex-shrink-0 w-full rounded-xl bg-surface-container p-space-md shadow-md flex items-center justify-center text-center border border-surface-container-high py-6">
+                <p className="font-body-sm text-on-surface-variant">No hay promociones especiales disponibles en este momento.</p>
               </div>
-            </div>
+            ) : (
+              promos.map((p) => (
+                <div
+                  key={p.id}
+                  className="flex-shrink-0 w-[84%] max-w-[320px] rounded-xl bg-surface-container overflow-hidden shadow-md flex flex-col justify-between border border-surface-container-high"
+                >
+                  {p.imagen_banner_url ? (
+                    <div className="w-full aspect-video overflow-hidden bg-surface-container-highest">
+                      <img
+                        src={p.imagen_banner_url}
+                        alt={p.nombre}
+                        className="w-full h-full object-cover"
+                        onError={(e) => { e.target.style.display = 'none'; }}
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-full aspect-video bg-surface-container-highest flex items-center justify-center text-outline">
+                      <span className="material-symbols-outlined text-[40px]">fitness_center</span>
+                    </div>
+                  )}
+
+                  <div className="p-space-md flex flex-col justify-between flex-1">
+                    <div>
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="font-data-mono text-[11px] text-primary uppercase font-bold tracking-widest px-2 py-0.5 rounded bg-primary-container/20">
+                          {p.tipo_duracion === 'MESES' ? `${p.duracion_valor} MESES` : `${p.duracion_valor} DÍAS`}
+                        </span>
+                        {p.es_tarifa_fija ? (
+                          <span className="font-data-mono text-[10px] text-tertiary uppercase font-bold">TARIFA FIJA</span>
+                        ) : (
+                          <span className="font-data-mono text-[10px] text-secondary uppercase font-bold">PROMO VOLÁTIL</span>
+                        )}
+                      </div>
+                      <h3 className="font-headline-md text-headline-md text-on-surface uppercase mt-2 leading-tight">
+                        {p.nombre}
+                      </h3>
+                      {p.filtro_publico !== 'TODOS' && (
+                        <p className="font-data-mono text-[11px] text-secondary mt-1">
+                          NIVEL: {p.filtro_publico}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-surface-container-highest flex items-center justify-between">
+                      <span className="font-data-mono text-[11px] text-outline uppercase">PRECIO FINAL</span>
+                      <span className="font-headline-md text-[20px] text-primary font-bold">
+                        S/ {parseFloat(p.precio).toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+
+        {/* TIENDA Y PRODUCTOS EN RECEPCIÓN */}
+        <div className="flex flex-col space-y-space-xs">
+          <div className="flex items-center justify-between">
+            <span className="font-label-badge text-label-badge text-on-surface uppercase tracking-wider flex items-center gap-1">
+              <span className="material-symbols-outlined text-[18px] text-secondary">inventory_2</span> TIENDA & SUPLEMENTOS
+            </span>
+            <span className="font-data-mono text-[11px] text-outline">EN RECEPCIÓN &gt;</span>
+          </div>
+
+          <div className="flex overflow-x-auto space-x-space-sm pb-2 pt-1 no-scrollbar">
+            {products.length === 0 ? (
+              <div className="flex-shrink-0 w-full rounded-xl bg-surface-container p-space-md shadow-md flex items-center justify-center text-center border border-surface-container-high py-6">
+                <p className="font-body-sm text-on-surface-variant">Catálogo de productos no disponible temporalmente.</p>
+              </div>
+            ) : (
+              products.map((prod) => (
+                <div
+                  key={prod.id}
+                  className="flex-shrink-0 w-[170px] rounded-xl bg-surface-container overflow-hidden shadow-md flex flex-col justify-between border border-surface-container-high"
+                >
+                  <div className="w-full h-28 bg-surface-container-highest flex items-center justify-center overflow-hidden">
+                    {prod.imagen_url ? (
+                      <img
+                        src={prod.imagen_url}
+                        alt={prod.nombre}
+                        className="w-full h-full object-cover"
+                        onError={(e) => { e.target.style.display = 'none'; }}
+                      />
+                    ) : (
+                      <span className="material-symbols-outlined text-outline text-[32px]">sports_martial_arts</span>
+                    )}
+                  </div>
+
+                  <div className="p-3 flex flex-col justify-between flex-1">
+                    <div>
+                      <span className="font-data-mono text-[10px] text-secondary font-bold uppercase tracking-wider">
+                        {prod.categoria || 'SUPLEMENTO'}
+                      </span>
+                      <h4 className="font-headline-md text-[13px] text-on-surface uppercase line-clamp-2 mt-0.5 leading-snug">
+                        {prod.nombre}
+                      </h4>
+                    </div>
+
+                    <div className="mt-3 pt-2 border-t border-surface-container-highest flex items-baseline justify-between">
+                      <span className="font-headline-md text-[15px] text-primary font-bold">
+                        S/ {parseFloat(prod.precio_venta).toFixed(2)}
+                      </span>
+                      <span className="font-data-mono text-[10px] text-on-surface-variant">
+                        {prod.stock} disp.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </main>
@@ -321,4 +446,3 @@ export default function MemberCard() {
     </div>
   );
 }
-
