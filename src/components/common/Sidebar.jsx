@@ -7,11 +7,16 @@ export default function Sidebar({ currentPath, navigate }) {
 
   const adminRoutes = [
     { name: 'Usuarios & Fidelidad', path: '/admin/usuarios', icon: 'military_tech' },
+    { name: 'Membresías & Promociones', path: '/admin/membresias-promociones', icon: 'card_membership' },
+    { name: 'Inventario Maestro', path: '/admin/productos', icon: 'inventory_2' },
+    { name: 'Cambios & Aprobaciones', path: '/admin/aprobaciones', icon: 'verified_user' },
     { name: 'Nuevo Usuario', path: '/admin/nuevo-usuario', icon: 'person_add' },
   ];
 
   const receptionRoutes = [
     { name: 'Control Acceso & Check-In', path: '/recepcion/checkin', icon: 'sensor_door' },
+    { name: 'Gestión de Membresías', path: '/recepcion/membresias', icon: 'card_membership' },
+    { name: 'Venta Rápida Productos', path: '/recepcion/productos', icon: 'point_of_sale' },
     { name: 'Lista de Atletas', path: '/recepcion/atletas', icon: 'groups' },
     { name: 'Agregar Miembro', path: '/recepcion/agregar-miembro', icon: 'person_add' },
   ];
@@ -53,4 +58,3 @@ export default function Sidebar({ currentPath, navigate }) {
     </aside>
   );
 }
-

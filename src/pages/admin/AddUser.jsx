@@ -20,41 +20,14 @@ export default function AddUser({ onNavigate }) {
 
   return (
     <div className="flex flex-col w-full pb-space-xl p-space-lg">
-      {/* Tactical Sub-Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
-        <div className="flex flex-col">
-          <div className="flex items-center gap-space-xs text-primary mb-1">
-            <span className="material-symbols-outlined text-[16px]">terminal</span>
-            <span className="font-data-mono text-[12px] tracking-widest uppercase">
-              MÓDULO DE ALTA RÁPIDA // NODO-SEC
-            </span>
-          </div>
-          <h1 className="font-headline-lg text-headline-lg uppercase tracking-wider text-on-surface m-0">
-            AGREGAR USUARIO NUEVO
-          </h1>
-          <p className="font-body-md text-on-surface-variant max-w-2xl mt-1">
-            Aprovisionamiento operacional según categoría de usuario. Seleccione el Tipo de Usuario mediante el selector
-            táctico superior para alternar los campos correspondientes.
-          </p>
-        </div>
-
-        {/* Live Telemetry */}
-        <div className="flex items-center gap-space-md bg-surface-container-low px-space-md py-space-sm rounded border-l-2 border-primary shadow-md border border-surface-container">
-          <div className="flex flex-col">
-            <span className="font-data-mono text-[10px] uppercase text-on-surface-variant">OPERADOR ACTIVO</span>
-            <span className="font-data-mono text-data-mono text-on-surface font-semibold">
-              {isAdmin ? 'ROOT_ADMIN_01' : 'RECEPCIONISTA_01'}
-            </span>
-          </div>
-          <div className="h-8 w-[1px] bg-outline-variant/40"></div>
-          <div className="flex flex-col">
-            <span className="font-data-mono text-[10px] uppercase text-on-surface-variant">ESTADO TÁCTICO</span>
-            <span className="flex items-center gap-1 font-data-mono text-[12px] text-primary">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
-              PROTOCOLO ACTIVO
-            </span>
-          </div>
-        </div>
+      {/* Header */}
+      <div className="flex flex-col mb-space-lg pb-space-sm border-b border-outline-variant/30">
+        <h1 className="font-headline-lg text-headline-lg uppercase tracking-wider text-on-surface m-0">
+          AGREGAR USUARIO NUEVO
+        </h1>
+        <p className="font-body-md text-on-surface-variant max-w-2xl mt-1">
+          Aprovisionamiento operacional según categoría de usuario.
+        </p>
       </div>
 
       {/* TOP TAB SELECTOR: TIPO: RECEPCIÓN vs TIPO: MIEMBRO */}

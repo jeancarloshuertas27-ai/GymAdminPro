@@ -8,6 +8,11 @@ import UserRoster from './pages/admin/UserRoster';
 import AthletesList from './pages/reception/AthletesList';
 import AddUser from './pages/admin/AddUser';
 import MemberCard from './pages/member/MemberCard';
+import MembershipPromos from './pages/admin/MembershipPromos';
+import ProductInventory from './pages/admin/ProductInventory';
+import ApprovalsPage from './pages/admin/ApprovalsPage';
+import MembershipOps from './pages/reception/MembershipOps';
+import QuickSales from './pages/reception/QuickSales';
 
 function MainRouter() {
   const { user } = useAuth();
@@ -62,9 +67,20 @@ function MainRouter() {
           {/* Admin Routes */}
           {isAdmin && (
             <>
-              {currentPath === '/admin/nuevo-usuario' ? (
+              {currentPath === '/admin/nuevo-usuario' && (
                 <AddUser onNavigate={navigate} />
-              ) : (
+              )}
+              {currentPath === '/admin/membresias-promociones' && (
+                <MembershipPromos />
+              )}
+              {currentPath === '/admin/productos' && (
+                <ProductInventory />
+              )}
+              {currentPath === '/admin/aprobaciones' && (
+                <ApprovalsPage />
+              )}
+              {(currentPath === '/admin/usuarios' ||
+                (!['/admin/nuevo-usuario', '/admin/membresias-promociones', '/admin/productos', '/admin/aprobaciones'].includes(currentPath))) && (
                 <UserRoster />
               )}
             </>
@@ -73,11 +89,20 @@ function MainRouter() {
           {/* Reception Routes */}
           {!isAdmin && (
             <>
-              {currentPath === '/recepcion/atletas' ? (
+              {currentPath === '/recepcion/atletas' && (
                 <AthletesList onNavigate={navigate} />
-              ) : currentPath === '/recepcion/agregar-miembro' ? (
+              )}
+              {currentPath === '/recepcion/agregar-miembro' && (
                 <AddUser onNavigate={navigate} />
-              ) : (
+              )}
+              {currentPath === '/recepcion/membresias' && (
+                <MembershipOps onNavigate={navigate} />
+              )}
+              {currentPath === '/recepcion/productos' && (
+                <QuickSales onNavigate={navigate} />
+              )}
+              {(currentPath === '/recepcion/checkin' ||
+                (!['/recepcion/atletas', '/recepcion/agregar-miembro', '/recepcion/membresias', '/recepcion/productos'].includes(currentPath))) && (
                 <CheckIn onNavigate={navigate} />
               )}
             </>
@@ -95,4 +120,3 @@ export default function App() {
     </AuthProvider>
   );
 }
-

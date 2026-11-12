@@ -13,7 +13,7 @@ export function AuthProvider({ children }) {
   });
 
   const [token, setToken] = useState(() => {
-    return localStorage.getItem('gymcore_token') || null;
+    return localStorage.getItem('gymcore_token') || localStorage.getItem('token') || null;
   });
 
   const [loading, setLoading] = useState(false);
@@ -36,6 +36,7 @@ export function AuthProvider({ children }) {
       setToken(data.token);
       localStorage.setItem('gymcore_user', JSON.stringify(data.user));
       localStorage.setItem('gymcore_token', data.token);
+      localStorage.setItem('token', data.token);
 
       return data.user;
     } finally {
@@ -58,16 +59,18 @@ export function AuthProvider({ children }) {
       setToken(null);
       localStorage.removeItem('gymcore_user');
       localStorage.removeItem('gymcore_token');
+      localStorage.removeItem('token');
     }
   };
 
   const authFetch = (url, options = {}) => {
     const headers = options.headers || {};
-    if (token) {
+    const activeToken = token || localStorage.getItem('gymcore_token') || localStorage.getItem('token');
+    if (activeToken) {
       if (headers instanceof Headers) {
-        headers.set('Authorization', `Bearer ${token}`);
+        headers.set('Authorization', `Bearer ${activeToken}`);
       } else {
-        headers['Authorization'] = `Bearer ${token}`;
+        headers['Authorization'] = `Bearer ${activeToken}`;
       }
     }
     return fetch(url, { ...options, headers });
@@ -80,9 +83,7 @@ export function AuthProvider({ children }) {
     login,
     logout,
     authFetch,
-    isAdmin: user?.rol === 'ADMINISTRADOR',
-    isReception: user?.rol === 'RECEPCIONISTA',
-    isMember: user?.rol === 'MIEMBRO',
+    setUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -91,8 +92,7 @@ export function AuthProvider({ children }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth debe usarse dentro de un AuthProvider');
+    throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 }
-

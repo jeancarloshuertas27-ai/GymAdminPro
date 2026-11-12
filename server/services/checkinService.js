@@ -94,11 +94,19 @@ export class CheckinService {
     `).all(limit);
 
     return rows.map(r => {
-      const timePart = r.timestamp ? r.timestamp.split(' ')[1] || r.timestamp : '';
+      // timestamp SQLite: 'YYYY-MM-DD HH:MM:SS' UTC (sin Z). Extraemos la parte de hora.
+      const timePart = r.timestamp ? r.timestamp.split(' ')[1] || '' : '';
       return {
         id: r.id,
-        hora: timePart ? timePart.substring(0, 8) : 'En vivo',
-        nombre: r.nombres && r.apellidos ? `${r.nombres} ${r.apellidos}` : `DNI: ${r.dni_ingresado}`,
+        timestamp: r.timestamp,
+        hora: timePart ? timePart.substring(0, 8) : '',
+        dni: r.dni_ingresado,
+        dni_ingresado: r.dni_ingresado,
+        nombres: r.nombres || '',
+        apellidos: r.apellidos || '',
+        nombre: r.nombres && r.apellidos
+          ? `${r.nombres} ${r.apellidos}`
+          : `DNI ${r.dni_ingresado}`,
         detalle: r.motivo || 'ACCESO REGISTRADO',
         resultado: r.resultado,
       };

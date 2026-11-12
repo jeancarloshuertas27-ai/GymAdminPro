@@ -42,9 +42,7 @@ export class UserCreationService {
       if (!currentUser || currentUser.rol !== 'ADMINISTRADOR') {
         throw new Error('Solo un Administrador puede registrar personal de Recepción.');
       }
-      if (!celular_respaldo || !domicilio) {
-        throw new Error('Celular de respaldo y Domicilio son obligatorios para personal de Recepción.');
-      }
+
     }
 
     // 3. Comprobar unicidad de DNI y username

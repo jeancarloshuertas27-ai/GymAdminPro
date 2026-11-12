@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatLocalTime } from '../../utils/formatTime';
 
 export default function LiveFeed({ items = [] }) {
   return (
@@ -38,11 +39,15 @@ export default function LiveFeed({ items = [] }) {
               pillText = 'DENEGADO';
             }
 
-            const athleteName = item.atleta
-              ? `${item.atleta.nombres} ${item.atleta.apellidos}`
-              : `DNI ${item.dni_ingresado}`;
+            // DNI exacto garantizado
+            const exactDni = item.dni || item.dni_ingresado || (item.atleta ? item.atleta.dni : '') || 'S/DNI';
+            const hasName = Boolean(item.nombres || (item.nombre && !item.nombre.startsWith('DNI')));
+            const displayName = hasName
+              ? (item.nombres ? `${item.nombres} ${item.apellidos || ''}`.trim() : item.nombre)
+              : `DNI ${exactDni}`;
 
-            const timeStr = item.created_at ? item.created_at.split('T')[1]?.substring(0, 8) : '19:42:01';
+            // Hora local exacta sincronizada con hora de reloj central
+            const timeStr = formatLocalTime(item.timestamp || item.hora || item.created_at);
 
             return (
               <div
@@ -52,19 +57,23 @@ export default function LiveFeed({ items = [] }) {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-space-xs truncate mr-2">
                     <span className={`w-2 h-2 rounded-full shrink-0 ${dotColor}`}></span>
-                    <span className="font-body-sm text-body-sm font-bold text-on-surface truncate">
-                      {athleteName}
-                    </span>
+                    <div className="flex flex-col truncate">
+                      <span className="font-body-sm text-body-sm font-bold text-on-surface truncate">
+                        {displayName}
+                      </span>
+                      {hasName && exactDni !== 'S/DNI' && (
+                        <span className="font-data-mono text-[10px] text-outline leading-tight">
+                          DNI: {exactDni}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  <span className="font-data-mono text-data-mono text-on-surface-variant text-[11px] shrink-0">
+                  <span className="font-data-mono text-data-mono text-on-surface-variant text-[11px] shrink-0 font-bold">
                     {timeStr}
                   </span>
                 </div>
-                <div className="flex items-center justify-between pl-3">
-                  <span className={`font-data-mono text-data-mono text-[10px] uppercase truncate ${pillColor}`}>
-                    {item.motivo || item.atleta?.planTag || 'CHECK-IN EN SALA'}
-                  </span>
-                  <span className={`font-label-badge text-label-badge text-[11px] shrink-0 ${pillColor}`}>
+                <div className="flex items-center justify-end pl-3">
+                  <span className={`font-label-badge text-label-badge text-[11px] shrink-0 font-bold ${pillColor}`}>
                     {pillText}
                   </span>
                 </div>
@@ -76,4 +85,3 @@ export default function LiveFeed({ items = [] }) {
     </div>
   );
 }
-

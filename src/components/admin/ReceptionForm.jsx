@@ -7,8 +7,8 @@ export default function ReceptionForm({ onSuccess }) {
   const [apellidos, setApellidos] = useState('');
   const [dni, setDni] = useState('');
   const [celular, setCelular] = useState('');
-  const [celularRespaldo, setCelularRespaldo] = useState('');
-  const [domicilio, setDomicilio] = useState('');
+  const [fotoFile, setFotoFile] = useState(null);
+  const [fotoPreview, setFotoPreview] = useState(null);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -25,6 +25,14 @@ export default function ReceptionForm({ onSuccess }) {
     setShowPassword(true);
   };
 
+  const handleFotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFotoFile(file);
+      setFotoPreview(URL.createObjectURL(file));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -37,10 +45,11 @@ export default function ReceptionForm({ onSuccess }) {
       formData.append('apellidos', apellidos);
       formData.append('dni', dni);
       formData.append('celular', celular);
-      formData.append('celular_respaldo', celularRespaldo);
-      formData.append('domicilio', domicilio);
       formData.append('username', username);
       formData.append('password', password);
+      if (fotoFile) {
+        formData.append('foto', fotoFile);
+      }
 
       const res = await authFetch('/api/users', {
         method: 'POST',
@@ -65,8 +74,8 @@ export default function ReceptionForm({ onSuccess }) {
     setApellidos('');
     setDni('');
     setCelular('');
-    setCelularRespaldo('');
-    setDomicilio('');
+    setFotoFile(null);
+    setFotoPreview(null);
     setUsername('');
     setPassword('');
     setError(null);
@@ -79,7 +88,7 @@ export default function ReceptionForm({ onSuccess }) {
           <div className="flex items-center gap-space-xs">
             <span className="material-symbols-outlined text-secondary text-[22px]">badge</span>
             <span className="font-headline-md text-headline-md uppercase text-on-surface tracking-wider">
-              Formulario de Recepción // Registro de Staff
+              Formulario de Recepción // Registro de Personal
             </span>
           </div>
           <span className="font-data-mono text-[11px] text-secondary uppercase bg-secondary/10 px-2 py-0.5 rounded font-bold">
@@ -93,6 +102,44 @@ export default function ReceptionForm({ onSuccess }) {
             <span>{error}</span>
           </div>
         )}
+
+        {/* Fila superior: Subida de Foto */}
+        <div className="mb-space-md flex flex-col sm:flex-row items-center gap-space-md p-space-md bg-surface-container-lowest rounded border border-surface-container-high">
+          <div className="w-20 h-20 rounded-full overflow-hidden bg-surface-container-high flex items-center justify-center border-2 border-secondary shrink-0">
+            {fotoPreview ? (
+              <img src={fotoPreview} alt="Foto Preview" className="w-full h-full object-cover" />
+            ) : (
+              <span className="material-symbols-outlined text-[36px] text-outline-variant">person</span>
+            )}
+          </div>
+          <div className="flex flex-col gap-1 w-full sm:w-auto">
+            <label className="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">
+              Foto de Perfil del Personal
+            </label>
+            <div className="flex items-center gap-space-sm">
+              <label
+                htmlFor="receptionPhotoInput"
+                className="px-space-md py-2 bg-surface-container-high hover:bg-surface-bright text-on-surface rounded font-data-mono text-body-sm uppercase flex items-center gap-1.5 cursor-pointer transition-colors border border-outline-variant/30"
+              >
+                <span className="material-symbols-outlined text-[18px] text-secondary">add_a_photo</span>
+                <span>{fotoFile ? 'Cambiar Foto' : 'Subir Foto'}</span>
+                <input
+                  id="receptionPhotoInput"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFotoChange}
+                  className="hidden"
+                />
+              </label>
+              {fotoFile && (
+                <span className="font-data-mono text-[11px] text-outline truncate max-w-[200px]">
+                  {fotoFile.name}
+                </span>
+              )}
+            </div>
+            <span className="font-data-mono text-[10px] text-outline">Formato JPG, PNG o WEBP (Máx. 5MB)</span>
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-space-md">
           {/* Nombres */}
@@ -130,7 +177,7 @@ export default function ReceptionForm({ onSuccess }) {
                 className="w-full bg-surface-container-lowest text-on-surface px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline-variant/60 border border-surface-container-high"
               />
               <span className="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">
-                badge
+                person
               </span>
             </div>
           </div>
@@ -138,21 +185,20 @@ export default function ReceptionForm({ onSuccess }) {
           {/* DNI */}
           <div className="flex flex-col gap-1">
             <label className="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">
-              DNI <span className="text-error">*</span>
+              DNI (8 Dígitos) <span className="text-error">*</span>
             </label>
             <div className="relative">
               <input
                 type="text"
                 required
                 maxLength={8}
-                pattern="[0-9]{8}"
                 value={dni}
-                onChange={(e) => setDni(e.target.value.replace(/[^0-9]/g, ''))}
-                placeholder="8 dígitos (p. ej. 74839201)"
+                onChange={(e) => setDni(e.target.value.replace(/\D/g, ''))}
+                placeholder="72849102"
                 className="w-full bg-surface-container-lowest text-on-surface font-data-mono px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline-variant/60 border border-surface-container-high"
               />
               <span className="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">
-                fingerprint
+                badge
               </span>
             </div>
           </div>
@@ -160,7 +206,7 @@ export default function ReceptionForm({ onSuccess }) {
           {/* Celular */}
           <div className="flex flex-col gap-1">
             <label className="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">
-              Número Celular <span className="text-error">*</span>
+              Número de Celular <span className="text-error">*</span>
             </label>
             <div className="relative">
               <input
@@ -168,51 +214,11 @@ export default function ReceptionForm({ onSuccess }) {
                 required
                 value={celular}
                 onChange={(e) => setCelular(e.target.value)}
-                placeholder="+51 987 654 321"
+                placeholder="987 654 321"
                 className="w-full bg-surface-container-lowest text-on-surface font-data-mono px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline-variant/60 border border-surface-container-high"
               />
               <span className="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">
-                phone_iphone
-              </span>
-            </div>
-          </div>
-
-          {/* Celular de respaldo */}
-          <div className="flex flex-col gap-1">
-            <label className="font-data-mono text-[11px] uppercase tracking-wider text-tertiary">
-              Número Celular de respaldo <span className="text-tertiary">*</span>
-            </label>
-            <div className="relative">
-              <input
-                type="tel"
-                required
-                value={celularRespaldo}
-                onChange={(e) => setCelularRespaldo(e.target.value)}
-                placeholder="+51 912 345 678 (Familiar / Emergencia)"
-                className="w-full bg-surface-container-lowest text-on-surface font-data-mono px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-tertiary placeholder:text-outline-variant/60 border border-surface-container-high"
-              />
-              <span className="material-symbols-outlined absolute right-3 top-3 text-[18px] text-tertiary">
-                contact_phone
-              </span>
-            </div>
-          </div>
-
-          {/* Domicilio */}
-          <div className="flex flex-col gap-1">
-            <label className="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">
-              Domicilio <span className="text-error">*</span>
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                required
-                value={domicilio}
-                onChange={(e) => setDomicilio(e.target.value)}
-                placeholder="Av. Los Ingenieros 340, Dpto 402 - Santiago de Surco"
-                className="w-full bg-surface-container-lowest text-on-surface px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline-variant/60 border border-surface-container-high"
-              />
-              <span className="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">
-                home_pin
+                smartphone
               </span>
             </div>
           </div>
@@ -277,7 +283,7 @@ export default function ReceptionForm({ onSuccess }) {
         <div className="flex items-center justify-between pt-space-lg mt-space-md border-t border-outline-variant/30">
           <div className="flex items-center gap-2 text-on-surface-variant font-data-mono text-[11px]">
             <span className="material-symbols-outlined text-[16px] text-secondary">info</span>
-            <span>Todos los campos de personal son requeridos para la habilitación del nodo de caja.</span>
+            <span>Campos para personal de recepción: Nombres, Apellidos, DNI, Celular, Foto, Usuario y Contraseña.</span>
           </div>
 
           <div className="flex items-center gap-space-sm">
@@ -303,4 +309,3 @@ export default function ReceptionForm({ onSuccess }) {
     </form>
   );
 }
-

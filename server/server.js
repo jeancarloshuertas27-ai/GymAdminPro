@@ -5,6 +5,10 @@ import { fileURLToPath } from 'url';
 import authRoutes from './routes/auth.js';
 import usersRoutes from './routes/users.js';
 import checkinRoutes from './routes/checkin.js';
+import promocionesRoutes from './routes/promociones.js';
+import productosRoutes from './routes/productos.js';
+import membresiasRoutes from './routes/membresias.js';
+import aprobacionesRoutes from './routes/aprobaciones.js';
 import { authenticate } from './utils/authMiddleware.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -19,7 +23,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Servir archivos subidos (fotos y vouchers)
+// Servir archivos subidos (fotos, banners y vouchers)
 app.use('/uploads', express.static(path.join(rootDir, 'uploads')));
 
 // Middleware de extracción de identidad
@@ -39,6 +43,10 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/checkin', checkinRoutes);
+app.use('/api/promociones', promocionesRoutes);
+app.use('/api/productos', productosRoutes);
+app.use('/api/membresias', membresiasRoutes);
+app.use('/api/aprobaciones', aprobacionesRoutes);
 
 // Manejo centralizado de errores
 app.use((err, req, res, next) => {
@@ -55,4 +63,3 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 export default app;
-

@@ -77,8 +77,6 @@ describe('User Creation API - Integration (US3)', () => {
     formData.append('apellidos', 'No Autorizado');
     formData.append('dni', '88887777');
     formData.append('celular', '999888777');
-    formData.append('celular_respaldo', '999111222');
-    formData.append('domicilio', 'Av. Test 123');
     formData.append('username', '@recep_hacker');
     formData.append('password', 'Pass123!');
 
@@ -120,5 +118,36 @@ describe('User Creation API - Integration (US3)', () => {
     expect(res.status).toBe(400);
     const data = await res.json();
     expect(data.error).toContain('voucher');
+  });
+
+  it('debe permitir al Administrador registrar personal de recepción solo con datos esenciales y foto', async () => {
+    const testDni = '88223344';
+    db.prepare('DELETE FROM usuarios WHERE dni = ?').run(testDni);
+
+    const formData = new FormData();
+    formData.append('tipo', 'reception');
+    formData.append('nombres', 'Valeria');
+    formData.append('apellidos', 'Torres');
+    formData.append('dni', testDni);
+    formData.append('celular', '912345678');
+    formData.append('username', '@recep_valeria');
+    formData.append('password', 'RecepPass123!');
+
+    const blob = new Blob(['fake photo'], { type: 'image/jpeg' });
+    formData.append('foto', blob, 'foto_valeria.jpg');
+
+    const res = await fetch(`${baseUrl}/api/users`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer uid_${adminUser.id}_123`,
+      },
+      body: formData,
+    });
+
+    expect(res.status).toBe(201);
+    const data = await res.json();
+    expect(data.success).toBe(true);
+    expect(data.user.rol).toBe('RECEPCIONISTA');
+    expect(data.user.dni).toBe(testDni);
   });
 });

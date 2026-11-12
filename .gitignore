@@ -39,6 +39,8 @@ lerna-debug.log*
 uploads/*
 !uploads/photos/.gitkeep
 !uploads/vouchers/.gitkeep
+!uploads/banners/.gitkeep
+!uploads/productos/.gitkeep
 
 # Temporales y caché
 .temp/
@@ -56,4 +58,3 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
-

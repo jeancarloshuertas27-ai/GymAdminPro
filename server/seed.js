@@ -1,15 +1,22 @@
 import db from './db.js';
 import bcrypt from 'bcryptjs';
 
-console.log('🌱 Sembrando base de datos GymAdminPro...');
+console.log('🌱 Sembrando base de datos GymAdminPro (con Feature 002)...');
 
 // Limpiar tablas para un seed limpio
 db.exec(`
+  DELETE FROM solicitudes_membresia;
+  DELETE FROM ventas_productos;
+  DELETE FROM productos;
+  DELETE FROM promociones;
   DELETE FROM checkins;
   DELETE FROM fidelidad;
   DELETE FROM membresias;
   DELETE FROM usuarios;
-  DELETE FROM sqlite_sequence WHERE name IN ('usuarios', 'membresias', 'fidelidad', 'checkins');
+  DELETE FROM sqlite_sequence WHERE name IN (
+    'usuarios', 'membresias', 'fidelidad', 'checkins', 
+    'promociones', 'productos', 'ventas_productos', 'solicitudes_membresia'
+  );
 `);
 
 const insertUser = db.prepare(`
@@ -30,6 +37,16 @@ const insertFidelidad = db.prepare(`
 const insertCheckin = db.prepare(`
   INSERT INTO checkins (usuario_id, dni_ingresado, timestamp, resultado, operador_id, motivo)
   VALUES (?, ?, ?, ?, ?, ?)
+`);
+
+const insertPromocion = db.prepare(`
+  INSERT INTO promociones (tipo, nombre, duracion_valor, duracion_unidad, precio, fecha_limite, publico_objetivo, banner_url, activo)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+`);
+
+const insertProducto = db.prepare(`
+  INSERT INTO productos (sku, nombre, descripcion, precio_venta, precio_costo, stock, categoria, imagen_url, activo)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
 `);
 
 // 1. Crear Administrador
@@ -73,6 +90,23 @@ const subMonths = (d, m) => new Date(d.getFullYear(), d.getMonth() - m, d.getDat
 // 3. Crear Atletas de prueba
 const athletes = [
   {
+    nombres: 'Mateo',
+    apellidos: 'Valdivia Roca',
+    dni: '72849102', // DNI de las maquetas de Stitch
+    username: '@mateo_val',
+    pass: 'Atleta2026!',
+    celular: '+51 987 654 321',
+    fotoUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
+    planTag: 'PLAN ANUAL MUTACIÓN',
+    rutina: 'FUERZA & EMPUJE PUSH DAY',
+    estado: 'ACTIVO',
+    expDays: 48,
+    regMonthsAgo: 9,
+    nivel: 'MUTANDO',
+    tipoPago: 'TRANSFERENCIA',
+    nroOp: 'OP-983142'
+  },
+  {
     nombres: 'Renzo',
     apellidos: 'Almeyda Gómez',
     dni: '74892103',
@@ -106,23 +140,6 @@ const athletes = [
     nroOp: 'OP-89123'
   },
   {
-    nombres: 'Diego',
-    apellidos: 'Guzmán Prado',
-    dni: '72849102',
-    username: '@dguzman',
-    pass: 'IronSpartan_44',
-    celular: '+51 987 654 321',
-    fotoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    planTag: 'PLAN ANUAL TITANIUM',
-    rutina: 'HIPERTROFIA & FUERZA - PUSH DAY',
-    estado: 'ACTIVO',
-    expDays: 48,
-    regMonthsAgo: 9,
-    nivel: 'MUTANDO',
-    tipoPago: 'TRANSFERENCIA',
-    nroOp: 'OP-983142'
-  },
-  {
     nombres: 'Andrés',
     apellidos: 'Mejía Loyola',
     dni: '71220944',
@@ -133,25 +150,9 @@ const athletes = [
     planTag: 'PLAN MENSUAL BÁSICO',
     rutina: 'FULLBODY BÁSICO',
     estado: 'VENCIDO',
-    expDays: -45, // Vencido hace 45 días (PURGABLE >30d)
+    expDays: -45, // Vencido hace 45 días
     regMonthsAgo: 3,
     nivel: 'NOVATO',
-    tipoPago: 'EFECTIVO'
-  },
-  {
-    nombres: 'Mateo',
-    apellidos: 'Valdivia Roca',
-    dni: '72849105',
-    username: '@mateo_val',
-    pass: 'Atleta2026!',
-    celular: '+51 991 760 213',
-    fotoUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
-    planTag: 'VIP ANUAL',
-    rutina: 'FUERZA & EMPUJE PUSH DAY',
-    estado: 'ACTIVO',
-    expDays: 90,
-    regMonthsAgo: 11,
-    nivel: 'MUTANDO',
     tipoPago: 'EFECTIVO'
   },
   {
@@ -166,7 +167,7 @@ const athletes = [
     rutina: 'Powerlifting Bloque 2 // Pico Máximo',
     estado: 'ACTIVO',
     expDays: 161,
-    regMonthsAgo: 50, // > 4 años
+    regMonthsAgo: 50,
     nivel: 'ANIMAL',
     tipoPago: 'TRANSFERENCIA',
     nroOp: 'OP-441029'
@@ -218,10 +219,10 @@ for (const a of athletes) {
   );
 }
 
-// 4. Sembrar algunos check-ins previos para el feed
-if (athleteIds['@dguzman']) {
+// 4. Sembrar Check-ins previos
+if (athleteIds['@mateo_val']) {
   insertCheckin.run(
-    athleteIds['@dguzman'],
+    athleteIds['@mateo_val'],
     '72849102',
     subDays(now, 0) + ' 19:42:01',
     'VERDE_AUTORIZADO',
@@ -230,27 +231,119 @@ if (athleteIds['@dguzman']) {
   );
 }
 
-if (athleteIds['@carla_fit']) {
-  insertCheckin.run(
-    athleteIds['@carla_fit'],
-    '70918234',
-    subDays(now, 0) + ' 19:38:15',
-    'NARANJA_AVISO',
-    recepId,
-    'FALTAN 8 DÍAS (AVISO)'
+// 5. Sembrar Promociones y Precios Maestros (Feature 002)
+insertPromocion.run(
+  'PROMOCION_VOLATIL',
+  'Plan Anual Mutación 2025',
+  12,
+  'MESES',
+  899.00,
+  '2026-12-31',
+  'MUTANDO',
+  'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80',
+  1
+);
+
+insertPromocion.run(
+  'PROMOCION_VOLATIL',
+  'Trimestre Hipertrofia',
+  3,
+  'MESES',
+  320.00,
+  '2026-11-30',
+  'TODOS',
+  'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80',
+  1
+);
+
+insertPromocion.run(
+  'TARIFA_FIJA',
+  'Pase Fijo 1 Mes',
+  30,
+  'DIAS',
+  120.00,
+  null,
+  'TODOS',
+  'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=800&q=80',
+  1
+);
+
+// 6. Sembrar Productos e Inventario (Feature 002)
+const productosSeed = [
+  {
+    sku: 'SKU-PROT-01',
+    nombre: 'Whey Isolate 2kg Gold',
+    descripcion: 'Fórmula de máxima pureza microfiltrada con aminoácidos ramificados para hipertrofia y recuperación muscular acelerada.',
+    precio_venta: 249.00,
+    precio_costo: 160.00,
+    stock: 14,
+    categoria: 'SUPLEMENTOS',
+    imagen_url: 'https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    sku: 'SKU-CREA-08',
+    nombre: 'Creatina Creapure 300g',
+    descripcion: 'Monohidrato de creatina patentado de grado alemán. Incremento comprobado de potencia explosiva y ATP celular.',
+    precio_venta: 115.00,
+    precio_costo: 70.00,
+    stock: 22,
+    categoria: 'SUPLEMENTOS',
+    imagen_url: 'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    sku: 'SKU-HYDR-03',
+    nombre: 'Bebida Isotónica Electrolitos 500ml',
+    descripcion: 'Fórmula de recarga iónica rápida con sodio, potasio y magnesio para evitar calambres y deshidratación intensa.',
+    precio_venta: 10.00,
+    precio_costo: 4.50,
+    stock: 31,
+    categoria: 'BEBIDAS',
+    imagen_url: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    sku: 'SKU-GEAR-12',
+    nombre: 'Shaker Inox 900ml',
+    descripcion: 'Acero inoxidable quirúrgico con cierre hermético a prueba de fugas y rejilla mezcladora de disolución rápida.',
+    precio_venta: 79.00,
+    precio_costo: 34.00,
+    stock: 18,
+    categoria: 'ACCESORIOS',
+    imagen_url: 'https://images.unsplash.com/photo-1570824104453-508955ab713e?auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    sku: 'SKU-SNK-04',
+    nombre: 'Barra Proteica Quest Crunch 60g',
+    descripcion: '20g de proteína aislada, 1g de azúcar. Reposición solicitada al proveedor logístico.',
+    precio_venta: 14.00,
+    precio_costo: 8.20,
+    stock: 0, // Stock agotado obligatorio para pruebas visuales
+    categoria: 'SNACKS',
+    imagen_url: 'https://images.unsplash.com/photo-1622484216854-8e11a2f6460f?auto=format&fit=crop&w=600&q=80'
+  },
+  {
+    sku: 'SKU-GEAR-09',
+    nombre: 'Cinturón de Levantamiento Cuero 10mm',
+    descripcion: 'Cuero curtido multicapa con hebilla de palanca de liberación rápida para sentadilla pesada y despegue.',
+    precio_venta: 320.00,
+    precio_costo: 195.00,
+    stock: 0, // Stock agotado obligatorio para pruebas visuales
+    categoria: 'ACCESORIOS',
+    imagen_url: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80'
+  }
+];
+
+for (const p of productosSeed) {
+  insertProducto.run(
+    p.sku,
+    p.nombre,
+    p.descripcion,
+    p.precio_venta,
+    p.precio_costo,
+    p.stock,
+    p.categoria,
+    p.imagen_url,
+    1
   );
 }
 
-if (athleteIds['@andres_m']) {
-  insertCheckin.run(
-    athleteIds['@andres_m'],
-    '71220944',
-    subDays(now, 0) + ' 19:31:54',
-    'ROJO_DENEGADO',
-    recepId,
-    'VENCIDO HACE 45 DÍAS'
-  );
-}
-
-console.log('✅ Base de datos sembrada con éxito.');
-
+console.log('✅ Base de datos sembrada con éxito (incluye usuarios, promociones y productos).');
