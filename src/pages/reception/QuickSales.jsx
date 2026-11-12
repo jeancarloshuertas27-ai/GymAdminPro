@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import SellProductModal from '../../components/modals/SellProductModal';
 
 export default function QuickSales() {
+  const { authFetch } = useAuth();
   const [productos, setProductos] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,10 +14,7 @@ export default function QuickSales() {
 
   const fetchVentasTurno = async () => {
     try {
-      const token = localStorage.getItem('gymcore_token') || localStorage.getItem('token');
-      const res = await fetch('/api/productos/ventas-turno', {
-        headers: token ? { Authorization: `Bearer ${token}` } : {}
-      });
+      const res = await authFetch('/api/productos/ventas-turno');
       if (res.ok) {
         const data = await res.json();
         setVentasTurno(data.total_ventas || 0);
@@ -27,12 +26,11 @@ export default function QuickSales() {
 
   const fetchProductos = async () => {
     try {
-      const token = localStorage.getItem('gymcore_token') || localStorage.getItem('token');
-      const res = await fetch('/api/productos', {
-        headers: token ? { Authorization: `Bearer ${token}` } : {}
-      });
-      const data = await res.json();
-      setProductos(data);
+      const res = await authFetch('/api/productos');
+      if (res.ok) {
+        const data = await res.json();
+        setProductos(data);
+      }
     } catch (err) {
       console.error('Error cargando catálogo POS:', err);
     }

@@ -79,14 +79,14 @@ export default function UserRoster() {
       return;
     }
     try {
-      const res = await authFetch(`/api/users/${id}`, {
+      const res = await authFetch(`/api/users/${id}/inactivo`, {
         method: 'DELETE',
       });
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.error || 'Error al eliminar usuario.');
       }
-      alert('Atleta eliminado permanentemente de la base de datos.');
+      alert('Atleta inactivo eliminado permanentemente de la base de datos.');
       fetchUsers();
     } catch (err) {
       alert(err.message);
@@ -308,7 +308,7 @@ export default function UserRoster() {
                       <td className="py-4 px-space-md">
                         <div className="inline-flex items-center gap-2 bg-surface-container-high px-space-sm py-1 rounded">
                           <span className="font-data-mono text-xs">
-                            {isRevealed ? 'Pass2026!#' : '••••••••••••'}
+                            {isRevealed ? (u.password_visible || u.password_plain || 'Atleta2026!') : '••••••••••••'}
                           </span>
                           <button
                             type="button"
@@ -324,14 +324,23 @@ export default function UserRoster() {
                       </td>
                       <td className="py-4 px-space-lg text-right">
                         <div className="inline-flex items-center gap-space-xs">
-                          {u.canDelete && (
+                          {u.canDelete || u.puede_eliminar_inactivo ? (
                             <button
                               type="button"
                               onClick={() => handleDeleteUser(u.id, `${u.apellidos}, ${u.nombres}`)}
                               className="px-space-sm py-1.5 rounded bg-error-container hover:bg-error text-on-error font-label-badge text-label-badge tracking-wider uppercase transition-all flex items-center gap-1 cursor-pointer shadow-sm"
-                              title="Atleta con >30 días de vencimiento (Purgable de SQLite)"
+                              title="Atleta con >30 días de vencimiento (Eliminar Usuario Inactivo)"
                             >
                               <span className="material-symbols-outlined text-[14px]">delete</span> ELIMINAR
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              disabled
+                              className="px-space-sm py-1.5 rounded bg-surface-container text-on-surface-variant/40 font-label-badge text-label-badge tracking-wider uppercase flex items-center gap-1 cursor-not-allowed opacity-50"
+                              title="Solo se activa si el atleta tiene más de 1 mes (30 días) de vencida la membresía"
+                            >
+                              <span className="material-symbols-outlined text-[14px]">lock</span> ELIMINAR
                             </button>
                           )}
                           <button

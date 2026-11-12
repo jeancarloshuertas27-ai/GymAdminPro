@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 
-export default function Header({ role = 'ADMINISTRADOR', alertMessage = null }) {
+export default function Header({ role = 'ADMINISTRADOR', alertMessage = null, onLogout }) {
   const { user, logout } = useAuth();
   const [time, setTime] = useState('');
 
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
-      setTime(now.toTimeString().split(' ')[0] + ' UTC');
+      setTime(now.toLocaleTimeString('es-PE', { hour12: false }));
     };
     updateTime();
     const timer = setInterval(updateTime, 1000);
@@ -16,6 +16,7 @@ export default function Header({ role = 'ADMINISTRADOR', alertMessage = null }) 
   }, []);
 
   const isAdmin = role === 'ADMINISTRADOR';
+  const handleLogout = onLogout || logout;
 
   return (
     <header className="fixed top-0 left-0 right-0 h-16 z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.5)]">
@@ -50,7 +51,7 @@ export default function Header({ role = 'ADMINISTRADOR', alertMessage = null }) 
         <div className="flex items-center gap-space-lg">
           <div className="hidden md:flex items-center gap-space-xs font-data-mono text-data-mono text-primary bg-surface-container-high px-space-md py-1 rounded">
             <span className="material-symbols-outlined text-[16px]">schedule</span>
-            <span>{time || '23:42:10 UTC'}</span>
+            <span>{time}</span>
           </div>
 
           <div className="flex items-center gap-space-sm pl-space-sm">
@@ -59,13 +60,13 @@ export default function Header({ role = 'ADMINISTRADOR', alertMessage = null }) 
                 {user ? `${user.nombres} ${user.apellidos}` : 'Operador'}
               </p>
               <p className="font-data-mono text-[11px] leading-tight text-on-surface-variant">
-                {isAdmin ? 'ROOT_ACCESS' : 'RECEPCIONISTA // TURNO B'}
+                {isAdmin ? 'ROOT_ACCESS' : 'RECEPCIONISTA // TURNO ACTIVO'}
               </p>
             </div>
             <div
-              className="w-8 h-8 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:ring-2 hover:ring-primary-container"
+              className="w-8 h-8 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:ring-2 hover:ring-primary-container transition-all"
               title="Cerrar sesión"
-              onClick={logout}
+              onClick={handleLogout}
             >
               <span className="material-symbols-outlined text-on-primary text-[18px]">logout</span>
             </div>
@@ -75,4 +76,3 @@ export default function Header({ role = 'ADMINISTRADOR', alertMessage = null }) 
     </header>
   );
 }
-

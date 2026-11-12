@@ -19,10 +19,11 @@
 - **Instalar dependencias**: `npm install`
 - **Iniciar entorno local completo**: `npm run dev`
   - Inicia concurrentemente el servidor backend SQLite con auto-reload (`node --watch server/server.js` en `http://localhost:3001`) y el servidor frontend Vite (`http://localhost:5173`).
-  - Los 3 portales operan de manera independiente a través de sus rutas y accesos dedicados:
-    - **Sitio Administrador**: `/admin` (Login exclusivo para Administrador)
-    - **Sitio Recepción**: `/recepcion` (Login exclusivo para Recepción)
-    - **Sitio Miembro**: `/miembro` (Login exclusivo para Miembro / Carnet Móvil)
+  - Los 3 portales operan de manera independiente a través de sus URLs y accesos dedicados:
+    - **Sitio Administrador**: `http://localhost:5173/admin` (Login exclusivo para Administrador)
+    - **Sitio Recepción**: `http://localhost:5173/recepcion` (Login exclusivo para Recepción)
+    - **Sitio Miembro**: `http://localhost:5173/miembro` (Login exclusivo para Miembro / Carnet Móvil)
+    - **Selector Táctico de Portales**: `http://localhost:5173/` (Landing de selección rápida de portal)
 - **Ejecutar tests**: `npm test`
 - **Compilación / Build**: `npm run build`
 

@@ -4,7 +4,8 @@ import ReceptionForm from '../../components/admin/ReceptionForm';
 import MemberForm from '../../components/admin/MemberForm';
 
 export default function AddUser({ onNavigate }) {
-  const { isAdmin } = useAuth();
+  const { user, activePortal } = useAuth();
+  const isAdmin = user?.rol === 'ADMINISTRADOR' || activePortal === 'admin' || window.location.pathname.startsWith('/admin');
   const [activeType, setActiveType] = useState('member'); // default to member
   const [toast, setToast] = useState(null);
 

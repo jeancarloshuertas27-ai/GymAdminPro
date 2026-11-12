@@ -66,6 +66,16 @@ router.put('/:id', requireAuth, (req, res) => {
   }
 });
 
+// DELETE /api/users/:id/inactivo - Purga física de SQLite (>30d vencido, solo Admin)
+router.delete('/:id/inactivo', requireAuth, requireRole(['ADMINISTRADOR']), (req, res) => {
+  try {
+    const result = UserService.deleteUser(req.params.id, req.user);
+    res.json(result);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
 // DELETE /api/users/:id - Purga física de SQLite (>30d vencido, solo Admin)
 router.delete('/:id', requireAuth, requireRole(['ADMINISTRADOR']), (req, res) => {
   try {

@@ -5,9 +5,8 @@ import { requireAuth } from '../utils/authMiddleware.js';
 
 const router = Router();
 
-// POST /api/auth/login
-router.post('/login', (req, res) => {
-  const { username, password } = req.body;
+function processLogin(req, res, targetPortal = null) {
+  const { username, password, portal = targetPortal } = req.body;
 
   if (!username || !password) {
     return res.status(400).json({ error: 'Debe ingresar nombre de usuario y contraseña.' });
@@ -25,7 +24,19 @@ router.post('/login', (req, res) => {
     return res.status(401).json({ error: 'Credenciales inválidas. Verifique su usuario y contraseña.' });
   }
 
-  let redirectTo = '/admin/usuarios';
+  // Validación estricta por portal
+  const activePortal = portal || targetPortal;
+  if (activePortal === 'admin' && user.rol !== 'ADMINISTRADOR') {
+    return res.status(403).json({ error: 'Acceso denegado. Este portal es exclusivo para Administradores.' });
+  }
+  if (activePortal === 'recepcion' && user.rol !== 'RECEPCIONISTA') {
+    return res.status(403).json({ error: 'Acceso denegado. Este portal es exclusivo para personal de Recepción.' });
+  }
+  if (activePortal === 'miembro' && user.rol !== 'MIEMBRO') {
+    return res.status(403).json({ error: 'Acceso denegado. Este portal es exclusivo para Miembros del gimnasio.' });
+  }
+
+  let redirectTo = '/admin/dashboard';
   if (user.rol === 'RECEPCIONISTA') {
     redirectTo = '/recepcion/checkin';
   } else if (user.rol === 'MIEMBRO') {
@@ -47,6 +58,24 @@ router.post('/login', (req, res) => {
       redirectTo,
     },
   });
+}
+
+// POST /api/auth/login
+router.post('/login', (req, res) => {
+  processLogin(req, res);
+});
+
+// Endpoints dedicados por portal
+router.post('/login/admin', (req, res) => {
+  processLogin(req, res, 'admin');
+});
+
+router.post('/login/recepcion', (req, res) => {
+  processLogin(req, res, 'recepcion');
+});
+
+router.post('/login/miembro', (req, res) => {
+  processLogin(req, res, 'miembro');
 });
 
 // POST /api/auth/logout
@@ -60,4 +89,3 @@ router.get('/me', requireAuth, (req, res) => {
 });
 
 export default router;
-

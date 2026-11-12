@@ -10,7 +10,7 @@ export class UserService {
 
     // 1. Obtener métricas globales
     const allUsers = db.prepare(`
-      SELECT u.id, u.rol, u.apellidos, u.nombres, u.dni, u.username, u.celular, u.foto_url,
+      SELECT u.id, u.rol, u.apellidos, u.nombres, u.dni, u.username, u.password_plain, u.celular, u.foto_url,
              m.fecha_inicio, m.fecha_vencimiento, m.plan_tag, m.rutina_asignada,
              f.nivel_actual, f.fecha_inscripcion_original
       FROM usuarios u
@@ -43,22 +43,28 @@ export class UserService {
 
       return {
         id: user.id,
+        rol: user.rol,
         apellidos: user.apellidos,
         nombres: user.nombres,
         dni: user.dni,
         username: isAdmin ? user.username : null, // Oculto para no-admins
-        passwordRaw: isAdmin ? '••••••••••••' : null, // Solo Admin puede revelar
+        password_visible: isAdmin ? (user.password_plain || 'Atleta2026!') : null, // Visible para soporte admin
+        passwordRaw: isAdmin ? (user.password_plain || 'Atleta2026!') : null,
         celular: user.celular,
         fotoUrl: user.foto_url,
         planTag: user.plan_tag || 'MEMBRESÍA ACTIVA',
         rutinaAsignada: user.rutina_asignada || 'SIN RUTINA ASIGNADA',
+        fecha_vencimiento: user.fecha_vencimiento,
+        dias_inactivo: remaining.daysExpired || 0,
+        puede_eliminar_inactivo: Boolean(remaining.canDelete),
+        estado_membresia: remaining.status === 'ACTIVE' ? 'ACTIVO' : remaining.status === 'WARNING' ? 'POR_VENCER' : 'VENCIDO',
         estadoMembresia: remaining.status === 'ACTIVE' ? 'ACTIVO' : remaining.status === 'WARNING' ? 'POR_VENCER' : 'VENCIDO',
         tiempoRestante: remaining.text,
         tiempoRestanteCorto: remaining.cardText,
         diasRestantes: remaining.totalDays,
         trafficColor: remaining.trafficColor,
         nivelFidelidad: fidelity.name,
-        canDelete: remaining.canDelete,
+        canDelete: Boolean(remaining.canDelete),
       };
     });
 
@@ -239,12 +245,17 @@ export class UserService {
     }
 
     if (!detail.puedeEliminar) {
-      throw new Error('Protocolo de purga denegado: el usuario no tiene más de 30 días de membresía vencida.');
+      throw new Error('No se puede eliminar el usuario: su membresía no tiene más de 1 mes (30 días) de vencida o registra renovaciones recientes.');
     }
 
-    // Borrado físico en SQLite (con ON DELETE CASCADE)
+    // Borrado físico en SQLite (con ON DELETE CASCADE / ON DELETE SET NULL)
     db.prepare('DELETE FROM usuarios WHERE id = ?').run(Number(id));
-    return { success: true, message: 'Usuario eliminado permanentemente de la base de datos.' };
+    return {
+      success: true,
+      message: 'Usuario inactivo eliminado físicamente de la base de datos con éxito. Los registros contables pasados fueron preservados de forma desvinculada.',
+      usuario_id: Number(id),
+      dni: detail.dni,
+    };
   }
 }
 

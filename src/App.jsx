@@ -1,116 +1,155 @@
 import React, { useState, useEffect } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import Header from './components/common/Header';
-import Sidebar from './components/common/Sidebar';
-import Login from './pages/Login';
-import CheckIn from './pages/reception/CheckIn';
+
+// Portales y Logins Exclusivos
+import PortalSelect from './pages/PortalSelect';
+import AdminLogin from './pages/admin/AdminLogin';
+import ReceptionLogin from './pages/reception/ReceptionLogin';
+import MemberLogin from './pages/member/MemberLogin';
+
+// Layouts Dedicados
+import AdminLayout from './components/common/AdminLayout';
+import ReceptionLayout from './components/common/ReceptionLayout';
+import MemberLayout from './components/common/MemberLayout';
+
+// Páginas del Administrador
+import DashboardPage from './pages/admin/DashboardPage';
+import ApprovalsPage from './pages/admin/ApprovalsPage';
 import UserRoster from './pages/admin/UserRoster';
-import AthletesList from './pages/reception/AthletesList';
-import AddUser from './pages/admin/AddUser';
-import MemberCard from './pages/member/MemberCard';
 import MembershipPromos from './pages/admin/MembershipPromos';
 import ProductInventory from './pages/admin/ProductInventory';
-import ApprovalsPage from './pages/admin/ApprovalsPage';
+import AddUser from './pages/admin/AddUser';
+
+// Páginas de Recepción
+import CheckIn from './pages/reception/CheckIn';
 import MembershipOps from './pages/reception/MembershipOps';
 import QuickSales from './pages/reception/QuickSales';
+import AthletesList from './pages/reception/AthletesList';
+
+// Páginas del Miembro
+import MemberCard from './pages/member/MemberCard';
 
 function MainRouter() {
-  const { user } = useAuth();
-  const [currentPath, setCurrentPath] = useState(() => {
-    return window.location.pathname !== '/' ? window.location.pathname : '';
-  });
+  const { sessions, setCurrentPath: setContextPath } = useAuth();
+  const [currentPath, setCurrentPathState] = useState(() => window.location.pathname || '/');
 
-  // Role based automatic redirection upon login
   useEffect(() => {
-    if (!user) {
-      setCurrentPath('/login');
-      return;
-    }
-
-    if (user.rol === 'ADMINISTRADOR') {
-      if (!currentPath.startsWith('/admin')) {
-        setCurrentPath('/admin/usuarios');
-      }
-    } else if (user.rol === 'RECEPCIONISTA') {
-      if (!currentPath.startsWith('/recepcion')) {
-        setCurrentPath('/recepcion/checkin');
-      }
-    } else if (user.rol === 'MIEMBRO') {
-      setCurrentPath('/miembro/carnet');
-    }
-  }, [user]);
+    const handlePopState = () => {
+      const p = window.location.pathname || '/';
+      setCurrentPathState(p);
+      setContextPath(p);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [setContextPath]);
 
   const navigate = (path) => {
-    setCurrentPath(path);
+    setCurrentPathState(path);
+    setContextPath(path);
     window.history.pushState(null, '', path);
   };
 
-  if (!user) {
-    return <Login onLoginSuccess={(u) => navigate(u.redirectTo || '/')} />;
+  // 1. Selector Táctico de Portales (Ruta Raíz /)
+  if (currentPath === '/' || currentPath === '') {
+    return <PortalSelect onSelectPortal={(p) => navigate(p)} />;
   }
 
-  // Member Mobile View
-  if (user.rol === 'MIEMBRO') {
-    return <MemberCard />;
+  // 2. Sitio Administrador (/admin/*)
+  if (currentPath.startsWith('/admin')) {
+    const adminUser = sessions.admin?.user;
+    if (!adminUser) {
+      return (
+        <AdminLogin
+          onLoginSuccess={() => navigate('/admin/dashboard')}
+          onBackToPortals={() => navigate('/')}
+        />
+      );
+    }
+
+    return (
+      <AdminLayout currentPath={currentPath} navigate={navigate}>
+        {(currentPath === '/admin' || currentPath === '/admin/dashboard') && (
+          <DashboardPage onNavigate={navigate} />
+        )}
+        {currentPath === '/admin/checkin' && (
+          <CheckIn onNavigate={navigate} />
+        )}
+        {currentPath === '/admin/membresias-promociones' && (
+          <MembershipPromos onNavigate={navigate} />
+        )}
+        {currentPath === '/admin/membresias' && (
+          <MembershipOps onNavigate={navigate} />
+        )}
+        {currentPath === '/admin/aprobaciones' && (
+          <ApprovalsPage onNavigate={navigate} />
+        )}
+        {currentPath === '/admin/usuarios' && (
+          <UserRoster onNavigate={navigate} />
+        )}
+        {currentPath === '/admin/productos' && (
+          <ProductInventory onNavigate={navigate} />
+        )}
+        {currentPath === '/admin/nuevo-usuario' && (
+          <AddUser onNavigate={navigate} />
+        )}
+      </AdminLayout>
+    );
   }
 
-  // Desktop Master Suite (Admin & Reception)
-  const isAdmin = user.rol === 'ADMINISTRADOR';
+  // 3. Sitio Recepción (/recepcion/*)
+  if (currentPath.startsWith('/recepcion')) {
+    const recepUser = sessions.recepcion?.user;
+    if (!recepUser) {
+      return (
+        <ReceptionLogin
+          onLoginSuccess={() => navigate('/recepcion/checkin')}
+          onBackToPortals={() => navigate('/')}
+        />
+      );
+    }
 
-  return (
-    <div className="bg-surface font-body-md text-on-surface antialiased min-h-screen selection:bg-primary-container selection:text-on-primary-container">
-      <Header role={user.rol} />
-      <Sidebar currentPath={currentPath} navigate={navigate} />
+    return (
+      <ReceptionLayout currentPath={currentPath} navigate={navigate}>
+        {(currentPath === '/recepcion' || currentPath === '/recepcion/checkin') && (
+          <CheckIn onNavigate={navigate} />
+        )}
+        {currentPath === '/recepcion/membresias' && (
+          <MembershipOps onNavigate={navigate} />
+        )}
+        {currentPath === '/recepcion/productos' && (
+          <QuickSales onNavigate={navigate} />
+        )}
+        {currentPath === '/recepcion/atletas' && (
+          <AthletesList onNavigate={navigate} />
+        )}
+        {currentPath === '/recepcion/agregar-miembro' && (
+          <AddUser onNavigate={navigate} />
+        )}
+      </ReceptionLayout>
+    );
+  }
 
-      <div className="pl-72">
-        <main className="w-full min-h-screen pt-16 bg-surface">
-          {/* Admin Routes */}
-          {isAdmin && (
-            <>
-              {currentPath === '/admin/nuevo-usuario' && (
-                <AddUser onNavigate={navigate} />
-              )}
-              {currentPath === '/admin/membresias-promociones' && (
-                <MembershipPromos />
-              )}
-              {currentPath === '/admin/productos' && (
-                <ProductInventory />
-              )}
-              {currentPath === '/admin/aprobaciones' && (
-                <ApprovalsPage />
-              )}
-              {(currentPath === '/admin/usuarios' ||
-                (!['/admin/nuevo-usuario', '/admin/membresias-promociones', '/admin/productos', '/admin/aprobaciones'].includes(currentPath))) && (
-                <UserRoster />
-              )}
-            </>
-          )}
+  // 4. Sitio Miembro (/miembro/*)
+  if (currentPath.startsWith('/miembro')) {
+    const memberUser = sessions.miembro?.user;
+    if (!memberUser) {
+      return (
+        <MemberLogin
+          onLoginSuccess={() => navigate('/miembro/carnet')}
+          onBackToPortals={() => navigate('/')}
+        />
+      );
+    }
 
-          {/* Reception Routes */}
-          {!isAdmin && (
-            <>
-              {currentPath === '/recepcion/atletas' && (
-                <AthletesList onNavigate={navigate} />
-              )}
-              {currentPath === '/recepcion/agregar-miembro' && (
-                <AddUser onNavigate={navigate} />
-              )}
-              {currentPath === '/recepcion/membresias' && (
-                <MembershipOps onNavigate={navigate} />
-              )}
-              {currentPath === '/recepcion/productos' && (
-                <QuickSales onNavigate={navigate} />
-              )}
-              {(currentPath === '/recepcion/checkin' ||
-                (!['/recepcion/atletas', '/recepcion/agregar-miembro', '/recepcion/membresias', '/recepcion/productos'].includes(currentPath))) && (
-                <CheckIn onNavigate={navigate} />
-              )}
-            </>
-          )}
-        </main>
-      </div>
-    </div>
-  );
+    return (
+      <MemberLayout title="Carnet Digital">
+        <MemberCard onNavigate={navigate} />
+      </MemberLayout>
+    );
+  }
+
+  // Fallback por defecto: Selector de Portales
+  return <PortalSelect onSelectPortal={(p) => navigate(p)} />;
 }
 
 export default function App() {

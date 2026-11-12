@@ -1,30 +1,87 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 const AuthContext = createContext(null);
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => {
-    try {
-      const saved = localStorage.getItem('gymcore_user');
-      return saved ? JSON.parse(saved) : null;
-    } catch {
-      return null;
-    }
-  });
+export function getPortalFromPath(path = window.location.pathname) {
+  if (path.startsWith('/admin')) return 'admin';
+  if (path.startsWith('/recepcion')) return 'recepcion';
+  if (path.startsWith('/miembro')) return 'miembro';
+  return null;
+}
 
-  const [token, setToken] = useState(() => {
-    return localStorage.getItem('gymcore_token') || localStorage.getItem('token') || null;
-  });
+export function getStorageKeyForPortal(portal) {
+  switch (portal) {
+    case 'admin':
+      return 'gym_admin_session';
+    case 'recepcion':
+      return 'gym_recepcion_session';
+    case 'miembro':
+      return 'gym_miembro_session';
+    default:
+      return 'gym_general_session';
+  }
+}
+
+export function readPortalSession(portal) {
+  if (!portal) return { user: null, token: null };
+  try {
+    const key = getStorageKeyForPortal(portal);
+    const raw = localStorage.getItem(key);
+    if (!raw) return { user: null, token: null };
+    const parsed = JSON.parse(raw);
+    return {
+      user: parsed.user || null,
+      token: parsed.token || null,
+    };
+  } catch {
+    return { user: null, token: null };
+  }
+}
+
+export function writePortalSession(portal, user, token) {
+  if (!portal) return;
+  const key = getStorageKeyForPortal(portal);
+  if (!user && !token) {
+    localStorage.removeItem(key);
+  } else {
+    localStorage.setItem(key, JSON.stringify({ user, token, timestamp: Date.now() }));
+  }
+}
+
+export function AuthProvider({ children }) {
+  const [currentPath, setCurrentPath] = useState(() => window.location.pathname);
+
+  // Mantener sesiones independientes por portal en memoria
+  const [sessions, setSessions] = useState(() => ({
+    admin: readPortalSession('admin'),
+    recepcion: readPortalSession('recepcion'),
+    miembro: readPortalSession('miembro'),
+  }));
 
   const [loading, setLoading] = useState(false);
 
-  const login = async (username, password) => {
+  // Escuchar cambios de navegación (pushState/popState)
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const activePortal = getPortalFromPath(currentPath);
+  const activeSession = activePortal ? sessions[activePortal] : { user: null, token: null };
+  const user = activeSession.user;
+  const token = activeSession.token;
+
+  const login = async (username, password, portal = activePortal) => {
     setLoading(true);
     try {
-      const res = await fetch('/api/auth/login', {
+      const endpoint = portal ? `/api/auth/login/${portal}` : '/api/auth/login';
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password, portal }),
       });
 
       const data = await res.json();
@@ -32,11 +89,14 @@ export function AuthProvider({ children }) {
         throw new Error(data.error || 'Error al iniciar sesión');
       }
 
-      setUser(data.user);
-      setToken(data.token);
-      localStorage.setItem('gymcore_user', JSON.stringify(data.user));
-      localStorage.setItem('gymcore_token', data.token);
-      localStorage.setItem('token', data.token);
+      const targetPortal = portal || getPortalFromPath(data.user.redirectTo);
+      if (targetPortal) {
+        writePortalSession(targetPortal, data.user, data.token);
+        setSessions(prev => ({
+          ...prev,
+          [targetPortal]: { user: data.user, token: data.token }
+        }));
+      }
 
       return data.user;
     } finally {
@@ -44,28 +104,33 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const logout = async () => {
+  const logout = async (portal = activePortal) => {
     try {
-      if (token) {
+      const session = portal ? sessions[portal] : activeSession;
+      if (session.token) {
         await fetch('/api/auth/logout', {
           method: 'POST',
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${session.token}` },
         });
       }
     } catch (e) {
-      console.warn('Error during logout:', e);
+      console.warn('Error en logout:', e);
     } finally {
-      setUser(null);
-      setToken(null);
-      localStorage.removeItem('gymcore_user');
-      localStorage.removeItem('gymcore_token');
-      localStorage.removeItem('token');
+      if (portal) {
+        writePortalSession(portal, null, null);
+        setSessions(prev => ({
+          ...prev,
+          [portal]: { user: null, token: null }
+        }));
+      }
     }
   };
 
-  const authFetch = (url, options = {}) => {
+  const authFetch = useCallback((url, options = {}, portal = activePortal) => {
     const headers = options.headers || {};
-    const activeToken = token || localStorage.getItem('gymcore_token') || localStorage.getItem('token');
+    const session = portal ? sessions[portal] : activeSession;
+    const activeToken = session?.token;
+
     if (activeToken) {
       if (headers instanceof Headers) {
         headers.set('Authorization', `Bearer ${activeToken}`);
@@ -74,16 +139,20 @@ export function AuthProvider({ children }) {
       }
     }
     return fetch(url, { ...options, headers });
-  };
+  }, [sessions, activePortal, activeSession]);
 
   const value = {
     user,
     token,
+    activePortal,
+    isAdmin: user?.rol === 'ADMINISTRADOR' || activePortal === 'admin',
+    sessions,
     loading,
     login,
     logout,
     authFetch,
-    setUser,
+    setCurrentPath,
+    getPortalSession: (p) => sessions[p] || { user: null, token: null },
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

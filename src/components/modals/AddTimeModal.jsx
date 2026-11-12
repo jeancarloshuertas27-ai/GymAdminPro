@@ -39,7 +39,7 @@ function canMemberAccessPromo(userFidelityLevel, promoRequiredLevel) {
 }
 
 export default function AddTimeModal({ athleteData, origen, onClose, onSuccess }) {
-  const { user } = useAuth();
+  const { user, authFetch } = useAuth();
   const isAdmin = user?.rol === 'ADMINISTRADOR';
 
   const [mode, setMode] = useState('promo'); // 'promo' | 'manual'
@@ -64,11 +64,8 @@ export default function AddTimeModal({ athleteData, origen, onClose, onSuccess }
       || athleteData?.membresia_actual?.nivel_fidelidad
       || athleteData?.nivel_fidelidad
       || 'NOVATO';
-    const token = localStorage.getItem('gymcore_token') || localStorage.getItem('token');
     const url = `/api/promociones?nivel_miembro=${encodeURIComponent(nivelMiembro)}`;
-    fetch(url, {
-      headers: token ? { Authorization: `Bearer ${token}` } : {}
-    })
+    authFetch(url)
       .then((res) => res.json())
       .then((data) => {
         const list = Array.isArray(data) ? data : [];

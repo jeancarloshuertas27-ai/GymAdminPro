@@ -154,9 +154,14 @@ describe('Sales & Approvals API with Voucher Pruning (Principle V) - Integration
     const rejectData = await resReject.json();
     expect(rejectData.estado).toBe('RECHAZADO');
     expect(rejectData.stock_restaurado).toBe(true);
+    expect(rejectData.eliminado).toBe(true);
 
-    const dbRecord = db.prepare('SELECT estado, notas_rechazo FROM ventas_productos WHERE id = ?').get(saleId);
-    expect(dbRecord.estado).toBe('RECHAZADO');
-    expect(dbRecord.notas_rechazo).toBe('Monto no corresponde');
+    // Debe borrarse el registro para que no figure en ningún reporte contable
+    const dbRecord = db.prepare('SELECT * FROM ventas_productos WHERE id = ?').get(saleId);
+    expect(dbRecord).toBeUndefined();
+
+    // El stock reservado debió reintegrarse al catálogo (volviendo a 7)
+    const prodCheck = db.prepare('SELECT stock FROM productos WHERE id = ?').get(testProductId);
+    expect(prodCheck.stock).toBe(7);
   });
 });
