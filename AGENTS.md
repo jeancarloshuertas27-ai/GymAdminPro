@@ -1,21 +1,28 @@
 # GymAdminPro — Memoria Técnica
 
 ## 1. Aplicación y Roles
-**GymAdminPro** es un sistema de administración de gimnasios con 3 roles:
-- **Administrador**: Web y Móvil.
-- **Recepcionista**: Web.
-- **Miembro**: Móvil.
+**GymAdminPro** es un sistema de administración de gimnasios estructurado en 3 sitios y roles independientes:
+- **(A) Sitio Administrador**: Web escritorio y móvil (`/admin`). Supervisión general, inventario maestro, tarifas y promociones, cambios y aprobaciones financieras, y gestión de personal.
+- **(B) Sitio Recepción**: Exclusivo Web escritorio (`/recepcion`). Terminal operativa de mostrador: control de acceso y check-in, punto de venta rápido (POS) y renovación de membresías con validación de pagos.
+- **(C) Sitio Miembro**: Exclusivo Móvil (`/miembro`). Portal del atleta: carnet digital interactivo, código QR dinámico de acceso, saldo de vigencia y rutina física asignada.
 
+> **Acceso segregado y base común**: Cada sitio cuenta con su propio inicio de sesión exclusivo que rechaza cuentas de roles no permitidos. Los 3 sitios se conectan a la misma API central y base de datos SQLite compartida para mantener los datos sincronizados en tiempo real.
 > Todo el desarrollo debe seguir fielmente el diseño y los archivos `code.html` y `screen.png` ubicados en la carpeta `stitch-referencias/`.
 
 ## 2. Stack Tecnológico y Decisiones
-- **Frontend**: React con Vite y Tailwind CSS.
-- **Backend / Persistencia**: SQLite.
+- **Frontend**: React con Vite y Tailwind CSS, estructurado para servir los 3 portales independientes por rol (Admin, Recepción y Miembro).
+- **Backend / Persistencia**: API REST en Node.js con base de datos SQLite compartida (`server/gymcore.db`).
+- **Autenticación**: Inicio de sesión desacoplado por portal con validación estricta de rol por endpoint/vista y tokens portadores (`Bearer`).
 - **Lineamientos**: Simplicidad ante todo (MVP v1 sin sobreingeniería), español de Perú (moneda Soles `S/`, DNI de 8 dígitos).
 
-## 3. Ejecución y Pruebas en Local
+## 3. Estructura y Ejecución en Local
 - **Instalar dependencias**: `npm install`
-- **Iniciar entorno local**: `npm run dev`
+- **Iniciar entorno local completo**: `npm run dev`
+  - Inicia concurrentemente el servidor backend SQLite con auto-reload (`node --watch server/server.js` en `http://localhost:3001`) y el servidor frontend Vite (`http://localhost:5173`).
+  - Los 3 portales operan de manera independiente a través de sus rutas y accesos dedicados:
+    - **Sitio Administrador**: `/admin` (Login exclusivo para Administrador)
+    - **Sitio Recepción**: `/recepcion` (Login exclusivo para Recepción)
+    - **Sitio Miembro**: `/miembro` (Login exclusivo para Miembro / Carnet Móvil)
 - **Ejecutar tests**: `npm test`
 - **Compilación / Build**: `npm run build`
 
