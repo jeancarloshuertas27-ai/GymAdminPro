@@ -255,7 +255,8 @@ export const aprobacionService = {
   },
 
   /**
-   * Rechaza una solicitud de extensión de membresía
+   * Rechaza una solicitud de extensión de membresía (denegar cambio)
+   * Revierte la membresía y borra el registro para no figurar en ningún reporte
    */
   async rejectMembership(solicitudId, adminId, motivo = '') {
     const solicitud = db.prepare('SELECT * FROM solicitudes_membresia WHERE id = ?').get(solicitudId);
@@ -266,18 +267,16 @@ export const aprobacionService = {
       throw new Error(`La solicitud ya se encuentra en estado ${solicitud.estado}`);
     }
 
-    // Si era EFECTIVO, los días se habían aplicado preventivamente en el mostrador; al rechazar se revierten
-    if (solicitud.metodo_pago === 'EFECTIVO') {
-      const memb = db.prepare('SELECT * FROM membresias WHERE usuario_id = ?').get(solicitud.usuario_id);
-      if (memb && memb.fecha_vencimiento) {
-        const currentEnd = new Date(memb.fecha_vencimiento);
-        const revertedEnd = new Date(currentEnd.getTime() - solicitud.dias_agregados * 24 * 60 * 60 * 1000)
-          .toISOString().split('T')[0];
-        const today = new Date().toISOString().split('T')[0];
-        const newEstado = revertedEnd >= today ? 'ACTIVO' : 'VENCIDO';
-        db.prepare('UPDATE membresias SET fecha_vencimiento = ?, estado = ? WHERE id = ?')
-          .run(revertedEnd, newEstado, memb.id);
-      }
+    // Si era EFECTIVO o asignación directa, los días se habían aplicado preventivamente en el mostrador; al denegar se revierten
+    const memb = db.prepare('SELECT * FROM membresias WHERE usuario_id = ?').get(solicitud.usuario_id);
+    if (memb && memb.fecha_vencimiento && (solicitud.metodo_pago === 'EFECTIVO' || solicitud.operador_id === adminId)) {
+      const currentEnd = new Date(memb.fecha_vencimiento);
+      const revertedEnd = new Date(currentEnd.getTime() - solicitud.dias_agregados * 24 * 60 * 60 * 1000)
+        .toISOString().split('T')[0];
+      const today = new Date().toISOString().split('T')[0];
+      const newEstado = revertedEnd >= today ? 'ACTIVO' : 'VENCIDO';
+      db.prepare('UPDATE membresias SET fecha_vencimiento = ?, estado = ? WHERE id = ?')
+        .run(revertedEnd, newEstado, memb.id);
     }
 
     // Purgar voucher si existiera
@@ -285,20 +284,15 @@ export const aprobacionService = {
       await unlinkVoucherFile(solicitud.comprobante_url);
     }
 
-    db.prepare(`
-      UPDATE solicitudes_membresia 
-      SET estado = 'RECHAZADO', 
-          notas_rechazo = ?,
-          resolved_at = CURRENT_TIMESTAMP, 
-          resolved_by = ? 
-      WHERE id = ?
-    `).run(motivo || 'Rechazado en arqueo de caja', adminId, solicitudId);
+    // Borrado definitivo del registro para que no figure en ningún reporte
+    db.prepare('DELETE FROM solicitudes_membresia WHERE id = ?').run(solicitudId);
 
     return {
       id: solicitudId,
       tipo: 'membresia',
       estado: 'RECHAZADO',
-      mensaje: 'Solicitud de membresía rechazada correctamente.'
+      eliminado: true,
+      mensaje: 'Cambio denegado, membresía revertida y registro eliminado del sistema para no figurar en reportes.'
     };
   },
 
@@ -341,7 +335,8 @@ export const aprobacionService = {
   },
 
   /**
-   * Rechaza una venta de producto y reintegra el stock reservado atómicamente
+   * Rechaza una venta de producto y reintegra el stock reservado atómicamente (denegar cambio)
+   * Revierte el stock y borra el registro para no figurar en ningún reporte
    */
   async rejectProductSale(ventaId, adminId, motivo = '') {
     const venta = db.prepare('SELECT * FROM ventas_productos WHERE id = ?').get(ventaId);
@@ -361,22 +356,16 @@ export const aprobacionService = {
       await unlinkVoucherFile(venta.comprobante_url);
     }
 
-    // Marcar venta como rechazada
-    db.prepare(`
-      UPDATE ventas_productos 
-      SET estado = 'RECHAZADO', 
-          notas_rechazo = ?,
-          resolved_at = CURRENT_TIMESTAMP, 
-          resolved_by = ? 
-      WHERE id = ?
-    `).run(motivo || 'Venta rechazada en arqueo de caja', adminId, ventaId);
+    // Borrado definitivo de la venta para que no figure en ningún reporte
+    db.prepare('DELETE FROM ventas_productos WHERE id = ?').run(ventaId);
 
     return {
       id: ventaId,
       tipo: 'producto',
       estado: 'RECHAZADO',
       stock_restaurado: true,
-      mensaje: 'Venta rechazada y stock reintegrado al inventario.'
+      eliminado: true,
+      mensaje: 'Cambio denegado, stock reintegrado al inventario y venta eliminada del sistema para no figurar en reportes.'
     };
   }
 };

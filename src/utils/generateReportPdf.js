@@ -31,7 +31,9 @@ export function generateReportPdf(reportData, fecha) {
 
   doc.setFontSize(10);
   doc.setTextColor(194, 198, 215); // on-surface-variant
-  doc.text(`EMITIDO: ${new Date().toLocaleDateString('es-PE')} ${new Date().toLocaleTimeString('es-PE')} | MONEDA: SOLES (S/)`, 14, 30);
+  const nowPeruDate = new Date().toLocaleDateString('es-PE', { timeZone: 'America/Lima' });
+  const nowPeruTime = new Date().toLocaleTimeString('es-PE', { timeZone: 'America/Lima', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+  doc.text(`EMITIDO: ${nowPeruDate} ${nowPeruTime} (HORA PERÚ) | MONEDA: SOLES (S/)`, 14, 30);
 
   let currentY = 44;
 

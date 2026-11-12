@@ -145,6 +145,7 @@ export function AuthProvider({ children }) {
     user,
     token,
     activePortal,
+    isAdmin: user?.rol === 'ADMINISTRADOR' || activePortal === 'admin',
     sessions,
     loading,
     login,

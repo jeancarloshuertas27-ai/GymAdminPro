@@ -10,7 +10,7 @@ export class UserService {
 
     // 1. Obtener métricas globales
     const allUsers = db.prepare(`
-      SELECT u.id, u.rol, u.apellidos, u.nombres, u.dni, u.username, u.celular, u.foto_url,
+      SELECT u.id, u.rol, u.apellidos, u.nombres, u.dni, u.username, u.password_plain, u.celular, u.foto_url,
              m.fecha_inicio, m.fecha_vencimiento, m.plan_tag, m.rutina_asignada,
              f.nivel_actual, f.fecha_inscripcion_original
       FROM usuarios u
@@ -48,8 +48,8 @@ export class UserService {
         nombres: user.nombres,
         dni: user.dni,
         username: isAdmin ? user.username : null, // Oculto para no-admins
-        password_visible: isAdmin ? user.dni : null, // Visible para soporte admin
-        passwordRaw: isAdmin ? user.dni : null,
+        password_visible: isAdmin ? (user.password_plain || 'Atleta2026!') : null, // Visible para soporte admin
+        passwordRaw: isAdmin ? (user.password_plain || 'Atleta2026!') : null,
         celular: user.celular,
         fotoUrl: user.foto_url,
         planTag: user.plan_tag || 'MEMBRESÍA ACTIVA',

@@ -308,7 +308,7 @@ export default function UserRoster() {
                       <td className="py-4 px-space-md">
                         <div className="inline-flex items-center gap-2 bg-surface-container-high px-space-sm py-1 rounded">
                           <span className="font-data-mono text-xs">
-                            {isRevealed ? (u.password_visible || u.dni || 'Pass2026!#') : '••••••••••••'}
+                            {isRevealed ? (u.password_visible || u.password_plain || 'Atleta2026!') : '••••••••••••'}
                           </span>
                           <button
                             type="button"

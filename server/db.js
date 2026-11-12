@@ -39,6 +39,20 @@ function ensureColumn(table, column, definition) {
 ensureColumn('solicitudes_membresia', 'atleta_nombre_historico', 'TEXT');
 ensureColumn('solicitudes_membresia', 'atleta_dni_historico', 'TEXT');
 ensureColumn('ventas_productos', 'operador_nombre_historico', 'TEXT');
+ensureColumn('usuarios', 'password_plain', 'TEXT');
+
+// Inicializar contraseñas planas para soporte del administrador
+try {
+  db.prepare("UPDATE usuarios SET password_plain = 'Admin2026!' WHERE username = '@admin_01' AND password_plain IS NULL").run();
+  db.prepare("UPDATE usuarios SET password_plain = 'Recep2026!' WHERE (username = '@recep_carlos' OR username = '@recepcion_01') AND password_plain IS NULL").run();
+  db.prepare("UPDATE usuarios SET password_plain = 'Atleta2026!' WHERE username = '@mateo_val' AND password_plain IS NULL").run();
+  db.prepare("UPDATE usuarios SET password_plain = 'RnzAlpha99!' WHERE username = '@renzo.a' AND password_plain IS NULL").run();
+  db.prepare("UPDATE usuarios SET password_plain = 'PowerFit2024#' WHERE username = '@carla_fit' AND password_plain IS NULL").run();
+  db.prepare("UPDATE usuarios SET password_plain = 'AndresPass_23' WHERE username = '@andres_m' AND password_plain IS NULL").run();
+  db.prepare("UPDATE usuarios SET password_plain = 'Atleta2026!' WHERE password_plain IS NULL AND rol = 'MIEMBRO'").run();
+} catch (e) {
+  // Ignorar si falla actualización inicial
+}
 
 // Migración para soporte ON DELETE SET NULL en solicitudes_membresia (T003)
 function migrateSolicitudesMembresia() {

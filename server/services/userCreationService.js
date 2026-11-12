@@ -62,14 +62,15 @@ export class UserCreationService {
     // 4. Inserción de usuario
     const rol = tipo === 'reception' ? 'RECEPCIONISTA' : 'MIEMBRO';
     const insertUser = db.prepare(`
-      INSERT INTO usuarios (rol, username, password_hash, nombres, apellidos, dni, celular, celular_respaldo, domicilio, foto_url)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO usuarios (rol, username, password_hash, password_plain, nombres, apellidos, dni, celular, celular_respaldo, domicilio, foto_url)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     const result = insertUser.run(
       rol,
       cleanUsername,
       passHash,
+      password.trim(),
       nombres.trim(),
       apellidos.trim(),
       cleanDni,

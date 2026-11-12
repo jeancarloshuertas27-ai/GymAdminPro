@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { formatLocalTime } from '../../utils/formatTime';
+import { formatLocalTime, formatPeruDateTime } from '../../utils/formatTime';
 import VoucherModal from '../modals/VoucherModal';
-import { Check, Eye, Trash2, ShieldCheck, ShoppingBag, BadgePercent, ArrowRight } from 'lucide-react';
+import { Check, X, Eye, Trash2, ShieldCheck, ShoppingBag, BadgePercent, ArrowRight } from 'lucide-react';
 
 export default function ApprovalsList({ approvals, onApprove, onReject }) {
   const [selectedVoucher, setSelectedVoucher] = useState(null);
@@ -14,9 +14,7 @@ export default function ApprovalsList({ approvals, onApprove, onReject }) {
   };
 
   const formatFechaHora = (dateStr) => {
-    if (!dateStr) return 'Hoy';
-    const d = new Date(dateStr);
-    return `${d.toLocaleDateString('es-PE', { day: '2-digit', month: 'short', year: 'numeric' })} - ${d.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' })}`;
+    return formatPeruDateTime(dateStr);
   };
 
   return (
@@ -164,20 +162,31 @@ export default function ApprovalsList({ approvals, onApprove, onReject }) {
                       </div>
                     </div>
 
-                    {/* Botón Aceptar cambio al lado de cada fila con leyenda visible */}
+                    {/* Botones de acción: Denegar o Aceptar cambio */}
                     <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 pt-2 border-t border-outline-variant/15">
                       <p className="font-data-mono text-[11px] text-on-surface-variant leading-tight flex items-center gap-1">
                         <Trash2 className="w-3.5 h-3.5 text-tertiary" />
-                        <span>Borra la foto de la BD y quita la fila de la vista</span>
+                        <span>Aceptar libera la foto; Denegar revierte y elimina</span>
                       </p>
-                      <button
-                        type="button"
-                        onClick={() => onApprove('membresia', m.id)}
-                        className="bg-primary-container hover:bg-primary text-on-primary-container font-headline-md text-xs tracking-wider uppercase px-4 py-2 rounded-lg flex items-center justify-center gap-1.5 font-bold shadow transition-all cursor-pointer"
-                      >
-                        <Check className="w-4 h-4" />
-                        <span>ACEPTAR CAMBIO</span>
-                      </button>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => onReject('membresia', m.id)}
+                          className="bg-error-container/20 hover:bg-error-container text-error hover:text-on-error-container border border-error/30 font-headline-md text-xs tracking-wider uppercase px-3 py-2 rounded-lg flex items-center justify-center gap-1.5 font-bold transition-all cursor-pointer"
+                          title="Denegar cambio y revertir operación"
+                        >
+                          <X className="w-4 h-4" />
+                          <span>DENEGAR CAMBIO</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => onApprove('membresia', m.id)}
+                          className="bg-primary-container hover:bg-primary text-on-primary-container font-headline-md text-xs tracking-wider uppercase px-4 py-2 rounded-lg flex items-center justify-center gap-1.5 font-bold shadow transition-all cursor-pointer"
+                        >
+                          <Check className="w-4 h-4" />
+                          <span>ACEPTAR CAMBIO</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );
@@ -296,20 +305,31 @@ export default function ApprovalsList({ approvals, onApprove, onReject }) {
                       </div>
                     </div>
 
-                    {/* Botón Aceptar cambio */}
+                    {/* Botones de acción: Denegar o Aceptar cambio */}
                     <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 pt-2 border-t border-outline-variant/15">
                       <p className="font-data-mono text-[11px] text-on-surface-variant leading-tight flex items-center gap-1">
                         <Trash2 className="w-3.5 h-3.5 text-tertiary" />
-                        <span>Borra la foto de la BD y quita la fila de la vista</span>
+                        <span>Aceptar libera la foto; Denegar revierte y elimina</span>
                       </p>
-                      <button
-                        type="button"
-                        onClick={() => onApprove('producto', v.id)}
-                        className="bg-tertiary-container hover:bg-tertiary text-on-tertiary-container font-headline-md text-xs tracking-wider uppercase px-4 py-2 rounded-lg flex items-center justify-center gap-1.5 font-bold shadow transition-all cursor-pointer"
-                      >
-                        <Check className="w-4 h-4" />
-                        <span>ACEPTAR CAMBIO</span>
-                      </button>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => onReject('producto', v.id)}
+                          className="bg-error-container/20 hover:bg-error-container text-error hover:text-on-error-container border border-error/30 font-headline-md text-xs tracking-wider uppercase px-3 py-2 rounded-lg flex items-center justify-center gap-1.5 font-bold transition-all cursor-pointer"
+                          title="Denegar cambio y revertir operación"
+                        >
+                          <X className="w-4 h-4" />
+                          <span>DENEGAR CAMBIO</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => onApprove('producto', v.id)}
+                          className="bg-tertiary-container hover:bg-tertiary text-on-tertiary-container font-headline-md text-xs tracking-wider uppercase px-4 py-2 rounded-lg flex items-center justify-center gap-1.5 font-bold shadow transition-all cursor-pointer"
+                        >
+                          <Check className="w-4 h-4" />
+                          <span>ACEPTAR CAMBIO</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );

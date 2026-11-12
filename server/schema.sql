@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     rol TEXT NOT NULL CHECK(rol IN ('ADMINISTRADOR', 'RECEPCIONISTA', 'MIEMBRO')),
     username TEXT NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
+    password_plain TEXT,
     nombres TEXT NOT NULL,
     apellidos TEXT NOT NULL,
     dni TEXT NOT NULL UNIQUE CHECK(length(dni) = 8 AND dni GLOB '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),

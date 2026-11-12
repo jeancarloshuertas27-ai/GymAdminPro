@@ -63,7 +63,7 @@ export default function ApprovalsPage() {
         alert(data.error || 'Error al rechazar.');
         return;
       }
-      setToastMessage('Cambio rechazado correctamente.');
+      setToastMessage('Cambio denegado. La operación fue revertida y eliminada del sistema.');
       setTimeout(() => setToastMessage(null), 4000);
       fetchApprovals();
     } catch (err) {
