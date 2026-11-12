@@ -119,7 +119,7 @@ CREATE INDEX IF NOT EXISTS idx_productos_activo ON productos(activo);
 CREATE INDEX IF NOT EXISTS idx_productos_stock ON productos(stock);
 CREATE INDEX IF NOT EXISTS idx_productos_categoria ON productos(categoria);
 
--- 7. TABLA: ventas_productos (Feature 002)
+-- 7. TABLA: ventas_productos (Feature 002 & 003)
 CREATE TABLE IF NOT EXISTS ventas_productos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     producto_id INTEGER NOT NULL,
@@ -128,14 +128,15 @@ CREATE TABLE IF NOT EXISTS ventas_productos (
     total REAL NOT NULL CHECK(total >= 0),
     metodo_pago TEXT NOT NULL CHECK(metodo_pago IN ('EFECTIVO', 'TRANSFERENCIA')),
     comprobante_url TEXT,
-    operador_id INTEGER NOT NULL,
+    operador_id INTEGER,
+    operador_nombre_historico TEXT,
     estado TEXT NOT NULL CHECK(estado IN ('PENDIENTE_APROBACION', 'APROBADO', 'RECHAZADO')),
     notas_rechazo TEXT,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     resolved_at DATETIME,
     resolved_by INTEGER,
     FOREIGN KEY (producto_id) REFERENCES productos(id),
-    FOREIGN KEY (operador_id) REFERENCES usuarios(id),
+    FOREIGN KEY (operador_id) REFERENCES usuarios(id) ON DELETE SET NULL,
     FOREIGN KEY (resolved_by) REFERENCES usuarios(id)
 );
 
@@ -143,10 +144,12 @@ CREATE INDEX IF NOT EXISTS idx_ventas_estado ON ventas_productos(estado);
 CREATE INDEX IF NOT EXISTS idx_ventas_producto ON ventas_productos(producto_id);
 CREATE INDEX IF NOT EXISTS idx_ventas_created ON ventas_productos(created_at DESC);
 
--- 8. TABLA: solicitudes_membresia (Feature 002)
+-- 8. TABLA: solicitudes_membresia (Feature 002 & 003)
 CREATE TABLE IF NOT EXISTS solicitudes_membresia (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    usuario_id INTEGER NOT NULL,
+    usuario_id INTEGER,
+    atleta_nombre_historico TEXT,
+    atleta_dni_historico TEXT,
     promocion_id INTEGER,
     dias_agregados INTEGER NOT NULL CHECK(dias_agregados > 0),
     monto REAL NOT NULL CHECK(monto >= 0),
@@ -158,7 +161,7 @@ CREATE TABLE IF NOT EXISTS solicitudes_membresia (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     resolved_at DATETIME,
     resolved_by INTEGER,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE SET NULL,
     FOREIGN KEY (promocion_id) REFERENCES promociones(id) ON DELETE SET NULL,
     FOREIGN KEY (operador_id) REFERENCES usuarios(id),
     FOREIGN KEY (resolved_by) REFERENCES usuarios(id)

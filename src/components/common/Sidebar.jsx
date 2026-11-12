@@ -2,19 +2,22 @@ import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 
 export default function Sidebar({ currentPath, navigate }) {
-  const { user } = useAuth();
-  const isAdmin = user?.rol === 'ADMINISTRADOR';
+  const { user, activePortal } = useAuth();
+  const isAdmin = user?.rol === 'ADMINISTRADOR' || activePortal === 'admin';
 
   const adminRoutes = [
-    { name: 'Usuarios & Fidelidad', path: '/admin/usuarios', icon: 'military_tech' },
+    { name: 'Dashboard Principal', path: '/admin/dashboard', icon: 'grid_view' },
+    { name: 'Control de Acceso', path: '/admin/checkin', icon: 'sensor_door' },
     { name: 'Membresías & Promociones', path: '/admin/membresias-promociones', icon: 'card_membership' },
-    { name: 'Inventario Maestro', path: '/admin/productos', icon: 'inventory_2' },
+    { name: 'Manejar Membresías', path: '/admin/membresias', icon: 'badge' },
     { name: 'Cambios & Aprobaciones', path: '/admin/aprobaciones', icon: 'verified_user' },
+    { name: 'Usuarios & Fidelidad', path: '/admin/usuarios', icon: 'military_tech' },
+    { name: 'Inventario Maestro', path: '/admin/productos', icon: 'inventory_2' },
     { name: 'Nuevo Usuario', path: '/admin/nuevo-usuario', icon: 'person_add' },
   ];
 
   const receptionRoutes = [
-    { name: 'Control Acceso & Check-In', path: '/recepcion/checkin', icon: 'sensor_door' },
+    { name: 'Control Acceso (Check-In)', path: '/recepcion/checkin', icon: 'sensor_door' },
     { name: 'Gestión de Membresías', path: '/recepcion/membresias', icon: 'card_membership' },
     { name: 'Venta Rápida Productos', path: '/recepcion/productos', icon: 'point_of_sale' },
     { name: 'Lista de Atletas', path: '/recepcion/atletas', icon: 'groups' },
@@ -28,7 +31,7 @@ export default function Sidebar({ currentPath, navigate }) {
       <div className="flex flex-col gap-space-md">
         <div className="px-space-lg">
           <p className="font-data-mono text-[11px] tracking-widest uppercase text-on-surface-variant">
-            NÚCLEO TÁCTICO // RUTAS
+            {isAdmin ? 'ADMINISTRACIÓN // RUTAS' : 'MOSTRADOR // OPERACIONES'}
           </p>
         </div>
 

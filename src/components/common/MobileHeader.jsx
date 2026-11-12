@@ -1,8 +1,9 @@
 import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 
-export default function MobileHeader({ title = 'Inicio' }) {
+export default function MobileHeader({ title = 'Inicio', onLogout }) {
   const { user, logout } = useAuth();
+  const handleLogout = onLogout || (() => logout('miembro'));
 
   return (
     <header className="fixed top-0 w-full z-50 pt-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.4)]">
@@ -27,7 +28,7 @@ export default function MobileHeader({ title = 'Inicio' }) {
               {user ? user.nombres : 'Atleta'}
             </span>
             <button
-              onClick={logout}
+              onClick={handleLogout}
               title="Cerrar sesión"
               className="p-1.5 rounded-full bg-surface-container-high hover:bg-surface-bright text-outline hover:text-on-surface transition-colors"
             >
