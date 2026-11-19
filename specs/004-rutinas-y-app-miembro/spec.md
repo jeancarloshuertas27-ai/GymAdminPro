@@ -42,6 +42,14 @@ La Feature 004 completa el ecosistema operativo y la experiencia de usuario de *
 - **Q3 (Mecanismo de Alertas en Tiempo Real para 'Llamar Coach')**: ¿Cómo se propagan las alertas a Recepción y Admin?  
   → **A**: **HTTP Polling ligero cada 3 segundos**. Recepción y el Dashboard Admin realizan un sondeo liviano cada 3 segundos a la API SQLite, asegurando entrega inmediata de la alerta con nombre del socio y número de máquina, sin complejidad innecesaria de sockets y con tolerancia nativa a desconexiones (Principio I).
 
+### Session 2026-11-19
+- **Q4 (Alternancia entre Rutina Asignada y Rutina Privada)**: ¿Cómo debe visualizar y alternar el atleta en su portal móvil cuando cuenta con una rutina oficial asignada por el staff y además ha creado una rutina personal privada?  
+  → **A**: **Pestañas superiores (`Rutina Asignada` / `Mi Rutina Privada`)**. La vista de entrenamiento del miembro `/miembro/rutina` presenta un selector de pestañas en la parte superior para alternar de forma limpia e instantánea entre el protocolo prescrito por el entrenador y su propia rutina personal, manteniendo ambos esquemas aislados y accesibles.
+- **Q5 (Estado y Cancelación de 'Llamar Coach' en el Miembro)**: ¿Cómo debe visualizar y gestionar el miembro en su teléfono el estado de su solicitud tras presionar "Llamar Coach"?  
+  → **A**: **Tarjeta de estado activo con botón "Cancelar solicitud"**. Mientras la solicitud esté pendiente, la pantalla muestra una tarjeta visible ("Coach solicitado en Máquina X...") inhabilitando nuevos envíos para evitar duplicados, y ofreciendo al socio un botón para cancelar la solicitud en caso de error o resolución anticipada.
+- **Q6 (Catálogo Inicial de Máquinas y Ejercicios)**: ¿Cómo debe inicializarse el catálogo de ejercicios y máquinas numeradas en el sistema para el configurador de rutinas del Administrador y Miembro?  
+  → **A**: **Catálogo precargado de 25 máquinas del prototipo**. SQLite inicia con una semilla de 25 estaciones numeradas (#01 a #25) con sus nombres y grupos musculares (Pectoral, Espalda, Cuádriceps, Deltoides, etc.), disponibles de inmediato en la columna izquierda para arrastrar y armar rutinas.
+
 ---
 
 ## 2. User Scenarios & Testing *(mandatory)*
@@ -97,7 +105,7 @@ La Feature 004 completa el ecosistema operativo y la experiencia de usuario de *
 2. **Given** que existen promociones vigentes aplicables al miembro (generales o exclusivas para su nivel de fidelidad), **When** el miembro ingresa al portal, **Then** se despliega una ventana publicitaria emergente destacando la oferta, con un botón o ícono `'X'` en la esquina superior derecha que al presionarlo cierra el popup limpiamente sin bloquear la navegación.
 3. **Given** que el miembro pulsa el botón "Renovar membresía", **When** se abre la sección de promociones, **Then** se muestran los planes y ofertas disponibles para su categoría con el detalle en Soles (`S/`).
 4. **Given** que el socio necesita asistencia en su entrenamiento, **When** presiona el botón destacado "Llamar Coach", **Then** se abre un diálogo solicitando indicar el número de máquina o estación en la que se encuentra (ej. "Máquina 8").
-5. **Given** que el socio ingresa su máquina y presiona "Notificar Ayuda", **When** se envía la petición, **Then** el sistema emite la alerta en tiempo real a Recepción y Administración, y la pantalla del socio muestra un mensaje de confirmación ("Alerta enviada. Un coach se acercará a tu máquina").
+5. **Given** que el socio ingresa su máquina y presiona "Notificar Ayuda", **When** se envía la petición, **Then** el sistema emite la alerta en tiempo real a Recepción y Administración, y la pantalla del socio muestra una tarjeta de estado activo ("Coach solicitado en Máquina X...") inhabilitando nuevos envíos para evitar duplicados y ofreciendo un botón "Cancelar solicitud" que anula la alerta en vivo si el socio decide cancelarla antes de su atención en sala.
 
 ---
 
@@ -115,6 +123,7 @@ La Feature 004 completa el ecosistema operativo y la experiencia de usuario de *
 2. **Given** un ejercicio de su rutina asignada, **When** el miembro desea adaptar su esfuerzo, **Then** puede editar directamente el número de series o el tiempo de descanso por serie, persistiendo estos ajustes en su expediente personal de sesión.
 3. **Given** la opción "Crear Rutina Personal", **When** el miembro la selecciona, **Then** se presenta una interfaz interactiva adaptada a móvil con selector de días (Lunes a Sábado) y lista de máquinas numeradas para estructurar su entrenamiento con series, repeticiones y descansos.
 4. **Given** una rutina creada por el socio en su vista personal, **When** la guarda con su nombre deseado, **Then** el sistema la persiste bajo un esquema privado asociado exclusivamente a su `usuario_id`, garantizando que ni el Administrador ni Recepción la vean ni la puedan sobrescribir en el catálogo global de plantillas del gimnasio.
+5. **Given** un miembro que posee tanto una rutina asignada por el staff como una rutina privada creada, **When** accede a la sección de entrenamiento, **Then** dispone de pestañas superiores (`Rutina Asignada` / `Mi Rutina Privada`) para alternar con un solo clic entre ambas sin conflicto de datos.
 
 ---
 
@@ -141,7 +150,8 @@ La Feature 004 completa el ecosistema operativo y la experiencia de usuario de *
 - **EC-003 (Recepción o Admin sin conexión momentánea durante 'Llamar Coach')**: Si un miembro llama al coach y la conexión del recepcionista se restablece segundos después, el sistema entrega la alerta pendiente sin pérdida de información mediante sondeo o cola de eventos pendientes.
 - **EC-004 (Cierre de publicidad emergente)**: Al cerrar la publicidad emergente con la `'X'`, la preferencia de visualización se guarda en la sesión del miembro para no volver a interrumpirlo de forma repetitiva en cada recarga inmediata de la pantalla durante su misma visita.
 - **EC-005 (Atleta sin rutina asignada por el staff)**: Si un socio nuevo ingresa a "Mi Rutina" antes de que el staff le haya asignado un protocolo, el sistema muestra un mensaje orientador amable ("Aún no tienes una rutina asignada por tu coach. Puedes solicitar una en recepción o crear tu propia rutina personal aquí") con botón directo a "Crear Rutina Personal".
-- **EC-006 (Reordenamiento manual de ejercicios en un día)**: Si el usuario reordena los ejercicios asignados en un día (subir/bajar posición), los prefijos numéricos (`1.`, `2.`, `3.`) se recalculan automáticamente para mantener siempre el orden correlativo estricto.
+- **EC-006**: Si el usuario reordena los ejercicios asignados en un día (subir/bajar posición), los prefijos numéricos (`1.`, `2.`, `3.`) se recalculan automáticamente para mantener siempre el orden correlativo estricto.
+- **EC-007 (Cancelación de alerta por el propio miembro)**: Si el socio presiona "Cancelar solicitud" desde su celular, el estado de la alerta en SQLite pasa inmediatamente a 'CANCELADA' y la notificación desaparece en tiempo real de las pantallas de Recepción y Administración sin requerir acción del recepcionista.
 
 ---
 
@@ -150,7 +160,7 @@ La Feature 004 completa el ecosistema operativo y la experiencia de usuario de *
 ### Functional Requirements
 
 #### Bloque A: Sitio Administrador (`/admin`)
-- **FR-001**: El sistema DEBE ofrecer en `/admin` una vista de "Configurar Rutinas" con diseño dividido: panel izquierdo con la lista de ejercicios y máquinas numeradas del gimnasio (ej: `Máquina 1`, `Máquina 2`, `Máquina 3`, etc.), y panel derecho con la cuadrícula de los 6 días de la semana (Lunes a Sábado).
+- **FR-001**: El sistema DEBE ofrecer en `/admin` una vista de "Configurar Rutinas" con diseño dividido: panel izquierdo con la lista de ejercicios y máquinas numeradas del gimnasio (precargando un catálogo maestro de 25 estaciones #01-#25 con grupos musculares), y panel derecho con la cuadrícula de los 6 días de la semana (Lunes a Sábado).
 - **FR-002**: El configurador DEBE soportar interacción Drag & Drop para arrastrar cualquier máquina desde el catálogo hacia el cuadro de cualquier día de la semana.
 - **FR-003**: Cada ejercicio arrastrado a un día DEBE numerarse automáticamente en orden secuencial estricto (`1.`, `2.`, `3.`, etc.) según la posición en que sea colocado.
 - **FR-004**: Al soltar un ejercicio dentro de un día, el sistema DEBE abrir de forma automática una ventana emergente modal que solicite registrar obligatoriamente: (a) Cantidad de series, (b) Rango de repeticiones y (c) Tiempo de descanso en segundos.
@@ -173,23 +183,24 @@ La Feature 004 completa el ecosistema operativo y la experiencia de usuario de *
 - **FR-017**: En "Mi Rutina", el miembro DEBE poder ajustar o personalizar la cantidad de series y el tiempo de descanso por serie para cada ejercicio.
 - **FR-018**: El miembro DEBE contar con una opción para "Crear Rutina Personal", permitiendo armar una rutina por días (Lunes a Sábado) con máquinas, series, repeticiones y descanso.
 - **FR-019**: Las rutinas creadas por el miembro en "Crear Rutina Personal" DEBEN guardarse como privadas vinculadas exclusivamente a su cuenta (`usuario_id`), impidiendo que aparezcan o puedan ser modificadas desde los catálogos globales de Administrador y Recepción.
-- **FR-020**: El portal del miembro DEBE incluir la función "Llamar Coach", con un campo o selector para ingresar el número de máquina donde entrena y un botón para notificar ayuda, emitiendo la alerta inmediata a Recepción y Administración mediante registro en `alertas_coach`.
+- **FR-020**: El portal del miembro DEBE incluir la función "Llamar Coach" (con selector de máquina y notificación). Mientras la solicitud se encuentre en estado pendiente, el portal DEBE desplegar una tarjeta de estado activo ("Coach solicitado en Máquina X...") e inhabilitar nuevos envíos simultáneos, incluyendo un botón interactivo "Cancelar solicitud" para anular la alerta antes de su atención en sala.
 - **FR-021**: El portal del miembro DEBE incorporar una vista de "Ayuda con IA" tipo chat conectada al backend con la API de Google Gemini (vía `GEMINI_API_KEY`) y con un motor de respaldo local preentrenado con el catálogo de máquinas y biomecánica deportiva para responder siempre con fluidez en español de Perú.
+- **FR-022**: La sección móvil de entrenamiento `/miembro/rutina` DEBE incorporar un selector de pestañas superior (`Rutina Asignada` / `Mi Rutina Privada`) para alternar limpiamente entre ambas modalidades sin mezclar datos.
 
 #### Bloque D: Experiencia de Usuario y Simplicidad Visual
-- **FR-022**: Todas las interfaces de los 3 sitios DEBEN abstenerse de incluir textos de relleno ficticios o ruido visual (`terminal mode alpha001`, `sys_online: 99.8`, `motor táctico`, `node terminal alpha` o similares). Solo se deben renderizar textos informativos necesarios y datos que aporten utilidad directa al usuario.
+- **FR-023**: Todas las interfaces de los 3 sitios DEBEN abstenerse de incluir textos de relleno ficticios o ruido visual (`terminal mode alpha001`, `sys_online: 99.8`, `motor táctico`, `node terminal alpha` o similares). Solo se deben renderizar textos informativos necesarios y datos que aporten utilidad directa al usuario.
 
 ---
 
 ### Key Entities
 
-- **`maquinas_ejercicios`**: Catálogo base de máquinas numeradas e instalaciones de musculación del gimnasio (id, numero_maquina, nombre, grupo_muscular, descripcion_corta).
+- **`maquinas_ejercicios`**: Catálogo base de 25 máquinas numeradas (#01-#25) e instalaciones de musculación del gimnasio (id, numero_maquina, nombre, grupo_muscular, descripcion_corta).
 - **`rutinas_plantillas`**: Plantillas maestras de rutinas creadas por el Administrador (id, nombre, descripcion, created_by, created_at, activo).
 - **`rutinas_dias`**: Configuración de cada día de la semana dentro de una rutina (id, rutina_id, dia_semana [LUNES, MARTES, MIERCOLES, JUEVES, VIERNES, SABADO], enfoque_muscular [Push, Pull, Legs, etc.], orden_dia).
 - **`rutinas_ejercicios`**: Estaciones asignadas a un día específico (id, rutina_dia_id, maquina_id, orden_secuencial [1, 2, 3...], series, repeticiones, tiempo_descanso_segundos).
 - **`miembro_rutinas_asignadas`**: Asignación activa de una rutina a un socio (id, usuario_id, rutina_id, asignado_por, fecha_asignacion, estado).
 - **`miembro_rutinas_privadas`**: Rutinas personales creadas exclusivamente por y para un socio (id, usuario_id, nombre, contenido_json, created_at).
-- **`alertas_coach`**: Registro de solicitudes de asistencia presencial en sala (id, usuario_id, maquina_numero, estado [PENDIENTE, ATENDIDA], created_at, atendido_por, atendido_at).
+- **`alertas_coach`**: Registro de solicitudes de asistencia presencial en sala (id, usuario_id, maquina_numero, estado [PENDIENTE, ATENDIDA, CANCELADA], created_at, atendido_por, atendido_at).
 
 ---
 
@@ -210,7 +221,7 @@ La Feature 004 completa el ecosistema operativo y la experiencia de usuario de *
 ## 5. Assumptions
 
 - **A-001**: El gimnasio opera de Lunes a Sábado como días habituales de entrenamiento de fuerza y acondicionamiento; los días sin ejercicios configurados se consideran automáticamente días de descanso (REST).
-- **A-002**: Las máquinas del gimnasio están identificadas físicamente con números correlativos visibles en sala (ej. Máquina 1, Máquina 2, Máquina 8, etc.), coincidiendo con la numeración del catálogo de la aplicación.
+- **A-002**: Las máquinas del gimnasio están identificadas físicamente con números correlativos visibles en sala (#01 a #25), precargadas en SQLite coincidiendo con las referencias visuales de Stitch.
 - **A-003**: La comunicación en tiempo real para la alerta de "Llamar Coach" se implementa mediante sondeo ligero (HTTP polling cada 3-4 segundos) sobre SQLite, garantizando simplicidad máxima, cero fallos por desconexión de sockets y compatibilidad universal en local y producción (Principio I).
 - **A-004**: Para el "Asistente de IA", se utiliza el SDK/API de Google Gemini si existe la variable de entorno `GEMINI_API_KEY`; en caso contrario o ante fallas de red, el sistema responde fluidamente mediante una base de conocimientos deportivos y biomecánicos locales basada en las máquinas de `stitch-referencias/`.
 - **A-005**: La publicidad emergente de promociones se exhibe una vez por inicio de sesión del miembro (reseteándose tras cerrar sesión), mostrando únicamente promociones activas con fecha límite no vencida, y permitiendo volver a consultar todas las ofertas en cualquier momento mediante el botón "Renovar membresía".
