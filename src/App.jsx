@@ -19,12 +19,14 @@ import UserRoster from './pages/admin/UserRoster';
 import MembershipPromos from './pages/admin/MembershipPromos';
 import ProductInventory from './pages/admin/ProductInventory';
 import AddUser from './pages/admin/AddUser';
+import RoutinesManagement from './pages/admin/RoutinesManagement';
 
 // Páginas de Recepción
 import CheckIn from './pages/reception/CheckIn';
 import MembershipOps from './pages/reception/MembershipOps';
 import QuickSales from './pages/reception/QuickSales';
 import AthletesList from './pages/reception/AthletesList';
+import ReceptionRoutines from './pages/reception/ReceptionRoutines';
 
 // Páginas del Miembro
 import MemberCard from './pages/member/MemberCard';
@@ -74,6 +76,9 @@ function MainRouter() {
         {currentPath === '/admin/checkin' && (
           <CheckIn onNavigate={navigate} />
         )}
+        {currentPath === '/admin/rutinas' && (
+          <RoutinesManagement onNavigate={navigate} />
+        )}
         {currentPath === '/admin/membresias-promociones' && (
           <MembershipPromos onNavigate={navigate} />
         )}
@@ -112,6 +117,9 @@ function MainRouter() {
       <ReceptionLayout currentPath={currentPath} navigate={navigate}>
         {(currentPath === '/recepcion' || currentPath === '/recepcion/checkin') && (
           <CheckIn onNavigate={navigate} />
+        )}
+        {currentPath === '/recepcion/rutinas' && (
+          <ReceptionRoutines onNavigate={navigate} />
         )}
         {currentPath === '/recepcion/membresias' && (
           <MembershipOps onNavigate={navigate} />

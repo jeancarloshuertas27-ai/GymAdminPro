@@ -6,7 +6,7 @@ export default function MobileHeader({ title = 'Inicio', onLogout }) {
   const handleLogout = onLogout || (() => logout('miembro'));
 
   return (
-    <header className="fixed top-0 w-full z-50 pt-safe bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.4)]">
+    <header className="sticky top-0 w-full z-40 pt-safe bg-surface-container-lowest/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.4)]">
       <div className="h-16 px-gutter-mobile flex items-center justify-between gap-space-sm">
         <div className="flex items-center gap-space-sm min-w-0">
           <div className="w-8 h-8 rounded bg-primary-container flex items-center justify-center font-headline-md text-on-primary-container">

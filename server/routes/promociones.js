@@ -4,6 +4,20 @@ import { upload } from '../utils/upload.js';
 
 const router = express.Router();
 
+// GET /api/promociones/para-miembro
+// Retorna promociones vigentes (fecha_limite no vencida) aplicables al nivel del socio
+router.get('/para-miembro', (req, res, next) => {
+  try {
+    if (!req.user || req.user.rol !== 'MIEMBRO') {
+      return res.status(403).json({ error: 'Acceso exclusivo para miembros autenticados.' });
+    }
+    const result = promocionService.listActivePromosForMember(req.user.id);
+    res.json(result);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // GET /api/promociones
 // Query param opcional: nivel_miembro=PRINCIPIANTE (para que Admin/Recepción filtren
 // las promos disponibles para un miembro específico al agregar tiempo)
@@ -14,7 +28,8 @@ router.get('/', (req, res, next) => {
     let fidelityToFilter;
     if (role === 'MIEMBRO') {
       // El propio miembro ve solo sus promos accesibles
-      fidelityToFilter = req.user?.fidelidad_nivel || 'TODOS';
+      const result = promocionService.listActivePromosForMember(req.user.id);
+      return res.json(result.promociones);
     } else if (req.query.nivel_miembro) {
       // Admin o Recepción consultando promos para un miembro específico
       fidelityToFilter = req.query.nivel_miembro;

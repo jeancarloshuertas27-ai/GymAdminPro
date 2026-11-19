@@ -8,6 +8,7 @@ export default function Sidebar({ currentPath, navigate }) {
   const adminRoutes = [
     { name: 'Dashboard Principal', path: '/admin/dashboard', icon: 'grid_view' },
     { name: 'Control de Acceso', path: '/admin/checkin', icon: 'sensor_door' },
+    { name: 'Configurar y Manejar Rutinas', path: '/admin/rutinas', icon: 'fitness_center' },
     { name: 'Membresías & Promociones', path: '/admin/membresias-promociones', icon: 'card_membership' },
     { name: 'Manejar Membresías', path: '/admin/membresias', icon: 'badge' },
     { name: 'Cambios & Aprobaciones', path: '/admin/aprobaciones', icon: 'verified_user' },
@@ -18,6 +19,7 @@ export default function Sidebar({ currentPath, navigate }) {
 
   const receptionRoutes = [
     { name: 'Control Acceso (Check-In)', path: '/recepcion/checkin', icon: 'sensor_door' },
+    { name: 'Manejar Rutinas', path: '/recepcion/rutinas', icon: 'fitness_center' },
     { name: 'Gestión de Membresías', path: '/recepcion/membresias', icon: 'card_membership' },
     { name: 'Venta Rápida Productos', path: '/recepcion/productos', icon: 'point_of_sale' },
     { name: 'Lista de Atletas', path: '/recepcion/atletas', icon: 'groups' },

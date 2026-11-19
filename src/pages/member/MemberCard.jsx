@@ -1,448 +1,465 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import MobileHeader from '../../components/common/MobileHeader';
+import MemberNav from '../../components/member/MemberNav';
+import PromoPopupModal from '../../components/member/PromoPopupModal';
+import CallCoachModal from '../../components/member/CallCoachModal';
+import MemberRoutine from './MemberRoutine';
+import MemberCreateRoutine from './MemberCreateRoutine';
+import MemberAiChat from './MemberAiChat';
+import { BellRing, XCircle, RefreshCw, Dumbbell, Bot, ArrowRight } from 'lucide-react';
 
 export default function MemberCard() {
   const { user, authFetch } = useAuth();
+  const [activeTab, setActiveTab] = useState('carnet'); // 'carnet' | 'rutina' | 'crear-rutina' | 'ia'
   const [memberData, setMemberData] = useState(null);
   const [promos, setPromos] = useState([]);
+  const [nivelPromo, setNivelPromo] = useState('NOVATO');
   const [products, setProducts] = useState([]);
+  const [rutinaResumen, setRutinaResumen] = useState(null);
+
+  // Publicidad emergente por inicio de sesión
+  const [showPromoPopup, setShowPromoPopup] = useState(false);
+
+  // Llamar Coach: estado pendiente + modal
   const [showCoachModal, setShowCoachModal] = useState(false);
-  const [selectedMachine, setSelectedMachine] = useState('Máquina #15 - Pec-Deck');
-  const [selectedReason, setSelectedReason] = useState('Spot / Cuidado');
-  const [alertSent, setAlertSent] = useState(false);
-  const [sendingAlert, setSendingAlert] = useState(false);
+  const [activeCoachAlert, setActiveCoachAlert] = useState(null);
+  const [cancelingAlert, setCancelingAlert] = useState(false);
+
+  const promosSectionRef = useRef(null);
+
+  const fetchMemberDashboardData = useCallback(async () => {
+    if (!user?.id) return;
+    try {
+      const [resUser, resPromos, resProducts, resRutina] = await Promise.all([
+        authFetch(`/api/users/${user.id}`),
+        authFetch('/api/promociones/para-miembro'),
+        authFetch('/api/productos'),
+        authFetch('/api/rutinas/mi-rutina'),
+      ]);
+
+      if (resUser.ok) {
+        setMemberData(await resUser.json());
+      }
+      if (resPromos.ok) {
+        const promoJson = await resPromos.json();
+        const activeList = promoJson.promociones || [];
+        setPromos(activeList);
+        setNivelPromo(promoJson.nivel_actual || 'NOVATO');
+
+        // Publicidad emergente solo una vez por inicio de sesión
+        const popupKey = `gym_promo_popup_shown_${user.id}`;
+        if (activeList.length > 0 && !sessionStorage.getItem(popupKey)) {
+          setShowPromoPopup(true);
+        }
+      }
+      if (resProducts.ok) {
+        setProducts(await resProducts.json());
+      }
+      if (resRutina.ok) {
+        const rJson = await resRutina.json();
+        setRutinaResumen(rJson.rutina_asignada || null);
+      }
+    } catch (e) {
+      console.error('Error al cargar datos del miembro:', e);
+    }
+  }, [user, authFetch]);
+
+  const fetchActiveAlert = useCallback(async () => {
+    if (!user?.id) return;
+    try {
+      const res = await authFetch('/api/alertas-coach/mi-alerta');
+      if (res.ok) {
+        const data = await res.json();
+        setActiveCoachAlert(data.alerta || null);
+      }
+    } catch {
+      // Sondeo tolerante a desconexión
+    }
+  }, [user, authFetch]);
 
   useEffect(() => {
-    const fetchMemberInfo = async () => {
-      try {
-        if (user?.id) {
-          const res = await authFetch(`/api/users/${user.id}`);
-          if (res.ok) {
-            const data = await res.json();
-            setMemberData(data);
-          }
-        }
-      } catch (e) {
-        console.error('Error fetching member card:', e);
-      }
-    };
+    fetchMemberDashboardData();
+    fetchActiveAlert();
+    const interval = setInterval(fetchActiveAlert, 2000);
+    return () => clearInterval(interval);
+  }, [fetchMemberDashboardData, fetchActiveAlert]);
 
-    const fetchPromosAndProducts = async () => {
-      try {
-        const [resPromos, resProducts] = await Promise.all([
-          authFetch('/api/promociones'),
-          authFetch('/api/productos')
-        ]);
-        if (resPromos.ok) {
-          const dataP = await resPromos.json();
-          setPromos(dataP);
-        }
-        if (resProducts.ok) {
-          const dataProd = await resProducts.json();
-          setProducts(dataProd);
-        }
-      } catch (e) {
-        console.error('Error fetching promos/products for member:', e);
-      }
-    };
-
-    fetchMemberInfo();
-    fetchPromosAndProducts();
-  }, [user]);
-
-  const handleSendCoachAlert = () => {
-    setSendingAlert(true);
-    setTimeout(() => {
-      setSendingAlert(false);
-      setAlertSent(true);
-      setTimeout(() => {
-        setAlertSent(false);
-        setShowCoachModal(false);
-      }, 3000);
-    }, 1000);
+  const handleClosePromoPopup = () => {
+    if (user?.id) {
+      sessionStorage.setItem(`gym_promo_popup_shown_${user.id}`, '1');
+    }
+    setShowPromoPopup(false);
   };
 
-  const remainingDays = memberData?.remaining?.totalDays || 48;
-  const fidelityName = memberData?.fidelity?.name || 'MUTANDO';
-  const fidelityMonths = memberData?.fidelity?.months || 9;
-  const progressPercent = memberData?.fidelity?.progressPercent || 75;
+  const handleGoToRenew = () => {
+    setActiveTab('carnet');
+    setTimeout(() => {
+      promosSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  };
+
+  const handleCancelCoachAlert = async () => {
+    if (!activeCoachAlert) return;
+    setCancelingAlert(true);
+    try {
+      const res = await authFetch(`/api/alertas-coach/${activeCoachAlert.id}/cancelar`, {
+        method: 'PATCH',
+      });
+      if (res.ok) {
+        setActiveCoachAlert(null);
+      }
+    } catch (err) {
+      console.error('Error al cancelar solicitud:', err);
+    } finally {
+      setCancelingAlert(false);
+    }
+  };
+
+  const remainingDays = memberData?.remaining?.totalDays ?? 0;
+  const fidelityName = memberData?.fidelity?.name || nivelPromo;
+  const fidelityMonths = memberData?.fidelity?.months ?? 0;
+  const progressPercent = memberData?.fidelity?.progressPercent ?? 0;
+  const nextLevel = memberData?.fidelity?.nextLevel || 'MAX';
 
   return (
-    <div className="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-screen relative overflow-x-hidden pb-24">
-      <MobileHeader title="Carnet Digital" />
-
-      <main className="flex flex-col relative w-full pt-20 px-gutter-mobile space-y-space-md">
-        {/* TICKET / MEMBRESÍA & GAMIFICACIÓN RADICAL */}
-        <div className="relative w-full rounded-xl bg-surface-container-low p-space-md shadow-xl overflow-hidden border border-surface-container">
-          <div className="absolute -top-12 -right-12 w-44 h-44 bg-secondary-container/10 rounded-full blur-3xl pointer-events-none"></div>
-          <div className="absolute -bottom-10 -left-10 w-36 h-36 bg-primary-container/15 rounded-full blur-2xl pointer-events-none"></div>
-
-          <div className="flex items-start justify-between gap-space-sm relative z-10 mb-space-sm">
-            <div className="flex flex-col">
-              <span className="font-data-mono text-body-sm text-outline tracking-widest uppercase">
-                Pase Atleta Activo
-              </span>
-              <div className="flex items-baseline gap-space-xs">
-                <span className="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">
-                  {memberData?.membership?.plan_tag || 'MEMBRESÍA VIP'}
+    <div className="bg-surface font-body-md text-body-md text-on-surface flex flex-col min-h-[calc(100vh-80px)] relative">
+      {/* PESTAÑA: INICIO / CARNET */}
+      {activeTab === 'carnet' && (
+        <main className="flex flex-col relative w-full px-gutter-mobile space-y-space-md pb-8">
+          {/* MEMBRESÍA, DÍAS FALTANTES Y FIDELIDAD */}
+          <div className="relative w-full rounded-xl bg-surface-container-low p-space-md shadow-xl overflow-hidden border border-outline-variant/20">
+            <div className="flex items-start justify-between gap-space-sm relative z-10 mb-space-sm">
+              <div className="flex flex-col min-w-0">
+                <span className="font-data-mono text-xs text-outline tracking-widest uppercase">
+                  Membresía Activa
                 </span>
-                <span className="font-data-mono text-[11px] px-2 py-0.5 rounded-full bg-secondary-container/15 text-primary font-bold tracking-wider">
+                <span className="font-headline-lg text-2xl text-on-surface font-bold uppercase truncate">
+                  {memberData?.membership?.plan_tag || 'MEMBRESÍA GIMNASIO'}
+                </span>
+                <span className="font-data-mono text-[11px] text-primary font-bold mt-0.5">
                   DNI: {user?.dni}
                 </span>
               </div>
+
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary-container/20 border border-primary/30 shrink-0">
+                <span
+                  className={`w-2.5 h-2.5 rounded-full ${
+                    remainingDays > 10
+                      ? 'bg-[#3bf589]'
+                      : remainingDays > 0
+                      ? 'bg-amber-400'
+                      : 'bg-error'
+                  } animate-pulse`}
+                />
+                <span className="font-label-badge text-xs text-on-surface uppercase font-bold tracking-wider">
+                  {remainingDays} DÍAS FALTANTES
+                </span>
+              </div>
             </div>
 
-            <div className="flex items-center gap-1.5 px-space-sm py-1.5 rounded-full bg-secondary-container/15 shadow-[0_0_12px_rgba(52,255,140,0.25)]">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#3bf589] animate-pulse"></span>
-              <span className="font-label-badge text-label-badge text-[#3bf589] uppercase tracking-wider">
-                {remainingDays} DÍAS RESTANTES
-              </span>
-            </div>
-          </div>
-
-          <div className="mt-space-xs rounded-lg bg-surface-container-lowest p-space-sm relative overflow-hidden border border-surface-container">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-space-sm">
-                <div className="w-10 h-10 rounded-xl bg-primary-container/20 flex items-center justify-center text-primary-container shadow-[0_0_14px_rgba(255,82,93,0.35)]">
-                  <span className="material-symbols-outlined text-[24px]">local_fire_department</span>
-                </div>
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-label-badge text-label-badge text-primary-container uppercase tracking-widest">
-                      {fidelityName} / {fidelityMonths} MESES
+            {/* Nivel de Fidelidad */}
+            <div className="mt-2 rounded-lg bg-surface-container-lowest p-3 border border-outline-variant/15">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+                    <span className="material-symbols-outlined text-[22px]">military_tech</span>
+                  </div>
+                  <div>
+                    <span className="font-label-badge text-xs text-primary uppercase tracking-wider font-bold block">
+                      NIVEL: {fidelityName} ({fidelityMonths} MESES)
+                    </span>
+                    <span className="font-body-sm text-[11px] text-on-surface-variant">
+                      Siguiente rango: <strong className="text-tertiary uppercase">{nextLevel}</strong>
                     </span>
                   </div>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant font-medium">
-                    Siguiente rango:{' '}
-                    <span className="text-secondary uppercase font-bold">
-                      {memberData?.fidelity?.nextLevel || 'APEX'}
-                    </span>
+                </div>
+                <span className="font-headline-md text-lg text-primary font-bold">{progressPercent}%</span>
+              </div>
+
+              <div className="w-full bg-surface-container-highest rounded-full h-2 mt-2.5 overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-primary-container to-tertiary-container rounded-full transition-all duration-700"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+
+              <div className="flex justify-between items-center text-[9px] font-data-mono text-outline mt-1.5">
+                <span>Novato</span>
+                <span>Principiante</span>
+                <span>Promedio</span>
+                <span>Mutando</span>
+                <span>Mamado/a</span>
+                <span>Animal</span>
+              </div>
+            </div>
+
+            {/* Botón Renovar Membresía */}
+            <button
+              type="button"
+              onClick={handleGoToRenew}
+              className="w-full mt-3 py-2.5 rounded-xl bg-surface-container-high hover:bg-primary-container text-primary hover:text-on-primary-container font-headline-md text-sm uppercase font-bold tracking-wider flex items-center justify-center gap-2 border border-primary/30 transition-all cursor-pointer"
+            >
+              <RefreshCw className="w-4 h-4" />
+              <span>Renovar membresía ({promos.length} promociones)</span>
+            </button>
+          </div>
+
+          {/* MÓDULO LLAMAR COACH (TARJETA ACTIVA O BOTÓN) */}
+          {activeCoachAlert ? (
+            <div className="w-full rounded-xl bg-tertiary-container/25 border-2 border-tertiary/70 p-4 space-y-3 shadow-lg">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-lg bg-tertiary text-on-tertiary flex items-center justify-center shrink-0 animate-pulse">
+                  <BellRing className="w-5 h-5" />
+                </div>
+                <div className="min-w-0">
+                  <span className="font-data-mono text-[10px] uppercase font-bold text-tertiary block">
+                    SOLICITUD EN CURSO
                   </span>
-                </div>
-              </div>
-              <div className="text-right">
-                <span className="font-headline-md text-headline-md text-primary">{progressPercent}%</span>
-              </div>
-            </div>
-
-            <div className="w-full bg-surface-container-highest rounded-full h-2 mt-3 overflow-hidden relative">
-              <div
-                className="h-full bg-gradient-to-r from-primary-container to-secondary-container rounded-full shadow-[0_0_8px_rgba(52,255,140,0.5)] transition-all duration-700"
-                style={{ width: `${progressPercent}%` }}
-              ></div>
-            </div>
-
-            <div className="flex justify-between items-center text-[10px] font-data-mono text-outline mt-2 pt-1 border-t-0">
-              <span className="text-on-surface-variant">Novato</span>
-              <span className="text-on-surface-variant">Principiante</span>
-              <span className="text-on-surface-variant">Promedio</span>
-              <span className="text-primary-container font-bold">Mutando</span>
-              <span className="text-secondary font-bold">Mamado/a</span>
-              <span>Animal</span>
-            </div>
-          </div>
-        </div>
-
-        {/* BOTÓN ROJO CARMESÍ: LLAMAR COACH */}
-        <div className="w-full relative">
-          <button
-            type="button"
-            onClick={() => setShowCoachModal(true)}
-            className="group relative w-full h-16 rounded-xl bg-primary-container text-on-primary-fixed font-headline-md text-headline-md tracking-wider uppercase flex items-center justify-center gap-space-sm shadow-[0_0_24px_rgba(31,113,239,0.4)] active:scale-[0.98] transition-transform duration-150 overflow-hidden cursor-pointer"
-          >
-            <span className="w-3 h-3 rounded-full bg-on-primary-fixed animate-ping"></span>
-            <span className="material-symbols-outlined text-[30px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-              emergency_home
-            </span>
-            <span>🚨 LLAMAR A COACH EN SALA</span>
-          </button>
-        </div>
-
-        {/* RUTINA DEL DÍA */}
-        <div className="rounded-xl bg-surface-container-low p-space-md shadow-lg relative overflow-hidden border border-surface-container">
-          <div className="flex items-center justify-between mb-space-sm">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-sm bg-primary-container"></span>
-              <span className="font-label-badge text-label-badge text-outline uppercase tracking-wider">
-                Plan de Asalto Diario
-              </span>
-            </div>
-            <span className="font-data-mono text-[12px] text-primary px-2 py-0.5 rounded bg-primary-container/10">
-              DÍA 3 / SEMANA
-            </span>
-          </div>
-
-          <div>
-            <h2 className="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-wide uppercase leading-none">
-              {memberData?.membership?.rutina_asignada || 'FUERZA & EMPUJE PUSH DAY'}
-            </h2>
-            <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-              Pecho, Deltoides Anterior y Tríceps • 5 Ejercicios de Carga Progresiva
-            </p>
-            <div className="flex items-center gap-space-md mt-2 text-outline font-data-mono text-body-sm">
-              <span className="flex items-center gap-1">
-                <span className="material-symbols-outlined text-[16px] text-primary">timer</span> 55 MIN
-              </span>
-              <span className="flex items-center gap-1">
-                <span className="material-symbols-outlined text-[16px] text-secondary">fitness_center</span> 18 SERIES TOT.
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* PROMOS Y TARIFAS EXCLUSIVAS */}
-        <div className="flex flex-col space-y-space-xs">
-          <div className="flex items-center justify-between">
-            <span className="font-label-badge text-label-badge text-on-surface uppercase tracking-wider flex items-center gap-1">
-              <span className="material-symbols-outlined text-[18px] text-primary">bolt</span> PLANES & PROMOCIONES ELEGIBLES
-            </span>
-            <span className="font-data-mono text-[11px] text-outline">DESLIZA &gt;</span>
-          </div>
-
-          <div className="flex overflow-x-auto space-x-space-sm pb-2 pt-1 no-scrollbar">
-            {promos.length === 0 ? (
-              <div className="flex-shrink-0 w-full rounded-xl bg-surface-container p-space-md shadow-md flex items-center justify-center text-center border border-surface-container-high py-6">
-                <p className="font-body-sm text-on-surface-variant">No hay promociones especiales disponibles en este momento.</p>
-              </div>
-            ) : (
-              promos.map((p) => (
-                <div
-                  key={p.id}
-                  className="flex-shrink-0 w-[84%] max-w-[320px] rounded-xl bg-surface-container overflow-hidden shadow-md flex flex-col justify-between border border-surface-container-high"
-                >
-                  {p.imagen_banner_url ? (
-                    <div className="w-full aspect-video overflow-hidden bg-surface-container-highest">
-                      <img
-                        src={p.imagen_banner_url}
-                        alt={p.nombre}
-                        className="w-full h-full object-cover"
-                        onError={(e) => { e.target.style.display = 'none'; }}
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-full aspect-video bg-surface-container-highest flex items-center justify-center text-outline">
-                      <span className="material-symbols-outlined text-[40px]">fitness_center</span>
-                    </div>
-                  )}
-
-                  <div className="p-space-md flex flex-col justify-between flex-1">
-                    <div>
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="font-data-mono text-[11px] text-primary uppercase font-bold tracking-widest px-2 py-0.5 rounded bg-primary-container/20">
-                          {p.tipo_duracion === 'MESES' ? `${p.duracion_valor} MESES` : `${p.duracion_valor} DÍAS`}
-                        </span>
-                        {p.es_tarifa_fija ? (
-                          <span className="font-data-mono text-[10px] text-tertiary uppercase font-bold">TARIFA FIJA</span>
-                        ) : (
-                          <span className="font-data-mono text-[10px] text-secondary uppercase font-bold">PROMO VOLÁTIL</span>
-                        )}
-                      </div>
-                      <h3 className="font-headline-md text-headline-md text-on-surface uppercase mt-2 leading-tight">
-                        {p.nombre}
-                      </h3>
-                      {p.filtro_publico !== 'TODOS' && (
-                        <p className="font-data-mono text-[11px] text-secondary mt-1">
-                          NIVEL: {p.filtro_publico}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="mt-4 pt-3 border-t border-surface-container-highest flex items-center justify-between">
-                      <span className="font-data-mono text-[11px] text-outline uppercase">PRECIO FINAL</span>
-                      <span className="font-headline-md text-[20px] text-primary font-bold">
-                        S/ {parseFloat(p.precio).toFixed(2)}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-
-        {/* TIENDA Y PRODUCTOS EN RECEPCIÓN */}
-        <div className="flex flex-col space-y-space-xs">
-          <div className="flex items-center justify-between">
-            <span className="font-label-badge text-label-badge text-on-surface uppercase tracking-wider flex items-center gap-1">
-              <span className="material-symbols-outlined text-[18px] text-secondary">inventory_2</span> TIENDA & SUPLEMENTOS
-            </span>
-            <span className="font-data-mono text-[11px] text-outline">EN RECEPCIÓN &gt;</span>
-          </div>
-
-          <div className="flex overflow-x-auto space-x-space-sm pb-2 pt-1 no-scrollbar">
-            {products.length === 0 ? (
-              <div className="flex-shrink-0 w-full rounded-xl bg-surface-container p-space-md shadow-md flex items-center justify-center text-center border border-surface-container-high py-6">
-                <p className="font-body-sm text-on-surface-variant">Catálogo de productos no disponible temporalmente.</p>
-              </div>
-            ) : (
-              products.map((prod) => (
-                <div
-                  key={prod.id}
-                  className="flex-shrink-0 w-[170px] rounded-xl bg-surface-container overflow-hidden shadow-md flex flex-col justify-between border border-surface-container-high"
-                >
-                  <div className="w-full h-28 bg-surface-container-highest flex items-center justify-center overflow-hidden">
-                    {prod.imagen_url ? (
-                      <img
-                        src={prod.imagen_url}
-                        alt={prod.nombre}
-                        className="w-full h-full object-cover"
-                        onError={(e) => { e.target.style.display = 'none'; }}
-                      />
-                    ) : (
-                      <span className="material-symbols-outlined text-outline text-[32px]">sports_martial_arts</span>
-                    )}
-                  </div>
-
-                  <div className="p-3 flex flex-col justify-between flex-1">
-                    <div>
-                      <span className="font-data-mono text-[10px] text-secondary font-bold uppercase tracking-wider">
-                        {prod.categoria || 'SUPLEMENTO'}
-                      </span>
-                      <h4 className="font-headline-md text-[13px] text-on-surface uppercase line-clamp-2 mt-0.5 leading-snug">
-                        {prod.nombre}
-                      </h4>
-                    </div>
-
-                    <div className="mt-3 pt-2 border-t border-surface-container-highest flex items-baseline justify-between">
-                      <span className="font-headline-md text-[15px] text-primary font-bold">
-                        S/ {parseFloat(prod.precio_venta).toFixed(2)}
-                      </span>
-                      <span className="font-data-mono text-[10px] text-on-surface-variant">
-                        {prod.stock} disp.
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-      </main>
-
-      {/* MODAL PARA ASISTENCIA DE COACH */}
-      {showCoachModal && (
-        <div className="fixed inset-0 z-50 bg-surface-container-lowest/90 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="w-full max-w-lg rounded-t-2xl sm:rounded-2xl bg-surface-container-low p-space-md space-y-space-md shadow-2xl relative border border-surface-container">
-            <div className="flex items-center justify-between pb-2 border-b border-surface-container">
-              <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-primary-container text-[28px]">notification_important</span>
-                <div>
-                  <h3 className="font-headline-md text-headline-md text-on-surface uppercase leading-tight">
-                    SOLICITAR COACH EN SALA
+                  <h3 className="font-headline-md text-base text-on-surface uppercase font-bold">
+                    Coach solicitado en {activeCoachAlert.maquina_numero}
                   </h3>
-                  <p className="font-body-sm text-body-sm text-outline">
-                    Un preparador físico se acercará a asistirte de inmediato
+                  <p className="font-body-sm text-xs text-on-surface-variant">
+                    Recepción ya recibió tu aviso y notificará al entrenador en sala.
                   </p>
                 </div>
               </div>
               <button
                 type="button"
-                onClick={() => setShowCoachModal(false)}
-                className="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-outline hover:text-on-surface cursor-pointer"
+                disabled={cancelingAlert}
+                onClick={handleCancelCoachAlert}
+                className="w-full py-2.5 rounded-xl bg-surface-container-lowest hover:bg-error-container text-error border border-error/40 font-headline-md text-sm uppercase font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer"
               >
-                <span className="material-symbols-outlined">close</span>
+                <XCircle className="w-4 h-4" />
+                <span>{cancelingAlert ? 'Cancelando...' : 'Cancelar solicitud'}</span>
               </button>
             </div>
-
-            <div className="space-y-space-xs">
-              <label className="font-label-badge text-label-badge text-on-surface-variant uppercase tracking-wider block">
-                Selecciona máquina / estación:
-              </label>
-              <div className="grid grid-cols-2 gap-2 text-left">
-                {[
-                  'Máquina #15 - Pec-Deck',
-                  'Máquina #04 - Prensa 45°',
-                  'Máquina #12 - Polea Alta',
-                  'Rack Sentadilla #02',
-                ].map((m) => (
-                  <button
-                    key={m}
-                    type="button"
-                    onClick={() => setSelectedMachine(m)}
-                    className={`px-3 py-2.5 rounded-lg text-body-sm font-data-mono flex items-center justify-between cursor-pointer ${
-                      selectedMachine === m
-                        ? 'bg-primary-container text-on-primary-container'
-                        : 'bg-surface-container text-on-surface hover:bg-surface-container-highest'
-                    }`}
-                  >
-                    <span className="truncate">{m}</span>
-                    <span className="material-symbols-outlined text-[16px]">pin_drop</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-space-xs">
-              <label className="font-label-badge text-label-badge text-on-surface-variant uppercase tracking-wider block">
-                Motivo de la asistencia
-              </label>
-              <div className="grid grid-cols-3 gap-2">
-                {['Spot / Cuidado', 'Corregir Postura', 'Duda de Rutina'].map((r) => (
-                  <button
-                    key={r}
-                    type="button"
-                    onClick={() => setSelectedReason(r)}
-                    className={`py-2 px-1 rounded-lg text-center font-label-badge text-[12px] uppercase font-bold cursor-pointer ${
-                      selectedReason === r
-                        ? 'bg-primary-container text-on-primary-container'
-                        : 'bg-surface-container text-outline hover:text-on-surface'
-                    }`}
-                  >
-                    {r}
-                  </button>
-                ))}
-              </div>
-            </div>
-
+          ) : (
             <button
               type="button"
-              disabled={sendingAlert}
-              onClick={handleSendCoachAlert}
-              className="w-full h-14 rounded-xl bg-primary-container text-on-primary-fixed font-headline-md text-headline-md tracking-wider uppercase flex items-center justify-center gap-2 shadow-[0_0_16px_rgba(31,113,239,0.35)] active:scale-95 transition-all cursor-pointer"
+              onClick={() => setShowCoachModal(true)}
+              className="w-full h-14 rounded-xl bg-primary-container hover:bg-primary text-on-primary-container font-headline-md text-lg tracking-wider uppercase font-bold flex items-center justify-center gap-2.5 shadow-[0_0_20px_rgba(31,113,239,0.35)] active:scale-[0.98] transition-all cursor-pointer"
             >
-              <span className="material-symbols-outlined text-[24px]">campaign</span>
-              <span>{sendingAlert ? 'ENVIANDO SEÑAL A RECEPCIÓN...' : 'NOTIFICAR AYUDA • ENVIAR ALERTA EN SALA'}</span>
+              <BellRing className="w-6 h-6" />
+              <span>LLAMAR COACH A MI MÁQUINA</span>
             </button>
+          )}
 
-            {alertSent && (
-              <div className="rounded-xl bg-secondary-container/20 p-space-md text-center border border-primary/40">
-                <div className="flex items-center justify-center text-primary mb-1">
-                  <span className="material-symbols-outlined text-[32px] animate-bounce">check_circle</span>
+          {/* ACCESO RÁPIDO: MI RUTINA Y ASISTENTE IA */}
+          <div className="grid grid-cols-1 gap-3">
+            <div
+              onClick={() => setActiveTab('rutina')}
+              className="rounded-xl bg-surface-container-low p-4 shadow-md border border-outline-variant/20 flex items-center justify-between gap-3 hover:border-primary/50 transition-all cursor-pointer"
+            >
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-11 h-11 rounded-xl bg-primary-container/20 text-primary flex items-center justify-center shrink-0">
+                  <Dumbbell className="w-6 h-6" />
                 </div>
-                <h4 className="font-headline-md text-headline-md text-primary uppercase">
-                  ¡ALERTA RECIBIDA POR RECEPCIÓN!
-                </h4>
-                <p className="font-body-sm text-body-sm text-on-surface mt-1">
-                  Un coach de piso se está desplazando hacia tu estación en este instante. No abandones tu máquina.
-                </p>
+                <div className="min-w-0">
+                  <span className="font-data-mono text-[10px] text-outline uppercase block">
+                    TU RUTINA ASIGNADA
+                  </span>
+                  <h3 className="font-headline-md text-lg text-on-surface uppercase font-bold truncate">
+                    {rutinaResumen?.nombre || memberData?.membership?.rutina_asignada || 'Ver o crear rutina'}
+                  </h3>
+                </div>
               </div>
-            )}
+              <ArrowRight className="w-5 h-5 text-primary shrink-0" />
+            </div>
+
+            <div
+              onClick={() => setActiveTab('ia')}
+              className="rounded-xl bg-surface-container-low p-4 shadow-md border border-outline-variant/20 flex items-center justify-between gap-3 hover:border-primary/50 transition-all cursor-pointer"
+            >
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-11 h-11 rounded-xl bg-tertiary-container/25 text-tertiary flex items-center justify-center shrink-0">
+                  <Bot className="w-6 h-6" />
+                </div>
+                <div className="min-w-0">
+                  <span className="font-data-mono text-[10px] text-outline uppercase block">
+                    AYUDA CON IA
+                  </span>
+                  <h3 className="font-headline-md text-lg text-on-surface uppercase font-bold truncate">
+                    Consultar ejercicios o máquinas
+                  </h3>
+                </div>
+              </div>
+              <ArrowRight className="w-5 h-5 text-tertiary shrink-0" />
+            </div>
           </div>
-        </div>
+
+          {/* PROMOCIONES Y PLANES VIGENTES PARA RENOVACIÓN */}
+          <div ref={promosSectionRef} className="flex flex-col space-y-2 pt-1">
+            <div className="flex items-center justify-between">
+              <span className="font-label-badge text-xs text-on-surface uppercase tracking-wider font-bold">
+                Promociones Vigentes para Ti
+              </span>
+              <span className="font-data-mono text-[11px] text-outline">DESLIZA &gt;</span>
+            </div>
+
+            <div className="flex overflow-x-auto space-x-3 pb-2 pt-1 no-scrollbar">
+              {promos.length === 0 ? (
+                <div className="flex-shrink-0 w-full rounded-xl bg-surface-container p-5 text-center border border-outline-variant/20">
+                  <p className="font-body-sm text-xs text-on-surface-variant">
+                    No hay promociones vigentes disponibles en este momento.
+                  </p>
+                </div>
+              ) : (
+                promos.map((p) => (
+                  <div
+                    key={p.id}
+                    className="flex-shrink-0 w-[82%] max-w-[300px] rounded-xl bg-surface-container overflow-hidden shadow-md flex flex-col justify-between border border-outline-variant/25"
+                  >
+                    {p.banner_url ? (
+                      <div className="w-full h-32 overflow-hidden bg-surface-container-highest">
+                        <img
+                          src={p.banner_url}
+                          alt={p.nombre}
+                          className="w-full h-full object-cover"
+                          onError={(e) => { e.target.style.display = 'none'; }}
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-full h-24 bg-surface-container-highest flex items-center justify-center text-outline">
+                        <Dumbbell className="w-8 h-8 opacity-60" />
+                      </div>
+                    )}
+
+                    <div className="p-3.5 flex flex-col justify-between flex-1">
+                      <div>
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="font-data-mono text-[10px] text-primary uppercase font-bold px-2 py-0.5 rounded bg-primary-container/20">
+                            {p.duracion_valor} {p.duracion_unidad}
+                          </span>
+                          {p.fecha_limite && (
+                            <span className="font-data-mono text-[10px] text-tertiary font-bold">
+                              Hasta {p.fecha_limite}
+                            </span>
+                          )}
+                        </div>
+                        <h4 className="font-headline-md text-lg text-on-surface uppercase font-bold mt-2 leading-tight">
+                          {p.nombre}
+                        </h4>
+                        {p.publico_objetivo !== 'TODOS' && (
+                          <p className="font-data-mono text-[10px] text-secondary mt-0.5">
+                            Exclusivo nivel: {p.publico_objetivo}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="mt-3 pt-2.5 border-t border-outline-variant/20 flex items-center justify-between">
+                        <span className="font-data-mono text-[10px] text-outline uppercase">RENOVACIÓN</span>
+                        <span className="font-headline-md text-xl text-primary font-extrabold">
+                          S/ {parseFloat(p.precio || 0).toFixed(2)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+
+          {/* TIENDA EN RECEPCIÓN */}
+          {products.length > 0 && (
+            <div className="flex flex-col space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="font-label-badge text-xs text-on-surface uppercase tracking-wider font-bold">
+                  Productos Disponibles en Recepción
+                </span>
+                <span className="font-data-mono text-[11px] text-outline">STOCK EN SALA &gt;</span>
+              </div>
+              <div className="flex overflow-x-auto space-x-3 pb-2 pt-1 no-scrollbar">
+                {products.map((prod) => (
+                  <div
+                    key={prod.id}
+                    className={`flex-shrink-0 w-[160px] rounded-xl bg-surface-container overflow-hidden shadow-md flex flex-col justify-between border border-outline-variant/20 ${
+                      prod.stock <= 0 ? 'opacity-60' : ''
+                    }`}
+                  >
+                    <div className="w-full h-24 bg-surface-container-highest flex items-center justify-center overflow-hidden">
+                      {prod.imagen_url ? (
+                        <img
+                          src={prod.imagen_url}
+                          alt={prod.nombre}
+                          className="w-full h-full object-cover"
+                          onError={(e) => { e.target.style.display = 'none'; }}
+                        />
+                      ) : (
+                        <span className="material-symbols-outlined text-outline text-[28px]">inventory_2</span>
+                      )}
+                    </div>
+                    <div className="p-2.5">
+                      <span className="font-data-mono text-[9px] text-secondary font-bold uppercase">
+                        {prod.categoria || 'GENERAL'}
+                      </span>
+                      <h4 className="font-headline-md text-xs text-on-surface uppercase font-bold truncate mt-0.5">
+                        {prod.nombre}
+                      </h4>
+                      <div className="mt-2 pt-1.5 border-t border-outline-variant/15 flex items-baseline justify-between">
+                        <span className="font-headline-md text-sm text-primary font-bold">
+                          S/ {parseFloat(prod.precio_venta).toFixed(2)}
+                        </span>
+                        <span className="font-data-mono text-[9px] text-on-surface-variant">
+                          {prod.stock > 0 ? `${prod.stock} disp.` : 'Agotado'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </main>
       )}
 
-      {/* Mobile Bottom Navigation */}
-      <nav className="fixed bottom-0 w-full z-40 bg-surface-container-lowest/90 backdrop-blur-xl border-t border-surface-container">
-        <div className="grid grid-cols-4 items-center h-16 px-space-xs">
-          <button className="flex flex-col items-center justify-center gap-space-xs h-full text-primary-container">
-            <span className="material-symbols-outlined text-[24px]">speed</span>
-            <span className="font-label-badge text-label-badge uppercase text-[11px]">Inicio</span>
-          </button>
-          <button className="flex flex-col items-center justify-center gap-space-xs h-full text-on-surface-variant hover:text-on-surface">
-            <span className="material-symbols-outlined text-[24px]">fitness_center</span>
-            <span className="font-label-badge text-label-badge uppercase text-[11px]">Mi Rutina</span>
-          </button>
-          <button className="flex flex-col items-center justify-center gap-space-xs h-full text-on-surface-variant hover:text-on-surface">
-            <span className="material-symbols-outlined text-[24px]">add_box</span>
-            <span className="font-label-badge text-label-badge uppercase text-[11px]">Crear</span>
-          </button>
-          <button className="flex flex-col items-center justify-center gap-space-xs h-full text-on-surface-variant hover:text-on-surface">
-            <span className="material-symbols-outlined text-[24px]">smart_toy</span>
-            <span className="font-label-badge text-label-badge uppercase text-[11px]">IA Coach</span>
-          </button>
-        </div>
-      </nav>
+      {/* PESTAÑA: MI RUTINA (OFICIAL + PRIVADAS) */}
+      {activeTab === 'rutina' && (
+        <MemberRoutine onGoToCreate={() => setActiveTab('crear-rutina')} />
+      )}
+
+      {/* PESTAÑA: CREAR RUTINA PERSONAL PRIVADA */}
+      {activeTab === 'crear-rutina' && (
+        <MemberCreateRoutine
+          onBack={() => setActiveTab('rutina')}
+          onCreated={() => setActiveTab('rutina')}
+        />
+      )}
+
+      {/* PESTAÑA: AYUDA CON IA */}
+      {activeTab === 'ia' && <MemberAiChat />}
+
+      {/* PUBLICIDAD EMERGENTE POR INICIO DE SESIÓN */}
+      {showPromoPopup && (
+        <PromoPopupModal
+          promos={promos}
+          nivelActual={nivelPromo}
+          onClose={handleClosePromoPopup}
+          onGoToRenew={handleGoToRenew}
+        />
+      )}
+
+      {/* MODAL LLAMAR A COACH */}
+      <CallCoachModal
+        isOpen={showCoachModal}
+        onClose={() => setShowCoachModal(false)}
+        onAlertCreated={(alerta) => {
+          setActiveCoachAlert(alerta);
+          fetchActiveAlert();
+        }}
+      />
+
+      {/* NAVEGACIÓN INFERIOR MÓVIL */}
+      <MemberNav
+        activeTab={activeTab}
+        onChangeTab={(tabId) => setActiveTab(tabId)}
+        onCallCoach={() => {
+          if (activeCoachAlert) {
+            setActiveTab('carnet');
+          } else {
+            setShowCoachModal(true);
+          }
+        }}
+      />
     </div>
   );
 }

@@ -10,6 +10,9 @@ import productosRoutes from './routes/productos.js';
 import membresiasRoutes from './routes/membresias.js';
 import aprobacionesRoutes from './routes/aprobaciones.js';
 import reportesRoutes from './routes/reportes.js';
+import rutinasRoutes from './routes/rutinas.js';
+import alertasCoachRoutes from './routes/alertasCoach.js';
+import asistenteIaRoutes from './routes/asistenteIa.js';
 import { authenticate } from './utils/authMiddleware.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -49,6 +52,9 @@ app.use('/api/productos', productosRoutes);
 app.use('/api/membresias', membresiasRoutes);
 app.use('/api/aprobaciones', aprobacionesRoutes);
 app.use('/api/reportes', reportesRoutes);
+app.use('/api/rutinas', rutinasRoutes);
+app.use('/api/alertas-coach', alertasCoachRoutes);
+app.use('/api/asistente-ia', asistenteIaRoutes);
 
 // Manejo centralizado de errores
 app.use((err, req, res, next) => {

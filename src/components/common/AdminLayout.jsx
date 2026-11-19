@@ -2,6 +2,7 @@ import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import CoachAlertsBanner from '../coach/CoachAlertsBanner';
 
 export default function AdminLayout({ currentPath, navigate, children }) {
   const { logout } = useAuth();
@@ -13,6 +14,7 @@ export default function AdminLayout({ currentPath, navigate, children }) {
 
       <div className="pl-72">
         <main className="w-full min-h-screen pt-16 bg-surface">
+          <CoachAlertsBanner />
           {children}
         </main>
       </div>
