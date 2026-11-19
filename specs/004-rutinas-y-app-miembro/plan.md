@@ -10,7 +10,7 @@
 Implementar la Feature 004 conectando los 3 portales independientes (`/admin`, `/recepcion` y `/miembro`) sobre la misma API Node.js/Express y base de datos SQLite (`server/gymcore.db`):
 
 1. **Sitio Administrador (`/admin`)**: Configurador semanal de rutinas (Lunes a Sábado) con Drag & Drop nativo desde un catálogo precargado de 25 máquinas numeradas (#01–#25), numeración secuencial automática (`1.`, `2.`, ...), modal emergente de configuración (series, repeticiones, descanso), modal "Guardar rutina" con botón "Aceptar" validado, y buscador por DNI para asignar plantillas (`rutina: <nombre>`).
-2. **Sitio Recepción (`/recepcion`)**: Buscador por DNI con lista desplegable para asignar rutinas preconfiguradas, más un banner de alerta en vivo ("Llamar Coach") alimentado por sondeo HTTP cada 3 segundos desde el backend compartido (visible también en el Sitio Administrador).
+2. **Sitio Recepción (`/recepcion`)**: Buscador por DNI con lista desplegable para asignar rutinas preconfiguradas, más un banner de alerta en vivo ("Llamar Coach") alimentado por sondeo HTTP cada 2 segundos desde el backend compartido (visible también en el Sitio Administrador).
 3. **Sitio Miembro (`/miembro`)**: Portal móvil completo con estado de membresía y nivel de fidelidad, publicidad emergente de promociones vigentes filtradas por fecha límite y nivel (una vez por inicio de sesión, con botón `'X'`), pestañas superiores `Rutina Asignada` / `Mi Rutina Privada`, edición personal de series/descanso, creador de rutinas privadas aisladas, botón "Llamar Coach" con tarjeta de estado y cancelación, y chat "Ayuda con IA" integrado con Google Gemini (`GEMINI_API_KEY`) y fallback local deportivo.
 4. **Limpieza Visual Estricta**: Fidelidad a la estética oscura de `stitch-referencias/004-rutinas-y-app-miembro/` eliminando todo texto decorativo de relleno (`terminal mode alpha001`, `sys_online: 99.8`, `motor táctico`, etc.).
 
@@ -24,7 +24,7 @@ Implementar la Feature 004 conectando los 3 portales independientes (`/admin`, `
 **Testing**: Vitest 2 (`vitest run --fileParallelism=false`) para tests unitarios e integración de API  
 **Target Platform**: Web Desktop (`/admin`, `/recepcion`) y Web Móvil Responsivo (`/miembro`, `/admin`)  
 **Project Type**: Full-stack SPA + REST API monorepo (`src/` + `server/`)  
-**Performance Goals**: Búsqueda por DNI < 500ms; propagación de alertas "Llamar Coach" <= 3 segundos mediante HTTP polling ligero; respuestas IA <= 3s  
+**Performance Goals**: Búsqueda por DNI < 500ms; propagación de alertas "Llamar Coach" <= 2 segundos mediante HTTP polling ligero (2s); respuestas IA <= 3s  
 **Constraints**: Cero dependencias NPM externas para Drag & Drop o WebSockets (Principio I); español de Perú, moneda `S/`, DNI 8 dígitos (Principio II); `GEMINI_API_KEY` opcional mediante variable de entorno (Principio V)  
 **Scale/Scope**: Gimnasio local con catálogo de 25 máquinas, decenas de rutinas plantilla y cientos de miembros concurrentes sobre SQLite
 
@@ -36,7 +36,7 @@ Implementar la Feature 004 conectando los 3 portales independientes (`/admin`, `
 
 | Principio Constitucional | Verificación en Feature 004 | Estado |
 |---|---|---|
-| **I. Simplicidad ante todo** | Uso de HTML5 Drag & Drop nativo, HTTP polling ligero cada 3s para alertas de coach, y `fetch` nativo para Gemini API con fallback local (cero librerías extra). | PASS |
+| **I. Simplicidad ante todo** | Uso de HTML5 Drag & Drop nativo, HTTP polling ligero cada 2s para alertas de coach, y `fetch` nativo para Gemini API con fallback local (cero librerías extra). | PASS |
 | **II. Idioma y mercado local (Perú)** | Toda la UI, mensajes del asistente IA, días de la semana, promociones en Soles (`S/`) y búsquedas por DNI de 8 dígitos en español de Perú. | PASS |
 | **III. Cero alcance fantasma** | Se implementa estrictamente lo especificado en `spec.md` y las 5 carpetas de `stitch-referencias/004-rutinas-y-app-miembro/`, omitiendo textos de ruido técnico. | PASS |
 | **IV. Verificable por personas no técnicas** | Todo flujo (arrastrar máquina, guardar rutina, alertar al coach, ver popup de promo, chatear con IA) se prueba directamente en el navegador/móvil. | PASS |
@@ -83,8 +83,8 @@ src/
 ├── App.jsx                                  # Rutas /admin/rutinas, /recepcion/rutinas y sub-vistas de /miembro/*
 ├── components/
 │   ├── common/
-│   │   ├── AdminLayout.jsx                  # Incluye banner en vivo de Alertas Coach (polling 3s)
-│   │   ├── ReceptionLayout.jsx              # Incluye banner en vivo de Alertas Coach (polling 3s)
+│   │   ├── AdminLayout.jsx                  # Incluye banner en vivo de Alertas Coach (polling 2s)
+│   │   ├── ReceptionLayout.jsx              # Incluye banner en vivo de Alertas Coach (polling 2s)
 │   │   ├── Sidebar.jsx                      # Enlace "Configurar y Manejar Rutinas"
 │   │   └── ReceptionSidebar.jsx             # Enlace "Manejar Rutinas"
 │   ├── admin/

@@ -2,7 +2,7 @@
 
 **Base Path**: `/api/alertas-coach`  
 **Authentication**: `Bearer <token>` requerido en todos los endpoints.  
-**Mecanismo en Tiempo Real**: Sondeo HTTP ligero (Polling cada 3 segundos desde Recepción y Administrador).
+**Mecanismo en Tiempo Real**: Sondeo HTTP ligero (Polling cada 2 segundos desde Recepción y Administrador).
 
 ---
 
@@ -67,7 +67,7 @@ Permite al propio miembro cancelar su alerta antes de que sea atendida.
 ---
 
 ## 4. `GET /api/alertas-coach/pendientes`
-Consultado cada 3 segundos por el Sitio de Recepción y el Sitio Administrador para mostrar la notificación en vivo en pantalla principal.
+Consultado cada 2 segundos por el Sitio de Recepción y el Sitio Administrador para mostrar la notificación en vivo en pantalla principal.
 - **Acceso**: `RECEPCIONISTA`, `ADMINISTRADOR`
 - **Response `200 OK`**:
 ```json

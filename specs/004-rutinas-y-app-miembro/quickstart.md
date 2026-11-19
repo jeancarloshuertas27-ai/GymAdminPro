@@ -45,7 +45,7 @@ npm run dev
    - Ajusta series/descanso de un ejercicio asignado.
    - Crea una rutina privada y comprueba en `/admin` que no aparece en el catálogo global.
 4. En **Llamar Coach**, ingresa un número de máquina (ej. `Máquina 8`) y envía la alerta:
-   - Verifica en `/recepcion` y `/admin` que aparece la alerta en vivo en <= 3 segundos.
+   - Verifica en `/recepcion` y `/admin` que aparece la alerta en vivo en <= 2 segundos.
    - Verifica la tarjeta activa con **"Cancelar solicitud"** en el celular, o márcala como **Atendida** desde Recepción.
 5. Abre **Ayuda con IA** y envía una consulta sobre reemplazo de máquinas o descanso.
 

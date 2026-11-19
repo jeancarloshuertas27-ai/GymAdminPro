@@ -20,12 +20,12 @@ Utilizar la **API nativa HTML5 Drag and Drop** (`draggable`, `onDragStart`, `onD
 ## 2. Mecanismo de Alertas en Vivo "Llamar Coach"
 
 ### Decisión
-**HTTP Polling ligero cada 3 segundos** desde los layouts de Recepción (`/recepcion`) y Administración (`/admin`) hacia el endpoint `GET /api/alertas-coach/pendientes`, respaldado por SQLite como única fuente de verdad.
+**HTTP Polling ligero cada 2 segundos** desde los layouts de Recepción (`/recepcion`) y Administración (`/admin`) hacia el endpoint `GET /api/alertas-coach/pendientes`, respaldado por SQLite como única fuente de verdad.
 
 ### Justificación
 - Cumple con el Principio I (Simplicidad) y VI (Sincronización en SQLite central).
 - A diferencia de WebSockets puros, no requiere mantener estados en memoria ni manejar reconexiones complejas en entornos Node con `--watch` o despliegues serverless/proxy.
-- Con un intervalo de 3000 ms y una consulta indexada por `estado = 'PENDIENTE'`, la latencia de notificación es imperceptible para una alerta presencial (< 3s) y el consumo de CPU/red es despreciable.
+- Con un intervalo de 2000 ms y una consulta indexada por `estado = 'PENDIENTE'`, la latencia de notificación es imperceptible para una alerta presencial (<= 2s) y el consumo de CPU/red es despreciable.
 - El miembro en `/miembro` también sondea o consulta su estado activo (`GET /api/alertas-coach/mi-alerta`) para actualizar su tarjeta de estado cuando recepción marca la alerta como atendida.
 
 ---

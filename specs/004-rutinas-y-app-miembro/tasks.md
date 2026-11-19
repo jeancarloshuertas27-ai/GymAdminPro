@@ -62,7 +62,7 @@
 
 **Goal**: Habilitar en Recepción la asignación de rutinas por DNI y mostrar en la pantalla principal de Recepción y Admin alertas en tiempo real cuando un socio solicite coach indicando su máquina.
 
-**Independent Test**: En `/recepcion/rutinas`, buscar por DNI y modificar rutina; y desde otro navegador simular una alerta en `POST /api/alertas-coach` para verificar que aparezca en vivo (<= 3s) en Recepción y Admin con botón de "Marcar como Atendida".
+**Independent Test**: En `/recepcion/rutinas`, buscar por DNI y modificar rutina; y desde otro navegador simular una alerta en `POST /api/alertas-coach` para verificar que aparezca en vivo (<= 2s) en Recepción y Admin con botón de "Marcar como Atendida".
 
 ### Tests for User Story 2
 - [ ] T014 [P] [US2] Crear pruebas de integración para ciclo de vida de alertas (`POST /api/alertas-coach`, `GET /api/alertas-coach/pendientes`, `PATCH /api/alertas-coach/:id/atender`, `PATCH /api/alertas-coach/:id/cancelar`) en `tests/integration/alertasCoachApi.test.js`
@@ -71,7 +71,7 @@
 - [ ] T015 [US2] Implementar `alertaCoachService.js` (crear alerta validando no duplicidad pendiente, listar pendientes con nombre y DNI del socio, marcar como atendida, cancelar por el socio y consultar alerta activa propia) en `server/services/alertaCoachService.js`
 - [ ] T016 [US2] Implementar rutas `/api/alertas-coach` con segregación estricta de roles en `server/routes/alertasCoach.js`
 - [ ] T017 [P] [US2] Crear página `ReceptionRoutines` reutilizando `RoutineAssigner` en `src/pages/reception/ReceptionRoutines.jsx`
-- [ ] T018 [P] [US2] Construir componente `CoachAlertsBanner` con HTTP polling ligero cada 3 segundos (`GET /api/alertas-coach/pendientes`), apilado por orden de llegada mostrando nombre del miembro y máquina, y botón "Marcar como Atendida" en `src/components/coach/CoachAlertsBanner.jsx`
+- [ ] T018 [P] [US2] Construir componente `CoachAlertsBanner` con HTTP polling ligero cada 2 segundos (`GET /api/alertas-coach/pendientes`), apilado por orden de llegada mostrando nombre del miembro y máquina, y botón "Marcar como Atendida" en `src/components/coach/CoachAlertsBanner.jsx`
 - [ ] T019 [US2] Integrar `CoachAlertsBanner` en `src/components/common/ReceptionLayout.jsx` y `src/components/common/AdminLayout.jsx`
 - [ ] T020 [US2] Registrar ruta `/recepcion/rutinas` en `src/App.jsx` y agregar enlace "Manejar Rutinas" en `src/components/common/ReceptionSidebar.jsx`
 
