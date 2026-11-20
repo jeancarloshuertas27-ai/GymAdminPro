@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Save, Search, Plus, SlidersHorizontal, X, ArrowUp, ArrowDown, Trash2, CheckCircle, GripVertical } from 'lucide-react';
+import { Save, Search, Plus, SlidersHorizontal, X, ArrowUp, ArrowDown, Trash2, CheckCircle, GripVertical, FolderEdit, FilePlus2 } from 'lucide-react';
 
 const DIAS_CONFIG = [
   { key: 'LUNES', label: 'LUNES' },
@@ -25,6 +25,8 @@ const createEmptySchedule = () => ({
 export default function RoutineBuilder({ onRoutineSaved }) {
   const { authFetch } = useAuth();
   const [maquinas, setMaquinas] = useState([]);
+  const [plantillas, setPlantillas] = useState([]);
+  const [selectedPlantillaId, setSelectedPlantillaId] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [schedule, setSchedule] = useState(createEmptySchedule);
   const [activeDay, setActiveDay] = useState('LUNES');
@@ -39,20 +41,62 @@ export default function RoutineBuilder({ onRoutineSaved }) {
   const [saving, setSaving] = useState(false);
   const [feedback, setFeedback] = useState(null);
 
-  useEffect(() => {
-    const fetchMaquinas = async () => {
-      try {
-        const res = await authFetch('/api/rutinas/maquinas');
-        if (res.ok) {
-          const data = await res.json();
-          setMaquinas(data.maquinas || []);
-        }
-      } catch (err) {
-        console.error('Error al cargar catálogo de máquinas:', err);
+  const fetchCatalogAndPlantillas = useCallback(async () => {
+    try {
+      const [resMaq, resPlan] = await Promise.all([
+        authFetch('/api/rutinas/maquinas'),
+        authFetch('/api/rutinas/plantillas'),
+      ]);
+      if (resMaq.ok) {
+        const data = await resMaq.json();
+        setMaquinas(data.maquinas || []);
       }
-    };
-    fetchMaquinas();
+      if (resPlan.ok) {
+        const dataP = await resPlan.json();
+        setPlantillas(dataP.plantillas || []);
+      }
+    } catch (err) {
+      console.error('Error al cargar catálogo y plantillas:', err);
+    }
   }, [authFetch]);
+
+  useEffect(() => {
+    fetchCatalogAndPlantillas();
+  }, [fetchCatalogAndPlantillas]);
+
+  const handleSelectPlantillaForEdit = (idStr) => {
+    setSelectedPlantillaId(idStr);
+    if (!idStr) {
+      setSchedule(createEmptySchedule());
+      setRoutineName('');
+      return;
+    }
+
+    const found = plantillas.find((p) => String(p.id) === String(idStr));
+    if (!found) return;
+
+    const loaded = createEmptySchedule();
+    for (const d of found.dias || []) {
+      if (loaded[d.dia_semana]) {
+        loaded[d.dia_semana] = {
+          enfoque_muscular: d.enfoque_muscular === 'REST' ? 'GENERAL' : (d.enfoque_muscular || 'GENERAL'),
+          ejercicios: (d.ejercicios || []).map((ex) => ({
+            maquina_id: ex.maquina_id,
+            numero_maquina: ex.numero_maquina,
+            codigo_etiqueta: ex.codigo_etiqueta,
+            nombre: ex.nombre,
+            grupo_muscular: ex.grupo_muscular,
+            series: ex.series,
+            repeticiones: ex.repeticiones,
+            tiempo_descanso_segundos: ex.tiempo_descanso_segundos,
+          })),
+        };
+      }
+    }
+
+    setSchedule(loaded);
+    setRoutineName(found.nombre);
+  };
 
   const filteredMaquinas = maquinas.filter((m) => {
     const q = searchTerm.toLowerCase().trim();
@@ -198,8 +242,14 @@ export default function RoutineBuilder({ onRoutineSaved }) {
     }));
 
     try {
-      const res = await authFetch('/api/rutinas/plantillas', {
-        method: 'POST',
+      const isEditing = Boolean(selectedPlantillaId);
+      const endpoint = isEditing
+        ? `/api/rutinas/plantillas/${selectedPlantillaId}`
+        : '/api/rutinas/plantillas';
+      const method = isEditing ? 'PUT' : 'POST';
+
+      const res = await authFetch(endpoint, {
+        method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           nombre: routineName.trim(),
@@ -212,10 +262,23 @@ export default function RoutineBuilder({ onRoutineSaved }) {
       }
 
       setSaveModalOpen(false);
-      setRoutineName('');
-      setSchedule(createEmptySchedule());
-      setFeedback({ type: 'success', text: `Rutina "${data.plantilla.nombre}" guardada en la base de datos.` });
+      setFeedback({
+        type: 'success',
+        text: isEditing
+          ? `Rutina "${data.plantilla.nombre}" actualizada correctamente.`
+          : `Rutina "${data.plantilla.nombre}" guardada en la base de datos.`,
+      });
       setTimeout(() => setFeedback(null), 5000);
+
+      await fetchCatalogAndPlantillas();
+      if (!isEditing) {
+        setSelectedPlantillaId('');
+        setRoutineName('');
+        setSchedule(createEmptySchedule());
+      } else {
+        setRoutineName(data.plantilla.nombre);
+      }
+
       if (onRoutineSaved) onRoutineSaved(data.plantilla);
     } catch (err) {
       setFeedback({ type: 'error', text: err.message });
@@ -226,8 +289,8 @@ export default function RoutineBuilder({ onRoutineSaved }) {
 
   return (
     <section className="flex flex-col gap-space-md bg-surface-container-low p-space-lg rounded-xl shadow-xl border border-outline-variant/20">
-      {/* Cabecera limpia */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-outline-variant/20">
+      {/* Cabecera limpia y Selector de Rutina Existente para Modificar */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-3 border-b border-outline-variant/20">
         <div>
           <span className="font-data-mono text-[11px] text-primary uppercase font-bold tracking-widest block">
             CONFIGURACIÓN DE ENTRENAMIENTO SEMANAL
@@ -236,8 +299,37 @@ export default function RoutineBuilder({ onRoutineSaved }) {
             Configurar Rutinas (Drag &amp; Drop)
           </h2>
         </div>
-        <div className="font-data-mono text-xs text-on-surface-variant bg-surface-container px-3 py-1.5 rounded-lg border border-outline-variant/20">
-          Arrastra máquinas de la izquierda hacia Lunes–Sábado
+
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+          <div className="flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-xl border border-outline-variant/30">
+            <FolderEdit className="w-4 h-4 text-primary shrink-0" />
+            <select
+              aria-label="Seleccionar rutina para editar o crear nueva"
+              value={selectedPlantillaId}
+              onChange={(e) => handleSelectPlantillaForEdit(e.target.value)}
+              className="bg-transparent text-on-surface font-body-sm text-sm focus:outline-none cursor-pointer min-w-[240px]"
+            >
+              <option value="" className="bg-surface-container text-on-surface">
+                + Crear nueva rutina en blanco
+              </option>
+              {plantillas.map((p) => (
+                <option key={p.id} value={p.id} className="bg-surface-container text-on-surface">
+                  Editar: {p.nombre} ({p.total_ejercicios} ej.)
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {selectedPlantillaId && (
+            <button
+              type="button"
+              onClick={() => handleSelectPlantillaForEdit('')}
+              className="px-3 py-2 rounded-xl bg-surface-container-high hover:bg-primary hover:text-on-primary text-on-surface-variant font-label-badge text-xs uppercase flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <FilePlus2 className="w-4 h-4" />
+              <span>Nueva rutina</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -493,13 +585,15 @@ export default function RoutineBuilder({ onRoutineSaved }) {
               type="button"
               disabled={totalExercises === 0}
               onClick={() => {
-                setRoutineName('');
+                if (!selectedPlantillaId) {
+                  setRoutineName('');
+                }
                 setSaveModalOpen(true);
               }}
               className="px-6 py-3 rounded-xl bg-primary-container hover:bg-tertiary-container text-on-primary-container hover:text-on-tertiary-container font-headline-md text-lg uppercase tracking-wider font-bold shadow-[0_0_18px_rgba(31,113,239,0.35)] transition-all flex items-center gap-2 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <Save className="w-5 h-5" />
-              <span>Guardar rutina</span>
+              <span>{selectedPlantillaId ? 'Guardar cambios' : 'Guardar rutina'}</span>
             </button>
           </div>
         </div>

@@ -1,52 +1,68 @@
 import React from 'react';
 
-export default function PromoGrid({ promociones, onArchivePromo }) {
+export default function PromoGrid({ promociones = [], onTogglePromo, loading = false }) {
+  const activasCount = promociones.filter((p) => p.activo === 1).length;
+  const inactivasCount = promociones.length - activasCount;
+
   return (
     <section className="bg-surface-container-low rounded-xl p-space-lg shadow-xl flex flex-col gap-space-md border border-outline-variant/30">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div className="flex items-center gap-space-sm">
-          <span className="material-symbols-outlined text-primary text-[24px]">verified</span>
+          <span className="material-symbols-outlined text-emerald-400 text-[24px]">verified</span>
           <div className="flex flex-col">
             <h2 className="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">
-              PROMOCIONES Y PRECIOS ACTIVOS
+              PROMOCIONES Y PRECIOS
             </h2>
             <span className="font-data-mono text-[11px] text-on-surface-variant uppercase">
-              {promociones.length} OFERTAS HABILITADAS EN BASE DE DATOS
+              {activasCount} ACTIVAS • {inactivasCount} INACTIVAS ({promociones.length} EN TOTAL)
             </span>
           </div>
         </div>
-        <span className="px-2.5 py-1 rounded-full bg-primary-container/20 text-primary font-data-mono text-[11px] font-bold">
-          CATALOGO_SYNC
-        </span>
       </div>
 
-      {promociones.length === 0 ? (
+      {loading ? (
         <div className="p-8 text-center text-outline font-data-mono text-[13px]">
-          No hay promociones o tarifas activas registradas en el catálogo.
+          Cargando promociones y precios...
+        </div>
+      ) : promociones.length === 0 ? (
+        <div className="p-8 text-center text-outline font-data-mono text-[13px]">
+          No hay promociones o tarifas registradas en el catálogo.
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
           {promociones.map((promo) => {
             const isVolatile = promo.tipo === 'PROMOCION_VOLATIL';
+            const isActive = promo.activo === 1;
+
             return (
               <div
                 key={promo.id}
-                className="bg-surface-container rounded-xl overflow-hidden flex flex-col justify-between p-space-md group hover:bg-surface-container-high transition-all shadow-md relative border border-outline-variant/20"
+                className={`rounded-xl overflow-hidden flex flex-col justify-between p-space-md transition-all shadow-md relative border-2 ${
+                  isActive
+                    ? 'bg-emerald-950/30 border-emerald-500/60 hover:bg-emerald-950/45'
+                    : 'bg-emerald-950/10 border-emerald-900/50 opacity-80 hover:opacity-100'
+                }`}
               >
-                {/* Accent line top */}
+                {/* Franja superior verde diferenciada (brillante para activa, oscura para inactiva) */}
                 <div
-                  className={`absolute top-0 right-0 left-0 h-1 ${
-                    isVolatile ? 'bg-primary-container' : 'bg-outline-variant'
+                  className={`absolute top-0 right-0 left-0 h-1.5 ${
+                    isActive ? 'bg-emerald-400' : 'bg-emerald-900'
                   }`}
                 />
 
-                <div className="flex flex-col gap-space-xs mb-space-md">
-                  <div className="flex justify-between items-start">
-                    <span className="font-label-badge text-[11px] uppercase px-space-xs py-0.5 rounded bg-primary-container/20 text-primary font-extrabold tracking-wider">
+                <div className="flex flex-col gap-space-xs mb-space-md pt-1">
+                  <div className="flex justify-between items-start gap-1">
+                    <span className="font-label-badge text-[11px] uppercase px-space-xs py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-extrabold tracking-wider">
                       {promo.publico_objetivo || 'TODOS'}
                     </span>
-                    <span className="material-symbols-outlined text-primary text-[18px]">
-                      {isVolatile ? 'local_fire_department' : 'calendar_month'}
+                    <span
+                      className={`font-data-mono text-[10px] uppercase px-2 py-0.5 rounded font-bold border ${
+                        isActive
+                          ? 'bg-emerald-500/20 text-emerald-300 border-emerald-400/50'
+                          : 'bg-emerald-950/50 text-emerald-600 border-emerald-800/50'
+                      }`}
+                    >
+                      {isActive ? 'ACTIVA' : 'INACTIVA'}
                     </span>
                   </div>
 
@@ -56,34 +72,49 @@ export default function PromoGrid({ promociones, onArchivePromo }) {
 
                   <p className="font-body-sm text-[12px] text-on-surface-variant line-clamp-2">
                     {isVolatile
-                      ? `Campaña volátil con límite: ${promo.fecha_limite || 'Hasta agotar cupos'}`
-                      : 'Tarifa plana fija para atletas recurrentes sin permanencia.'}
+                      ? `Campaña con fecha límite: ${promo.fecha_limite || 'Sin fecha límite'}`
+                      : 'Tarifa fija estándar para miembros.'}
                   </p>
 
                   <div className="mt-space-sm pt-space-xs flex items-baseline justify-between">
                     <span className="font-data-mono text-[12px] text-on-surface-variant uppercase">
                       {promo.duracion_valor} {promo.duracion_unidad}
                     </span>
-                    <span className="font-metric-huge text-[28px] leading-none text-primary font-extrabold">
+                    <span
+                      className={`font-metric-huge text-[28px] leading-none font-extrabold ${
+                        isActive ? 'text-emerald-400' : 'text-emerald-700'
+                      }`}
+                    >
                       S/ {parseFloat(promo.precio).toFixed(0)}
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-space-xs border-t border-outline-variant/20">
-                  <span className="inline-flex items-center gap-1 font-data-mono text-[10px] text-primary">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>{' '}
-                    {isVolatile ? 'VIGENTE' : 'TARIFA FIJA'}
+                <div className="flex items-center justify-between gap-2 pt-space-xs border-t border-emerald-900/30">
+                  <span
+                    className={`inline-flex items-center gap-1.5 font-data-mono text-[10px] font-bold ${
+                      isActive ? 'text-emerald-400' : 'text-emerald-700'
+                    }`}
+                  >
+                    <span
+                      className={`w-2 h-2 rounded-full ${
+                        isActive ? 'bg-emerald-400 animate-pulse' : 'bg-emerald-800'
+                      }`}
+                    />
+                    {isVolatile ? 'PROMOCIÓN' : 'TARIFA FIJA'}
                   </span>
 
-                  {onArchivePromo && (
+                  {onTogglePromo && (
                     <button
                       type="button"
-                      onClick={() => onArchivePromo(promo.id)}
-                      className="text-outline-variant hover:text-error transition-colors p-1"
-                      title="Archivar Tarifa"
+                      onClick={() => onTogglePromo(promo)}
+                      className={`px-3 py-1.5 rounded-lg font-label-badge text-[11px] uppercase tracking-wider font-bold transition-all cursor-pointer ${
+                        isActive
+                          ? 'bg-emerald-950/60 hover:bg-emerald-900 text-emerald-300 border border-emerald-600/50'
+                          : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow'
+                      }`}
                     >
-                      <span className="material-symbols-outlined text-[18px]">archive</span>
+                      {isActive ? 'Desactivar' : 'Activar'}
                     </button>
                   )}
                 </div>
@@ -95,4 +126,3 @@ export default function PromoGrid({ promociones, onArchivePromo }) {
     </section>
   );
 }
-

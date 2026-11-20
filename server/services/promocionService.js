@@ -42,11 +42,12 @@ export function canMemberAccessPromo(userFidelityLevel, promoRequiredLevel) {
 
 export const promocionService = {
   listPromotions(role, userFidelity = null) {
-    const rows = db.prepare('SELECT * FROM promociones WHERE activo = 1 ORDER BY created_at DESC').all();
+    const allRows = db.prepare('SELECT * FROM promociones ORDER BY activo DESC, created_at DESC').all();
     const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Lima' });
 
     if (role === 'MIEMBRO') {
-      return rows.filter((p) => {
+      return allRows.filter((p) => {
+        if (p.activo !== 1) return false;
         if (p.fecha_limite && p.fecha_limite < today) {
           return false;
         }
@@ -56,7 +57,8 @@ export const promocionService = {
 
     // Admin o Recepcionista consultando para un miembro específico (nivel_miembro pasado)
     if (userFidelity !== null) {
-      return rows.filter((p) => {
+      return allRows.filter((p) => {
+        if (p.activo !== 1) return false;
         if (p.fecha_limite && p.fecha_limite < today) {
           return false;
         }
@@ -64,8 +66,12 @@ export const promocionService = {
       });
     }
 
-    // Sin filtro: Admin ve todo para gestión
-    return rows;
+    // Sin filtro: Administrador visualiza todas las promociones (activas e inactivas)
+    if (role === 'ADMINISTRADOR') {
+      return allRows;
+    }
+
+    return allRows.filter((p) => p.activo === 1);
   },
 
   listActivePromosForMember(userId) {
@@ -143,6 +149,27 @@ export const promocionService = {
 
     db.prepare('UPDATE promociones SET activo = 0 WHERE id = ?').run(id);
     return { id, activo: 0 };
+  },
+
+  togglePromotionStatus(id, nuevoEstado = undefined) {
+    const promo = db.prepare('SELECT * FROM promociones WHERE id = ?').get(Number(id));
+    if (!promo) {
+      throw new Error('Promoción no encontrada');
+    }
+
+    const nextActivo =
+      nuevoEstado !== undefined && nuevoEstado !== null
+        ? (nuevoEstado ? 1 : 0)
+        : (promo.activo === 1 ? 0 : 1);
+
+    db.prepare('UPDATE promociones SET activo = ? WHERE id = ?').run(nextActivo, promo.id);
+    const updated = db.prepare('SELECT * FROM promociones WHERE id = ?').get(promo.id);
+
+    return {
+      id: promo.id,
+      activo: nextActivo,
+      promocion: updated,
+    };
   }
 };
 

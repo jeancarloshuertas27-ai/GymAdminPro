@@ -76,6 +76,45 @@ function hydratePlantilla(plantilla, ajustesMap = null) {
   };
 }
 
+function saveRoutineDays(rutinaId, dias = []) {
+  const diasInputMap = new Map();
+  if (Array.isArray(dias)) {
+    for (const d of dias) {
+      if (d?.dia_semana) {
+        diasInputMap.set(String(d.dia_semana).toUpperCase(), d);
+      }
+    }
+  }
+
+  const insDia = db.prepare(`
+    INSERT INTO rutinas_dias (rutina_id, dia_semana, enfoque_muscular, orden_dia)
+    VALUES (?, ?, ?, ?)
+  `);
+  const insEx = db.prepare(`
+    INSERT INTO rutinas_ejercicios (rutina_dia_id, maquina_id, orden_secuencial, series, repeticiones, tiempo_descanso_segundos)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `);
+
+  DIAS_SEMANA.forEach((diaNombre, idx) => {
+    const payloadDia = diasInputMap.get(diaNombre);
+    const ejercicios = Array.isArray(payloadDia?.ejercicios) ? payloadDia.ejercicios : [];
+    const enfoque = ejercicios.length === 0
+      ? 'REST'
+      : String(payloadDia?.enfoque_muscular || 'GENERAL').trim().toUpperCase();
+
+    const resDia = insDia.run(rutinaId, diaNombre, enfoque, idx + 1);
+    const diaId = Number(resDia.lastInsertRowid);
+
+    ejercicios.forEach((ej, exIdx) => {
+      const maquinaId = Number(ej.maquina_id);
+      const series = Math.max(1, parseInt(ej.series, 10) || 4);
+      const reps = String(ej.repeticiones || '8-12').trim();
+      const descanso = Math.max(0, parseInt(ej.tiempo_descanso_segundos, 10) || 90);
+      insEx.run(diaId, maquinaId, exIdx + 1, series, reps, descanso);
+    });
+  });
+}
+
 export const rutinaService = {
   /**
    * Catálogo maestro de las 25 máquinas del gimnasio
@@ -121,47 +160,56 @@ export const rutinaService = {
       `).run(cleanNombre, cleanDesc, userId || null);
 
       const rutinaId = Number(resPlantilla.lastInsertRowid);
-      const diasInputMap = new Map();
-      if (Array.isArray(dias)) {
-        for (const d of dias) {
-          if (d?.dia_semana) {
-            diasInputMap.set(String(d.dia_semana).toUpperCase(), d);
-          }
-        }
-      }
-
-      const insDia = db.prepare(`
-        INSERT INTO rutinas_dias (rutina_id, dia_semana, enfoque_muscular, orden_dia)
-        VALUES (?, ?, ?, ?)
-      `);
-      const insEx = db.prepare(`
-        INSERT INTO rutinas_ejercicios (rutina_dia_id, maquina_id, orden_secuencial, series, repeticiones, tiempo_descanso_segundos)
-        VALUES (?, ?, ?, ?, ?, ?)
-      `);
-
-      DIAS_SEMANA.forEach((diaNombre, idx) => {
-        const payloadDia = diasInputMap.get(diaNombre);
-        const ejercicios = Array.isArray(payloadDia?.ejercicios) ? payloadDia.ejercicios : [];
-        const enfoque = ejercicios.length === 0
-          ? 'REST'
-          : String(payloadDia?.enfoque_muscular || 'GENERAL').trim().toUpperCase();
-
-        const resDia = insDia.run(rutinaId, diaNombre, enfoque, idx + 1);
-        const diaId = Number(resDia.lastInsertRowid);
-
-        ejercicios.forEach((ej, exIdx) => {
-          const maquinaId = Number(ej.maquina_id);
-          const series = Math.max(1, parseInt(ej.series, 10) || 4);
-          const reps = String(ej.repeticiones || '8-12').trim();
-          const descanso = Math.max(0, parseInt(ej.tiempo_descanso_segundos, 10) || 90);
-          insEx.run(diaId, maquinaId, exIdx + 1, series, reps, descanso);
-        });
-      });
+      saveRoutineDays(rutinaId, dias);
 
       db.exec('COMMIT');
 
       const created = db.prepare('SELECT * FROM rutinas_plantillas WHERE id = ?').get(rutinaId);
       return hydratePlantilla(created);
+    } catch (err) {
+      db.exec('ROLLBACK');
+      throw err;
+    }
+  },
+
+  /**
+   * Actualiza una plantilla existente (nombre, días y ejercicios)
+   */
+  updatePlantilla(rutinaId, { nombre, descripcion = '', dias = [] }) {
+    const rId = Number(rutinaId);
+    const existing = db.prepare('SELECT * FROM rutinas_plantillas WHERE id = ? AND activo = 1').get(rId);
+    if (!existing) {
+      throw new Error('Plantilla de rutina no encontrada');
+    }
+
+    if (!nombre || !String(nombre).trim()) {
+      throw new Error('El nombre de la rutina es obligatorio');
+    }
+
+    const cleanNombre = String(nombre).trim();
+    const cleanDesc = String(descripcion || '').trim();
+
+    db.exec('BEGIN');
+    try {
+      db.prepare(`
+        UPDATE rutinas_plantillas SET nombre = ?, descripcion = ? WHERE id = ?
+      `).run(cleanNombre, cleanDesc, rId);
+
+      // Sincronizar nombre en membresias de atletas que tienen asignada esta rutina
+      db.prepare(`
+        UPDATE membresias
+        SET rutina_asignada = ?
+        WHERE usuario_id IN (SELECT usuario_id FROM miembro_rutinas_asignadas WHERE rutina_id = ?)
+      `).run(cleanNombre, rId);
+
+      // Reemplazar días y ejercicios (en cascada elimina rutinas_ejercicios previos)
+      db.prepare('DELETE FROM rutinas_dias WHERE rutina_id = ?').run(rId);
+      saveRoutineDays(rId, dias);
+
+      db.exec('COMMIT');
+
+      const updated = db.prepare('SELECT * FROM rutinas_plantillas WHERE id = ?').get(rId);
+      return hydratePlantilla(updated);
     } catch (err) {
       db.exec('ROLLBACK');
       throw err;

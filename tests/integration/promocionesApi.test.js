@@ -103,5 +103,43 @@ describe('Promociones API - Integration (US1)', () => {
     const check = db.prepare('SELECT activo FROM promociones WHERE id = ?').get(promo.id);
     expect(check.activo).toBe(0);
   });
+
+  it('debe permitir activar/desactivar una promoción y listar todas (activas e inactivas) para Admin', async () => {
+    const promo = db.prepare('SELECT id FROM promociones LIMIT 1').get();
+
+    // Desactivar
+    const resOff = await fetch(`${baseUrl}/api/promociones/${promo.id}/estado`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer uid_${adminUser.id}_123`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ activo: 0 }),
+    });
+    expect(resOff.status).toBe(200);
+    const dataOff = await resOff.json();
+    expect(dataOff.activo).toBe(0);
+
+    // Admin sigue viendo la promoción inactiva en GET /api/promociones
+    const adminListOff = await fetch(`${baseUrl}/api/promociones`, {
+      headers: { Authorization: `Bearer uid_${adminUser.id}_123` },
+    }).then((r) => r.json());
+    const foundOff = adminListOff.find((p) => p.id === promo.id);
+    expect(foundOff).toBeDefined();
+    expect(foundOff.activo).toBe(0);
+
+    // Activar nuevamente
+    const resOn = await fetch(`${baseUrl}/api/promociones/${promo.id}/estado`, {
+      method: 'PATCH',
+      headers: {
+        Authorization: `Bearer uid_${adminUser.id}_123`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ activo: 1 }),
+    });
+    expect(resOn.status).toBe(200);
+    const dataOn = await resOn.json();
+    expect(dataOn.activo).toBe(1);
+  });
 });
 

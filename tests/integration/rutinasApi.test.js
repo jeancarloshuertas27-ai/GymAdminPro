@@ -187,5 +187,46 @@ describe('Rutinas Semanales, Asignación por DNI y Privacidad - Integration (US1
     const checkGlobalData = await checkGlobalRes.json();
     const leaked = checkGlobalData.plantillas.find((p) => p.nombre === privateName);
     expect(leaked).toBeUndefined();
+
+    // 6. Admin modifica una plantilla existente (PUT /api/rutinas/plantillas/:id)
+    const maq2 = maquinas.find((m) => m.numero_maquina === 2);
+    const updatedName = `${routineName} Modificada`;
+    const updateRes = await fetch(`${baseUrl}/api/rutinas/plantillas/${plantillaId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer uid_${adminUser.id}_123`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        nombre: updatedName,
+        dias: [
+          {
+            dia_semana: 'LUNES',
+            enfoque_muscular: 'FULL BODY',
+            ejercicios: [
+              { maquina_id: maq2.id, series: 3, repeticiones: '10-12', tiempo_descanso_segundos: 60 },
+            ],
+          },
+          {
+            dia_semana: 'MARTES',
+            enfoque_muscular: 'PUSH',
+            ejercicios: [
+              { maquina_id: maq8.id, series: 4, repeticiones: '8-12', tiempo_descanso_segundos: 90 },
+            ],
+          },
+        ],
+      }),
+    });
+    expect(updateRes.status).toBe(200);
+    const updateData = await updateRes.json();
+    expect(updateData.plantilla.nombre).toBe(updatedName);
+    expect(updateData.plantilla.dias[0].ejercicios[0].maquina_id).toBe(maq2.id);
+    expect(updateData.plantilla.dias[1].ejercicios[0].maquina_id).toBe(maq8.id);
+
+    // Sincronizó el nombre en la ficha del atleta por DNI
+    const searchUpdated = await fetch(`${baseUrl}/api/rutinas/buscar-atleta/${memberDni}`, {
+      headers: { Authorization: `Bearer uid_${adminUser.id}_123` },
+    }).then((r) => r.json());
+    expect(searchUpdated.atleta.rutina_etiqueta).toBe(`rutina: ${updatedName}`);
   });
 });

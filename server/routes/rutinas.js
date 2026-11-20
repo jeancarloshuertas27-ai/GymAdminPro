@@ -37,6 +37,19 @@ router.post('/plantillas', requireAuth, requireRole(['ADMINISTRADOR']), (req, re
   }
 });
 
+// PUT /api/rutinas/plantillas/:id - Modificar rutina existente desde configurador (Solo Admin)
+router.put('/plantillas/:id', requireAuth, requireRole(['ADMINISTRADOR']), (req, res) => {
+  try {
+    const plantilla = rutinaService.updatePlantilla(req.params.id, req.body || {});
+    res.json({
+      message: 'Rutina actualizada correctamente',
+      plantilla,
+    });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
 // GET /api/rutinas/buscar-atleta/:dni - Buscar socio por DNI y ver rutina actual (Admin y Recepción)
 router.get('/buscar-atleta/:dni', requireAuth, requireRole(['ADMINISTRADOR', 'RECEPCIONISTA']), (req, res) => {
   try {

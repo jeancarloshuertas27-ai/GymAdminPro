@@ -79,5 +79,23 @@ router.patch('/:id/archivar', (req, res, next) => {
   }
 });
 
+// PATCH /api/promociones/:id/estado (Admin only) - Activar o desactivar promoción
+router.patch('/:id/estado', (req, res, next) => {
+  try {
+    if (req.user?.rol !== 'ADMINISTRADOR') {
+      return res.status(403).json({ error: 'Acceso denegado. Solo el Administrador puede activar o desactivar promociones.' });
+    }
+
+    const { activo } = req.body || {};
+    const result = promocionService.togglePromotionStatus(Number(req.params.id), activo);
+    res.json({
+      message: result.activo === 1 ? 'Promoción activada correctamente.' : 'Promoción desactivada correctamente.',
+      ...result
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
 export default router;
 
