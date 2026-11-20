@@ -91,6 +91,9 @@ export function AuthProvider({ children }) {
 
       const targetPortal = portal || getPortalFromPath(data.user.redirectTo);
       if (targetPortal) {
+        if (targetPortal === 'miembro' && data.user?.id) {
+          sessionStorage.removeItem(`gym_promo_popup_shown_${data.user.id}`);
+        }
         writePortalSession(targetPortal, data.user, data.token);
         setSessions(prev => ({
           ...prev,
@@ -117,6 +120,13 @@ export function AuthProvider({ children }) {
       console.warn('Error en logout:', e);
     } finally {
       if (portal) {
+        if (portal === 'miembro') {
+          Object.keys(sessionStorage).forEach((k) => {
+            if (k.startsWith('gym_promo_popup_shown_')) {
+              sessionStorage.removeItem(k);
+            }
+          });
+        }
         writePortalSession(portal, null, null);
         setSessions(prev => ({
           ...prev,

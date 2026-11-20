@@ -105,6 +105,20 @@ export class UserCreationService {
         voucherUrl = `uploads/vouchers/${voucherFile.filename}`;
       }
 
+      // Buscar plantilla en rutinas_plantillas si coincide por id o nombre
+      let plantillaMatch = null;
+      if (rutina) {
+        plantillaMatch = db.prepare(`
+          SELECT id, nombre FROM rutinas_plantillas
+          WHERE activo = 1 AND (CAST(id AS TEXT) = ? OR nombre = ?)
+          LIMIT 1
+        `).get(String(rutina).trim(), String(rutina).trim());
+      }
+
+      const rutinaNombreFinal = plantillaMatch
+        ? plantillaMatch.nombre
+        : (rutina && String(rutina).trim() ? String(rutina).trim() : 'Sin rutina asignada');
+
       db.prepare(`
         INSERT INTO membresias (usuario_id, fecha_inicio, fecha_vencimiento, anios, meses, estado, tipo_pago, comprobante_url, numero_operacion, plan_tag, rutina_asignada)
         VALUES (?, ?, ?, ?, ?, 'ACTIVO', ?, ?, ?, ?, ?)
@@ -118,8 +132,19 @@ export class UserCreationService {
         voucherUrl,
         numero_operacion ? String(numero_operacion).trim() : null,
         numYears > 0 ? 'VIP ANUAL' : 'MEMBRESÍA MENSUAL',
-        rutina || 'PPL Clásico // Fuerza & Hipertrofia (6 días)'
+        rutinaNombreFinal
       );
+
+      if (plantillaMatch) {
+        db.prepare(`
+          INSERT INTO miembro_rutinas_asignadas (usuario_id, rutina_id, asignado_por)
+          VALUES (?, ?, ?)
+          ON CONFLICT(usuario_id) DO UPDATE SET
+            rutina_id = excluded.rutina_id,
+            asignado_por = excluded.asignado_por,
+            fecha_asignacion = CURRENT_TIMESTAMP
+        `).run(newUserId, plantillaMatch.id, currentUser ? currentUser.id : null);
+      }
 
       db.prepare(`
         INSERT INTO fidelidad (usuario_id, fecha_inscripcion_original, meses_continuos, nivel_actual, ultimo_reinicio)

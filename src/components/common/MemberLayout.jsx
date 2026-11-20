@@ -14,7 +14,7 @@ export default function MemberLayout({ title = 'Carnet Digital', children, activ
 
         <MobileHeader title={title} onLogout={() => logout('miembro')} />
 
-        <div className="flex-1 w-full pt-16 pb-20">
+        <div className="flex-1 w-full pt-4 pb-16 sm:pb-2">
           {children}
         </div>
       </div>

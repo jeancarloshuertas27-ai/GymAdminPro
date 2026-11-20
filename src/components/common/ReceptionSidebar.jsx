@@ -3,6 +3,7 @@ import React from 'react';
 export default function ReceptionSidebar({ currentPath, navigate }) {
   const routes = [
     { name: 'Control Acceso (Check-In)', path: '/recepcion/checkin', icon: 'sensor_door' },
+    { name: 'Manejar Rutinas', path: '/recepcion/rutinas', icon: 'fitness_center' },
     { name: 'Gestión de Membresías', path: '/recepcion/membresias', icon: 'card_membership' },
     { name: 'Venta Rápida Productos', path: '/recepcion/productos', icon: 'point_of_sale' },
     { name: 'Lista de Atletas', path: '/recepcion/atletas', icon: 'groups' },

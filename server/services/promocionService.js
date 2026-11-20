@@ -42,13 +42,13 @@ export function canMemberAccessPromo(userFidelityLevel, promoRequiredLevel) {
 
 export const promocionService = {
   listPromotions(role, userFidelity = null) {
-    const rows = db.prepare('SELECT * FROM promociones WHERE activo = 1 ORDER BY created_at DESC').all();
+    const allRows = db.prepare('SELECT * FROM promociones ORDER BY activo DESC, created_at DESC').all();
+    const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Lima' });
 
     if (role === 'MIEMBRO') {
-      const today = new Date().toISOString().split('T')[0];
-      return rows.filter((p) => {
-        // Excluir expiradas si son volátiles con fecha_limite
-        if (p.tipo === 'PROMOCION_VOLATIL' && p.fecha_limite && p.fecha_limite < today) {
+      return allRows.filter((p) => {
+        if (p.activo !== 1) return false;
+        if (p.fecha_limite && p.fecha_limite < today) {
           return false;
         }
         return canMemberAccessPromo(userFidelity, p.publico_objetivo);
@@ -57,17 +57,31 @@ export const promocionService = {
 
     // Admin o Recepcionista consultando para un miembro específico (nivel_miembro pasado)
     if (userFidelity !== null) {
-      const today = new Date().toISOString().split('T')[0];
-      return rows.filter((p) => {
-        if (p.tipo === 'PROMOCION_VOLATIL' && p.fecha_limite && p.fecha_limite < today) {
+      return allRows.filter((p) => {
+        if (p.activo !== 1) return false;
+        if (p.fecha_limite && p.fecha_limite < today) {
           return false;
         }
         return canMemberAccessPromo(userFidelity, p.publico_objetivo);
       });
     }
 
-    // Sin filtro: Admin ve todo para gestión
-    return rows;
+    // Sin filtro: Administrador visualiza todas las promociones (activas e inactivas)
+    if (role === 'ADMINISTRADOR') {
+      return allRows;
+    }
+
+    return allRows.filter((p) => p.activo === 1);
+  },
+
+  listActivePromosForMember(userId) {
+    const fid = db.prepare('SELECT nivel_actual FROM fidelidad WHERE usuario_id = ?').get(Number(userId));
+    const nivelActual = fid?.nivel_actual || 'NOVATO';
+    const promociones = this.listPromotions('MIEMBRO', nivelActual);
+    return {
+      nivel_actual: nivelActual,
+      promociones
+    };
   },
 
   createPromotion(data, bannerFile = null) {
@@ -135,6 +149,27 @@ export const promocionService = {
 
     db.prepare('UPDATE promociones SET activo = 0 WHERE id = ?').run(id);
     return { id, activo: 0 };
+  },
+
+  togglePromotionStatus(id, nuevoEstado = undefined) {
+    const promo = db.prepare('SELECT * FROM promociones WHERE id = ?').get(Number(id));
+    if (!promo) {
+      throw new Error('Promoción no encontrada');
+    }
+
+    const nextActivo =
+      nuevoEstado !== undefined && nuevoEstado !== null
+        ? (nuevoEstado ? 1 : 0)
+        : (promo.activo === 1 ? 0 : 1);
+
+    db.prepare('UPDATE promociones SET activo = ? WHERE id = ?').run(nextActivo, promo.id);
+    const updated = db.prepare('SELECT * FROM promociones WHERE id = ?').get(promo.id);
+
+    return {
+      id: promo.id,
+      activo: nextActivo,
+      promocion: updated,
+    };
   }
 };
 

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 
 export default function MemberForm({ onSuccess }) {
@@ -10,7 +10,27 @@ export default function MemberForm({ onSuccess }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [rutina, setRutina] = useState('PPL Clásico // Fuerza & Hipertrofia (6 días)');
+  const [plantillas, setPlantillas] = useState([]);
+  const [rutina, setRutina] = useState('Sin rutina asignada');
+
+  useEffect(() => {
+    const loadPlantillas = async () => {
+      try {
+        const res = await authFetch('/api/rutinas/plantillas');
+        if (res.ok) {
+          const data = await res.json();
+          const list = data.plantillas || [];
+          setPlantillas(list);
+          if (list.length > 0) {
+            setRutina(list[0].nombre);
+          }
+        }
+      } catch (err) {
+        console.error('Error al cargar rutinas para formulario de miembro:', err);
+      }
+    };
+    loadPlantillas();
+  }, [authFetch]);
   const [years, setYears] = useState(1);
   const [months, setMonths] = useState(0);
   const [tipoPago, setTipoPago] = useState('EFECTIVO');
@@ -111,7 +131,7 @@ export default function MemberForm({ onSuccess }) {
     setCelular('');
     setUsername('');
     setPassword('');
-    setRutina('PPL Clásico // Fuerza & Hipertrofia (6 días)');
+    setRutina(plantillas[0]?.nombre || 'Sin rutina asignada');
     setYears(1);
     setMonths(0);
     setTipoPago('EFECTIVO');
@@ -340,21 +360,15 @@ export default function MemberForm({ onSuccess }) {
                   onChange={(e) => setRutina(e.target.value)}
                   className="w-full bg-surface-container-lowest text-on-surface px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer border border-surface-container-high"
                 >
-                  <option value="PPL Clásico // Fuerza & Hipertrofia (6 días)">
-                    PPL Clásico // Fuerza & Hipertrofia (6 días)
-                  </option>
-                  <option value="Torso / Pierna Pro // Atleta Intermedio (4 días)">
-                    Torso / Pierna Pro // Atleta Intermedio (4 días)
-                  </option>
-                  <option value="Fullbody Adaptación Rápida // Novato (3 días)">
-                    Fullbody Adaptación Rápida // Novato (3 días)
-                  </option>
-                  <option value="Protocolo Bestia // SBD Heavy Focus (5 días)">
-                    Protocolo Bestia // SBD Heavy Focus (5 días)
-                  </option>
-                  <option value="Metabolic Conditioning // Shred (4 días)">
-                    Metabolic Conditioning // Shred (4 días)
-                  </option>
+                  {plantillas.length === 0 ? (
+                    <option value="Sin rutina asignada">Sin rutinas preconfiguradas</option>
+                  ) : (
+                    plantillas.map((p) => (
+                      <option key={p.id} value={p.nombre}>
+                        {p.nombre} ({p.total_ejercicios} ejercicios)
+                      </option>
+                    ))
+                  )}
                 </select>
                 <span className="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant pointer-events-none">
                   expand_more

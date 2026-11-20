@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
 
 export default function PromoForm({ onPromoCreated }) {
+  const { authFetch } = useAuth();
   const [tipo, setTipo] = useState('TARIFA_FIJA');
   const [nombre, setNombre] = useState('');
   const [duracionValor, setDuracionValor] = useState('');
@@ -60,12 +62,8 @@ export default function PromoForm({ onPromoCreated }) {
         formData.append('banner', bannerFile);
       }
 
-      const token = localStorage.getItem('gymcore_token') || localStorage.getItem('token');
-      const res = await fetch('/api/promociones', {
+      const res = await authFetch('/api/promociones', {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
         body: formData
       });
 

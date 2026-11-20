@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import PromoForm from '../../components/admin/PromoForm';
 import PromoGrid from '../../components/admin/PromoGrid';
 import MembershipLookup from '../../components/reception/MembershipLookup';
 import AddTimeModal from '../../components/modals/AddTimeModal';
 
 export default function MembershipPromos() {
+  const { authFetch } = useAuth();
   const [promociones, setPromociones] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedAthlete, setSelectedAthlete] = useState(null);
@@ -12,54 +14,54 @@ export default function MembershipPromos() {
   const [successToast, setSuccessToast] = useState(null);
   const [pendingCount, setPendingCount] = useState(0);
 
-  const fetchPromociones = async () => {
+  const fetchPromociones = useCallback(async () => {
     try {
-      const res = await fetch('/api/promociones');
-      const data = await res.json();
-      setPromociones(data);
+      const res = await authFetch('/api/promociones');
+      if (res.ok) {
+        const data = await res.json();
+        setPromociones(Array.isArray(data) ? data : []);
+      }
     } catch (err) {
       console.error('Error al cargar promociones:', err);
     } finally {
       setLoading(false);
     }
-  };
+  }, [authFetch]);
 
-  const fetchPendingApprovals = async () => {
+  const fetchPendingApprovals = useCallback(async () => {
     try {
-      const token = localStorage.getItem('gymcore_token') || localStorage.getItem('token');
-      const res = await fetch('/api/aprobaciones', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const res = await authFetch('/api/aprobaciones');
       if (res.ok) {
         const data = await res.json();
         const total = (data.membresias_pendientes?.length || 0) + (data.ventas_pendientes?.length || 0);
         setPendingCount(total);
       }
-    } catch (err) {
+    } catch {
       // Ignorar si aún no hay aprobaciones
     }
-  };
+  }, [authFetch]);
 
   useEffect(() => {
     fetchPromociones();
     fetchPendingApprovals();
-  }, []);
+  }, [fetchPromociones, fetchPendingApprovals]);
 
-  const handleArchivePromo = async (id) => {
-    if (!window.confirm('¿Está seguro de archivar esta tarifa? No estará disponible para nuevas asignaciones.')) {
-      return;
-    }
+  const handleTogglePromo = async (promo) => {
+    const nextState = promo.activo === 1 ? 0 : 1;
     try {
-      const token = localStorage.getItem('gymcore_token') || localStorage.getItem('token');
-      const res = await fetch(`/api/promociones/${id}/archivar`, {
+      const res = await authFetch(`/api/promociones/${promo.id}/estado`, {
         method: 'PATCH',
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ activo: nextState }),
       });
+      const data = await res.json();
       if (res.ok) {
+        setSuccessToast(data.message);
+        setTimeout(() => setSuccessToast(null), 4000);
         fetchPromociones();
       }
     } catch (err) {
-      console.error('Error al archivar:', err);
+      console.error('Error al cambiar estado de promoción:', err);
     }
   };
 
@@ -74,38 +76,30 @@ export default function MembershipPromos() {
     fetchPendingApprovals();
   };
 
+  const activeCount = promociones.filter((p) => p.activo === 1).length;
+
   return (
     <div className="w-full min-h-screen px-gutter pb-space-xl pt-4">
       {/* Subheader Operacional */}
       <div className="relative w-full mb-space-lg flex flex-col md:flex-row md:items-end justify-between gap-space-md pt-space-xs">
         <div className="flex flex-col gap-space-xs">
-          <div className="flex items-center gap-space-sm">
-            <span className="font-data-mono text-data-mono text-primary uppercase tracking-widest">
-              // COMANDO DE MEMBRESÍAS & PLANES
-            </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
-            <span className="bg-surface-container-high px-space-xs py-0.5 rounded font-data-mono text-[11px] text-on-surface-variant uppercase">
-              MODULO_M03
-            </span>
-          </div>
           <h1 className="font-headline-lg text-headline-lg text-on-surface uppercase tracking-tight flex items-center gap-space-sm">
-            GESTIÓN DE PLANES <span className="text-primary-container">&</span> ASIGNACIÓN TÁCTICA
+            GESTIÓN DE PLANES Y MEMBRESÍAS
           </h1>
           <p className="font-body-sm text-body-sm text-on-surface-variant max-w-2xl">
-            Configura tarifas maestras, emite pases de mutación de alto rendimiento e imputa vigencias operativas con validación inmediata o conciliación por bóveda de transferencias.
+            Configura tarifas y promociones, activa o desactiva ofertas en el catálogo y gestiona vigencias de socios.
           </p>
         </div>
 
-        {/* Telemetría rápida */}
         <div className="flex items-center gap-space-sm bg-surface-container-low p-space-xs rounded-xl shadow-inner border border-outline-variant/30">
           <div className="px-space-md py-space-xs bg-surface-container rounded-lg flex flex-col">
-            <span className="font-data-mono text-[11px] text-on-surface-variant uppercase">PLANES_ACTIVOS</span>
+            <span className="font-data-mono text-[11px] text-on-surface-variant uppercase">PROMOS ACTIVAS</span>
             <span className="font-headline-md text-headline-md text-on-surface leading-none">
-              {promociones.length} <span className="text-primary text-[14px]">TARIFAS</span>
+              {activeCount} <span className="text-emerald-400 text-[14px]">/ {promociones.length} TOTAL</span>
             </span>
           </div>
           <div className="px-space-md py-space-xs bg-surface-container rounded-lg flex flex-col">
-            <span className="font-data-mono text-[11px] text-on-surface-variant uppercase">CONCILIACIONES_PEND</span>
+            <span className="font-data-mono text-[11px] text-on-surface-variant uppercase">POR APROBAR</span>
             <span className="font-headline-md text-headline-md text-tertiary leading-none">
               {pendingCount} <span className="text-[14px] text-outline">DOCS</span>
             </span>
@@ -119,7 +113,7 @@ export default function MembershipPromos() {
             <span className="material-symbols-outlined text-[24px]">verified</span>
             <span>{successToast}</span>
           </div>
-          <button onClick={() => setSuccessToast(null)} className="hover:opacity-80">
+          <button onClick={() => setSuccessToast(null)} className="hover:opacity-80 cursor-pointer">
             <span className="material-symbols-outlined text-[20px]">close</span>
           </button>
         </div>
@@ -130,7 +124,7 @@ export default function MembershipPromos() {
         {/* Columna Izquierda (7 cols) */}
         <div className="lg:col-span-7 flex flex-col gap-space-lg">
           <PromoForm onPromoCreated={fetchPromociones} />
-          <PromoGrid promociones={promociones} onArchivePromo={handleArchivePromo} />
+          <PromoGrid promociones={promociones} onTogglePromo={handleTogglePromo} loading={loading} />
         </div>
 
         {/* Columna Derecha (5 cols) */}
@@ -150,4 +144,3 @@ export default function MembershipPromos() {
     </div>
   );
 }
-

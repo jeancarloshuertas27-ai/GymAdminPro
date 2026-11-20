@@ -111,4 +111,129 @@ function migrateSolicitudesMembresia() {
 
 migrateSolicitudesMembresia();
 
+// Semilla idempotente de 25 máquinas y plantillas iniciales de rutina (Feature 004 - T002)
+function seedMaquinasAndDefaultRoutine() {
+  try {
+    const maquinas = [
+      [1, '#01', 'Máquina 1 - Sentadilla Guiada', 'Cuádriceps', 'Control vertical guiado'],
+      [2, '#02', 'Máquina 2 - Prensa 45°', 'Cuádriceps / Glúteos', 'Carga pesada piernas'],
+      [3, '#03', 'Máquina 3 - Hack Squat', 'Cuádriceps', 'Enfoque vasto lateral'],
+      [4, '#04', 'Máquina 4 - Extensión de Cuádriceps', 'Cuádriceps', 'Aislamiento anterior'],
+      [5, '#05', 'Máquina 5 - Aductores en Máquina', 'Aductores', 'Musculatura interna'],
+      [6, '#06', 'Máquina 6 - Abductores en Máquina', 'Glúteo Medio', 'Estabilización de cadera'],
+      [7, '#07', 'Máquina 7 - Jalón Polea Ancha', 'Dorsal Ancho', 'Amplitud de espalda'],
+      [8, '#08', 'Máquina 8 - Press Banca Smith', 'Pectoral Mayor', 'Empuje plano guiado'],
+      [9, '#09', 'Máquina 9 - Press Inclinado Convergente', 'Pectoral Superior', 'Haz clavicular'],
+      [10, '#10', 'Máquina 10 - Press Hombros Máquina', 'Deltoides Anterior', 'Empuje vertical seguro'],
+      [11, '#11', 'Máquina 11 - Polea Tríceps', 'Tríceps Braquial', 'Extensión en polea alta'],
+      [12, '#12', 'Máquina 12 - Remo Polea Baja', 'Densidad Espalda', 'Tracción horizontal'],
+      [13, '#13', 'Máquina 13 - Remo T-Bar Apoyado', 'Espalda Media', 'Romboides y trapecio'],
+      [14, '#14', 'Máquina 14 - Press Mancuernas / Banco', 'Pectoral / Hombro', 'Rango libre convergente'],
+      [15, '#15', 'Máquina 15 - Pec-Deck (Aperturas)', 'Aislamiento Pectoral', 'Contracción pico pectoral'],
+      [16, '#16', 'Máquina 16 - Cruce de Poleas (Cross-Over)', 'Pectoral Completo', 'Tensión continua cables'],
+      [17, '#17', 'Máquina 17 - Curl Bíceps Predicador', 'Bíceps Braquial', 'Aislamiento brazo'],
+      [18, '#18', 'Máquina 18 - Curl Femoral Tumbado', 'Isquiosurales', 'Cadena posterior pierna'],
+      [19, '#19', 'Máquina 19 - Curl Femoral Sentado', 'Isquiosurales', 'Flexión de rodilla'],
+      [20, '#20', 'Máquina 20 - Elevación de Talones (Gemelos)', 'Pantorrillas', 'Gastrocnemio y sóleo'],
+      [21, '#21', 'Máquina 21 - Elevaciones Laterales Máquina', 'Deltoides Lateral', 'Amplitud de hombros'],
+      [22, '#22', 'Máquina 22 - Pájaros en Máquina (Posterior)', 'Deltoides Posterior', 'Cabeza posterior'],
+      [23, '#23', 'Máquina 23 - Abdominales Crunch Máquina', 'Core / Recto Abdominal', 'Flexión de tronco con carga'],
+      [24, '#24', 'Máquina 24 - Hiperextensiones Lumbares', 'Zona Lumbar / Glúteo', 'Erectores espinales'],
+      [25, '#25', 'Máquina 25 - Rack Libre Olímpico', 'Fuerza Compuesta', 'Sentadilla / Peso muerto'],
+    ];
+
+    const countRow = db.prepare('SELECT COUNT(*) AS total FROM maquinas_ejercicios').get();
+    if (countRow.total < 25) {
+      const insertMaq = db.prepare(`
+        INSERT OR IGNORE INTO maquinas_ejercicios (numero_maquina, codigo_etiqueta, nombre, grupo_muscular, descripcion_corta)
+        VALUES (?, ?, ?, ?, ?)
+      `);
+      for (const m of maquinas) {
+        insertMaq.run(...m);
+      }
+    }
+
+    const plantillasCount = db.prepare('SELECT COUNT(*) AS total FROM rutinas_plantillas').get();
+    if (plantillasCount.total === 0) {
+      const admin = db.prepare("SELECT id FROM usuarios WHERE rol = 'ADMINISTRADOR' LIMIT 1").get();
+      const adminId = admin ? admin.id : null;
+
+      // Plantilla 1
+      const p1 = db.prepare(`
+        INSERT INTO rutinas_plantillas (nombre, descripcion, created_by, activo)
+        VALUES ('Protocolo Hipertrofia 5 Días', 'División Push / Pull / Legs / Upper / Core enfocada en masa muscular', ?, 1)
+      `).run(adminId);
+      const r1Id = Number(p1.lastInsertRowid);
+
+      const getMaqId = (num) => {
+        const r = db.prepare('SELECT id FROM maquinas_ejercicios WHERE numero_maquina = ?').get(num);
+        return r ? r.id : null;
+      };
+
+      const dias1 = [
+        { dia: 'LUNES', enfoque: 'PUSH', orden: 1, exs: [[8, 4, '8-12', 90], [15, 4, '10-12', 60], [11, 3, '12-15', 60], [21, 4, '12-15', 60]] },
+        { dia: 'MARTES', enfoque: 'PULL', orden: 2, exs: [[7, 4, '8-12', 90], [12, 4, '10-12', 90], [17, 3, '10-12', 60]] },
+        { dia: 'MIERCOLES', enfoque: 'LEGS', orden: 3, exs: [[2, 4, '8-12', 120], [4, 4, '12-15', 60], [18, 4, '10-12', 90], [20, 4, '15-20', 60]] },
+        { dia: 'JUEVES', enfoque: 'REST', orden: 4, exs: [] },
+        { dia: 'VIERNES', enfoque: 'UPPER', orden: 5, exs: [[9, 4, '8-12', 90], [13, 4, '8-12', 90], [10, 3, '10-12', 90]] },
+        { dia: 'SABADO', enfoque: 'CORE', orden: 6, exs: [[23, 4, '15-20', 60], [24, 3, '12-15', 60]] },
+      ];
+
+      const insDia = db.prepare('INSERT INTO rutinas_dias (rutina_id, dia_semana, enfoque_muscular, orden_dia) VALUES (?, ?, ?, ?)');
+      const insEx = db.prepare('INSERT INTO rutinas_ejercicios (rutina_dia_id, maquina_id, orden_secuencial, series, repeticiones, tiempo_descanso_segundos) VALUES (?, ?, ?, ?, ?, ?)');
+
+      for (const d of dias1) {
+        const dr = insDia.run(r1Id, d.dia, d.enfoque, d.orden);
+        const diaId = Number(dr.lastInsertRowid);
+        d.exs.forEach(([numMaq, series, reps, rest], idx) => {
+          const mId = getMaqId(numMaq);
+          if (mId) insEx.run(diaId, mId, idx + 1, series, reps, rest);
+        });
+      }
+
+      // Plantilla 2
+      const p2 = db.prepare(`
+        INSERT INTO rutinas_plantillas (nombre, descripcion, created_by, activo)
+        VALUES ('Fuerza Bruta 4 Días', 'Enfoque compuesto de fuerza e hipertrofia miofibrilar', ?, 1)
+      `).run(adminId);
+      const r2Id = Number(p2.lastInsertRowid);
+
+      const dias2 = [
+        { dia: 'LUNES', enfoque: 'TORSO A', orden: 1, exs: [[8, 5, '6-8', 120], [12, 4, '6-8', 120], [10, 4, '8-12', 90]] },
+        { dia: 'MARTES', enfoque: 'PIERNA A', orden: 2, exs: [[25, 5, '6-8', 120], [18, 4, '8-12', 90], [20, 4, '12-15', 60]] },
+        { dia: 'MIERCOLES', enfoque: 'REST', orden: 3, exs: [] },
+        { dia: 'JUEVES', enfoque: 'TORSO B', orden: 4, exs: [[14, 4, '8-12', 90], [7, 4, '8-12', 90], [11, 3, '10-12', 60], [17, 3, '10-12', 60]] },
+        { dia: 'VIERNES', enfoque: 'PIERNA B', orden: 5, exs: [[2, 4, '8-12', 120], [3, 4, '8-12', 90], [19, 4, '10-12', 90]] },
+        { dia: 'SABADO', enfoque: 'REST', orden: 6, exs: [] },
+      ];
+
+      for (const d of dias2) {
+        const dr = insDia.run(r2Id, d.dia, d.enfoque, d.orden);
+        const diaId = Number(dr.lastInsertRowid);
+        d.exs.forEach(([numMaq, series, reps, rest], idx) => {
+          const mId = getMaqId(numMaq);
+          if (mId) insEx.run(diaId, mId, idx + 1, series, reps, rest);
+        });
+      }
+
+      // Asignar la primera rutina al atleta demo (@mateo_val o primer MIEMBRO) si no tiene asignación
+      const mateo = db.prepare("SELECT id FROM usuarios WHERE rol = 'MIEMBRO' ORDER BY id ASC LIMIT 1").get();
+      if (mateo) {
+        db.prepare(`
+          INSERT OR IGNORE INTO miembro_rutinas_asignadas (usuario_id, rutina_id, asignado_por)
+          VALUES (?, ?, ?)
+        `).run(mateo.id, r1Id, adminId);
+        db.prepare(`
+          UPDATE membresias SET rutina_asignada = 'Protocolo Hipertrofia 5 Días'
+          WHERE usuario_id = ? AND (rutina_asignada IS NULL OR rutina_asignada = 'SIN RUTINA ASIGNADA')
+        `).run(mateo.id);
+      }
+    }
+  } catch (err) {
+    console.warn('[DB Seed F004] Aviso:', err.message);
+  }
+}
+
+seedMaquinasAndDefaultRoutine();
+
 export default db;
