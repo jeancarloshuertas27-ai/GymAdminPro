@@ -9,6 +9,8 @@ node_modules/
 .env.development.local
 .env.test.local
 .env.production.local
+.env*.local
+!.env.example
 *.pem
 *.key
 *.cert
@@ -17,6 +19,8 @@ node_modules/
 dist/
 dist-ssr/
 build/
+coverage/
+.wrangler/
 *.local
 
 # Logs y depuración
@@ -30,10 +34,14 @@ lerna-debug.log*
 # Base de datos SQLite local y temporales
 *.sqlite
 *.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite-journal
 *.db
 *.db-journal
 *.db-wal
 *.db-shm
+*.bak
 
 # Archivos subidos en tiempo de ejecución
 uploads/*
@@ -58,3 +66,7 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+
+# Credenciales y tokens temporales de agentes (preservando .agents/skills/ y .specify/)
+.agents/**/*.token
+.agents/**/auth*

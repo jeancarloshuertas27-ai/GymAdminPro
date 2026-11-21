@@ -12,9 +12,12 @@ export class UserService {
     const allUsers = db.prepare(`
       SELECT u.id, u.rol, u.apellidos, u.nombres, u.dni, u.username, u.password_plain, u.celular, u.foto_url,
              m.fecha_inicio, m.fecha_vencimiento, m.plan_tag, m.rutina_asignada,
+             rp.nombre AS plantilla_nombre,
              f.nivel_actual, f.fecha_inscripcion_original
       FROM usuarios u
       LEFT JOIN membresias m ON m.usuario_id = u.id
+      LEFT JOIN miembro_rutinas_asignadas mra ON mra.usuario_id = u.id
+      LEFT JOIN rutinas_plantillas rp ON rp.id = mra.rutina_id AND rp.activo = 1
       LEFT JOIN fidelidad f ON f.usuario_id = u.id
       WHERE u.rol = 'MIEMBRO'
       ORDER BY u.apellidos COLLATE NOCASE ASC
@@ -53,7 +56,7 @@ export class UserService {
         celular: user.celular,
         fotoUrl: user.foto_url,
         planTag: user.plan_tag || 'MEMBRESÍA ACTIVA',
-        rutinaAsignada: user.rutina_asignada || 'SIN RUTINA ASIGNADA',
+        rutinaAsignada: user.plantilla_nombre || user.rutina_asignada || 'SIN RUTINA ASIGNADA',
         fecha_vencimiento: user.fecha_vencimiento,
         dias_inactivo: remaining.daysExpired || 0,
         puede_eliminar_inactivo: Boolean(remaining.canDelete),

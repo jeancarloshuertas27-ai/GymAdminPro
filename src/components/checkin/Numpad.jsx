@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Numpad({ dni, onDniChange, onSubmit, onClear, onBackspace, onSimulate }) {
+export default function Numpad({ dni, onDniChange, onSubmit, onClear, onBackspace }) {
   const handleKeyClick = (digit) => {
     if (dni.length < 8) {
       onDniChange(dni + digit);
@@ -91,47 +91,6 @@ export default function Numpad({ dni, onDniChange, onSubmit, onClear, onBackspac
             className="h-12 bg-primary-container hover:bg-tertiary-container hover:shadow-[0_0_16px_rgba(199,83,2,0.5)] text-on-primary-container font-headline-md text-headline-md uppercase tracking-wider rounded-DEFAULT transition-all flex items-center justify-center shadow-[0_0_12px_rgba(31,113,239,0.4)] active:scale-95"
           >
             VALIDAR
-          </button>
-        </div>
-      </div>
-
-      {/* SIMULADOR INTERACTIVO DE ESTADOS */}
-      <div className="bg-surface-container-low p-space-md rounded-DEFAULT shadow-md flex flex-col gap-space-sm border border-surface-container">
-        <div className="flex items-center justify-between">
-          <span className="font-data-mono text-data-mono uppercase text-on-surface-variant text-[11px]">
-            CONSOLA SDD // SIMULADOR DE ESTADOS
-          </span>
-          <span className="font-data-mono text-data-mono text-secondary text-[11px]">OVERRIDE</span>
-        </div>
-        <p className="font-body-sm text-body-sm text-on-surface-variant">
-          Pruebe el comportamiento del torniquete y las pantallas de respuesta del semáforo:
-        </p>
-        <div className="grid grid-cols-3 gap-2">
-          <button
-            type="button"
-            onClick={() => onSimulate('VERDE')}
-            className="h-12 bg-surface-container hover:bg-primary-container/20 text-primary font-headline-md text-headline-md uppercase tracking-wider rounded-DEFAULT flex flex-col items-center justify-center transition-all shadow-sm active:scale-95"
-          >
-            <span className="text-[15px] leading-tight">VERDE</span>
-            <span className="font-data-mono text-data-mono text-[9px]">AUTORIZADO</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => onSimulate('NARANJA')}
-            className="h-12 bg-surface-container hover:bg-tertiary-container/20 text-tertiary font-headline-md text-headline-md uppercase tracking-wider rounded-DEFAULT flex flex-col items-center justify-center transition-all shadow-sm active:scale-95"
-          >
-            <span className="text-[15px] leading-tight">NARANJA</span>
-            <span className="font-data-mono text-data-mono text-[9px]">≤ 10 DÍAS</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => onSimulate('ROJO')}
-            className="h-12 bg-surface-container hover:bg-error-container/20 text-error font-headline-md text-headline-md uppercase tracking-wider rounded-DEFAULT flex flex-col items-center justify-center transition-all shadow-sm active:scale-95"
-          >
-            <span className="text-[15px] leading-tight">ROJO</span>
-            <span className="font-data-mono text-data-mono text-[9px]">DENEGADO</span>
           </button>
         </div>
       </div>

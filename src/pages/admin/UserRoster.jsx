@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import TacIdModal from '../../components/modals/TacIdModal';
 import EditUserModal from '../../components/modals/EditUserModal';
+import { exportUsersToExcelFile } from '../../utils/excelExport';
 
 export default function UserRoster() {
   const { authFetch } = useAuth();
@@ -21,6 +22,7 @@ export default function UserRoster() {
   const [selectedAthleteId, setSelectedAthleteId] = useState(null);
   const [editingAthlete, setEditingAthlete] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [exporting, setExporting] = useState(false);
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -56,22 +58,35 @@ export default function UserRoster() {
     }));
   };
 
-  const handleExportCsv = () => {
-    const headers = 'ID,Apellidos,Nombres,DNI,Usuario,Membresia,Dias_Restantes,Fidelidad\n';
-    const rows = users
-      .map(
-        (u) =>
-          `"${u.id}","${u.apellidos}","${u.nombres}","${u.dni}","${u.username || ''}","${u.estadoMembresia}","${u.diasRestantes}","${u.nivelFidelidad}"`
-      )
-      .join('\n');
-    const blob = new Blob([headers + rows], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    link.setAttribute('download', `padron_atletas_${new Date().toISOString().split('T')[0]}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleExportExcel = async () => {
+    setExporting(true);
+    try {
+      let exportUsers = users;
+      try {
+        const q = new URLSearchParams({
+          search,
+          status,
+          page: '1',
+          limit: '10000',
+        });
+        const res = await authFetch(`/api/users?${q.toString()}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.users)) {
+            exportUsers = data.users;
+          }
+        }
+      } catch (fetchErr) {
+        console.warn('No se pudo obtener el padrón completo; se exportará la vista actual.', fetchErr);
+      }
+
+      await exportUsersToExcelFile(exportUsers);
+    } catch (err) {
+      console.error('Error al exportar reporte Excel:', err);
+      alert('No se pudo generar el archivo Excel (.xlsx).');
+    } finally {
+      setExporting(false);
+    }
   };
 
   const handleDeleteUser = async (id, name) => {
@@ -200,14 +215,15 @@ export default function UserRoster() {
             </span>
           </div>
 
-          {/* Export CSV */}
+          {/* Exportar Excel (.xlsx) */}
           <button
             type="button"
-            onClick={handleExportCsv}
-            className="h-12 px-space-md bg-surface-container-lowest hover:bg-surface-container-high rounded text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-space-xs font-label-badge text-label-badge tracking-wider uppercase border border-surface-container cursor-pointer"
+            disabled={exporting}
+            onClick={handleExportExcel}
+            className="h-12 px-space-md bg-surface-container-lowest hover:bg-surface-container-high rounded text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-space-xs font-label-badge text-label-badge tracking-wider uppercase border border-surface-container cursor-pointer disabled:opacity-50"
           >
-            <span className="material-symbols-outlined text-[18px]">file_download</span>
-            <span className="hidden sm:inline">EXPORTAR CSV</span>
+            <span className="material-symbols-outlined text-[18px]">table_view</span>
+            <span className="hidden sm:inline">{exporting ? 'EXPORTANDO...' : 'EXPORTAR EXCEL'}</span>
           </button>
         </div>
       </div>

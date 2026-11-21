@@ -43,12 +43,8 @@ ensureColumn('usuarios', 'password_plain', 'TEXT');
 
 // Inicializar contraseñas planas para soporte del administrador
 try {
-  db.prepare("UPDATE usuarios SET password_plain = 'Admin2026!' WHERE username = '@admin_01' AND password_plain IS NULL").run();
-  db.prepare("UPDATE usuarios SET password_plain = 'Recep2026!' WHERE (username = '@recep_carlos' OR username = '@recepcion_01') AND password_plain IS NULL").run();
-  db.prepare("UPDATE usuarios SET password_plain = 'Atleta2026!' WHERE username = '@mateo_val' AND password_plain IS NULL").run();
-  db.prepare("UPDATE usuarios SET password_plain = 'RnzAlpha99!' WHERE username = '@renzo.a' AND password_plain IS NULL").run();
-  db.prepare("UPDATE usuarios SET password_plain = 'PowerFit2024#' WHERE username = '@carla_fit' AND password_plain IS NULL").run();
-  db.prepare("UPDATE usuarios SET password_plain = 'AndresPass_23' WHERE username = '@andres_m' AND password_plain IS NULL").run();
+  db.prepare("UPDATE usuarios SET password_plain = 'Admin2026!' WHERE (username = '@admin_01' OR username = '@admin_patricia') AND password_plain IS NULL").run();
+  db.prepare("UPDATE usuarios SET password_plain = 'Recep2026!' WHERE (username = '@recep_carlos' OR username = '@recep_andrea' OR username = '@recepcion_01') AND password_plain IS NULL").run();
   db.prepare("UPDATE usuarios SET password_plain = 'Atleta2026!' WHERE password_plain IS NULL AND rol = 'MIEMBRO'").run();
 } catch (e) {
   // Ignorar si falla actualización inicial
