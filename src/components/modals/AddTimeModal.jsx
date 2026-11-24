@@ -130,12 +130,8 @@ export default function AddTimeModal({ athleteData, origen, onClose, onSuccess }
         formData.append('comprobante', voucherFile);
       }
 
-      const token = localStorage.getItem('gymcore_token') || localStorage.getItem('token');
-      const res = await fetch('/api/membresias/asignar', {
+      const res = await authFetch('/api/membresias/asignar', {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
         body: formData
       });
 

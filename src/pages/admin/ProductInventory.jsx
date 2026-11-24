@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import ProductMasterGrid from '../../components/admin/ProductMasterGrid';
 import AddProductModal from '../../components/modals/AddProductModal';
 import EditProductModal from '../../components/modals/EditProductModal';
 import SellProductModal from '../../components/modals/SellProductModal';
 
 export default function ProductInventory() {
+  const { authFetch } = useAuth();
   const [productos, setProductos] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
@@ -17,12 +19,9 @@ export default function ProductInventory() {
 
   const fetchProductos = async () => {
     try {
-      const token = localStorage.getItem('gymcore_token') || localStorage.getItem('token');
-      const res = await fetch('/api/productos', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const res = await authFetch('/api/productos');
       const data = await res.json();
-      setProductos(data);
+      setProductos(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error('Error al cargar inventario:', err);
     } finally {
@@ -39,10 +38,8 @@ export default function ProductInventory() {
       return;
     }
     try {
-      const token = localStorage.getItem('gymcore_token') || localStorage.getItem('token');
-      const res = await fetch(`/api/productos/${id}`, {
+      const res = await authFetch(`/api/productos/${id}`, {
         method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
         setToastMessage('Producto dado de baja lógica correctamente.');

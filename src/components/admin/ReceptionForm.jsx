@@ -7,6 +7,8 @@ export default function ReceptionForm({ onSuccess }) {
   const [apellidos, setApellidos] = useState('');
   const [dni, setDni] = useState('');
   const [celular, setCelular] = useState('');
+  const [celularRespaldo, setCelularRespaldo] = useState('');
+  const [domicilio, setDomicilio] = useState('');
   const [fotoFile, setFotoFile] = useState(null);
   const [fotoPreview, setFotoPreview] = useState(null);
   const [username, setUsername] = useState('');
@@ -45,6 +47,8 @@ export default function ReceptionForm({ onSuccess }) {
       formData.append('apellidos', apellidos);
       formData.append('dni', dni);
       formData.append('celular', celular);
+      if (celularRespaldo.trim()) formData.append('celular_respaldo', celularRespaldo.trim());
+      if (domicilio.trim()) formData.append('domicilio', domicilio.trim());
       formData.append('username', username);
       formData.append('password', password);
       if (fotoFile) {
@@ -74,6 +78,8 @@ export default function ReceptionForm({ onSuccess }) {
     setApellidos('');
     setDni('');
     setCelular('');
+    setCelularRespaldo('');
+    setDomicilio('');
     setFotoFile(null);
     setFotoPreview(null);
     setUsername('');
@@ -219,6 +225,44 @@ export default function ReceptionForm({ onSuccess }) {
               />
               <span className="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">
                 smartphone
+              </span>
+            </div>
+          </div>
+
+          {/* Celular de respaldo */}
+          <div className="flex flex-col gap-1">
+            <label className="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">
+              Celular de Respaldo / Emergencia
+            </label>
+            <div className="relative">
+              <input
+                type="tel"
+                value={celularRespaldo}
+                onChange={(e) => setCelularRespaldo(e.target.value)}
+                placeholder="912 345 678 (Opcional)"
+                className="w-full bg-surface-container-lowest text-on-surface font-data-mono px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline-variant/60 border border-surface-container-high"
+              />
+              <span className="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">
+                contact_phone
+              </span>
+            </div>
+          </div>
+
+          {/* Domicilio */}
+          <div className="flex flex-col gap-1 sm:col-span-2">
+            <label className="font-data-mono text-[11px] uppercase tracking-wider text-on-surface-variant">
+              Domicilio / Dirección
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={domicilio}
+                onChange={(e) => setDomicilio(e.target.value)}
+                placeholder="Av. / Jr. / Calle (Opcional)"
+                className="w-full bg-surface-container-lowest text-on-surface px-space-md py-3 rounded text-body-md focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline-variant/60 border border-surface-container-high"
+              />
+              <span className="material-symbols-outlined absolute right-3 top-3 text-[18px] text-outline-variant">
+                home
               </span>
             </div>
           </div>

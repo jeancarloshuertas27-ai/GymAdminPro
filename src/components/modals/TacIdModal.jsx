@@ -87,8 +87,8 @@ export default function TacIdModal({ athleteId, onClose, onDeleteSuccess }) {
 
   const photoRaw = userObj.foto_url || userObj.fotoUrl;
   const photoUrl = photoRaw
-    ? (photoRaw.startsWith('http') || photoRaw.startsWith('/') ? photoRaw : `/${photoRaw}`)
-    : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80';
+    ? (photoRaw.startsWith('http') || photoRaw.startsWith('data:') || photoRaw.startsWith('/') ? photoRaw : `/${photoRaw}`)
+    : null;
 
   const fullName = userObj.apellidos && userObj.nombres
     ? `${userObj.apellidos}, ${userObj.nombres}`
@@ -100,8 +100,8 @@ export default function TacIdModal({ athleteId, onClose, onDeleteSuccess }) {
   const nextLevel = fidelityObj.nextLevel || fidelityObj.siguienteNivel || null;
   const progressPercent = fidelityObj.progressPercent ?? fidelityObj.progresoSiguientePorcentaje ?? 0;
 
-  const routine = membershipObj.rutina_asignada || membershipObj.rutinaAsignada || data?.rutinaActual || 'PPL Clásico // Fuerza & Hipertrofia';
-  const planTag = membershipObj.plan_tag || membershipObj.planTag || 'Membresía Activa';
+  const routine = membershipObj.rutina_asignada || membershipObj.rutinaAsignada || data?.rutinaActual || 'SIN RUTINA ASIGNADA';
+  const planTag = membershipObj.plan_tag || membershipObj.planTag || 'SIN MEMBRESÍA';
   const expDate = membershipObj.fecha_vencimiento || membershipObj.fechaVencimiento || 'N/A';
 
   const canDelete = Boolean(
@@ -152,12 +152,16 @@ export default function TacIdModal({ athleteId, onClose, onDeleteSuccess }) {
             <div className="flex flex-col sm:flex-row gap-space-md items-start sm:items-center bg-surface-container-low p-space-md rounded-xl border border-surface-container">
               {/* Tactical Avatar with Frame */}
               <div className="relative flex-shrink-0">
-                <div className="w-24 h-24 rounded-lg overflow-hidden bg-surface-container-high">
-                  <img
-                    src={photoUrl}
-                    alt={fullName}
-                    className="w-full h-full object-cover"
-                  />
+                <div className="w-24 h-24 rounded-lg overflow-hidden bg-surface-container-high flex items-center justify-center">
+                  {photoUrl ? (
+                    <img
+                      src={photoUrl}
+                      alt={fullName}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span className="material-symbols-outlined text-[42px] text-outline">person</span>
+                  )}
                 </div>
                 <div
                   className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full ring-2 ring-surface-container-lowest ${

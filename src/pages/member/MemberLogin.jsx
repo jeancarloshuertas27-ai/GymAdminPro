@@ -4,8 +4,8 @@ import { Smartphone, Lock, User, Eye, EyeOff, ArrowLeft, QrCode } from 'lucide-r
 
 export default function MemberLogin({ onLoginSuccess, onBackToPortals }) {
   const { login } = useAuth();
-  const [username, setUsername] = useState('@mateo_val');
-  const [password, setPassword] = useState('Atleta2026!');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

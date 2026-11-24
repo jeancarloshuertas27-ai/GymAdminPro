@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { getApiUrl } from '../utils/api';
 
 const AuthContext = createContext(null);
 
@@ -69,7 +70,9 @@ export function AuthProvider({ children }) {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const activePortal = getPortalFromPath(currentPath);
+  const envPortalMode = import.meta.env?.VITE_PORTAL_MODE;
+  const fallbackPortal = ['admin', 'recepcion', 'miembro'].includes(envPortalMode) ? envPortalMode : null;
+  const activePortal = getPortalFromPath(currentPath) || fallbackPortal;
   const activeSession = activePortal ? sessions[activePortal] : { user: null, token: null };
   const user = activeSession.user;
   const token = activeSession.token;
@@ -77,7 +80,7 @@ export function AuthProvider({ children }) {
   const login = async (username, password, portal = activePortal) => {
     setLoading(true);
     try {
-      const endpoint = portal ? `/api/auth/login/${portal}` : '/api/auth/login';
+      const endpoint = getApiUrl(portal ? `/api/auth/login/${portal}` : '/api/auth/login');
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -111,7 +114,7 @@ export function AuthProvider({ children }) {
     try {
       const session = portal ? sessions[portal] : activeSession;
       if (session.token) {
-        await fetch('/api/auth/logout', {
+        await fetch(getApiUrl('/api/auth/logout'), {
           method: 'POST',
           headers: { Authorization: `Bearer ${session.token}` },
         });
@@ -148,7 +151,7 @@ export function AuthProvider({ children }) {
         headers['Authorization'] = `Bearer ${activeToken}`;
       }
     }
-    return fetch(url, { ...options, headers });
+    return fetch(getApiUrl(url), { ...options, headers });
   }, [sessions, activePortal, activeSession]);
 
   const value = {

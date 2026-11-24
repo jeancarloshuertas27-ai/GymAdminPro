@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import Numpad from '../../components/checkin/Numpad';
 import SemaphoreCard from '../../components/checkin/SemaphoreCard';
 import LiveFeed from '../../components/checkin/LiveFeed';
 import TacIdModal from '../../components/modals/TacIdModal';
 
 export default function CheckIn({ onNavigate }) {
+  const { authFetch } = useAuth();
   const [dni, setDni] = useState('');
   const [checkinResult, setCheckinResult] = useState(null);
   const [recentFeed, setRecentFeed] = useState([]);
@@ -13,7 +15,7 @@ export default function CheckIn({ onNavigate }) {
   // Cargar feed reciente al montar
   const fetchRecent = async () => {
     try {
-      const res = await fetch('/api/checkin/recent');
+      const res = await authFetch('/api/checkin/recent');
       if (res.ok) {
         const data = await res.json();
         setRecentFeed(data);
@@ -36,7 +38,7 @@ export default function CheckIn({ onNavigate }) {
     }
 
     try {
-      const res = await fetch('/api/checkin', {
+      const res = await authFetch('/api/checkin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ dni }),

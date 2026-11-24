@@ -1,4 +1,5 @@
 import db from '../db.js';
+import bcrypt from 'bcryptjs';
 import { calculateFidelity, calculateRemainingTime } from '../utils/fidelity.js';
 
 export class UserService {
@@ -6,11 +7,11 @@ export class UserService {
    * Obtiene la lista alfabética de usuarios con filtros y métricas
    */
   static listUsers({ search = '', status = 'all', page = 1, limit = 10, currentUser = null }) {
-    const isAdmin = currentUser && currentUser.rol === 'ADMINISTRADOR';
+    const isAdmin = currentUser && (currentUser.rol === 'ADMINISTRADOR' || currentUser.rol === 'ADMIN');
 
     // 1. Obtener métricas globales
     const allUsers = db.prepare(`
-      SELECT u.id, u.rol, u.apellidos, u.nombres, u.dni, u.username, u.password_plain, u.celular, u.foto_url,
+      SELECT u.id, u.rol, u.apellidos, u.nombres, u.dni, u.username, u.password_plain, u.celular, u.foto_url, u.created_at,
              m.fecha_inicio, m.fecha_vencimiento, m.plan_tag, m.rutina_asignada,
              rp.nombre AS plantilla_nombre,
              f.nivel_actual, f.fecha_inscripcion_original
@@ -25,7 +26,9 @@ export class UserService {
 
     let activosCount = 0;
     let porVencerCount = 0;
+    let vencidosCount = 0;
     let vencidosPurgablesCount = 0;
+    let sinRutinaCount = 0;
 
     const enrichedList = allUsers.map(user => {
       const remaining = user.fecha_vencimiento ? calculateRemainingTime(user.fecha_vencimiento) : {
@@ -40,9 +43,14 @@ export class UserService {
         ? calculateFidelity(user.fecha_inscripcion_original, user.fecha_vencimiento)
         : { name: 'NOVATO', level: 1 };
 
+      const rutinaAsignada = user.plantilla_nombre || user.rutina_asignada || 'SIN RUTINA ASIGNADA';
+
       if (remaining.status === 'ACTIVE') activosCount++;
-      if (remaining.status === 'WARNING') porVencerCount++;
+      else if (remaining.status === 'WARNING') porVencerCount++;
+      else vencidosCount++;
+
       if (remaining.canDelete) vencidosPurgablesCount++;
+      if (!user.plantilla_nombre && !user.rutina_asignada) sinRutinaCount++;
 
       return {
         id: user.id,
@@ -51,12 +59,12 @@ export class UserService {
         nombres: user.nombres,
         dni: user.dni,
         username: isAdmin ? user.username : null, // Oculto para no-admins
-        password_visible: isAdmin ? (user.password_plain || 'Atleta2026!') : null, // Visible para soporte admin
-        passwordRaw: isAdmin ? (user.password_plain || 'Atleta2026!') : null,
+        password_visible: isAdmin ? (user.password_plain || '') : null, // Visible para soporte admin
+        passwordRaw: isAdmin ? (user.password_plain || '') : null,
         celular: user.celular,
-        fotoUrl: user.foto_url,
-        planTag: user.plan_tag || 'MEMBRESÍA ACTIVA',
-        rutinaAsignada: user.plantilla_nombre || user.rutina_asignada || 'SIN RUTINA ASIGNADA',
+        fotoUrl: user.foto_url || null,
+        planTag: user.plan_tag || 'SIN MEMBRESÍA',
+        rutinaAsignada,
         fecha_vencimiento: user.fecha_vencimiento,
         dias_inactivo: remaining.daysExpired || 0,
         puede_eliminar_inactivo: Boolean(remaining.canDelete),
@@ -99,6 +107,8 @@ export class UserService {
     const totalPages = Math.ceil(total / pageSize) || 1;
     const startIndex = (pageNum - 1) * pageSize;
     const paginated = filtered.slice(startIndex, startIndex + pageSize);
+    const totalPadron = allUsers.length;
+    const tasaActivos = totalPadron > 0 ? Math.round(((activosCount + porVencerCount) / totalPadron) * 100) : 0;
 
     return {
       total,
@@ -106,10 +116,14 @@ export class UserService {
       limit: pageSize,
       totalPages,
       metrics: {
-        totalPadron: allUsers.length,
+        total: totalPadron,
+        totalPadron,
         activos: activosCount,
         porVencer: porVencerCount,
+        vencidos: vencidosCount,
         vencidosPurgables: vencidosPurgablesCount,
+        sinRutina: sinRutinaCount,
+        tasaActivos: `${tasaActivos}%`,
       },
       users: paginated,
     };
@@ -122,9 +136,12 @@ export class UserService {
     const user = db.prepare(`
       SELECT u.id, u.rol, u.username, u.nombres, u.apellidos, u.dni, u.celular, u.foto_url,
              m.fecha_inicio, m.fecha_vencimiento, m.plan_tag, m.rutina_asignada,
+             rp.nombre AS plantilla_nombre,
              f.nivel_actual, f.fecha_inscripcion_original
       FROM usuarios u
       LEFT JOIN membresias m ON m.usuario_id = u.id
+      LEFT JOIN miembro_rutinas_asignadas mra ON mra.usuario_id = u.id
+      LEFT JOIN rutinas_plantillas rp ON rp.id = mra.rutina_id AND rp.activo = 1
       LEFT JOIN fidelidad f ON f.usuario_id = u.id
       WHERE u.id = ?
     `).get(Number(id));
@@ -147,6 +164,8 @@ export class UserService {
       : { name: 'NOVATO', level: 1, months: 0, progressPercent: 0, nextLevel: 'PRINCIPIANTE', rangeLabel: '< 1 MES', summaryText: 'NIVEL: NOVATO (0 MESES)' };
 
     const canDelete = Boolean(remaining.canDelete);
+    const rutinaReal = user.plantilla_nombre || user.rutina_asignada || 'SIN RUTINA ASIGNADA';
+    const planReal = user.plan_tag || 'SIN MEMBRESÍA';
 
     return {
       id: user.id,
@@ -156,7 +175,7 @@ export class UserService {
       dni: user.dni,
       username: isAdmin ? user.username : null,
       celular: user.celular,
-      fotoUrl: user.foto_url || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+      fotoUrl: user.foto_url || null,
       canDelete,
       puedeEliminar: canDelete,
       user: {
@@ -193,8 +212,8 @@ export class UserService {
         diasRestantes: remaining.totalDays,
         fechaVencimiento: user.fecha_vencimiento,
         fecha_vencimiento: user.fecha_vencimiento,
-        plan_tag: user.plan_tag || 'PLAN ANUAL TITANIUM',
-        rutina_asignada: user.rutina_asignada || 'HIPERTROFIA & FUERZA - PUSH DAY',
+        plan_tag: planReal,
+        rutina_asignada: rutinaReal,
       },
       membresia: {
         estado: remaining.status || 'EXPIRED',
@@ -202,7 +221,7 @@ export class UserService {
         diasRestantes: remaining.totalDays,
         diasVencido: remaining.daysExpired || 0,
         fechaVencimiento: user.fecha_vencimiento,
-        planTag: user.plan_tag || 'PLAN ANUAL TITANIUM',
+        planTag: planReal,
         trafficColor: remaining.trafficColor,
       },
       fidelidad: {
@@ -213,23 +232,36 @@ export class UserService {
         siguienteNivel: fidelity.nextLevel,
         penalizado: fidelity.penalized,
       },
-      rutinaActual: user.rutina_asignada || 'HIPERTROFIA & FUERZA - PUSH DAY',
+      rutinaActual: rutinaReal,
     };
   }
 
   /**
-   * Modifica nombres, apellidos y celular (DNI y @username inmutables)
+   * Modifica nombres, apellidos, celular y opcionalmente contraseña (DNI y @username inmutables)
    */
-  static updateUser(id, { nombres, apellidos, celular }) {
+  static updateUser(id, { nombres, apellidos, celular, password }) {
     if (!nombres || !apellidos || !celular) {
       throw new Error('Nombres, apellidos y celular son obligatorios.');
     }
 
-    db.prepare(`
-      UPDATE usuarios
-      SET nombres = ?, apellidos = ?, celular = ?, updated_at = CURRENT_TIMESTAMP
-      WHERE id = ?
-    `).run(nombres.trim(), apellidos.trim(), celular.trim(), Number(id));
+    if (password !== undefined && password !== null && String(password).trim() !== '') {
+      const cleanPass = String(password).trim();
+      if (cleanPass.length < 6) {
+        throw new Error('La nueva contraseña debe tener al menos 6 caracteres.');
+      }
+      const passwordHash = bcrypt.hashSync(cleanPass, 10);
+      db.prepare(`
+        UPDATE usuarios
+        SET nombres = ?, apellidos = ?, celular = ?, password_hash = ?, password_plain = ?, updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+      `).run(nombres.trim(), apellidos.trim(), celular.trim(), passwordHash, cleanPass, Number(id));
+    } else {
+      db.prepare(`
+        UPDATE usuarios
+        SET nombres = ?, apellidos = ?, celular = ?, updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+      `).run(nombres.trim(), apellidos.trim(), celular.trim(), Number(id));
+    }
 
     return { success: true, message: 'Datos del atleta actualizados correctamente.' };
   }

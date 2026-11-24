@@ -45,6 +45,21 @@ function MainRouter() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, [setContextPath]);
 
+  useEffect(() => {
+    const portalMode = import.meta.env.VITE_PORTAL_MODE;
+    if (portalMode === 'admin' || currentPath.startsWith('/admin')) {
+      document.title = 'GymAdminPro | Administrador';
+    } else if (portalMode === 'recepcion' || currentPath.startsWith('/recepcion')) {
+      document.title = 'GymAdminPro | Recepción';
+    } else if (portalMode === 'miembro' || currentPath.startsWith('/miembro')) {
+      document.title = 'GymAdminPro | Miembro';
+    } else if (import.meta.env.VITE_APP_TITLE) {
+      document.title = import.meta.env.VITE_APP_TITLE;
+    } else {
+      document.title = 'GymAdminPro // Master Suite';
+    }
+  }, [currentPath]);
+
   const navigate = (path) => {
     setCurrentPathState(path);
     setContextPath(path);
@@ -53,6 +68,55 @@ function MainRouter() {
 
   // 1. Selector Táctico de Portales (Ruta Raíz /)
   if (currentPath === '/' || currentPath === '') {
+    const portalMode = import.meta.env.VITE_PORTAL_MODE;
+    if (portalMode === 'admin') {
+      const adminUser = sessions.admin?.user;
+      if (!adminUser) {
+        return (
+          <AdminLogin
+            onLoginSuccess={() => navigate('/admin/dashboard')}
+            onBackToPortals={() => navigate('/admin')}
+          />
+        );
+      }
+      return (
+        <AdminLayout currentPath="/admin/dashboard" navigate={navigate}>
+          <DashboardPage onNavigate={navigate} />
+        </AdminLayout>
+      );
+    }
+    if (portalMode === 'recepcion') {
+      const recepUser = sessions.recepcion?.user;
+      if (!recepUser) {
+        return (
+          <ReceptionLogin
+            onLoginSuccess={() => navigate('/recepcion/checkin')}
+            onBackToPortals={() => navigate('/recepcion')}
+          />
+        );
+      }
+      return (
+        <ReceptionLayout currentPath="/recepcion/checkin" navigate={navigate}>
+          <CheckIn onNavigate={navigate} />
+        </ReceptionLayout>
+      );
+    }
+    if (portalMode === 'miembro') {
+      const memberUser = sessions.miembro?.user;
+      if (!memberUser) {
+        return (
+          <MemberLogin
+            onLoginSuccess={() => navigate('/miembro/carnet')}
+            onBackToPortals={() => navigate('/miembro')}
+          />
+        );
+      }
+      return (
+        <MemberLayout title="Carnet Digital">
+          <MemberCard onNavigate={navigate} />
+        </MemberLayout>
+      );
+    }
     return <PortalSelect onSelectPortal={(p) => navigate(p)} />;
   }
 

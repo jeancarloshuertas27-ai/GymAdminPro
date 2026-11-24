@@ -38,7 +38,7 @@ export default function UserRoster() {
         const data = await res.json();
         setUsers(data.users || []);
         if (data.metrics) setMetrics(data.metrics);
-        if (data.pagination) setTotalPages(data.pagination.totalPages || 1);
+        setTotalPages(data.pagination?.totalPages || data.totalPages || 1);
       }
     } catch (err) {
       console.error('Error fetching users:', err);
@@ -133,13 +133,13 @@ export default function UserRoster() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-space-sm">
             <div className="bg-surface-container-high p-space-sm rounded-lg flex flex-col justify-between min-w-[120px] border border-surface-container">
               <span className="font-data-mono text-[10px] text-on-surface-variant uppercase">TOTAL PADRÓN</span>
-              <span className="font-headline-md text-headline-md text-on-surface">{metrics.total}</span>
-              <span className="font-data-mono text-[10px] text-primary">+14 esta sem</span>
+              <span className="font-headline-md text-headline-md text-on-surface">{metrics.total ?? metrics.totalPadron ?? 0}</span>
+              <span className="font-data-mono text-[10px] text-primary">REGISTRADOS</span>
             </div>
             <div className="bg-surface-container-high p-space-sm rounded-lg flex flex-col justify-between min-w-[120px] border border-surface-container">
               <span className="font-data-mono text-[10px] text-on-surface-variant uppercase">ACTIVOS</span>
-              <span className="font-headline-md text-headline-md text-[#3bf589]">{metrics.activos}</span>
-              <span className="font-data-mono text-[10px] text-[#3bf589]">{metrics.tasaActivos} TASA</span>
+              <span className="font-headline-md text-headline-md text-[#3bf589]">{metrics.activos ?? 0}</span>
+              <span className="font-data-mono text-[10px] text-[#3bf589]">{metrics.tasaActivos || '0%'} TASA</span>
             </div>
             <div className="bg-surface-container-high p-space-sm rounded-lg flex flex-col justify-between min-w-[120px] border border-surface-container">
               <span className="font-data-mono text-[10px] text-on-surface-variant uppercase">POR VENCER</span>
@@ -324,7 +324,7 @@ export default function UserRoster() {
                       <td className="py-4 px-space-md">
                         <div className="inline-flex items-center gap-2 bg-surface-container-high px-space-sm py-1 rounded">
                           <span className="font-data-mono text-xs">
-                            {isRevealed ? (u.password_visible || u.password_plain || 'Atleta2026!') : '••••••••••••'}
+                            {isRevealed ? (u.password_visible || u.password_plain || 'Sin clave') : '••••••••••••'}
                           </span>
                           <button
                             type="button"

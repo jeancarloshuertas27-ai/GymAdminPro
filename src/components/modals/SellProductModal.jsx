@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 
 export default function SellProductModal({ preselectedProduct, origen, onClose, onSuccess }) {
-  const { user } = useAuth();
+  const { user, authFetch } = useAuth();
   const isAdmin = user?.rol === 'ADMINISTRADOR';
 
   const [productos, setProductos] = useState([]);
@@ -15,11 +15,11 @@ export default function SellProductModal({ preselectedProduct, origen, onClose, 
   const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
-    fetch('/api/productos')
+    authFetch('/api/productos')
       .then((res) => res.json())
       .then((data) => {
         // Filtrar exclusivamente productos con stock > 0
-        const inStock = data.filter((p) => p.stock > 0);
+        const inStock = (Array.isArray(data) ? data : []).filter((p) => p.stock > 0);
         setProductos(inStock);
         if (preselectedProduct && preselectedProduct.stock > 0) {
           setSelectedProdId(preselectedProduct.id.toString());
@@ -28,7 +28,7 @@ export default function SellProductModal({ preselectedProduct, origen, onClose, 
         }
       })
       .catch((err) => console.error('Error cargando productos:', err));
-  }, [preselectedProduct]);
+  }, [preselectedProduct, authFetch]);
 
   const currentProduct = productos.find((p) => p.id.toString() === selectedProdId);
   const maxStock = currentProduct ? currentProduct.stock : 1;
@@ -78,12 +78,8 @@ export default function SellProductModal({ preselectedProduct, origen, onClose, 
         formData.append('comprobante', voucherFile);
       }
 
-      const token = localStorage.getItem('gymcore_token') || localStorage.getItem('token');
-      const res = await fetch('/api/productos/vender', {
+      const res = await authFetch('/api/productos/vender', {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
         body: formData
       });
 

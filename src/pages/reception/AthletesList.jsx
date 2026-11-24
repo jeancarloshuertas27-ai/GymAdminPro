@@ -32,7 +32,7 @@ export default function AthletesList({ onNavigate }) {
         const data = await res.json();
         setUsers(data.users || []);
         if (data.metrics) setMetrics(data.metrics);
-        if (data.pagination) setTotalPages(data.pagination.totalPages || 1);
+        setTotalPages(data.pagination?.totalPages || data.totalPages || 1);
       }
     } catch (err) {
       console.error('Error fetching athletes list:', err);
@@ -82,8 +82,8 @@ export default function AthletesList({ onNavigate }) {
             <span className="w-2 h-2 rounded-full bg-primary-container"></span>
           </div>
           <div className="flex items-baseline gap-space-xs my-space-xs">
-            <span className="font-metric-huge text-[40px] text-on-surface leading-none">{metrics.activos}</span>
-            <span className="font-data-mono text-[11px] text-primary">+14 HOY</span>
+            <span className="font-metric-huge text-[40px] text-on-surface leading-none">{metrics.activos ?? 0}</span>
+            <span className="font-data-mono text-[11px] text-primary">VIGENTES</span>
           </div>
         </div>
 
@@ -115,7 +115,7 @@ export default function AthletesList({ onNavigate }) {
             <span className="material-symbols-outlined text-secondary text-[16px]">fitness_center</span>
           </div>
           <div className="flex items-baseline gap-space-xs my-space-xs">
-            <span className="font-metric-huge text-[40px] text-secondary leading-none">12</span>
+            <span className="font-metric-huge text-[40px] text-secondary leading-none">{metrics.sinRutina ?? 0}</span>
             <span className="font-data-mono text-[11px] text-secondary">REQUIERE ASIGNAR</span>
           </div>
         </div>
@@ -269,7 +269,7 @@ export default function AthletesList({ onNavigate }) {
                         <div className="flex items-center gap-space-xs">
                           <span className="material-symbols-outlined text-primary text-[16px]">fitness_center</span>
                           <span className="font-headline-md text-[14px] uppercase tracking-wide text-on-surface truncate max-w-[180px]">
-                            {u.rutinaAsignada || 'PPL Clásico (6 días)'}
+                            {u.rutinaAsignada || 'SIN RUTINA ASIGNADA'}
                           </span>
                         </div>
                       </td>
@@ -297,7 +297,7 @@ export default function AthletesList({ onNavigate }) {
         {/* Footer */}
         <div className="bg-surface-container-low px-space-lg py-3 flex flex-col sm:flex-row items-center justify-between gap-space-sm border-t border-surface-container">
           <div className="font-data-mono text-xs text-on-surface-variant">
-            MOSTRANDO {users.length} DE {metrics.total} REGISTROS
+            MOSTRANDO {users.length} DE {metrics.total ?? metrics.totalPadron ?? 0} REGISTROS
           </div>
           <div className="flex items-center gap-1">
             <button

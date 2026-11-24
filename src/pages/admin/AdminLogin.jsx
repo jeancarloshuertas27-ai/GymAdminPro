@@ -4,8 +4,8 @@ import { ShieldCheck, Lock, User, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 
 export default function AdminLogin({ onLoginSuccess, onBackToPortals }) {
   const { login } = useAuth();
-  const [username, setUsername] = useState('@admin_01');
-  const [password, setPassword] = useState('Admin2026!');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

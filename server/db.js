@@ -2,6 +2,7 @@ import { createRequire } from 'node:module';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import bcrypt from 'bcryptjs';
 
 const require = createRequire(import.meta.url);
 const { DatabaseSync } = require('node:sqlite');
@@ -9,12 +10,15 @@ const { DatabaseSync } = require('node:sqlite');
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const dbPath = path.resolve(__dirname, '../gymcore.db');
+const isTestEnv = process.env.NODE_ENV === 'test' || Boolean(process.env.VITEST);
+const dbPath = isTestEnv ? ':memory:' : path.resolve(__dirname, '../gymcore.db');
 const db = new DatabaseSync(dbPath);
 
 // Habilitar claves foráneas, modo WAL y tiempo de espera para evitar bloqueos
 db.exec('PRAGMA foreign_keys = ON;');
-db.exec('PRAGMA journal_mode = WAL;');
+if (!isTestEnv) {
+  db.exec('PRAGMA journal_mode = WAL;');
+}
 db.exec('PRAGMA busy_timeout = 5000;');
 
 // Inicializar esquema DDL
@@ -41,16 +45,7 @@ ensureColumn('solicitudes_membresia', 'atleta_dni_historico', 'TEXT');
 ensureColumn('ventas_productos', 'operador_nombre_historico', 'TEXT');
 ensureColumn('usuarios', 'password_plain', 'TEXT');
 
-// Inicializar contraseñas planas para soporte del administrador
-try {
-  db.prepare("UPDATE usuarios SET password_plain = 'Admin2026!' WHERE (username = '@admin_01' OR username = '@admin_patricia') AND password_plain IS NULL").run();
-  db.prepare("UPDATE usuarios SET password_plain = 'Recep2026!' WHERE (username = '@recep_carlos' OR username = '@recep_andrea' OR username = '@recepcion_01') AND password_plain IS NULL").run();
-  db.prepare("UPDATE usuarios SET password_plain = 'Atleta2026!' WHERE password_plain IS NULL AND rol = 'MIEMBRO'").run();
-} catch (e) {
-  // Ignorar si falla actualización inicial
-}
-
-// Migración para soporte ON DELETE SET NULL en solicitudes_membresia (T003)
+// Migraciones para soporte ON DELETE SET NULL en solicitudes_membresia (T003)
 function migrateSolicitudesMembresia() {
   try {
     const row = db.prepare("SELECT sql FROM sqlite_master WHERE name = 'solicitudes_membresia'").get();
@@ -149,85 +144,61 @@ function seedMaquinasAndDefaultRoutine() {
       }
     }
 
-    const plantillasCount = db.prepare('SELECT COUNT(*) AS total FROM rutinas_plantillas').get();
-    if (plantillasCount.total === 0) {
-      const admin = db.prepare("SELECT id FROM usuarios WHERE rol = 'ADMINISTRADOR' LIMIT 1").get();
-      const adminId = admin ? admin.id : null;
-
-      // Plantilla 1
-      const p1 = db.prepare(`
-        INSERT INTO rutinas_plantillas (nombre, descripcion, created_by, activo)
-        VALUES ('Protocolo Hipertrofia 5 Días', 'División Push / Pull / Legs / Upper / Core enfocada en masa muscular', ?, 1)
-      `).run(adminId);
-      const r1Id = Number(p1.lastInsertRowid);
-
-      const getMaqId = (num) => {
-        const r = db.prepare('SELECT id FROM maquinas_ejercicios WHERE numero_maquina = ?').get(num);
-        return r ? r.id : null;
-      };
-
-      const dias1 = [
-        { dia: 'LUNES', enfoque: 'PUSH', orden: 1, exs: [[8, 4, '8-12', 90], [15, 4, '10-12', 60], [11, 3, '12-15', 60], [21, 4, '12-15', 60]] },
-        { dia: 'MARTES', enfoque: 'PULL', orden: 2, exs: [[7, 4, '8-12', 90], [12, 4, '10-12', 90], [17, 3, '10-12', 60]] },
-        { dia: 'MIERCOLES', enfoque: 'LEGS', orden: 3, exs: [[2, 4, '8-12', 120], [4, 4, '12-15', 60], [18, 4, '10-12', 90], [20, 4, '15-20', 60]] },
-        { dia: 'JUEVES', enfoque: 'REST', orden: 4, exs: [] },
-        { dia: 'VIERNES', enfoque: 'UPPER', orden: 5, exs: [[9, 4, '8-12', 90], [13, 4, '8-12', 90], [10, 3, '10-12', 90]] },
-        { dia: 'SABADO', enfoque: 'CORE', orden: 6, exs: [[23, 4, '15-20', 60], [24, 3, '12-15', 60]] },
-      ];
-
-      const insDia = db.prepare('INSERT INTO rutinas_dias (rutina_id, dia_semana, enfoque_muscular, orden_dia) VALUES (?, ?, ?, ?)');
-      const insEx = db.prepare('INSERT INTO rutinas_ejercicios (rutina_dia_id, maquina_id, orden_secuencial, series, repeticiones, tiempo_descanso_segundos) VALUES (?, ?, ?, ?, ?, ?)');
-
-      for (const d of dias1) {
-        const dr = insDia.run(r1Id, d.dia, d.enfoque, d.orden);
-        const diaId = Number(dr.lastInsertRowid);
-        d.exs.forEach(([numMaq, series, reps, rest], idx) => {
-          const mId = getMaqId(numMaq);
-          if (mId) insEx.run(diaId, mId, idx + 1, series, reps, rest);
-        });
-      }
-
-      // Plantilla 2
-      const p2 = db.prepare(`
-        INSERT INTO rutinas_plantillas (nombre, descripcion, created_by, activo)
-        VALUES ('Fuerza Bruta 4 Días', 'Enfoque compuesto de fuerza e hipertrofia miofibrilar', ?, 1)
-      `).run(adminId);
-      const r2Id = Number(p2.lastInsertRowid);
-
-      const dias2 = [
-        { dia: 'LUNES', enfoque: 'TORSO A', orden: 1, exs: [[8, 5, '6-8', 120], [12, 4, '6-8', 120], [10, 4, '8-12', 90]] },
-        { dia: 'MARTES', enfoque: 'PIERNA A', orden: 2, exs: [[25, 5, '6-8', 120], [18, 4, '8-12', 90], [20, 4, '12-15', 60]] },
-        { dia: 'MIERCOLES', enfoque: 'REST', orden: 3, exs: [] },
-        { dia: 'JUEVES', enfoque: 'TORSO B', orden: 4, exs: [[14, 4, '8-12', 90], [7, 4, '8-12', 90], [11, 3, '10-12', 60], [17, 3, '10-12', 60]] },
-        { dia: 'VIERNES', enfoque: 'PIERNA B', orden: 5, exs: [[2, 4, '8-12', 120], [3, 4, '8-12', 90], [19, 4, '10-12', 90]] },
-        { dia: 'SABADO', enfoque: 'REST', orden: 6, exs: [] },
-      ];
-
-      for (const d of dias2) {
-        const dr = insDia.run(r2Id, d.dia, d.enfoque, d.orden);
-        const diaId = Number(dr.lastInsertRowid);
-        d.exs.forEach(([numMaq, series, reps, rest], idx) => {
-          const mId = getMaqId(numMaq);
-          if (mId) insEx.run(diaId, mId, idx + 1, series, reps, rest);
-        });
-      }
-
-      // Asignar la primera rutina al atleta demo (@mateo_val o primer MIEMBRO) si no tiene asignación
-      const mateo = db.prepare("SELECT id FROM usuarios WHERE rol = 'MIEMBRO' ORDER BY id ASC LIMIT 1").get();
-      if (mateo) {
-        db.prepare(`
-          INSERT OR IGNORE INTO miembro_rutinas_asignadas (usuario_id, rutina_id, asignado_por)
-          VALUES (?, ?, ?)
-        `).run(mateo.id, r1Id, adminId);
-        db.prepare(`
-          UPDATE membresias SET rutina_asignada = 'Protocolo Hipertrofia 5 Días'
-          WHERE usuario_id = ? AND (rutina_asignada IS NULL OR rutina_asignada = 'SIN RUTINA ASIGNADA')
-        `).run(mateo.id);
-      }
+    if (isTestEnv) {
+      seedTestFixtures();
     }
   } catch (err) {
-    console.warn('[DB Seed F004] Aviso:', err.message);
+    console.warn('[DB Seed Maquinas] Aviso:', err.message);
   }
+}
+
+function seedTestFixtures() {
+  const adminHash = bcrypt.hashSync('Admin2026!', 10);
+  const recepHash = bcrypt.hashSync('Recep2026!', 10);
+  const memberHash = bcrypt.hashSync('Atleta2026!', 10);
+
+  db.prepare(`
+    INSERT INTO usuarios (rol, username, password_hash, password_plain, nombres, apellidos, dni, celular)
+    VALUES ('ADMINISTRADOR', '@admin_01', ?, 'Admin2026!', 'Carlos', 'Mendoza', '45829104', '987654321')
+  `).run(adminHash);
+
+  db.prepare(`
+    INSERT INTO usuarios (rol, username, password_hash, password_plain, nombres, apellidos, dni, celular, celular_respaldo, domicilio)
+    VALUES ('RECEPCIONISTA', '@recep_carlos', ?, 'Recep2026!', 'Diego', 'Quispe', '71482930', '987654322', '911222333', 'Av. Arequipa 1230, Lince')
+  `).run(recepHash);
+
+  const memberRes = db.prepare(`
+    INSERT INTO usuarios (rol, username, password_hash, password_plain, nombres, apellidos, dni, celular)
+    VALUES ('MIEMBRO', '@mateo_val', ?, 'Atleta2026!', 'Mateo', 'Valdivia', '72849102', '987654323')
+  `).run(memberHash);
+  const memberId = Number(memberRes.lastInsertRowid);
+
+  const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Lima' });
+  const futureDate = new Date(Date.now() + 30 * 86400000).toLocaleDateString('en-CA', { timeZone: 'America/Lima' });
+  db.prepare(`
+    INSERT INTO membresias (usuario_id, fecha_inicio, fecha_vencimiento, anios, meses, estado, tipo_pago, plan_tag, rutina_asignada)
+    VALUES (?, ?, ?, 0, 1, 'ACTIVO', 'EFECTIVO', 'MENSUAL TEST', 'SIN RUTINA ASIGNADA')
+  `).run(memberId, today, futureDate);
+
+  db.prepare(`
+    INSERT INTO fidelidad (usuario_id, fecha_inscripcion_original, meses_continuos, nivel_actual)
+    VALUES (?, ?, 1, 'NOVATO')
+  `).run(memberId, today);
+
+  db.prepare(`
+    INSERT INTO productos (sku, nombre, categoria, precio_venta, precio_costo, stock, activo)
+    VALUES ('TEST-SUP-01', 'Proteína Test 1kg', 'Suplementos', 120, 80, 15, 1)
+  `).run();
+
+  db.prepare(`
+    INSERT INTO productos (sku, nombre, categoria, precio_venta, precio_costo, stock, activo)
+    VALUES ('TEST-ZERO-01', 'Agua Test Agotada', 'Bebidas', 5, 2, 0, 1)
+  `).run();
+
+  db.prepare(`
+    INSERT INTO promociones (tipo, nombre, duracion_valor, duracion_unidad, precio, fecha_limite, publico_objetivo, activo)
+    VALUES ('TARIFA_FIJA', 'Plan Mensual Test', 1, 'MESES', 120, NULL, 'TODOS', 1)
+  `).run();
 }
 
 seedMaquinasAndDefaultRoutine();

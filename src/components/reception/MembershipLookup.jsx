@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
 
 export default function MembershipLookup({ onOpenAddTimeModal }) {
+  const { authFetch } = useAuth();
   const [dni, setDni] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -16,7 +18,7 @@ export default function MembershipLookup({ onOpenAddTimeModal }) {
     setLoading(true);
 
     try {
-      const res = await fetch(`/api/membresias/buscar/${dni}`);
+      const res = await authFetch(`/api/membresias/buscar/${dni}`);
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.error || 'Atleta no encontrado');

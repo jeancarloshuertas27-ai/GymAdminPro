@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <!-- Fondo degrade pizarra oscura -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <!-- Gradiente rojo deportivo -->
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#DC2626" />
+    </linearGradient>
+    <!-- Acero brillante -->
+    <linearGradient id="metalGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="45%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#CBD5E1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Contenedor redondeado oscuro con borde rojo táctico -->
+  <rect x="4" y="4" width="92" height="92" rx="22" fill="url(#bgGrad)" stroke="#DC2626" stroke-width="4.5" />
+
+  <!-- Barra central moleteada -->
+  <rect x="28" y="46" width="44" height="8" rx="3" fill="url(#metalGrad)" />
+  
+  <!-- Anillos de agarre rojos (knurling) -->
+  <line x1="44" y1="46" x2="44" y2="54" stroke="#DC2626" stroke-width="2" stroke-linecap="round" />
+  <line x1="50" y1="46" x2="50" y2="54" stroke="#DC2626" stroke-width="2" stroke-linecap="round" />
+  <line x1="56" y1="46" x2="56" y2="54" stroke="#DC2626" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Discos y topes del lado izquierdo -->
+  <rect x="7" y="44" width="5" height="12" rx="2.5" fill="url(#redGrad)" />
+  <rect x="13" y="24" width="9" height="52" rx="4" fill="url(#metalGrad)" stroke="#0F172A" stroke-width="1" />
+  <rect x="23" y="31" width="7" height="38" rx="3.5" fill="url(#redGrad)" />
+
+  <!-- Discos y topes del lado derecho -->
+  <rect x="70" y="31" width="7" height="38" rx="3.5" fill="url(#redGrad)" />
+  <rect x="78" y="24" width="9" height="52" rx="4" fill="url(#metalGrad)" stroke="#0F172A" stroke-width="1" />
+  <rect x="88" y="44" width="5" height="12" rx="2.5" fill="url(#redGrad)" />
+</svg>

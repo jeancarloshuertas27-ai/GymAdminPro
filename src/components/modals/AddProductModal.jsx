@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
 
 export default function AddProductModal({ onClose, onSuccess }) {
+  const { authFetch } = useAuth();
   const [nombre, setNombre] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [precioVenta, setPrecioVenta] = useState('');
@@ -37,12 +39,8 @@ export default function AddProductModal({ onClose, onSuccess }) {
         formData.append('imagen', imageFile);
       }
 
-      const token = localStorage.getItem('gymcore_token') || localStorage.getItem('token');
-      const res = await fetch('/api/productos', {
+      const res = await authFetch('/api/productos', {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
         body: formData
       });
 

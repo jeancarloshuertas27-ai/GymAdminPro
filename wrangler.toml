@@ -1,0 +1,37 @@
+name = "gymcore-api"
+main = "worker/index.js"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "gymadminpro-db"
+database_id = "7494aac7-a82f-44c6-87e5-664a8d6bfaf4"
+
+[vars]
+PORT = "3001"
+GEMINI_MODEL = "gemini-2.5-flash"
+
+[env.admin]
+name = "gymcore-admin"
+assets = { directory = "dist-admin", binding = "ASSETS", not_found_handling = "single-page-application" }
+[[env.admin.d1_databases]]
+binding = "DB"
+database_name = "gymadminpro-db"
+database_id = "7494aac7-a82f-44c6-87e5-664a8d6bfaf4"
+
+[env.recepcion]
+name = "gymcore-recepcion"
+assets = { directory = "dist-recepcion", binding = "ASSETS", not_found_handling = "single-page-application" }
+[[env.recepcion.d1_databases]]
+binding = "DB"
+database_name = "gymadminpro-db"
+database_id = "7494aac7-a82f-44c6-87e5-664a8d6bfaf4"
+
+[env.miembro]
+name = "gymcore-miembro"
+assets = { directory = "dist-miembro", binding = "ASSETS", not_found_handling = "single-page-application" }
+[[env.miembro.d1_databases]]
+binding = "DB"
+database_name = "gymadminpro-db"
+database_id = "7494aac7-a82f-44c6-87e5-664a8d6bfaf4"

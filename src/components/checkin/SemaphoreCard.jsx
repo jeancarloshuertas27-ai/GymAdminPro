@@ -85,16 +85,20 @@ export default function SemaphoreCard({ checkinData, onViewDetail }) {
         <div className="mt-space-md flex flex-col gap-space-md">
           <div className="flex items-start gap-space-md">
             <div className="relative shrink-0">
-              <div className="w-24 h-28 rounded-DEFAULT overflow-hidden bg-surface-container-high shadow-md">
-                <img
-                  src={
-                    atleta.fotoUrl
-                      ? `/${atleta.fotoUrl}`
-                      : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'
-                  }
-                  alt={atleta.nombreCompleto}
-                  className="w-full h-full object-cover"
-                />
+              <div className="w-24 h-28 rounded-DEFAULT overflow-hidden bg-surface-container-high shadow-md flex items-center justify-center">
+                {atleta.fotoUrl ? (
+                  <img
+                    src={
+                      atleta.fotoUrl.startsWith('http') || atleta.fotoUrl.startsWith('data:') || atleta.fotoUrl.startsWith('/')
+                        ? atleta.fotoUrl
+                        : `/${atleta.fotoUrl}`
+                    }
+                    alt={atleta.nombreCompleto}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="material-symbols-outlined text-[42px] text-outline">person</span>
+                )}
               </div>
               <div className="absolute -bottom-2 -right-2 px-2 py-0.5 rounded-DEFAULT bg-surface-container-lowest text-primary font-headline-md text-headline-md uppercase text-[12px] shadow-[0_0_10px_rgba(31,113,239,0.5)] border border-primary/30">
                 {atleta.nivelFidelidad || 'NOVATO'}
@@ -130,33 +134,37 @@ export default function SemaphoreCard({ checkinData, onViewDetail }) {
 
           {/* RUTINA DEL DÍA */}
           <div className="p-space-sm bg-surface-container rounded-DEFAULT">
-            <div className="flex items-center justify-between">
-              <span className="font-data-mono text-data-mono text-on-surface-variant text-[11px] uppercase">
-                RUTINA ACTUAL ASIGNADA: {atleta.rutinaAsignada || 'RUTINA BASE GENERAL'}
+            <div className="flex items-center justify-between gap-2">
+              <span className="font-data-mono text-data-mono text-on-surface-variant text-[11px] uppercase truncate">
+                RUTINA ACTUAL ASIGNADA: {atleta.rutinaAsignada || 'SIN RUTINA ASIGNADA'}
               </span>
-              <span className="font-data-mono text-data-mono text-primary text-[12px]">RPE 8.5</span>
+              <span className="font-data-mono text-data-mono text-primary text-[11px] uppercase shrink-0">
+                {atleta.rutinaHoy || 'GENERAL'}
+              </span>
             </div>
 
-            <div className="grid grid-cols-3 gap-2 mt-space-xs">
-              <div className="bg-surface-container-high p-space-xs rounded-DEFAULT">
-                <span className="font-data-mono text-data-mono text-on-surface-variant text-[10px] block">BLOQUE 01</span>
-                <span className="font-body-sm text-body-sm text-on-surface font-bold leading-tight block">
-                  Press Banca 5x5
+            {Array.isArray(atleta.ejerciciosHoy) && atleta.ejerciciosHoy.length > 0 ? (
+              <div className="grid grid-cols-3 gap-2 mt-space-xs">
+                {atleta.ejerciciosHoy.slice(0, 3).map((ej, idx) => (
+                  <div key={idx} className="bg-surface-container-high p-space-xs rounded-DEFAULT">
+                    <span className="font-data-mono text-data-mono text-on-surface-variant text-[10px] block">
+                      {ej.codigo_etiqueta || `BLOQUE 0${idx + 1}`}
+                    </span>
+                    <span className="font-body-sm text-body-sm text-on-surface font-bold leading-tight block truncate">
+                      {ej.nombre_ejercicio || ej.maquina_nombre} ({ej.series}x{ej.repeticiones})
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="mt-space-xs bg-surface-container-high p-space-xs rounded-DEFAULT">
+                <span className="font-data-mono text-[11px] text-on-surface-variant block">
+                  {atleta.rutinaAsignada && atleta.rutinaAsignada !== 'SIN RUTINA ASIGNADA'
+                    ? 'Hoy corresponde descanso o entrenamiento libre según programación.'
+                    : 'Atleta aún no cuenta con plantilla semanal asignada.'}
                 </span>
               </div>
-              <div className="bg-surface-container-high p-space-xs rounded-DEFAULT">
-                <span className="font-data-mono text-data-mono text-on-surface-variant text-[10px] block">BLOQUE 02</span>
-                <span className="font-body-sm text-body-sm text-on-surface font-bold leading-tight block">
-                  Press Militar 4x8
-                </span>
-              </div>
-              <div className="bg-surface-container-high p-space-xs rounded-DEFAULT">
-                <span className="font-data-mono text-data-mono text-on-surface-variant text-[10px] block">BLOQUE 03</span>
-                <span className="font-body-sm text-body-sm text-on-surface font-bold leading-tight block">
-                  Fondos Lastrados 3x
-                </span>
-              </div>
-            </div>
+            )}
           </div>
 
           {/* ACCIONES DEL PUESTO DE CONTROL */}
@@ -190,12 +198,12 @@ export default function SemaphoreCard({ checkinData, onViewDetail }) {
               FRECUENCIA // ESTE MES
             </span>
             <span className="font-headline-md text-headline-md text-on-surface uppercase leading-none">
-              18 SESIONES COMPLETADAS
+              {atleta?.asistenciaMes || '0 SESIONES ESTE MES'}
             </span>
           </div>
         </div>
         <span className="font-label-badge text-label-badge uppercase text-secondary bg-surface-container-high px-2 py-1 rounded-DEFAULT">
-          REGULARIDAD 94%
+          {atleta?.nivelFidelidad || 'CONTROL ACTIVO'}
         </span>
       </div>
     </div>

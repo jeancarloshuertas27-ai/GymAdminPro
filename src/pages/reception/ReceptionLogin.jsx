@@ -4,8 +4,8 @@ import { MonitorCheck, Lock, User, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 
 export default function ReceptionLogin({ onLoginSuccess, onBackToPortals }) {
   const { login } = useAuth();
-  const [username, setUsername] = useState('@recep_carlos');
-  const [password, setPassword] = useState('Recep2026!');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

@@ -120,7 +120,7 @@ export function buildUsersRosterWorkbook(exportUsers = [], fechaActual = null) {
       String(u.nombres || ''),
       String(u.dni ?? ''),
       String(u.username || ''),
-      String(u.password_visible || u.passwordRaw || u.password_plain || 'Atleta2026!'),
+      String(u.password_visible || u.passwordRaw || u.password_plain || ''),
       String(u.nivelFidelidad || 'NOVATO'),
       estadoTexto,
       String(u.rutinaAsignada || 'SIN RUTINA ASIGNADA'),

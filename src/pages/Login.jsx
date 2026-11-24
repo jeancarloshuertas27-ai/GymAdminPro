@@ -3,12 +3,11 @@ import { useAuth } from '../context/AuthContext';
 
 export default function Login({ onLoginSuccess }) {
   const { login } = useAuth();
-  const [username, setUsername] = useState('@admin_01');
-  const [password, setPassword] = useState('Admin2026!');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [activeProfile, setActiveProfile] = useState('ADMIN');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,13 +24,6 @@ export default function Login({ onLoginSuccess }) {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleQuickFill = (u, p, profileKey) => {
-    setUsername(u);
-    setPassword(p);
-    setActiveProfile(profileKey);
-    setError(null);
   };
 
   return (
@@ -196,96 +188,6 @@ export default function Login({ onLoginSuccess }) {
                   </button>
                 </div>
               </form>
-
-              {/* Demo Credentials Switcher */}
-              <div className="relative z-10 mt-space-lg pt-space-md bg-surface-container/60 rounded-xl p-space-sm border border-outline-variant/20">
-                <div className="flex items-center justify-between mb-space-sm">
-                  <span className="font-data-mono text-[11px] text-outline uppercase tracking-widest flex items-center gap-1">
-                    <span className="material-symbols-outlined text-[14px]">shield_person</span>
-                    ACCESO RÁPIDO // PERFILES DE DEMO
-                  </span>
-                  <span className="font-data-mono text-[10px] text-primary uppercase">CLIC PARA CARGAR</span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-space-xs">
-                  {/* Admin */}
-                  <button
-                    type="button"
-                    onClick={() => handleQuickFill('@admin_01', 'Admin2026!', 'ADMIN')}
-                    className={`text-left rounded-lg p-2.5 flex flex-col justify-between transition-all cursor-pointer border ${
-                      activeProfile === 'ADMIN'
-                        ? 'bg-surface-container-highest border-primary shadow-[0_0_10px_rgba(31,113,239,0.3)]'
-                        : 'bg-surface-container-high/80 border-transparent hover:border-primary/40'
-                    }`}
-                  >
-                    <div>
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <span className="material-symbols-outlined text-primary text-[18px]">admin_panel_settings</span>
-                        <span className="font-headline-md text-[14px] leading-tight uppercase text-on-surface">Admin</span>
-                      </div>
-                      <span className="font-body-sm text-[11px] text-on-surface-variant leading-tight block">
-                        Control & Auditoría
-                      </span>
-                    </div>
-                    <div className="mt-2 pt-1 border-t border-outline-variant/30 font-data-mono text-[10px]">
-                      <span className="text-primary block font-bold">@admin_01</span>
-                      <span className="text-outline block">Clave: <strong className="text-on-surface">Admin2026!</strong></span>
-                    </div>
-                  </button>
-
-                  {/* Reception */}
-                  <button
-                    type="button"
-                    onClick={() => handleQuickFill('@recep_carlos', 'Recep2026!', 'RECEPCION')}
-                    className={`text-left rounded-lg p-2.5 flex flex-col justify-between transition-all cursor-pointer border ${
-                      activeProfile === 'RECEPCION'
-                        ? 'bg-surface-container-highest border-tertiary shadow-[0_0_10px_rgba(255,182,147,0.3)]'
-                        : 'bg-surface-container-high/80 border-transparent hover:border-tertiary/40'
-                    }`}
-                  >
-                    <div>
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <span className="material-symbols-outlined text-tertiary text-[18px]">point_of_sale</span>
-                        <span className="font-headline-md text-[14px] leading-tight uppercase text-on-surface">
-                          Recepción
-                        </span>
-                      </div>
-                      <span className="font-body-sm text-[11px] text-on-surface-variant leading-tight block">
-                        Check-In & Padrón
-                      </span>
-                    </div>
-                    <div className="mt-2 pt-1 border-t border-outline-variant/30 font-data-mono text-[10px]">
-                      <span className="text-tertiary block font-bold">@recep_carlos</span>
-                      <span className="text-outline block">Clave: <strong className="text-on-surface">Recep2026!</strong></span>
-                    </div>
-                  </button>
-
-                  {/* Member */}
-                  <button
-                    type="button"
-                    onClick={() => handleQuickFill('@mateo_val', 'Atleta2026!', 'ATLETA')}
-                    className={`text-left rounded-lg p-2.5 flex flex-col justify-between transition-all cursor-pointer border ${
-                      activeProfile === 'ATLETA'
-                        ? 'bg-surface-container-highest border-secondary shadow-[0_0_10px_rgba(175,198,255,0.3)]'
-                        : 'bg-surface-container-high/80 border-transparent hover:border-secondary/40'
-                    }`}
-                  >
-                    <div>
-                      <div className="flex items-center gap-1.5 mb-1">
-                        <span className="material-symbols-outlined text-secondary text-[18px]">fitness_center</span>
-                        <span className="font-headline-md text-[14px] leading-tight uppercase text-on-surface">Atleta</span>
-                      </div>
-                      <span className="font-body-sm text-[11px] text-on-surface-variant leading-tight block">
-                        App Móvil & Carnet
-                      </span>
-                    </div>
-                    <div className="mt-2 pt-1 border-t border-outline-variant/30 font-data-mono text-[10px]">
-                      <span className="text-secondary block font-bold">@mateo_val</span>
-                      <span className="text-outline block">Clave: <strong className="text-on-surface">Atleta2026!</strong></span>
-                    </div>
-                  </button>
-                </div>
-              </div>
 
               {/* Security Telemetry Subtext */}
               <div className="relative z-10 mt-space-md flex flex-col sm:flex-row items-center justify-between text-outline font-data-mono text-[10px] tracking-wider gap-2">

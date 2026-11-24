@@ -12,14 +12,20 @@ function processLogin(req, res, targetPortal = null) {
     return res.status(400).json({ error: 'Debe ingresar nombre de usuario y contraseña.' });
   }
 
-  const cleanUser = username.trim().startsWith('@') ? username.trim() : `@${username.trim()}`;
-  const user = db.prepare('SELECT * FROM usuarios WHERE username = ? COLLATE NOCASE').get(cleanUser);
+  const rawInput = String(username).trim();
+  const cleanUser = rawInput.startsWith('@') ? rawInput : `@${rawInput}`;
+  const withoutAt = rawInput.startsWith('@') ? rawInput.slice(1) : rawInput;
+  const user = db.prepare(
+    'SELECT * FROM usuarios WHERE username = ? COLLATE NOCASE OR username = ? COLLATE NOCASE OR dni = ?'
+  ).get(cleanUser, withoutAt, rawInput);
 
   if (!user) {
     return res.status(401).json({ error: 'Credenciales inválidas. Verifique su usuario y contraseña.' });
   }
 
-  const isMatch = bcrypt.compareSync(password, user.password_hash);
+  const cleanPass = String(password);
+  const isMatch = bcrypt.compareSync(cleanPass, user.password_hash) ||
+    (cleanPass.trim() !== cleanPass && bcrypt.compareSync(cleanPass.trim(), user.password_hash));
   if (!isMatch) {
     return res.status(401).json({ error: 'Credenciales inválidas. Verifique su usuario y contraseña.' });
   }
